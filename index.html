@@ -1,0 +1,2085 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="NEXUM — Consultoría estratégica para organizaciones complejas. Estrategia, AI, gobierno y eficiencia operativa en América Latina.">
+  <title>NEXUM — Transformando la complejidad en valor</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+
+  <style>
+    /* ===================================================
+       NEXUM MVP — Editorial Website
+       Estética: Editorial boutique, asimétrico, luxury-minimal
+       Paleta: Ice / Navy / Cyan — Logo Complementary
+       Tipografía: Cormorant Garamond + DM Sans + DM Mono
+       v2.0 · 2026 — Logo-based Complementary Palette
+    =================================================== */
+
+    /* ── VARIABLES ─────────────────────────────────── */
+    :root {
+      --cream:       #EDF3F9;
+      --cream-soft:  #DEE9F5;
+      --ink:         #091B38;
+      --ink-mid:     #0C2B5C;
+      --gold:        #00C0DC;
+      --gold-lt:     #45D0EC;
+      --gold-dim:    rgba(0,192,220,0.13);
+      --mid:         #1A3252;
+      --mid-lt:      #2A4A6A;
+      --amber:       #C87A18;   /* complementary accent */
+      --amber-lt:    #E8981E;
+      --border:      rgba(9,27,56,0.09);
+      --border-dk:   rgba(255,255,255,0.14);
+
+      /* Type scale — fluid */
+      --display:  clamp(3.8rem, 8.5vw, 9.5rem);
+      --h1:       clamp(2.6rem, 5.5vw, 5.8rem);
+      --h2:       clamp(1.9rem, 3.2vw, 3.2rem);
+      --h3:       clamp(1.25rem, 2.2vw, 1.7rem);
+      --body:     1rem;
+      --sm:       0.8125rem;
+      --mono:     0.7rem;
+
+      /* Layout */
+      --wrap:     1300px;
+      --gutter:   clamp(1.5rem, 5vw, 4.5rem);
+      --pad:      clamp(5rem, 10vw, 10rem);
+
+      /* Motion */
+      --ease:     cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-out: cubic-bezier(0.0, 0, 0.2, 1);
+    }
+
+    /* ── RESET ──────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; }
+    button { cursor: pointer; border: none; background: none; }
+
+    /* ── UTILITIES ──────────────────────────────────── */
+    .wrap {
+      max-width: var(--wrap);
+      margin-inline: auto;
+      padding-inline: var(--gutter);
+    }
+
+    .section { padding-block: var(--pad); }
+    .section--dk { background: var(--ink-mid); color: var(--cream); }
+    .section--cream { background: var(--cream-soft); }
+
+    /* Section marker */
+    .marker {
+      font-family: 'DM Mono', monospace;
+      font-size: var(--mono);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 2.75rem;
+    }
+    .marker::before {
+      content: '';
+      display: block;
+      width: 2rem;
+      height: 1px;
+      background: var(--gold);
+      flex-shrink: 0;
+    }
+    .marker--dk { color: rgba(0,192,220,0.90); }
+    .marker--dk::before { background: rgba(0,192,220,0.85); }
+
+    /* Scroll-reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.75s var(--ease), transform 0.75s var(--ease);
+    }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+    .d1 { transition-delay: 0.08s; }
+    .d2 { transition-delay: 0.16s; }
+    .d3 { transition-delay: 0.24s; }
+    .d4 { transition-delay: 0.32s; }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.625rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: var(--sm);
+      font-weight: 500;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.3s var(--ease);
+    }
+    .btn-primary {
+      background: var(--ink);
+      color: var(--cream);
+      padding: 0.875rem 2rem;
+    }
+    .btn-primary:hover { background: var(--amber); color: var(--cream); }
+
+    .btn-ghost {
+      color: var(--mid);
+      border: 1px solid var(--border);
+      padding: 0.875rem 2rem;
+    }
+    .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+
+    .btn-arrow {
+      color: var(--mid);
+      font-size: var(--sm);
+    }
+    .btn-arrow .arr { transition: transform 0.3s var(--ease); display: inline-block; }
+    .btn-arrow:hover { color: var(--ink); }
+    .btn-arrow:hover .arr { transform: translateX(5px); }
+
+    /* ── HEADER ─────────────────────────────────────── */
+    .header {
+      position: fixed;
+      inset-block-start: 0;
+      inset-inline: 0;
+      z-index: 90;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.375rem var(--gutter);
+      transition: background 0.4s var(--ease), border-color 0.4s;
+      border-bottom: 1px solid transparent;
+    }
+    .header.solid {
+      background: rgba(237,243,249,0.95);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-color: var(--border);
+    }
+
+    .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-decoration: none;
+      color: var(--ink);
+      z-index: 100;
+      line-height: 1;
+    }
+    .logo em { font-style: normal; color: var(--gold); }
+
+    /* Desktop nav */
+    .nav-desk {
+      display: none;
+      gap: 2.25rem;
+      align-items: center;
+    }
+    @media (min-width: 800px) { .nav-desk { display: flex; } }
+
+    .nav-desk a {
+      font-size: var(--sm);
+      font-weight: 400;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--mid);
+      text-decoration: none;
+      position: relative;
+      transition: color 0.3s;
+    }
+    .nav-desk a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--gold);
+      transition: width 0.35s var(--ease);
+    }
+    .nav-desk a:hover { color: var(--ink); }
+    .nav-desk a:hover::after { width: 100%; }
+
+    .nav-cta {
+      border: 1px solid var(--border) !important;
+      padding: 0.5rem 1.25rem !important;
+      color: var(--ink) !important;
+      transition: all 0.3s var(--ease) !important;
+    }
+    .nav-cta::after { display: none !important; }
+    .nav-cta:hover {
+      background: var(--ink) !important;
+      color: var(--cream) !important;
+      border-color: var(--ink) !important;
+    }
+
+    /* Hamburger */
+    .burger {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      z-index: 100;
+      padding: 6px;
+      background: none;
+      border: none;
+    }
+    @media (min-width: 800px) { .burger { display: none; } }
+
+    .burger span {
+      display: block;
+      width: 24px;
+      height: 1.5px;
+      background: var(--ink);
+      transform-origin: center;
+      transition: transform 0.38s var(--ease), opacity 0.28s, background 0.3s;
+    }
+    .burger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); background: var(--cream); }
+    .burger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .burger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); background: var(--cream); }
+
+    /* Mobile menu overlay */
+    .mobile-nav {
+      position: fixed;
+      inset: 0;
+      background: var(--ink);
+      z-index: 95;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 5rem var(--gutter) 3.5rem;
+      transform: translateY(-100%);
+      transition: transform 0.55s var(--ease);
+      pointer-events: none;
+    }
+    .mobile-nav.open {
+      transform: translateY(0);
+      pointer-events: all;
+    }
+
+    .mobile-nav-links { list-style: none; }
+    .mobile-nav-links li {
+      border-bottom: 1px solid rgba(255,255,255,0.09);
+      overflow: hidden;
+    }
+    .mobile-nav-links a {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.4rem, 7vw, 3.5rem);
+      font-weight: 300;
+      color: rgba(255,255,255,0.95);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.65rem 0;
+      transform: translateY(100%);
+      transition: transform 0.5s var(--ease), color 0.3s;
+    }
+    .mobile-nav.open .mobile-nav-links a { transform: translateY(0); }
+    .mobile-nav-links li:nth-child(1) a { transition-delay: 0.08s; }
+    .mobile-nav-links li:nth-child(2) a { transition-delay: 0.13s; }
+    .mobile-nav-links li:nth-child(3) a { transition-delay: 0.18s; }
+    .mobile-nav-links li:nth-child(4) a { transition-delay: 0.23s; }
+    .mobile-nav-links li:nth-child(5) a { transition-delay: 0.28s; }
+    .mobile-nav-links a:hover { color: var(--gold); }
+    .mobile-nav-links a .icon { font-size: 1.25rem; color: var(--gold); }
+
+    .mobile-nav-foot {
+      margin-top: 2.5rem;
+      opacity: 0;
+      transition: opacity 0.4s 0.45s;
+    }
+    .mobile-nav.open .mobile-nav-foot { opacity: 1; }
+    .mobile-nav-foot p {
+      font-family: 'DM Mono', monospace;
+      font-size: var(--mono);
+      color: rgba(255,255,255,0.70);
+      letter-spacing: 0.1em;
+      line-height: 2;
+    }
+
+    /* ── HERO ───────────────────────────────────────── */
+    .hero {
+      min-height: 100svh;
+      display: grid;
+      grid-template-rows: 1fr auto;
+      padding-block-start: 5.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* giant background letter */
+    .hero-bg {
+      position: absolute;
+      right: -3rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(20rem, 32vw, 36rem);
+      font-weight: 600;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(255,255,255,0.07);
+      line-height: 1;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    .hero-body {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      align-items: center;
+      padding: 3rem var(--gutter) 2rem;
+      position: relative;
+    }
+    @media (min-width: 900px) {
+      .hero-body { grid-template-columns: 1.2fr 0.8fr; gap: 4rem; align-items: end; }
+    }
+
+    .hero-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: var(--mono);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.75rem;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 2rem;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    .hero-headline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: var(--display);
+      font-weight: 300;
+      line-height: 0.95;
+      letter-spacing: -0.025em;
+      margin-bottom: 2.25rem;
+    }
+    .hero-headline i { font-style: italic; color: var(--gold); }
+
+    .hero-lead {
+      font-size: clamp(1rem, 1.6vw, 1.15rem);
+      font-weight: 300;
+      line-height: 1.72;
+      color: var(--mid);
+      max-width: 500px;
+      margin-bottom: 2.75rem;
+    }
+
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
+
+    /* Hero aside stats */
+    .hero-stats {
+      display: none;
+    }
+    @media (min-width: 900px) {
+      .hero-stats {
+        display: flex;
+        flex-direction: column;
+        gap: 2.25rem;
+        border-left: 1px solid var(--border);
+        padding-left: 3.5rem;
+        justify-self: end;
+      }
+    }
+
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 5vw, 4.5rem);
+      font-weight: 300;
+      line-height: 1;
+      color: var(--ink);
+    }
+    .stat-num sup { font-size: 0.45em; color: var(--gold); vertical-align: super; }
+    .stat-lbl {
+      font-size: var(--sm);
+      font-weight: 300;
+      color: var(--mid-lt);
+      max-width: 130px;
+      line-height: 1.4;
+      margin-top: 0.2rem;
+    }
+
+    /* Hero foot bar */
+    .hero-foot {
+      padding: 1.25rem var(--gutter);
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .hero-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: var(--mono);
+      color: var(--mid-lt);
+      letter-spacing: 0.1em;
+    }
+    .scroll-cue {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-family: 'DM Mono', monospace;
+      font-size: var(--mono);
+      color: var(--mid-lt);
+      letter-spacing: 0.1em;
+    }
+    .scroll-track {
+      width: 1.5px;
+      height: 44px;
+      background: var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+    .scroll-track::after {
+      content: '';
+      position: absolute;
+      inset: -100% 0;
+      height: 50%;
+      background: var(--gold);
+      animation: scrollPulse 2.2s ease-in-out infinite;
+    }
+    @keyframes scrollPulse {
+      0%   { top: -100%; }
+      100% { top: 200%; }
+    }
+
+    /* ── MANIFIESTO ─────────────────────────────────── */
+    .manifesto-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem 6rem;
+    }
+    @media (min-width: 900px) {
+      .manifesto-grid { grid-template-columns: 18rem 1fr; gap: 6rem; }
+    }
+
+    .manifesto-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: var(--h1);
+      font-weight: 300;
+      line-height: 1.15;
+      letter-spacing: -0.015em;
+    }
+    .manifesto-quote i { font-style: italic; color: var(--gold-lt); }
+
+    .manifesto-body {
+      font-size: 1rem;
+      font-weight: 300;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.84);
+      max-width: 580px;
+      margin-top: 1.75rem;
+    }
+
+    /* Three pillars */
+    .pillars {
+      display: grid;
+      grid-template-columns: 1fr;
+      margin-top: 5rem;
+      border-top: 1px solid var(--border-dk);
+    }
+    @media (min-width: 640px) {
+      .pillars { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    .pillar {
+      padding: 2.5rem 0;
+      border-bottom: 1px solid var(--border-dk);
+    }
+    @media (min-width: 640px) {
+      .pillar {
+        border-bottom: none;
+        border-right: 1px solid var(--border-dk);
+        padding: 2.5rem 2.5rem 2.5rem 0;
+      }
+      .pillar:last-child { border-right: none; padding-right: 0; padding-left: 2.5rem; }
+      .pillar:nth-child(2) { padding-inline: 2.5rem; }
+    }
+
+    .pillar-n {
+      font-family: 'DM Mono', monospace;
+      font-size: var(--mono);
+      color: var(--gold);
+      letter-spacing: 0.12em;
+      margin-bottom: 1.5rem;
+    }
+    .pillar-t {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: var(--h3);
+      font-weight: 400;
+      color: var(--cream);
+      margin-bottom: 0.6rem;
+      line-height: 1.2;
+    }
+    .pillar-d {
+      font-size: 0.875rem;
+      font-weight: 300;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.80);
+    }
+
+    /* ── CAPACIDADES ────────────────────────────────── */
+    .cap-hdr {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
+    @media (min-width: 800px) {
+      .cap-hdr { grid-template-columns: 1fr 1fr; align-items: end; }
+    }
+
+    .cap-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: var(--h1);
+      font-weight: 300;
+      line-height: 1.1;
+      letter-spacing: -0.015em;
+    }
+    .cap-title i { font-style: italic; color: var(--gold); }
+
+    .cap-intro {
+      font-size: 1rem;
+      font-weight: 300;
+      line-height: 1.75;
+      color: var(--mid);
+      align-self: end;
+    }
+
+    /* Accordion */
+    .accord { border-top: 1px solid var(--border); }
+    .accord-item { border-bottom: 1px solid var(--border); }
+    .accord-head {
+      display: grid;
+      grid-template-columns: 2.75rem 1fr 2rem;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.75rem 0;
+      cursor: pointer;
+      user-select: none;
+    }
+    .accord-head:hover .accord-ttl { color: var(--gold); }
+
+    .accord-n {
+      font-family: 'DM Mono', monospace;
+      font-size: var(--mono);
+      color: var(--gold);
+      letter-spacing: 0.12em;
+    }
+    .accord-ttl {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.3rem, 2.5vw, 2rem);
+      font-weight: 400;
+      line-height: 1.2;
+      transition: color 0.3s;
+    }
+    .accord-toggle {
+      width: 26px;
+      height: 26px;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      color: var(--mid-lt);
+      transition: all 0.35s var(--ease);
+      flex-shrink: 0;
+    }
+    .accord-item.open .accord-toggle {
+      background: var(--ink);
+      color: var(--cream);
+      border-color: var(--ink);
+      transform: rotate(45deg);
+    }
+
+    .accord-body {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.45s var(--ease);
+    }
+    .accord-item.open .accord-body { grid-template-rows: 1fr; }
+    .accord-inner {
+      overflow: hidden;
+    }
+    .accord-content {
+      padding: 0 0 2.5rem 3.75rem;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    @media (min-width: 768px) {
+      .accord-content { grid-template-columns: 3fr 1fr; }
+    }
+
+    .accord-desc {
+      font-size: 0.9375rem;
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--mid);
+    }
+
+    .tag-group { display: flex; flex-direction: column; gap: 0.45rem; }
+    .tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: var(--gold-dim);
+      padding: 0.3rem 0.7rem;
+      display: inline-block;
+    }
+
+    /* ── SECTORES ───────────────────────────────────── */
+    .sectores-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: var(--h1);
+      font-weight: 300;
+      line-height: 1.1;
+      letter-spacing: -0.015em;
+      margin-bottom: 3.5rem;
+    }
+    .sectores-title i { font-style: italic; color: var(--gold-lt); }
+
+    .sectors-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+    @media (min-width: 600px) { .sectors-grid { grid-template-columns: 1fr 1fr; } }
+    @media (min-width: 1000px) { .sectors-grid { grid-template-columns: 1fr 1fr 1fr; } }
+
+    .sector {
+      padding: 2.25rem 2rem;
+      border: 1px solid var(--border-dk);
+      margin: -1px 0 0 -1px;
+      transition: background 0.3s;
+    }
+    .sector:hover { background: rgba(255,255,255,0.05); }
+    .sector-n {
+      font-family: 'DM Mono', monospace;
+      font-size: var(--mono);
+      color: var(--gold);
+      letter-spacing: 0.12em;
+      margin-bottom: 1.1rem;
+    }
+    .sector-t {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.45rem;
+      font-weight: 400;
+      color: var(--cream);
+      margin-bottom: 0.6rem;
+      line-height: 1.2;
+    }
+    .sector-d {
+      font-size: 0.875rem;
+      font-weight: 300;
+      line-height: 1.65;
+      color: rgba(255,255,255,0.80);
+    }
+
+    /* ── ADVISORY / BIO ─────────────────────────────── */
+    .advisory-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 4rem;
+    }
+    @media (min-width: 900px) {
+      .advisory-grid { grid-template-columns: 380px 1fr; gap: 6rem; align-items: start; }
+    }
+
+    /* Portrait */
+    .portrait-wrap { position: relative; }
+    .portrait-frame {
+      width: 100%;
+      max-width: 380px;
+      aspect-ratio: 3/4;
+      overflow: hidden;
+      background: var(--cream-soft);
+      position: relative;
+    }
+    .portrait-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      filter: grayscale(15%);
+      transition: filter 0.5s, transform 0.6s var(--ease);
+    }
+    .portrait-frame:hover img { filter: grayscale(0%); transform: scale(1.03); }
+
+    /* Gold accent line */
+    .portrait-frame::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 60%;
+      height: 2px;
+      background: var(--gold);
+      z-index: 2;
+    }
+
+    .portrait-caption { margin-top: 1.25rem; }
+    .portrait-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem;
+      font-weight: 500;
+      line-height: 1.2;
+    }
+    .portrait-role {
+      font-family: 'DM Mono', monospace;
+      font-size: var(--mono);
+      color: var(--gold);
+      letter-spacing: 0.1em;
+      margin-top: 0.3rem;
+    }
+
+    /* Advisory text */
+    .advisory-content { padding-top: 0; }
+    @media (min-width: 900px) { .advisory-content { padding-top: 3.5rem; } }
+
+    .advisory-headline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: var(--h2);
+      font-weight: 300;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      margin-bottom: 2rem;
+    }
+    .advisory-headline i { font-style: italic; color: var(--gold); }
+
+    .advisory-p {
+      font-size: 0.9375rem;
+      font-weight: 300;
+      line-height: 1.82;
+      color: var(--mid);
+      margin-bottom: 1.25rem;
+    }
+
+    .highlights { margin-top: 2.25rem; border-top: 1px solid var(--border); }
+    .hl-item {
+      padding: 0.875rem 0;
+      border-bottom: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 1.5rem 1fr;
+      gap: 1.25rem;
+      align-items: start;
+    }
+    .hl-arrow {
+      font-family: 'DM Mono', monospace;
+      font-size: var(--mono);
+      color: var(--gold);
+      padding-top: 0.2rem;
+    }
+    .hl-text {
+      font-size: 0.9rem;
+      font-weight: 300;
+      line-height: 1.65;
+      color: var(--mid);
+    }
+
+    /* ── CONTACTO ───────────────────────────────────── */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 4rem;
+    }
+    @media (min-width: 900px) {
+      .contact-grid { grid-template-columns: 1fr 1fr; gap: 6rem; }
+    }
+
+    .contact-headline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: var(--h1);
+      font-weight: 300;
+      line-height: 1.1;
+      letter-spacing: -0.015em;
+      margin-bottom: 1.5rem;
+    }
+    .contact-headline i { font-style: italic; color: var(--gold-lt); }
+
+    .contact-body {
+      font-size: 1rem;
+      font-weight: 300;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.84);
+      margin-bottom: 2.75rem;
+    }
+
+    .contact-info { display: flex; flex-direction: column; gap: 1.5rem; }
+    .ci-label {
+      font-family: 'DM Mono', monospace;
+      font-size: var(--mono);
+      letter-spacing: 0.12em;
+      color: var(--gold);
+      margin-bottom: 0.2rem;
+    }
+    .ci-val {
+      font-size: 1rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.92);
+    }
+    .ci-val a {
+      text-decoration: none;
+      color: inherit;
+      transition: color 0.3s;
+    }
+    .ci-val a:hover { color: var(--gold-lt); }
+
+    /* Form */
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+    }
+    @media (min-width: 600px) { .form-row { grid-template-columns: 1fr 1fr; } }
+
+    .fg { margin-bottom: 1.35rem; }
+    .fl {
+      display: block;
+      font-family: 'DM Mono', monospace;
+      font-size: var(--mono);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.70);
+      margin-bottom: 0.5rem;
+    }
+    .fi, .ft, .fs {
+      width: 100%;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border-dk);
+      color: var(--cream);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9375rem;
+      font-weight: 300;
+      padding: 0.875rem 1rem;
+      outline: none;
+      transition: border-color 0.3s;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+    .fi:focus, .ft:focus, .fs:focus { border-color: var(--gold); }
+    .fi::placeholder, .ft::placeholder { color: rgba(255,255,255,0.55); }
+    .ft { min-height: 110px; resize: vertical; }
+    .fs option { background: var(--ink-mid); color: var(--cream); }
+
+    .btn-send {
+      width: 100%;
+      background: var(--gold);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-size: var(--sm);
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 1rem 2rem;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s var(--ease);
+      margin-top: 0.5rem;
+    }
+    .btn-send:hover { background: var(--gold-lt); }
+    .btn-send.sent { background: rgba(184,148,106,0.2); color: var(--gold-lt); cursor: default; }
+
+    /* ── FOOTER ─────────────────────────────────────── */
+    footer {
+      background: var(--ink);
+      padding: 2rem var(--gutter);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    @media (min-width: 600px) {
+      footer { flex-direction: row; align-items: center; justify-content: space-between; }
+    }
+
+    .foot-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.86);
+    }
+    .foot-logo em { font-style: normal; color: var(--gold); }
+
+    .foot-copy {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.07em;
+      color: rgba(255,255,255,0.65);
+    }
+
+    .foot-links { display: flex; gap: 1.5rem; }
+    .foot-links a {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.65);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .foot-links a:hover { color: var(--gold); }
+
+    /* ── SECTORES GRID + PANEL ─────────────────────────── */
+    .sectors-sq-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      margin-top: 3.5rem;
+      border: 1px solid var(--border-dk);
+    }
+    @media (min-width: 640px) {
+      .sectors-sq-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    .sector-sq {
+      aspect-ratio: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 1.5rem;
+      border: none;
+      border-right: 1px solid var(--border-dk);
+      border-bottom: 1px solid var(--border-dk);
+      background: transparent;
+      cursor: pointer;
+      text-align: left;
+      color: inherit;
+      position: relative;
+      transition: background 0.3s var(--ease);
+      margin: -1px 0 0 -1px;
+    }
+    @media (min-width: 640px) { .sector-sq { padding: 2rem; } }
+    .sector-sq:hover { background: rgba(255,255,255,0.04); }
+    .sector-sq.active { background: rgba(0,192,220,0.08); }
+    .sector-sq.active .sector-sq-title { color: var(--gold-lt); }
+    .sector-sq.active .sector-sq-icon {
+      background: var(--gold);
+      color: var(--ink);
+      border-color: var(--gold);
+      transform: rotate(45deg);
+    }
+    .sector-sq::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 2px;
+      background: var(--gold);
+      transition: width 0.4s var(--ease);
+    }
+    .sector-sq.active::after { width: 100%; }
+
+    .sector-sq-n {
+      font-family: 'DM Mono', monospace;
+      font-size: var(--mono);
+      color: var(--gold);
+      letter-spacing: 0.12em;
+    }
+    .sector-sq-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(0.95rem, 1.8vw, 1.35rem);
+      font-weight: 400;
+      line-height: 1.25;
+      color: var(--cream);
+      transition: color 0.3s;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      padding-block: 0.75rem;
+    }
+    .sector-sq-icon {
+      width: 24px;
+      height: 24px;
+      border: 1px solid var(--border-dk);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      color: rgba(255,255,255,0.5);
+      flex-shrink: 0;
+      align-self: flex-end;
+      transition: all 0.35s var(--ease);
+    }
+
+    /* Expanded panel below grid */
+    .sector-panel {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.5s var(--ease);
+      border: 1px solid var(--border-dk);
+      border-top: none;
+    }
+    .sector-panel.open { grid-template-rows: 1fr; }
+    .sector-panel-inner { overflow: hidden; }
+    .sector-panel-content {
+      padding: 2.5rem;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      border-top: 2px solid var(--gold);
+    }
+    @media (min-width: 768px) {
+      .sector-panel-content { grid-template-columns: 2fr 1fr; gap: 3rem; padding: 3rem; }
+    }
+    .sector-panel-hdr {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+    }
+    .sector-panel-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.4rem, 2.5vw, 2rem);
+      font-weight: 300;
+      color: var(--cream);
+      line-height: 1.15;
+    }
+    .sector-panel-close {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.40);
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: color 0.3s;
+      flex-shrink: 0;
+    }
+    .sector-panel-close:hover { color: var(--gold); }
+
+    .sector-desc {
+      font-size: 0.9375rem;
+      font-weight: 300;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.80);
+      margin-bottom: 1.25rem;
+    }
+    .sector-points {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .sector-points li {
+      font-size: 0.875rem;
+      font-weight: 300;
+      line-height: 1.6;
+      color: rgba(255,255,255,0.65);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+    .sector-points li::before {
+      content: '—';
+      color: var(--gold);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      flex-shrink: 0;
+      margin-top: 0.25rem;
+    }
+    .sector-tags { display: flex; flex-direction: column; gap: 0.45rem; align-self: start; }
+    .sector-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: rgba(0,192,220,0.12);
+      padding: 0.3rem 0.7rem;
+      display: inline-block;
+    }
+
+    /* ── PERSPECTIVAS / BLOG ────────────────────────── */
+    .blog-hdr {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
+    @media (min-width: 800px) {
+      .blog-hdr { grid-template-columns: 1fr 1fr; align-items: end; }
+    }
+
+    .blog-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: var(--h1);
+      font-weight: 300;
+      line-height: 1.1;
+      letter-spacing: -0.015em;
+    }
+    .blog-title i { font-style: italic; color: var(--gold); }
+
+    .blog-intro {
+      font-size: 1rem;
+      font-weight: 300;
+      line-height: 1.75;
+      color: var(--mid);
+      align-self: end;
+    }
+
+    /* Featured + cards grid */
+    .blog-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+    @media (min-width: 900px) {
+      .blog-grid { grid-template-columns: 1.55fr 1fr; }
+    }
+
+    .blog-featured {
+      padding: 2.75rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 2.25rem;
+      min-height: 460px;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.35s var(--ease);
+      position: relative;
+      overflow: hidden;
+    }
+    @media (min-width: 900px) {
+      .blog-featured { border-bottom: none; border-right: 1px solid var(--border); }
+    }
+    .blog-featured:hover { background: var(--cream-soft); }
+    .blog-featured::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 2px;
+      background: var(--gold);
+      transition: width 0.55s var(--ease);
+    }
+    .blog-featured:hover::after { width: 100%; }
+
+    .blog-cards { display: flex; flex-direction: column; }
+
+    .blog-card {
+      padding: 1.875rem 2.25rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      transition: background 0.3s var(--ease);
+      position: relative;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+    }
+    .blog-card:last-child { border-bottom: none; }
+    .blog-card:hover { background: var(--cream-soft); }
+    .blog-card-arrow {
+      position: absolute;
+      bottom: 1.75rem; right: 2rem;
+      color: var(--gold);
+      font-size: 1rem;
+      opacity: 0;
+      transform: translateX(-6px);
+      transition: all 0.3s var(--ease);
+    }
+    .blog-card:hover .blog-card-arrow { opacity: 1; transform: translateX(0); }
+
+    /* Meta row */
+    .blog-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+    .blog-cat {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: var(--gold-dim);
+      padding: 0.2rem 0.6rem;
+    }
+    .blog-date {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      color: var(--mid-lt);
+    }
+
+    /* Featured typography */
+    .blog-featured-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.7rem, 2.8vw, 2.5rem);
+      font-weight: 300;
+      line-height: 1.12;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      margin-top: 0.5rem;
+    }
+    .blog-featured-title i { font-style: italic; color: var(--gold); }
+
+    .blog-featured-excerpt {
+      font-size: 0.9375rem;
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--mid);
+      max-width: 520px;
+    }
+
+    .blog-read-more {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: var(--sm);
+      font-weight: 500;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-decoration: none;
+      margin-top: 0.25rem;
+      transition: gap 0.3s var(--ease);
+    }
+    .blog-read-more:hover { gap: 0.85rem; }
+
+    /* Card typography */
+    .blog-card-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.05rem, 1.7vw, 1.3rem);
+      font-weight: 400;
+      line-height: 1.25;
+      color: var(--ink);
+      transition: color 0.3s;
+      padding-right: 1.5rem;
+    }
+    .blog-card:hover .blog-card-title { color: var(--gold); }
+
+    .blog-card-excerpt {
+      font-size: 0.8125rem;
+      font-weight: 300;
+      line-height: 1.7;
+      color: var(--mid);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .blog-foot {
+      margin-top: 2.5rem;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    /* ── WHATSAPP BUTTON ───────────────────────────── */
+    .btn-whatsapp {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.625rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: var(--sm);
+      font-weight: 500;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.3s var(--ease);
+      padding: 0.875rem 2rem;
+      border: 1px solid var(--border);
+      color: var(--mid);
+    }
+    .btn-whatsapp:hover { border-color: var(--gold); color: var(--gold); }
+    .section--dk .btn-whatsapp {
+      border-color: var(--border-dk);
+      color: rgba(255,255,255,0.80);
+      width: 100%;
+      justify-content: center;
+    }
+    .section--dk .btn-whatsapp:hover { border-color: var(--gold-lt); color: var(--gold-lt); }
+
+    /* ── MISC TWEAKS ────────────────────────────────── */
+    /* Give sections breathing room on small screens */
+    @media (max-width: 500px) {
+      .hero-headline { line-height: 1; }
+    }
+    /* Thin gold rule utility */
+    .rule { width: 2rem; height: 1px; background: var(--gold); margin-bottom: 2rem; }
+
+  </style>
+</head>
+<body>
+
+  <!-- ════════════════════════════════════════
+       HEADER
+  ════════════════════════════════════════ -->
+  <header class="header" id="hdr">
+    <a href="#inicio" class="logo">NEX<em>U</em>M</a>
+
+    <nav class="nav-desk" aria-label="Navegación principal">
+      <a href="#manifiesto">Manifiesto</a>
+      <a href="#capacidades">Capacidades</a>
+      <a href="#sectores">Sectores</a>
+      <a href="#perspectivas">Perspectivas</a>
+      <a href="#advisory">Advisory</a>
+      <a href="#contacto" class="nav-cta">Conversemos</a>
+    </nav>
+
+    <button class="burger" id="burgerBtn" aria-label="Menú" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <!-- Mobile nav overlay -->
+  <nav class="mobile-nav" id="mobileNav" aria-label="Menú móvil">
+    <ul class="mobile-nav-links">
+      <li><a href="#manifiesto" class="mn-lnk">Manifiesto <span class="icon">↗</span></a></li>
+      <li><a href="#capacidades" class="mn-lnk">Capacidades <span class="icon">↗</span></a></li>
+      <li><a href="#sectores" class="mn-lnk">Sectores <span class="icon">↗</span></a></li>
+      <li><a href="#perspectivas" class="mn-lnk">Perspectivas <span class="icon">↗</span></a></li>
+      <li><a href="#advisory" class="mn-lnk">Advisory <span class="icon">↗</span></a></li>
+      <li><a href="#contacto" class="mn-lnk">Conversemos <span class="icon">↗</span></a></li>
+    </ul>
+    <div class="mobile-nav-foot">
+      <p>NEXUM · América Latina · 2026</p>
+      <p>contact@nexum-latam.com</p>
+    </div>
+  </nav>
+
+
+  <!-- ════════════════════════════════════════
+       01 · HERO
+  ════════════════════════════════════════ -->
+  <section class="hero" id="inicio" aria-label="Inicio">
+    <div class="hero-bg" aria-hidden="true">N</div>
+
+    <div class="hero-body wrap">
+      <div class="hero-text">
+        <p class="hero-eyebrow">Consultoría Estratégica · América Latina</p>
+
+        <h1 class="hero-headline">
+          La <i>complejidad</i><br>
+          es<br>nuestra materia.
+        </h1>
+
+        <p class="hero-lead">
+          Integramos estrategia, procesos, gobierno e inteligencia artificial para ayudar a organizaciones complejas a tomar mejores decisiones y generar valor sostenible.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#contacto" class="btn btn-primary">Solicitar conversación</a>
+          <a href="#capacidades" class="btn btn-arrow">Ver capacidades <span class="arr">→</span></a>
+        </div>
+      </div>
+
+      <aside class="hero-stats" aria-label="Cifras clave">
+        <div class="stat">
+          <span class="stat-num">30<sup>+</sup></span>
+          <p class="stat-lbl">años de experiencia ejecutiva en LATAM</p>
+        </div>
+        <div class="stat">
+          <span class="stat-num">4</span>
+          <p class="stat-lbl">capacidades integradas</p>
+        </div>
+        <div class="stat">
+          <span class="stat-num">6<sup>+</sup></span>
+          <p class="stat-lbl">sectores de alto impacto</p>
+        </div>
+      </aside>
+    </div>
+
+    <div class="hero-foot wrap">
+      <span class="hero-tag">nexum-latam.com · 2026</span>
+      <div class="scroll-cue" aria-hidden="true">
+        <div class="scroll-track"></div>
+        <span>Desplazar</span>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════
+       02 · MANIFIESTO
+  ════════════════════════════════════════ -->
+  <section class="section section--dk" id="manifiesto">
+    <div class="wrap">
+      <div class="manifesto-grid">
+        <div>
+          <div class="marker marker--dk reveal">02 / Manifiesto</div>
+        </div>
+        <div>
+          <blockquote class="manifesto-quote reveal">
+            La transformación real no empieza con tecnología. Empieza con <i>claridad estratégica</i>, gobierno robusto y el coraje de tomar decisiones difíciles.
+          </blockquote>
+          <p class="manifesto-body reveal d1">
+            En NEXUM no implementamos tecnología por tendencia. Diseñamos marcos de decisión que generan valor sostenible, reducen riesgos y optimizan la asignación de recursos en entornos de alta complejidad. Trabajamos directamente con CEOs, Boards y equipos ejecutivos en el punto exacto donde la estrategia se encuentra con la ejecución operativa.
+          </p>
+        </div>
+      </div>
+
+      <div class="pillars">
+        <div class="pillar reveal">
+          <p class="pillar-n">— 01</p>
+          <h3 class="pillar-t">Claridad Ejecutiva</h3>
+          <p class="pillar-d">Transformamos información dispersa y señales contradictorias en decisiones claras y accionables. Sin ruido, sin ambigüedad.</p>
+        </div>
+        <div class="pillar reveal d1">
+          <p class="pillar-n">— 02</p>
+          <h3 class="pillar-t">Gobierno & Control</h3>
+          <p class="pillar-d">Diseñamos estructuras que aseguran trazabilidad, alineación y gestión efectiva del cambio. La transformación sin gobierno no genera valor.</p>
+        </div>
+        <div class="pillar reveal d2">
+          <p class="pillar-n">— 03</p>
+          <h3 class="pillar-t">Impacto Medible</h3>
+          <p class="pillar-d">KPIs claros, seguimiento riguroso. Eficiencia operativa, rentabilidad mejorada y métricas verificables en cada intervención.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════
+       03 · CAPACIDADES
+  ════════════════════════════════════════ -->
+  <section class="section" id="capacidades">
+    <div class="wrap">
+      <div class="marker reveal">03 / Capacidades</div>
+
+      <div class="cap-hdr">
+        <h2 class="cap-title reveal">
+          Cuatro líneas<br>para la <i>complejidad</i><br>real.
+        </h2>
+        <p class="cap-intro reveal d1">
+          Soluciones integradas diseñadas para organizaciones donde la estrategia, la operación y la tecnología convergen — y donde cada decisión tiene consecuencias medibles en el resultado del negocio.
+        </p>
+      </div>
+
+      <div class="accord" role="list">
+
+        <!-- Servicio 1 -->
+        <div class="accord-item reveal" role="listitem">
+          <div class="accord-head" role="button" tabindex="0" aria-expanded="false">
+            <span class="accord-n">01</span>
+            <h3 class="accord-ttl">Transformación Empresarial con AI</h3>
+            <span class="accord-toggle" aria-hidden="true">+</span>
+          </div>
+          <div class="accord-body" aria-hidden="true">
+            <div class="accord-inner">
+              <div class="accord-content">
+                <p class="accord-desc">
+                  Acompañamos a las organizaciones a integrar inteligencia artificial en sus procesos y decisiones clave, asegurando impacto real en eficiencia, rentabilidad y sostenibilidad operativa.<br><br>
+                  No se trata de tecnología por sí misma, sino de casos de uso concretos que transforman la toma de decisiones, automatizan procesos críticos y generan ventajas competitivas medibles. Desde el diagnóstico de oportunidades de alto impacto hasta el diseño de modelos de decisión para estrategia, inversiones y gestión de riesgos — con marcos de control que aseguran ética, transparencia y valor sostenible.
+                </p>
+                <div class="tag-group">
+                  <span class="tag">AI Estratégica</span>
+                  <span class="tag">Diagnóstico Ejecutivo</span>
+                  <span class="tag">ROI & Viabilidad</span>
+                  <span class="tag">Gobierno de AI</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Servicio 2 -->
+        <div class="accord-item reveal" role="listitem">
+          <div class="accord-head" role="button" tabindex="0" aria-expanded="false">
+            <span class="accord-n">02</span>
+            <h3 class="accord-ttl">Optimización de Procesos & Eficiencia Operativa</h3>
+            <span class="accord-toggle" aria-hidden="true">+</span>
+          </div>
+          <div class="accord-body" aria-hidden="true">
+            <div class="accord-inner">
+              <div class="accord-content">
+                <p class="accord-desc">
+                  Rediseñamos procesos críticos para eliminar ineficiencias estructurales, reducir costos operativos y mejorar la ejecución end-to-end en toda la cadena de valor.<br><br>
+                  Nuestro enfoque combina análisis riguroso de procesos actuales, identificación de cuellos de botella y rediseño orientado a resultados, siempre con foco en la adopción efectiva del cambio. Trabajamos tanto en procesos core de negocio como en funciones de soporte — cada optimización se traduce en mejoras medibles en tiempo, costo y calidad.
+                </p>
+                <div class="tag-group">
+                  <span class="tag">Rediseño End-to-End</span>
+                  <span class="tag">Reducción de Costos</span>
+                  <span class="tag">Eliminación Reprocesos</span>
+                  <span class="tag">Gestión del Cambio</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Servicio 3 -->
+        <div class="accord-item reveal" role="listitem">
+          <div class="accord-head" role="button" tabindex="0" aria-expanded="false">
+            <span class="accord-n">03</span>
+            <h3 class="accord-ttl">Gobierno Tecnológico, Ciberseguridad & Datos</h3>
+            <span class="accord-toggle" aria-hidden="true">+</span>
+          </div>
+          <div class="accord-body" aria-hidden="true">
+            <div class="accord-inner">
+              <div class="accord-content">
+                <p class="accord-desc">
+                  Diseñamos marcos de gobierno que permiten priorizar inversiones tecnológicas, reducir riesgos operativos y alinear la tecnología con la estrategia del negocio de manera efectiva y sostenible.<br><br>
+                  Las decisiones tecnológicas en entornos complejos requieren marcos estructurados que equilibren innovación, riesgo, costo y valor de negocio. Incluye gobierno de portafolio de proyectos, priorización ejecutiva, gestión de deuda técnica, alineación IT-negocio, ciberseguridad y gobierno de datos.
+                </p>
+                <div class="tag-group">
+                  <span class="tag">Gobierno IT</span>
+                  <span class="tag">Ciberseguridad</span>
+                  <span class="tag">Gobierno de Datos</span>
+                  <span class="tag">Arquitectura Empresarial</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Servicio 4 -->
+        <div class="accord-item reveal" role="listitem">
+          <div class="accord-head" role="button" tabindex="0" aria-expanded="false">
+            <span class="accord-n">04</span>
+            <h3 class="accord-ttl">Advisory C-Suite & Board</h3>
+            <span class="accord-toggle" aria-hidden="true">+</span>
+          </div>
+          <div class="accord-body" aria-hidden="true">
+            <div class="accord-inner">
+              <div class="accord-content">
+                <p class="accord-desc">
+                  Acompañamiento directo a CEOs, CFOs, CTOs y Boards en decisiones críticas de transformación, crecimiento, eficiencia y gestión de riesgos en entornos complejos.<br><br>
+                  Un asesor estratégico independiente con experiencia ejecutiva probada y perspectiva externa objetiva. Disponibilidad regular para consulta, validación de decisiones, participación en comités de dirección y soporte en gobernanza corporativa en momentos clave.
+                </p>
+                <div class="tag-group">
+                  <span class="tag">Advisory Ejecutivo</span>
+                  <span class="tag">Evaluación Escenarios</span>
+                  <span class="tag">Board Advisory</span>
+                  <span class="tag">Decisiones Estratégicas</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /accord -->
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════
+       04 · SECTORES
+  ════════════════════════════════════════ -->
+  <section class="section section--dk" id="sectores">
+    <div class="wrap">
+      <div class="marker marker--dk reveal">04 / Sectores</div>
+      <h2 class="sectores-title reveal">
+        Donde la complejidad<br><i>genera oportunidad.</i>
+      </h2>
+
+      <div class="sectors-sq-grid reveal" id="sectors-sq-grid">
+
+        <button class="sector-sq" data-index="0" aria-expanded="false" aria-controls="sector-panel">
+          <span class="sector-sq-n">01</span>
+          <span class="sector-sq-title">Banca & Servicios Financieros</span>
+          <span class="sector-sq-icon" aria-hidden="true">+</span>
+        </button>
+        <button class="sector-sq" data-index="1" aria-expanded="false" aria-controls="sector-panel">
+          <span class="sector-sq-n">02</span>
+          <span class="sector-sq-title">Retail & Consumo Masivo</span>
+          <span class="sector-sq-icon" aria-hidden="true">+</span>
+        </button>
+        <button class="sector-sq" data-index="2" aria-expanded="false" aria-controls="sector-panel">
+          <span class="sector-sq-n">03</span>
+          <span class="sector-sq-title">Energía, Utilities & Infraestructura</span>
+          <span class="sector-sq-icon" aria-hidden="true">+</span>
+        </button>
+        <button class="sector-sq" data-index="3" aria-expanded="false" aria-controls="sector-panel">
+          <span class="sector-sq-n">04</span>
+          <span class="sector-sq-title">Telecomunicaciones & Tecnología</span>
+          <span class="sector-sq-icon" aria-hidden="true">+</span>
+        </button>
+        <button class="sector-sq" data-index="4" aria-expanded="false" aria-controls="sector-panel">
+          <span class="sector-sq-n">05</span>
+          <span class="sector-sq-title">Manufactura & Logística</span>
+          <span class="sector-sq-icon" aria-hidden="true">+</span>
+        </button>
+        <button class="sector-sq" data-index="5" aria-expanded="false" aria-controls="sector-panel">
+          <span class="sector-sq-n">06</span>
+          <span class="sector-sq-title">Salud</span>
+          <span class="sector-sq-icon" aria-hidden="true">+</span>
+        </button>
+      </div>
+
+      <div class="sector-panel" id="sector-panel" aria-hidden="true">
+        <div class="sector-panel-inner">
+          <div class="sector-panel-content" id="sector-panel-content">
+            <div class="sector-panel-hdr">
+              <h3 class="sector-panel-name" id="sector-panel-name"></h3>
+              <button class="sector-panel-close" id="sector-panel-close">Cerrar ×</button>
+            </div>
+            <div id="sector-panel-body"></div>
+            <div id="sector-panel-tags" class="sector-tags"></div>
+          </div>
+        </div>
+      </div>
+      <script type="application/json" id="sectors-data">[{"n":"01","title":"Banca & Servicios Financieros","desc":"Las instituciones financieras enfrentan una transformación estructural sin precedentes: presión regulatoria creciente, competencia de neobancos, y la necesidad de modernizar plataformas core sin interrumpir la operación. NEXUM acompaña a bancos, aseguradoras y entidades financieras a navegar esta complejidad con rigor y visión estratégica.","points":["Transformación digital y modernización de core bancario","Cumplimiento regulatorio y gestión de riesgo operativo","Optimización de procesos de crédito, cobranza y back-office","Adopción estratégica de AI en scoring, fraude y atención al cliente"],"tags":["Core Banking","Regulatorio","AI Financiera","Riesgo Operativo"]},{"n":"02","title":"Retail & Consumo Masivo","desc":"El retail enfrenta la convergencia del canal físico y digital, la volatilidad de la demanda y márgenes bajo presión constante. La eficiencia operativa ya no es diferencial — es condición de supervivencia. Trabajamos con retailers y empresas de consumo masivo para transformar sus cadenas de valor con precisión analítica y claridad ejecutiva.","points":["Optimización de cadena de suministro y gestión de inventarios","Transformación de experiencia de cliente omnicanal","Eficiencia en procesos de merchandising y punto de venta","Adopción de AI para forecasting y gestión de demanda"],"tags":["Supply Chain","Omnicanal","Forecasting","Eficiencia"]},{"n":"03","title":"Energía, Utilities & Infraestructura","desc":"Las empresas de energía e infraestructura crítica operan en entornos de alta exigencia regulatoria, activos de larga vida útil y presión creciente hacia la transición energética. La transformación operativa en este sector requiere precisión técnica, visión estratégica y gestión rigurosa del cambio.","points":["Gestión y optimización de activos físicos críticos","Transformación de servicios y canales de atención","Automatización de operaciones de campo y mantenimiento","Gobierno tecnológico en entornos OT/IT convergentes"],"tags":["Asset Management","OT/IT","Automatización","Utilities"]},{"n":"04","title":"Telecomunicaciones & Tecnología","desc":"El sector telco vive una redefinición estructural: la conectividad es commodity y la batalla se libra en servicios de valor agregado, eficiencia de red y experiencia de cliente. Las empresas de tecnología enfrentan la presión de escalar con gobierno. NEXUM aporta claridad estratégica donde la velocidad suele oscurecer el rumbo.","points":["Modernización de plataformas BSS/OSS y arquitectura empresarial","Eficiencia operativa en redes y operaciones de campo","Gobierno de portafolio tecnológico y deuda técnica","Transformación de servicios digitales y experiencia de cliente"],"tags":["BSS/OSS","Arquitectura","Deuda Técnica","CX Digital"]},{"n":"05","title":"Manufactura & Logística","desc":"La manufactura en América Latina enfrenta una ventana crítica de transformación: automatización industrial, presión de costos y cadenas de suministro globales bajo tensión. Las empresas que no optimizan hoy sus operaciones perderán competitividad en el mediano plazo. Acompañamos esta transición con metodología probada y visión de largo plazo.","points":["Optimización de producción y reducción de desperdicio operativo","Eficiencia en cadena de suministro y logística de distribución","Automatización industrial e integración de sistemas MES/ERP","Transformación operativa con gestión efectiva del cambio"],"tags":["Manufactura","MES/ERP","Lean","Logística"]},{"n":"06","title":"Salud","desc":"El sector salud enfrenta la transformación más delicada: digitalizar sin comprometer la continuidad asistencial, gobernar datos sensibles bajo marcos regulatorios estrictos y mejorar la eficiencia operativa en entornos donde el error tiene consecuencias humanas. NEXUM aporta la experiencia ejecutiva para navegar esta complejidad con rigor y prudencia.","points":["Optimización de procesos clínicos y administrativos","Transformación digital con foco en continuidad asistencial","Gobierno de datos médicos y cumplimiento regulatorio","Eficiencia operativa en redes hospitalarias y clínicas"],"tags":["Salud Digital","Datos Clínicos","Regulatorio","Eficiencia"]}]</script>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════
+       05 · PERSPECTIVAS / BLOG
+  ════════════════════════════════════════ -->
+  <section class="section" id="perspectivas" aria-label="Perspectivas">
+    <div class="wrap">
+      <div class="marker reveal">05 / Perspectivas</div>
+
+      <div class="blog-hdr">
+        <h2 class="blog-title reveal">
+          Ideas que<br>mueven <i>decisiones.</i>
+        </h2>
+        <p class="blog-intro reveal d1">
+          Reflexiones estratégicas sobre transformación, liderazgo y el valor de la complejidad bien gestionada. Sin tendencias pasajeras — solo perspectiva ejecutiva de largo plazo.
+        </p>
+      </div>
+
+      <div class="blog-grid reveal d1">
+
+        <!-- ARTÍCULO DESTACADO -->
+        <article class="blog-featured">
+          <div>
+            <div class="blog-meta">
+              <span class="blog-cat">Estrategia & AI</span>
+              <span class="blog-date">Enero 2026</span>
+            </div>
+            <h3 class="blog-featured-title">
+              La IA no transforma<br>empresas. Las <i>decisiones</i> sí.
+            </h3>
+          </div>
+          <div>
+            <p class="blog-featured-excerpt">
+              Implementar inteligencia artificial sin claridad estratégica no genera valor — genera complejidad adicional. El verdadero diferencial competitivo no es la tecnología que adoptas, sino la calidad de las decisiones que tomas con ella. Una reflexión sobre por qué el 70% de los proyectos de AI en LATAM no alcanzan su ROI proyectado — y qué hacen diferente los que sí lo logran.
+            </p>
+            <a href="#" class="blog-read-more">Leer perspectiva <span class="arr">→</span></a>
+          </div>
+        </article>
+
+        <!-- CARDS LATERALES -->
+        <div class="blog-cards">
+
+          <a href="#" class="blog-card">
+            <div class="blog-meta">
+              <span class="blog-cat">Gobierno</span>
+              <span class="blog-date">Dic 2025</span>
+            </div>
+            <h4 class="blog-card-title">Gobierno de datos: de activo subutilizado a ventaja competitiva</h4>
+            <p class="blog-card-excerpt">Las organizaciones que lideran no son las que tienen más datos — son las que toman mejores decisiones con los que ya tienen.</p>
+            <span class="blog-card-arrow">→</span>
+          </a>
+
+          <a href="#" class="blog-card">
+            <div class="blog-meta">
+              <span class="blog-cat">Eficiencia Operativa</span>
+              <span class="blog-date">Nov 2025</span>
+            </div>
+            <h4 class="blog-card-title">Automatización sin rediseño: por qué solo acelera el caos</h4>
+            <p class="blog-card-excerpt">Automatizar un proceso ineficiente no lo mejora — lo perpetúa a mayor velocidad. El diagnóstico previo es donde se genera el valor real.</p>
+            <span class="blog-card-arrow">→</span>
+          </a>
+
+          <a href="#" class="blog-card">
+            <div class="blog-meta">
+              <span class="blog-cat">Liderazgo Ejecutivo</span>
+              <span class="blog-date">Oct 2025</span>
+            </div>
+            <h4 class="blog-card-title">El CIO como arquitecto de valor: más allá de la gestión tecnológica</h4>
+            <p class="blog-card-excerpt">El rol del CIO ha evolucionado. Ya no se trata de administrar infraestructura — se trata de diseñar el futuro operativo.</p>
+            <span class="blog-card-arrow">→</span>
+          </a>
+
+        </div><!-- /blog-cards -->
+      </div><!-- /blog-grid -->
+
+      <div class="blog-foot reveal d2">
+        <a href="#" class="btn btn-arrow">Ver todas las perspectivas <span class="arr">→</span></a>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════
+       06 · ADVISORY / BIO
+  ════════════════════════════════════════ -->
+  <section class="section" id="advisory">
+    <div class="wrap">
+      <div class="marker reveal">06 / Advisory</div>
+
+      <div class="advisory-grid">
+        <div class="advisory-portrait reveal">
+          <div class="portrait-frame">
+            <img
+              src="https://cdn.gamma.app/dd8syypvr84dfz4/47e29ba26f04441e89c087488d620028/original/JH.jfif"
+              alt="Javier Hidalgo Estévez — Fundador NEXUM"
+              loading="lazy"
+              width="380"
+              height="507"
+            >
+          </div>
+          <div class="portrait-caption">
+            <p class="portrait-name">Javier Alfredo Hidalgo Estévez</p>
+            <p class="portrait-role">Fundador & Director · NEXUM</p>
+          </div>
+        </div>
+
+        <div class="advisory-content">
+          <h2 class="advisory-headline reveal">
+            Treinta años<br>en el centro de<br><i>decisiones que definen empresas.</i>
+          </h2>
+
+          <p class="advisory-p reveal d1">
+            Con más de 30 años liderando iniciativas de transformación tecnológica y operativa en organizaciones financieras y empresas multinacionales en América Latina, Javier aporta algo que las firmas convencionales raramente pueden ofrecer: experiencia ejecutiva real en el mismo nivel donde las decisiones estratégicas se toman.
+          </p>
+
+          <p class="advisory-p reveal d2">
+            Ha ocupado roles C-suite regionales, liderando eficiencia operativa, gobierno tecnológico, gobierno de datos, modernización de plataformas, automatización de procesos, adopción estratégica de inteligencia artificial y ciberseguridad — siempre con impacto medible en resultados de negocio.
+          </p>
+
+          <div class="highlights reveal d3">
+            <div class="hl-item">
+              <span class="hl-arrow">→</span>
+              <p class="hl-text">Dirección de equipos multidisciplinarios y portafolios de transformación de gran escala</p>
+            </div>
+            <div class="hl-item">
+              <span class="hl-arrow">→</span>
+              <p class="hl-text">Asesoramiento directo a CEOs y Boards en decisiones estratégicas complejas</p>
+            </div>
+            <div class="hl-item">
+              <span class="hl-arrow">→</span>
+              <p class="hl-text">Trayectoria ejecutiva en banca, seguros y multinacionales en toda América Latina</p>
+            </div>
+            <div class="hl-item">
+              <span class="hl-arrow">→</span>
+              <p class="hl-text">Combinación única: visión estratégica de negocio y profundidad técnica ejecutiva</p>
+            </div>
+          </div>
+
+          <div style="margin-top:2.5rem; display:flex; flex-direction:column; align-items:flex-start; gap:0.75rem;" class="reveal d4">
+            <a href="mailto:contact@nexum-latam.com" class="btn btn-primary">Conversar con nosotros</a>
+            <a href="https://wa.me/50670104381" class="btn-whatsapp" target="_blank" rel="noopener">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="flex-shrink:0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Contactar por WhatsApp
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════
+       06 · CONTACTO
+  ════════════════════════════════════════ -->
+  <section class="section section--dk" id="contacto">
+    <div class="wrap">
+      <div class="contact-grid">
+
+        <div>
+          <div class="marker marker--dk reveal">07 / Conversemos</div>
+
+          <h2 class="contact-headline reveal">
+            ¿Tu organización<br>navega en<br><i>aguas complejas?</i>
+          </h2>
+
+          <p class="contact-body reveal d1">
+            Ofrecemos una primera conversación ejecutiva — sin compromiso, sin presentaciones genéricas. Treinta a cuarenta y cinco minutos para entender tu contexto, identificar oportunidades reales y evaluar cómo podemos generar valor juntos.
+          </p>
+
+          <div class="contact-info reveal d2">
+            <div>
+              <p class="ci-label">Email</p>
+              <p class="ci-val"><a href="mailto:contact@nexum-latam.com">contact@nexum-latam.com</a></p>
+            </div>
+            <div>
+              <p class="ci-label">Teléfono</p>
+              <p class="ci-val"><a href="tel:+50670104381">+506 7010-4381</a></p>
+            </div>
+            <div>
+              <p class="ci-label">LinkedIn</p>
+              <p class="ci-val"><a href="https://www.linkedin.com/in/javier-hidalgo-330421107/" target="_blank" rel="noopener">Javier Hidalgo Estévez ↗</a></p>
+            </div>
+            <div>
+              <p class="ci-label">Región</p>
+              <p class="ci-val">América Latina</p>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <form id="contactForm" class="reveal d1" novalidate>
+            <div class="form-row">
+              <div class="fg">
+                <label class="fl" for="fn">Nombre completo</label>
+                <input class="fi" type="text" id="fn" placeholder="Tu nombre" autocomplete="name">
+              </div>
+              <div class="fg">
+                <label class="fl" for="co">Empresa</label>
+                <input class="fi" type="text" id="co" placeholder="Tu organización" autocomplete="organization">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="fg">
+                <label class="fl" for="ro">Cargo</label>
+                <input class="fi" type="text" id="ro" placeholder="Tu posición" autocomplete="organization-title">
+              </div>
+              <div class="fg">
+                <label class="fl" for="em">Email corporativo</label>
+                <input class="fi" type="email" id="em" placeholder="correo@empresa.com" autocomplete="work email">
+              </div>
+            </div>
+            <div class="fg">
+              <label class="fl" for="ch">Principal desafío</label>
+              <select class="fs" id="ch">
+                <option value="" disabled selected>Selecciona un área</option>
+                <option>Transformación digital y adopción de AI</option>
+                <option>Gobernanza de datos</option>
+                <option>Eficiencia operativa y optimización de procesos</option>
+                <option>Gobierno tecnológico y priorización</option>
+                <option>Advisory ejecutivo y decisiones estratégicas</option>
+                <option>Ciberseguridad</option>
+                <option>Continuidad de negocio</option>
+                <option>Otro</option>
+              </select>
+            </div>
+            <div class="fg">
+              <label class="fl" for="ms">Contexto</label>
+              <textarea class="ft" id="ms" placeholder="Describe brevemente tu desafío o contexto..."></textarea>
+            </div>
+            <a href="mailto:contact@nexum-latam.com?subject=Solicitud%20de%20conversaci%C3%B3n%20ejecutiva" class="btn-send" id="sendBtn" style="display:flex; align-items:center; justify-content:center; text-decoration:none;">Solicitar conversación ejecutiva</a>
+            <a href="https://wa.me/50670104381" class="btn-whatsapp" target="_blank" rel="noopener" style="margin-top:0.5rem;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="flex-shrink:0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Contactar por WhatsApp
+            </a>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════
+       FOOTER
+  ════════════════════════════════════════ -->
+  <footer>
+    <span class="foot-logo">NEX<em>U</em>M</span>
+    <span class="foot-copy">© 2026 NEXUM-Latam Advisory · Todos los derechos reservados</span>
+    <div class="foot-links">
+      <a href="mailto:contact@nexum-latam.com">Contacto</a>
+      <a href="https://www.linkedin.com/in/javier-hidalgo-330421107/" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+  </footer>
+
+
+  <!-- ════════════════════════════════════════
+       JAVASCRIPT
+  ════════════════════════════════════════ -->
+  <script>
+    /* ─────────────────────────────────────────
+       1. HEADER — scroll solid state
+    ───────────────────────────────────────── */
+    const hdr = document.getElementById('hdr');
+    const onScroll = () => hdr.classList.toggle('solid', window.scrollY > 60);
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    /* ─────────────────────────────────────────
+       2. HAMBURGER + MOBILE NAV
+    ───────────────────────────────────────── */
+    const burger    = document.getElementById('burgerBtn');
+    const mobileNav = document.getElementById('mobileNav');
+    let navOpen = false;
+
+    const toggleNav = (state) => {
+      navOpen = typeof state === 'boolean' ? state : !navOpen;
+      burger.classList.toggle('open', navOpen);
+      mobileNav.classList.toggle('open', navOpen);
+      burger.setAttribute('aria-expanded', navOpen);
+      document.body.style.overflow = navOpen ? 'hidden' : '';
+    };
+
+    burger.addEventListener('click', () => toggleNav());
+
+    // Close on link click
+    document.querySelectorAll('.mn-lnk').forEach(lnk =>
+      lnk.addEventListener('click', () => toggleNav(false))
+    );
+
+    // Close on outside tap
+    mobileNav.addEventListener('click', (e) => {
+      if (e.target === mobileNav) toggleNav(false);
+    });
+
+    /* ─────────────────────────────────────────
+       3. SCROLL REVEAL
+    ───────────────────────────────────────── */
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          revealObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+    /* ─────────────────────────────────────────
+       4b. SECTORES GRID ACCORDION
+    ─────────────────────────────────────────── */
+    (function() {
+      const data    = JSON.parse(document.getElementById('sectors-data').textContent);
+      const panel   = document.getElementById('sector-panel');
+      const pName   = document.getElementById('sector-panel-name');
+      const pBody   = document.getElementById('sector-panel-body');
+      const pTags   = document.getElementById('sector-panel-tags');
+      const pClose  = document.getElementById('sector-panel-close');
+      let active    = -1;
+
+      function open(idx) {
+        const s = data[idx];
+        pName.textContent = s.title;
+        pBody.innerHTML = '<p class="sector-desc">' + s.desc + '</p>'
+          + '<ul class="sector-points">' + s.points.map(p => '<li>' + p + '</li>').join('') + '</ul>';
+        pTags.innerHTML = s.tags.map(t => '<span class="sector-tag">' + t + '</span>').join('');
+        panel.classList.add('open');
+        panel.setAttribute('aria-hidden', 'false');
+      }
+
+      function close() {
+        panel.classList.remove('open');
+        panel.setAttribute('aria-hidden', 'true');
+        document.querySelectorAll('.sector-sq').forEach(b => {
+          b.classList.remove('active');
+          b.setAttribute('aria-expanded', 'false');
+          b.querySelector('.sector-sq-icon').textContent = '+';
+        });
+        active = -1;
+      }
+
+      document.querySelectorAll('.sector-sq').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const idx = parseInt(btn.dataset.index);
+          if (active === idx) { close(); return; }
+          // deactivate previous
+          document.querySelectorAll('.sector-sq').forEach(b => {
+            b.classList.remove('active');
+            b.setAttribute('aria-expanded', 'false');
+            b.querySelector('.sector-sq-icon').textContent = '+';
+          });
+          // activate clicked
+          btn.classList.add('active');
+          btn.setAttribute('aria-expanded', 'true');
+          btn.querySelector('.sector-sq-icon').textContent = '+';
+          active = idx;
+          open(idx);
+        });
+      });
+
+      pClose.addEventListener('click', close);
+    })();
+
+    /* ─────────────────────────────────────────
+       4. ACCORDION — servicios
+    ───────────────────────────────────────── */
+    document.querySelectorAll('.accord-item').forEach(item => {
+      const head = item.querySelector('.accord-head');
+      head.addEventListener('click', () => {
+        const isOpen = item.classList.contains('open');
+
+        // Close all
+        document.querySelectorAll('.accord-item').forEach(i => {
+          i.classList.remove('open');
+          i.querySelector('.accord-head').setAttribute('aria-expanded', 'false');
+          i.querySelector('.accord-body').setAttribute('aria-hidden', 'true');
+        });
+
+        // Toggle clicked
+        if (!isOpen) {
+          item.classList.add('open');
+          head.setAttribute('aria-expanded', 'true');
+          item.querySelector('.accord-body').setAttribute('aria-hidden', 'false');
+        }
+      });
+
+      // Keyboard: Enter / Space
+      head.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          head.click();
+        }
+      });
+    });
+
+    /* ─────────────────────────────────────────
+       5. SMOOTH SCROLL — anchor links
+    ───────────────────────────────────────── */
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', (e) => {
+        const target = document.querySelector(a.getAttribute('href'));
+        if (!target) return;
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+
+    /* ─────────────────────────────────────────
+       6. ACTIVE NAV LINK on scroll
+    ───────────────────────────────────────── */
+    const navLinks = document.querySelectorAll('.nav-desk a');
+    const sections = document.querySelectorAll('section[id]');
+
+    const activeObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(lnk => lnk.style.color = '');
+          const active = document.querySelector(`.nav-desk a[href="#${entry.target.id}"]`);
+          if (active) active.style.color = 'var(--ink)';
+        }
+      });
+    }, { threshold: 0.45 });
+
+    sections.forEach(s => activeObs.observe(s));
+
+    /* ─────────────────────────────────────────
+       7. CONTACT FORM — demo submit
+    ───────────────────────────────────────── */
+    document.getElementById('contactForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('sendBtn');
+      btn.textContent = '✓ Mensaje recibido — Te contactaremos a la brevedad';
+      btn.classList.add('sent');
+      btn.disabled = true;
+    });
+  </script>
+
+</body>
+</html>
