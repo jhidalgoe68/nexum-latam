@@ -1911,34 +1911,30 @@
       align-self: end;
     }
 
-    /* Featured + cards grid */
-    .blog-grid {
-      display: grid;
-      grid-template-columns: 1fr;
+    /* Perspectivas — unified article list (every entry equal weight,
+       full-width, consistently clickable; this is the permanent
+       template for all current and future articles — see
+       scripts/integrate_article.py, which generates this exact
+       markup per article). */
+    .blog-list {
       border: 1px solid var(--border);
       overflow: hidden;
     }
-    @media (min-width: 900px) {
-      .blog-grid { grid-template-columns: 1.55fr 1fr; }
-    }
 
-    .blog-featured {
-      padding: 2.75rem;
+    .blog-item {
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      gap: 2.25rem;
-      min-height: 460px;
+      align-items: flex-start;
+      gap: 0.85rem;
+      padding: 2.25rem 2.5rem;
       border-bottom: 1px solid var(--border);
-      transition: background 0.35s var(--ease);
+      cursor: pointer;
       position: relative;
-      overflow: hidden;
+      transition: background 0.3s var(--ease);
     }
-    @media (min-width: 900px) {
-      .blog-featured { border-bottom: none; border-right: 1px solid var(--border); }
-    }
-    .blog-featured:hover { background: var(--cream-soft); }
-    .blog-featured::after {
+    .blog-item:last-child { border-bottom: none; }
+    .blog-item:hover { background: var(--cream-soft); }
+    .blog-item::after {
       content: '';
       position: absolute;
       bottom: 0; left: 0;
@@ -1946,34 +1942,10 @@
       background: var(--gold);
       transition: width 0.55s var(--ease);
     }
-    .blog-featured:hover::after { width: 100%; }
-
-    .blog-cards { display: flex; flex-direction: column; }
-
-    .blog-card {
-      padding: 1.875rem 2.25rem;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      flex-direction: column;
-      gap: 0.65rem;
-      transition: background 0.3s var(--ease);
-      position: relative;
-      cursor: pointer;
-      text-decoration: none;
-      color: inherit;
+    .blog-item:hover::after { width: 100%; }
+    @media (max-width: 640px) {
+      .blog-item { padding: 1.75rem 1.5rem; }
     }
-    .blog-card:last-child { border-bottom: none; }
-    .blog-card:hover { background: var(--cream-soft); }
-    .blog-card-arrow {
-      position: absolute;
-      bottom: 1.75rem; right: 2rem;
-      color: var(--gold);
-      font-size: 1rem;
-      opacity: 0;
-      transform: translateX(-6px);
-      transition: all 0.3s var(--ease);
-    }
-    .blog-card:hover .blog-card-arrow { opacity: 1; transform: translateX(0); }
 
     /* Meta row */
     .blog-meta {
@@ -1998,64 +1970,62 @@
       color: var(--mid-lt);
     }
 
-    /* Featured typography */
-    .blog-featured-title {
+    /* Article item typography — identical for every item, no
+       "featured" variant */
+    .blog-item-title {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(1.7rem, 2.8vw, 2.5rem);
+      font-size: clamp(1.4rem, 2.3vw, 1.9rem);
       font-weight: 300;
-      line-height: 1.12;
+      line-height: 1.18;
       letter-spacing: -0.01em;
       color: var(--ink);
-      margin-top: 0.5rem;
+      max-width: 62ch;
+      transition: color 0.3s;
     }
-    .blog-featured-title i { font-style: italic; color: var(--gold); }
+    .blog-item-title i { font-style: italic; color: var(--gold); }
+    .blog-item:hover .blog-item-title { color: var(--gold); }
 
-    .blog-featured-excerpt {
+    .blog-item-excerpt {
       font-size: 0.9375rem;
       font-weight: 300;
-      line-height: 1.8;
+      line-height: 1.78;
       color: var(--mid);
-      max-width: 520px;
-    }
-
-    .blog-read-more {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-family: 'DM Sans', sans-serif;
-      font-size: var(--sm);
-      font-weight: 500;
-      letter-spacing: 0.07em;
-      text-transform: uppercase;
-      color: var(--gold);
-      text-decoration: none;
-      margin-top: 0.25rem;
-      transition: gap 0.3s var(--ease);
-    }
-    .blog-read-more:hover { gap: 0.85rem; }
-
-    /* Card typography */
-    .blog-card-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(1.05rem, 1.7vw, 1.3rem);
-      font-weight: 400;
-      line-height: 1.25;
-      color: var(--ink);
-      transition: color 0.3s;
-      padding-right: 1.5rem;
-    }
-    .blog-card:hover .blog-card-title { color: var(--gold); }
-
-    .blog-card-excerpt {
-      font-size: 0.8125rem;
-      font-weight: 300;
-      line-height: 1.7;
-      color: var(--mid);
+      max-width: 68ch;
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
       overflow: hidden;
     }
+
+    /* "Leer Perspectiva" CTA — always visible (not a hover reveal),
+       styled like the site's other bordered pill buttons (e.g. the
+       article's own .art-nav-btn) so it reads as one design language.
+       It's a plain span, not a nested button: the whole .blog-item
+       is the single click/keyboard target (see aria-label on the
+       item), so the CTA never needs its own click handler. */
+    .blog-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      border: 1.5px solid var(--gold);
+      border-radius: 3px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--ink);
+      padding: 0.55rem 1.1rem;
+      margin-top: 0.15rem;
+      transition: background 0.2s var(--ease), color 0.2s var(--ease), transform 0.15s var(--ease);
+    }
+    .blog-cta .arr { display: inline-block; transition: transform 0.3s var(--ease); }
+    .blog-item:hover .blog-cta {
+      background: var(--gold);
+      color: var(--ink);
+      transform: translateY(-1px);
+    }
+    .blog-item:hover .blog-cta .arr { transform: translateX(4px); }
 
     .blog-foot {
       margin-top: 2.5rem;
@@ -2407,34 +2377,25 @@
         </p>
       </div>
 
-      <div class="blog-grid reveal d1" id="perspectivasHub">
+      <div class="blog-list reveal d1" id="perspectivasHub">
 
-        <!-- ARTÍCULO DESTACADO -->
-        <article class="blog-featured" onclick="nexumOpenArticle('art-resiliencia')" style="cursor:pointer" role="button" tabindex="0" aria-label="Leer: Resiliencia empresarial en la era de la disrupción a velocidad de máquina">
-          <div>
-            <div class="blog-meta">
-              <span class="blog-cat">Resiliencia Empresarial</span>
-              <span class="blog-date">30 de septiembre de 2026</span>
-            </div>
-            <h3 class="blog-featured-title">
-              Resiliencia empresarial en la era de la disrupción a velocidad de máquina
-            </h3>
+        <article class="blog-item" onclick="nexumOpenArticle('art-resiliencia')" style="cursor:pointer" role="button" tabindex="0" aria-label="Leer: Resiliencia empresarial en la era de la disrupción a velocidad de máquina">
+          <div class="blog-meta">
+            <span class="blog-cat">Resiliencia Empresarial</span>
+            <span class="blog-date">30 de septiembre de 2026</span>
           </div>
-          <div>
-            <p class="blog-featured-excerpt">
-              Qué cambió entre abril y septiembre de 2026, qué dicen los datos y cómo deben evolucionar bancos, cooperativas y aseguradoras de América Latina cuando la IA acelera tanto el ataque como la defensa.
-            </p>
-            <button class="blog-read-more" onclick="event.stopPropagation();nexumOpenArticle('art-resiliencia')">
-              Leer perspectiva <span class="arr">→</span>
-            </button>
-          </div>
+          <h3 class="blog-item-title">
+            Resiliencia empresarial en la era de la disrupción a velocidad de máquina
+          </h3>
+          <p class="blog-item-excerpt">
+            Qué cambió entre abril y septiembre de 2026, qué dicen los datos y cómo deben evolucionar bancos, cooperativas y aseguradoras de América Latina cuando la IA acelera tanto el ataque como la defensa.
+          </p>
+          <span class="blog-cta" aria-hidden="true">Leer Perspectiva <span class="arr">→</span></span>
         </article>
 
-        <div class="blog-cards">
-          <!-- Próximas perspectivas se agregan aquí -->
-        </div>
+        <!-- Próximas perspectivas se agregan aquí automáticamente, cada una como .blog-item -->
 
-      </div><!-- /blog-grid -->
+      </div><!-- /blog-list -->
 
       <!-- ── ACTIVE ARTICLE PANEL (same pattern as Executive Insights) ── -->
       <div class="air-panel" id="artPanel" hidden>
