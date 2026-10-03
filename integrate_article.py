@@ -802,15 +802,37 @@ def ensure_nav_js_upgrades(page: str) -> str:
     return page
 
 
+def _real_site_anchor(page: str) -> int:
+    """This file is an artifact-wrapped document: an outer artifact <html>
+    (its own tiny <style>/<script>/</head>/<body>) wraps the real NEXUM
+    <html> as nested tag-soup the browser folds into one DOM tree. That
+    means `page.find('</style>')` or `page.find('</head>')` silently grab
+    the OUTER wrapper's tag — not the real site's — because the outer one
+    always comes first. Every insertion point in this script must be
+    anchored relative to something unambiguously inside the real site
+    (Section 05 itself) and located with rfind (nearest preceding match),
+    never a bare forward find. This is not optional hardening: exactly
+    this mistake once caused a site's own stylesheet open-tag text to be
+    swallowed as inert content inside the outer wrapper's <style>, instead
+    of becoming its own element — invisible in a browser's lenient tag-soup
+    rendering, but corrupting the document and defeating any id-based
+    lookup of that style block."""
+    anchor = page.find('<section class="section" id="perspectivas"')
+    assert anchor != -1, "Section perspectivas not found in --html"
+    return anchor
+
+
 def ensure_chartjs_head(page: str) -> str:
-    """Make sure the Chart.js CDN script is loaded exactly once in <head>,
-    needed whenever any integrated article keeps its own `new Chart(...)`
-    calls. A no-op if it's already present (first chart article already
-    added it, or a future one will reuse this same check)."""
+    """Make sure the Chart.js CDN script is loaded exactly once in the real
+    site's <head>, needed whenever any integrated article keeps its own
+    `new Chart(...)` calls. A no-op if it's already present (first chart
+    article already added it, or a future one will reuse this same
+    check)."""
     if 'chart.umd.min.js' in page or 'cdn.jsdelivr.net/npm/chart.js' in page:
         return page
-    head_close = page.find('</head>')
-    assert head_close != -1, "No </head> found in site file"
+    anchor = _real_site_anchor(page)
+    head_close = page.rfind('</head>', 0, anchor)
+    assert head_close != -1, "No </head> found before Section 05 in site file"
     tag = '  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>\n'
     return page[:head_close] + tag + page[head_close:]
 
@@ -872,9 +894,18 @@ def bootstrap_section5(page, p, category):
   {MANUAL_OVERRIDES}
   </style>'''
 
-    style_end = page.find('</style>')
-    assert style_end != -1
-    page = page[:style_end] + SHARED_NAV_CSS + '\n  ' + scoped_style_tag + '\n  ' + page[style_end:]
+    anchor = _real_site_anchor(page)
+    style_end = page.rfind('</style>', 0, anchor)
+    assert style_end != -1, "No </style> found before Section 05 in site file"
+    # SHARED_NAV_CSS is plain CSS text, meant to be merged INTO the real
+    # site's own stylesheet (so it goes before that tag's closing </style>).
+    # scoped_style_tag is a whole separate <style id="art-scoped-css">...
+    # </style> element and must come AFTER that close, as a sibling — a
+    # <style> tag is raw text, so anything placed before its own </style>
+    # becomes inert text *inside* it rather than a new element (this bit
+    # the very first version of this fix too: see _real_site_anchor).
+    page = (page[:style_end] + SHARED_NAV_CSS + '\n  </style>\n  ' + scoped_style_tag + '\n  '
+            + page[style_end + len('</style>'):])
 
     sec5_start = page.find('  <section class="section" id="perspectivas"')
     assert sec5_start != -1, "Section perspectivas not found in --html"
@@ -906,13 +937,16 @@ def append_article(page, p, category):
     )
 
     # 1. New scoped <style>, appended right after the existing one(s)
-    style_end = page.find('</style>')
-    assert style_end != -1
+    anchor = _real_site_anchor(page)
+    style_end = page.rfind('</style>', 0, anchor)
+    assert style_end != -1, "No </style> found before Section 05 in site file"
     new_style_tag = f'''  <style id="art-scoped-css-{p.art_id}">
   /* ── SCOPED + RETHEMED ARTICLE CSS: {p.art_id} ── */
   {p.scoped_css}
   </style>\n  '''
-    page = page[:style_end] + new_style_tag + page[style_end:]
+    # Insert AFTER the preceding </style>, as a sibling — never before it,
+    # or this content becomes inert raw text inside that other <style> tag.
+    page = page[:style_end + len('</style>')] + '\n  ' + new_style_tag + page[style_end + len('</style>'):]
 
     # 2. New item into the shared .blog-list — every article is an equal
     #    .blog-item row; there is no featured slot to protect.
