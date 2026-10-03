@@ -224,22 +224,110 @@
 
   
   /* ── Native-integration overrides (not part of the article's own CSS) ── */
-  .art-frame .progress{position:sticky;top:84px;z-index:5}
+  /* .progress now handled by the shared #artSticky component */
   .art-frame .thesis{padding-inline:0;max-width:none;margin:0}
   .art-frame .shell{padding-inline:0;max-width:none;margin:0;grid-template-columns:minmax(0,1fr);gap:0}
-  .art-frame .toc{position:static;z-index:auto;background:transparent;margin-inline:0;padding:0 0 24px;border-bottom:1px solid var(--line);top:auto}
-  .art-frame .toc h2{display:block}
-  .art-frame .toc ol{display:flex;flex-wrap:wrap;gap:8px;overflow-x:visible}
-  .art-frame .toc a{display:inline-flex;align-items:center;gap:6px;white-space:nowrap;border:1px solid var(--line);border-radius:999px;padding:6px 14px 6px 10px}
-  .art-frame .toc a span{margin-right:0}
-  .art-frame section{scroll-margin-top:100px}
+  /* .toc nav replaced by the shared, auto-generated #artNav component */
+  .art-frame section{scroll-margin-top:190px}
   .art-frame footer{padding-inline:0}
   .art-frame footer .in{max-width:none;margin:0}
   .art-frame .meta{margin-top:0.75rem;padding-bottom:1.75rem;border-bottom:1px solid var(--line)}
   #artPanel{scroll-margin-top:96px}
+  #artSticky{scroll-margin-top:0}
   #perspectivasHub{scroll-margin-top:96px}
 
-  </style>
+  
+    /* ════════════════════════════════════════════════════════
+       ARTICLE NAVIGATION — shared component, reused by every
+       article opened from Perspectivas. Do not duplicate this
+       per article; it is applied automatically by
+       buildArticleNav() to whichever .art-frame is open.
+       ════════════════════════════════════════════════════════ */
+    .art-sticky {
+      position: sticky;
+      top: 80px;
+      z-index: 15;
+      background: rgba(237,243,249,0.94);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      margin: 0 0 2.5rem;
+      padding: 1rem 0 0.9rem;
+    }
+    .art-nav-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--mid-lt);
+      margin-bottom: 0.7rem;
+    }
+    .art-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      list-style: none;
+    }
+    .art-nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: transparent;
+      border: 1.5px solid var(--gold);
+      border-radius: 3px;
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.2s var(--ease), color 0.2s var(--ease), transform 0.15s var(--ease);
+    }
+    .art-nav-btn .num {
+      font-family: 'DM Mono', monospace;
+      font-weight: 500;
+      font-size: 0.68rem;
+      color: var(--gold);
+      transition: color 0.2s var(--ease);
+    }
+    .art-nav-btn:hover {
+      background: var(--gold);
+      color: var(--ink);
+      transform: translateY(-1px);
+    }
+    .art-nav-btn:hover .num { color: var(--ink); }
+    .art-nav-btn.active {
+      background: var(--gold);
+      color: var(--ink);
+      box-shadow: 0 4px 14px rgba(0,192,220,0.35);
+    }
+    .art-nav-btn.active .num { color: var(--ink); }
+    .art-nav-btn:focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 2px;
+    }
+    #artProgressTrack {
+      height: 2px;
+      background: var(--border);
+      border-radius: 1px;
+      margin-top: 0.9rem;
+      overflow: hidden;
+    }
+    #artProgressFill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--amber), var(--gold));
+      transition: width 0.1s linear;
+    }
+    @media (max-width: 900px) {
+      .art-sticky { top: 64px; padding: 0.85rem 0 0.75rem; }
+      .art-nav { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
+      .art-nav::-webkit-scrollbar { display: none; }
+      .art-nav-btn { flex-shrink: 0; }
+    }
+</style>
   </style></head><body>
 <!DOCTYPE html>
 <html lang="es">
@@ -2354,6 +2442,15 @@
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           Volver a Perspectivas
         </button>
+
+        <!-- Shared article-navigation component (auto-built per open article) -->
+        <div class="art-sticky" id="artSticky">
+          <div class="art-nav-label">Contenido del artículo</div>
+          <nav class="art-nav" id="artNav" aria-label="Navegación del artículo"></nav>
+          <div id="artProgressTrack"><div id="artProgressFill"></div></div>
+        </div>
+
+        <div id="artBody">
 <div id="art-resiliencia" class="art-frame">
       <div class="air-panel-title">
         <h3>Resiliencia empresarial en la era de la <em>disrupción a velocidad de máquina</em></h3>
@@ -2366,7 +2463,7 @@
 
 
 
-<div aria-hidden="true" class="progress" id="progress"></div>
+
 
 <div aria-label="Cifras que definen la agenda" class="thesis">
 <div class="thesis-grid">
@@ -2377,22 +2474,7 @@
 </div>
 </div>
 <div class="shell">
-<nav aria-label="Contenido del informe" class="toc">
-<h2>Contenido</h2>
-<ol>
-<li><a href="#resumen"><span>00</span>Resumen ejecutivo</a></li>
-<li><a href="#hallazgos"><span>01</span>Hallazgos clave</a></li>
-<li><a href="#datos"><span>02</span>Datos y estadísticas</a></li>
-<li><a href="#voces"><span>03</span>Voces expertas</a></li>
-<li><a href="#tendencias"><span>04</span>Tendencias</a></li>
-<li><a href="#debates"><span>05</span>Debates</a></li>
-<li><a href="#madurez"><span>06</span>Matriz LATAM</a></li>
-<li><a href="#evolucion"><span>07</span>Bancos, cooperativas, seguros</a></li>
-<li><a href="#ruta"><span>08</span>Hoja de ruta</a></li>
-<li><a href="#imperativos"><span>09</span>Imperativos C‑suite</a></li>
-<li><a href="#fuentes"><span>10</span>Bibliografía</a></li>
-</ol>
-</nav>
+
 <main>
 <!-- 00 -->
 <section id="resumen" style="padding-top:8px">
@@ -2741,6 +2823,7 @@
 
 
 </div>
+        </div><!-- /artBody -->
       </div>
 
       <div class="blog-foot reveal d2">
@@ -3756,38 +3839,98 @@
     var elHub   = document.getElementById('perspectivasHub');
     var elPanel = document.getElementById('artPanel');
     var elBack  = document.getElementById('artBack');
+    var elNav   = document.getElementById('artNav');
+    var elFill  = document.getElementById('artProgressFill');
     var scrollBound = false;
+    var currentFrame = null;
 
-    function pad() {}
+    function pad2(n) { return (n < 10 ? '0' : '') + n; }
+
+    /* ════════════════════════════════════════════════════════
+       SHARED, REUSABLE: builds the sticky section nav for
+       whichever .art-frame is currently open, by reading its
+       section[id] elements. Any future article that follows the
+       same convention (<section id="..."><div class="eyebrow">
+       NN · Label</div>...) gets this automatically — nothing to
+       wire up per article.
+       ════════════════════════════════════════════════════════ */
+    function buildArticleNav(frame) {
+      var sections = [].slice.call(frame.querySelectorAll('section[id]'));
+      var items = sections.map(function(s, i) {
+        var num = pad2(i);
+        var label = '';
+        var eyebrow = s.querySelector('.eyebrow');
+        if (eyebrow) {
+          var parts = eyebrow.textContent.split('·').map(function(p) { return p.trim(); });
+          if (parts.length && /^\d+$/.test(parts[0])) {
+            num = parts[0];
+            if (parts[1]) label = parts[1];
+          } else if (parts[0]) {
+            label = parts[0];
+          }
+        }
+        if (!label) {
+          var h = s.querySelector('h2, h3');
+          label = h ? h.textContent.trim() : s.id;
+          if (label.length > 30) label = label.slice(0, 28) + '…';
+        }
+        return { id: s.id, num: num, label: label, el: s };
+      });
+
+      elNav.innerHTML = items.map(function(it) {
+        return '<button type="button" class="art-nav-btn" data-target="' + it.id + '">' +
+                 '<span class="num">' + it.num + '</span>' + it.label +
+               '</button>';
+      }).join('');
+
+      return items;
+    }
 
     function artScrollHandler() {
-      var frame = document.getElementById('art-resiliencia');
-      if (!frame || elPanel.hidden) return;
-      var bar = frame.querySelector('.progress');
-      var rect = frame.getBoundingClientRect();
+      if (!currentFrame || elPanel.hidden) return;
+      var rect = currentFrame.getBoundingClientRect();
       var articleTop = window.scrollY + rect.top;
-      var total = frame.scrollHeight - window.innerHeight;
+      var total = currentFrame.scrollHeight - window.innerHeight;
       var scrolled = window.scrollY - articleTop;
       var pct = total > 0 ? Math.max(0, Math.min(100, (scrolled / total) * 100)) : 0;
-      if (bar) bar.style.width = pct + '%';
+      if (elFill) elFill.style.width = pct + '%';
 
-      var links = [].slice.call(frame.querySelectorAll('.toc a'));
-      var y = window.scrollY + 140, cur = 0;
-      links.forEach(function(a, i) {
-        var href = a.getAttribute('href');
-        var target = href ? document.querySelector(href) : null;
+      var btns = [].slice.call(elNav.querySelectorAll('.art-nav-btn'));
+      var y = window.scrollY + 200, cur = 0;
+      btns.forEach(function(btn, i) {
+        var target = document.getElementById(btn.dataset.target);
         if (target) {
           var tTop = window.scrollY + target.getBoundingClientRect().top;
           if (tTop <= y) cur = i;
         }
       });
-      links.forEach(function(a, i) { a.classList.toggle('on', i === cur); });
+      btns.forEach(function(btn, i) { btn.classList.toggle('active', i === cur); });
     }
 
+    elNav.addEventListener('click', function(e) {
+      var btn = e.target.closest('.art-nav-btn');
+      if (!btn) return;
+      var target = document.getElementById(btn.dataset.target);
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
     function nexumOpenArticle(id) {
+      var frame = document.getElementById(id);
+      if (!frame) return;
+
+      // Hide every other article frame, show this one (future-proof for
+      // multiple articles sharing the same #artBody / #artNav shell)
+      [].slice.call(document.querySelectorAll('#artBody .art-frame')).forEach(function(f) {
+        f.hidden = (f !== frame);
+      });
+      currentFrame = frame;
+
+      buildArticleNav(frame);
+
       elHub.style.display = 'none';
       elPanel.removeAttribute('hidden');
       elPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
       if (!scrollBound) {
         window.addEventListener('scroll', artScrollHandler, { passive: true });
         scrollBound = true;
