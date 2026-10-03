@@ -376,7 +376,8 @@ def parse_article(article_path, art_id):
     elif header_el:
         h1_el = header_el.find('h1')
         dek_el = header_el.find(class_='dek') or header_el.find(class_='subtitle') or header_el.find('p')
-        meta_el = (header_el.find(class_='meta') or header_el.find(class_='hero-meta'))
+        meta_el = (header_el.find(class_='meta') or header_el.find(class_='hero-meta')
+                   or header_el.find(class_='meta-row'))
     else:
         h1_el = art.find('h1')
         dek_el = art.find(class_='dek') or art.find(class_='subtitle')
@@ -391,22 +392,35 @@ def parse_article(article_path, art_id):
     p.excerpt_text = dek_el.get_text(strip=True) if dek_el else ''
     p.excerpt_html = dek_el.decode_contents() if dek_el else ''
 
-    # Date: try the meta block's first labeled span first (convention A
-    # shape: <span><b>Fecha:</b> value</span>); if that doesn't yield
-    # anything (convention B's hero-meta divs put the label and value as
-    # siblings, not inside one <b>-prefixed span), fall back to the
-    # header's own top eyebrow line ("Informe Ejecutivo · Septiembre
-    # 2026" -> take the part after the last "·").
+    # Date: tried against three known meta shapes in order, since every
+    # export so far has used a different one:
+    #  A ("meta"):     <span><b>Fecha:</b> value</span>
+    #  B ("hero-meta"): label/value as plain sibling text, not one span
+    #  C ("meta-row"):  <div class="meta-item"><span class="k">Edición</span>
+    #                   <span class="v">Septiembre 2026</span></div> — label
+    #                   and value are two SEPARATE sibling spans, so a
+    #                   single meta_el.find('span') only ever reaches the
+    #                   label. Don't special-case the exact class names
+    #                   forever; match by the label's TEXT instead (any of
+    #                   edición/fecha/date), which survives the next markup
+    #                   variant even if the wrapper classes change again.
     p.date = ''
     if meta_el:
-        first_span = meta_el.find('span')
-        if first_span:
-            label = first_span.find('b')
-            txt = first_span.get_text(' ', strip=True)
-            if label:
-                txt = txt.replace(label.get_text(strip=True), '', 1).strip()
-            if txt and txt != first_span.get_text(strip=True):
-                p.date = txt
+        label_el = meta_el.find(string=re.compile(r'edici[oó]n|fecha|^date$', re.IGNORECASE))
+        if label_el:
+            container = label_el.find_parent() if hasattr(label_el, 'find_parent') else None
+            value_el = container.find_next_sibling() if container else None
+            if value_el and value_el.get_text(strip=True):
+                p.date = value_el.get_text(strip=True)
+        if not p.date:
+            first_span = meta_el.find('span')
+            if first_span:
+                label = first_span.find('b')
+                txt = first_span.get_text(' ', strip=True)
+                if label:
+                    txt = txt.replace(label.get_text(strip=True), '', 1).strip()
+                if txt and txt != first_span.get_text(strip=True):
+                    p.date = txt
     if not p.date and header_el:
         top_eyebrow = header_el.find(class_='eyebrow')
         if top_eyebrow:

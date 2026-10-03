@@ -2216,6 +2216,230 @@
     .rule { width: 2rem; height: 1px; background: var(--gold); margin-bottom: 2rem; }
 
   </style>
+    <style id="art-scoped-css-art-eficiencia-cognitiva">
+  /* ── SCOPED + RETHEMED ARTICLE CSS: art-eficiencia-cognitiva ── */
+  
+.art-frame{
+  --navy-950:#DEE9F5;
+  --navy-900:#EDF3F9;
+  --navy-800:#FFFFFF;
+  --navy-700:#DEE9F5;
+  --line:rgba(9,27,56,.14);
+  --ink:#091B38;
+  --ink-2:#1A3252;
+  --ink-3:#4A5A72;
+  --gold-1:#00AFC9;
+  --gold-2:#0C2B5C;
+  --gold-3:#C87A18;
+  --teal:#00C0DC;
+  --amber:#C87A18;
+  --red:#B3433A;
+  --f-display:'Cormorant Garamond', 'Iowan Old Style', Georgia, serif;
+  --f-body:'DM Sans', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;
+  --f-mono:'DM Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  color-scheme: light;
+}
+
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;.art-frame 0, .art-frame 500;0, .art-frame 600;0, .art-frame 700;1, .art-frame 500&family=Jost:wght@300;400;500;600;700&display=swap');
+
+  
+
+  *{box-sizing:border-box;}
+  .art-frame, .art-frame{margin:0;padding:0;}
+  .art-frame{
+    background:var(--navy-900);
+    color:var(--ink);
+    font-family:'Jost',system-ui,sans-serif;
+    font-weight:300;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  .art-frame ::selection{background:var(--gold-2);color:var(--navy-900);}
+
+  .art-frame h1, .art-frame h2, .art-frame h3, .art-frame h4{
+    font-family:'Cormorant Garamond',Georgia,serif;
+    font-weight:600;
+    color:var(--cream);
+    text-wrap:balance;
+    margin:0;
+  }
+
+  .art-frame a{color:var(--gold-1);}
+
+  /* Scroll progress */
+  .art-frame #progress{
+    position:fixed; top:0; left:0; height:3px; width:0%;
+    background:linear-gradient(90deg,var(--gold-3),var(--gold-1));
+    z-index:999; transition:width .1s linear;
+  }
+
+  .art-frame .wrap{max-width:980px; margin:0 auto; padding:0 24px;}
+
+  /* ---------- HERO ---------- */
+  .art-frame header.hero{
+    position:relative;
+    padding:96px 24px 72px;
+    border-bottom:1px solid var(--line);
+    background:
+      radial-gradient(ellipse 900px 500px at 15% -10%, rgba(232,200,116,0.10), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 100% 0%, rgba(95,179,179,0.08), transparent 60%),
+      var(--navy-900);
+  }
+  .art-frame .eyebrow{
+    font-family:'Jost',sans-serif; font-size:.72rem; letter-spacing:.22em;
+    text-transform:uppercase; color:var(--gold-2); font-weight:600;
+    display:flex; align-items:center; gap:10px; margin-bottom:22px;
+  }
+  .art-frame .eyebrow::before{content:""; width:28px; height:1px; background:var(--gold-2);}
+  .art-frame h1.title{font-size:clamp(2.3rem,5.2vw,3.7rem); line-height:1.08; max-width:820px;}
+  .art-frame h1.title em{font-style:italic; color:var(--gold-1);}
+  .art-frame .subhead{
+    max-width:640px; margin-top:22px; color:var(--ink-dim);
+    font-size:1.05rem; font-weight:300;
+  }
+  .art-frame .meta-row{
+    display:flex; flex-wrap:wrap; gap:28px; margin-top:44px;
+    padding-top:28px; border-top:1px solid var(--line);
+  }
+  .art-frame .meta-item{display:flex; flex-direction:column; gap:4px;}
+  .art-frame .meta-item .k{font-size:.68rem; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-dim);}
+  .art-frame .meta-item .v{font-family:'Cormorant Garamond',serif; font-size:1.15rem; color:var(--cream); font-weight:600;}
+
+  /* ---------- SECTION SCAFFOLD ---------- */
+  .art-frame section{padding:72px 24px; border-bottom:1px solid var(--line); position:relative;}
+  .art-frame section.fade{opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease;}
+  .art-frame section.fade.in{opacity:1; transform:translateY(0);}
+
+  .art-frame .sec-head{display:flex; align-items:baseline; gap:18px; margin-bottom:36px;}
+  .art-frame .sec-num{
+    font-family:'Cormorant Garamond',serif; font-size:1rem; color:var(--gold-2);
+    letter-spacing:.08em; font-weight:600; white-space:nowrap;
+  }
+  .art-frame .sec-title{font-size:clamp(1.6rem,3vw,2.2rem);}
+  .art-frame .sec-lede{color:var(--ink-dim); max-width:680px; margin:14px 0 0; font-size:1rem;}
+
+  /* Confidence badges */
+  .art-frame .badge{
+    display:inline-flex; align-items:center; gap:6px; font-size:.66rem;
+    letter-spacing:.08em; text-transform:uppercase; font-weight:600;
+    padding:3px 9px; border-radius:20px; white-space:nowrap;
+  }
+  .art-frame .badge.alta{color:var(--alta); border:1px solid rgba(127,216,164,0.35); background:rgba(127,216,164,0.08);}
+  .art-frame .badge.media{color:var(--media); border:1px solid rgba(232,200,116,0.35); background:rgba(232,200,116,0.08);}
+  .art-frame .badge::before{content:"●"; font-size:.55rem;}
+
+  /* ---------- 1. HALLAZGOS CLAVE ---------- */
+  .art-frame .findings-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--line); border:1px solid var(--line);}
+  .art-frame .finding{background:var(--navy-800); padding:28px 26px; display:flex; flex-direction:column; gap:12px;}
+  .art-frame .finding .num{font-family:'Cormorant Garamond',serif; font-size:2.6rem; color:var(--gold-1); font-weight:700; line-height:1;}
+  .art-frame .finding .label{font-size:.92rem; color:var(--ink); font-weight:400; line-height:1.5;}
+  .art-frame .finding .src{font-size:.72rem; color:var(--ink-dim); margin-top:auto;}
+  @media(max-width:700px){.art-frame .findings-grid{grid-template-columns:1fr;}}
+
+  /* ---------- 2. DATOS Y ESTADISTICAS ---------- */
+  .art-frame .chart-card{
+    background:var(--navy-800); border:1px solid var(--line); border-radius:4px;
+    padding:28px; margin-bottom:24px;
+  }
+  .art-frame .chart-card h4{font-size:1.05rem; color:var(--cream); font-weight:600; margin-bottom:4px;}
+  .art-frame .chart-card .cap{font-size:.82rem; color:var(--ink-dim); margin-bottom:18px;}
+  .art-frame .chart-wrap{position:relative; height:280px;}
+  .art-frame .stat-row{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line); margin-top:24px;}
+  .art-frame .stat{background:var(--navy-800); padding:22px 20px;}
+  .art-frame .stat .v{font-family:'Cormorant Garamond',serif; font-size:2.1rem; color:var(--gold-1); font-weight:700;}
+  .art-frame .stat .l{font-size:.8rem; color:var(--ink-dim); margin-top:4px;}
+  @media(max-width:700px){.art-frame .stat-row{grid-template-columns:1fr;}}
+
+  /* ---------- 3. VOCES EXPERTAS ---------- */
+  .art-frame .quote-card{
+    border-left:2px solid var(--gold-2); padding:6px 0 6px 28px; margin-bottom:34px;
+  }
+  .art-frame .quote-card p.q{font-family:'Cormorant Garamond',serif; font-size:1.35rem; font-style:italic; color:var(--cream); line-height:1.45;}
+  .art-frame .quote-card .who{margin-top:12px; font-size:.85rem; color:var(--ink-dim);}
+  .art-frame .quote-card .who strong{color:var(--gold-2); font-weight:600; font-style:normal;}
+
+  /* ---------- 4. TENDENCIAS ---------- */
+  .art-frame .trend-list{display:flex; flex-direction:column; gap:0;}
+  .art-frame .trend{
+    display:grid; grid-template-columns:64px 1fr; gap:20px;
+    padding:26px 0; border-top:1px solid var(--line);
+  }
+  .art-frame .trend:last-child{border-bottom:1px solid var(--line);}
+  .art-frame .trend .yr{font-family:'Cormorant Garamond',serif; color:var(--gold-2); font-size:1.3rem; font-weight:600;}
+  .art-frame .trend h4{font-size:1.1rem; margin-bottom:6px; color:var(--cream);}
+  .art-frame .trend p{font-size:.92rem; color:var(--ink-dim); margin:0;}
+
+  /* ---------- 5. DEBATES ---------- */
+  .art-frame .debate{
+    display:grid; grid-template-columns:1fr 1fr; gap:0;
+    border:1px solid var(--line); margin-bottom:22px; border-radius:4px; overflow:hidden;
+  }
+  .art-frame .debate > div{padding:26px 24px;}
+  .art-frame .debate .pos{background:rgba(127,216,164,0.05); border-right:1px solid var(--line);}
+  .art-frame .debate .neg{background:rgba(200,90,90,0.05);}
+  .art-frame .debate .side-label{font-size:.68rem; letter-spacing:.12em; text-transform:uppercase; font-weight:600; margin-bottom:10px; display:block;}
+  .art-frame .debate .pos .side-label{color:var(--alta);}
+  .art-frame .debate .neg .side-label{color:#E39B9B;}
+  .art-frame .debate p{font-size:.9rem; color:var(--ink); margin:0;}
+  .art-frame .debate-title{font-family:'Cormorant Garamond',serif; font-size:1.25rem; color:var(--cream); margin-bottom:12px; font-weight:600;}
+  @media(max-width:700px){.art-frame .debate{grid-template-columns:1fr;} .art-frame .debate .pos{border-right:none; border-bottom:1px solid var(--line);}}
+
+  /* ---------- 6. MATRIZ DE MADUREZ ---------- */
+  .art-frame .matrix-wrap{overflow-x:auto;}
+  .art-frame table.matrix{width:100%; border-collapse:collapse; min-width:720px;}
+  .art-frame table.matrix th, .art-frame table.matrix td{padding:14px 16px; text-align:left; border-bottom:1px solid var(--line); font-size:.88rem;}
+  .art-frame table.matrix th{
+    font-family:'Jost',sans-serif; font-size:.68rem; letter-spacing:.1em; text-transform:uppercase;
+    color:var(--gold-2); font-weight:600; border-bottom:1px solid var(--gold-2);
+  }
+  .art-frame table.matrix td.country{font-family:'Cormorant Garamond',serif; font-weight:600; color:var(--cream); font-size:1.05rem;}
+  .art-frame .lvl{display:inline-flex; align-items:center; gap:8px;}
+  .art-frame .dot-row{display:flex; gap:3px;}
+  .art-frame .dot{width:7px; height:7px; border-radius:50%; background:rgba(255,255,255,0.12);}
+  .art-frame .dot.on{background:var(--gold-1);}
+  .art-frame .editorial-note{
+    margin-top:18px; font-size:.78rem; color:var(--ink-dim); font-style:italic;
+    border-top:1px dashed var(--line); padding-top:14px;
+  }
+
+  /* ---------- 7. ROADMAP ---------- */
+  .art-frame .roadmap{display:grid; grid-template-columns:repeat(4,1fr); gap:16px;}
+  .art-frame .phase{background:var(--navy-800); border:1px solid var(--line); border-radius:4px; padding:22px 20px; position:relative;}
+  .art-frame .phase .ph-range{font-size:.68rem; letter-spacing:.1em; text-transform:uppercase; color:var(--gold-2); font-weight:600;}
+  .art-frame .phase h4{font-size:1.1rem; margin:8px 0 12px;}
+  .art-frame .phase ul{margin:0; padding-left:18px; font-size:.84rem; color:var(--ink-dim);}
+  .art-frame .phase li{margin-bottom:6px;}
+  @media(max-width:900px){.art-frame .roadmap{grid-template-columns:1fr 1fr;}}
+  @media(max-width:560px){.art-frame .roadmap{grid-template-columns:1fr;}}
+
+  /* ---------- 8. IMPERATIVOS ---------- */
+  .art-frame .imp-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line);}
+  .art-frame .imp{background:var(--navy-800); padding:24px 22px;}
+  .art-frame .imp .role{font-family:'Cormorant Garamond',serif; font-size:1.3rem; color:var(--gold-1); font-weight:700; margin-bottom:10px;}
+  .art-frame .imp p{font-size:.86rem; color:var(--ink); margin:0;}
+  @media(max-width:900px){.art-frame .imp-grid{grid-template-columns:1fr 1fr;}}
+  @media(max-width:560px){.art-frame .imp-grid{grid-template-columns:1fr;}}
+
+  /* ---------- 9. BIBLIOGRAFIA ---------- */
+  .art-frame .biblio{list-style:none; margin:0; padding:0; columns:2; column-gap:40px;}
+  .art-frame .biblio li{
+    font-size:.82rem; color:var(--ink-dim); margin-bottom:14px; break-inside:avoid;
+    padding-left:16px; position:relative; line-height:1.5;
+  }
+  .art-frame .biblio li::before{content:"—"; position:absolute; left:0; color:var(--gold-3);}
+  .art-frame .biblio li a{color:var(--ink); text-decoration:none; border-bottom:1px solid var(--line);}
+  .art-frame .biblio li a:hover{color:var(--gold-1); border-color:var(--gold-1);}
+  .art-frame .biblio li .date{color:var(--gold-2); font-size:.74rem;}
+  @media(max-width:700px){.art-frame .biblio{columns:1;}}
+
+  .art-frame footer{padding:48px 24px 64px; text-align:center;}
+  .art-frame footer .brand{font-family:'Cormorant Garamond',serif; font-size:1.3rem; color:var(--gold-1); letter-spacing:.04em;}
+  .art-frame footer p{font-size:.78rem; color:var(--ink-dim); margin-top:8px;}
+
+.art-frame .fade{opacity:1!important;transform:none!important}
+  </style>
+  
 </head>
 <body>
 
@@ -2577,6 +2801,20 @@
           </h3>
           <p class="blog-item-excerpt">
             Cómo la IA agéntica, las finanzas embebidas y la economía de plataformas están redefiniendo la propiedad del cliente y la arquitectura de ingresos de bancos, cooperativas y aseguradoras en América Latina.
+          </p>
+          <span class="blog-cta" aria-hidden="true">Leer Perspectiva <span class="arr">→</span></span>
+        </article>
+
+                <article class="blog-item" onclick="nexumOpenArticle('art-eficiencia-cognitiva')" style="cursor:pointer" role="button" tabindex="0" aria-label="Leer: Eficiencia Operativa y Automatización Cognitiva">
+          <div class="blog-meta">
+            <span class="blog-cat">Eficiencia Operativa</span>
+            <span class="blog-date">Septiembre 2026</span>
+          </div>
+          <h3 class="blog-item-title">
+            Eficiencia Operativa y Automatización Cognitiva
+          </h3>
+          <p class="blog-item-excerpt">
+            Cómo la IA agéntica está redefiniendo el costo, la velocidad y el riesgo operativo en banca, seguros y cooperativas de América Latina — y qué separa el ROI real de la "teatralidad productiva".
           </p>
           <span class="blog-cta" aria-hidden="true">Leer Perspectiva <span class="arr">→</span></span>
         </article>
@@ -3383,6 +3621,387 @@
       plugins:{legend:{position:'bottom', labels:{boxWidth:12, font:{size:9}}}}
     }
   });
+</script>
+      </div>
+            <div id="art-eficiencia-cognitiva" class="art-frame" hidden>
+        <div class="air-panel-title">
+          <h3>Eficiencia Operativa y <em>Automatización Cognitiva</em></h3>
+          <p>Cómo la IA agéntica está redefiniendo el costo, la velocidad y el riesgo operativo en banca, seguros y cooperativas de América Latina — y qué separa el ROI real de la "teatralidad productiva".</p>
+        </div>
+        <div class="meta-row">
+<div class="meta-item"><span class="k">Edición</span><span class="v">Septiembre 2026</span></div>
+<div class="meta-item"><span class="k">Audiencia</span><span class="v">CEO · CIO · CTO · CISO · CDO</span></div>
+<div class="meta-item"><span class="k">Cobertura</span><span class="v">Brasil · México · Colombia · Chile · Argentina · Perú</span></div>
+<div class="meta-item"><span class="k">Confianza de datos</span><span class="v">≥95% o rango declarado</span></div>
+</div>
+
+
+<meta content="Informe ejecutivo NEXUM LATAM sobre eficiencia operativa y automatización cognitiva en banca, seguros y cooperativas de América Latina." name="description"/>
+
+
+
+<!-- 1. HALLAZGOS CLAVE -->
+<section class="fade" id="art-eficiencia-cognitiva-s1">
+<div class="wrap">
+<div class="sec-head"><span class="sec-num">01</span><h2 class="sec-title">Hallazgos Clave</h2></div>
+<p class="sec-lede">Los últimos seis meses marcan un punto de inflexión: la automatización cognitiva dejó de ser piloto de innovación para convertirse en la variable que define el costo operativo estructural del sector financiero regional.</p>
+<div class="findings-grid">
+<div class="finding">
+<div class="num">40–80%</div>
+<div class="label">de mejora en tiempos de proceso cuando la IA se implementa con rigor en operaciones bancarias y de seguros en LATAM (una tarea de 5 horas en una aseguradora se reduce a 1 hora).</div>
+<div class="src">N5now, análisis de productividad banca y seguros LATAM 2025–2026</div>
+</div>
+<div class="finding">
+<div class="num">47%</div>
+<div class="label">de las instituciones de banca y seguros ya tienen al menos un agente de IA en producción — la mayor tasa de adopción productiva de cualquier vertical, por delante de retail y salud.</div>
+<div class="src">S&amp;P Global Market Intelligence / McKinsey, 2026</div>
+</div>
+<div class="finding">
+<div class="num">21%</div>
+<div class="label">de las organizaciones cuenta con un modelo de gobernanza maduro para agentes autónomos de IA — el 79% restante opera sin la infraestructura de control necesaria para escalar con seguridad.</div>
+<div class="src">Deloitte, State of Generative AI 2026</div>
+</div>
+<div class="finding">
+<div class="num">6 días</div>
+<div class="label">es el nuevo estándar de onboarding bancario con arquitectura multiagente orquestada (orquestador + agentes especializados + agentes críticos), frente a seis semanas con flujos secuenciales tradicionales.</div>
+<div class="src">KMS Technology, AI Trends in Banking 2026</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 2. DATOS Y ESTADISTICAS -->
+<section class="fade" id="art-eficiencia-cognitiva-s2">
+<div class="wrap">
+<div class="sec-head"><span class="sec-num">02</span><h2 class="sec-title">Datos y Estadísticas</h2></div>
+<p class="sec-lede">La brecha entre adopción y producción es la métrica que más debe preocupar a los comités ejecutivos: la mayoría de las organizaciones ya "usa" IA agéntica, pero muy pocas la han institucionalizado con gobierno y ROI verificable.</p>
+<div class="chart-card">
+<h4>La brecha adopción → producción en IA agéntica <span class="badge alta">Alta</span></h4>
+<div class="cap">Porcentaje de empresas por etapa de madurez agéntica, global 2026</div>
+<div class="chart-wrap"><canvas id="art-eficiencia-cognitiva-chartGap"></canvas></div>
+</div>
+<div class="chart-card">
+<h4>Costo operativo bancario proyectado por adopción de IA <span class="badge media">Media</span></h4>
+<div class="cap">Reducción estimada de costos operativos, banca global — rango declarado por fuente y horizonte</div>
+<div class="chart-wrap"><canvas id="art-eficiencia-cognitiva-chartCost"></canvas></div>
+</div>
+<div class="stat-row">
+<div class="stat"><div class="v">30%</div><div class="l">adopción "mainstream" de GenAI empresarial en 2025, frente a 6% en 2023 (Capgemini)</div></div>
+<div class="stat"><div class="v">68%</div><div class="l">de los CTO señalan los sistemas legacy como el mayor obstáculo para escalar IA (Capgemini)</div></div>
+<div class="stat"><div class="v">US$1.5B</div><div class="l">invertidos en IA por el sector financiero LATAM en 2024, +30% interanual (IDC LatAm AI Spending Guide)</div></div>
+</div>
+<p class="editorial-note">Nota de transparencia editorial: los datos específicos de adopción agéntica desagregados por país para Colombia y Perú siguen siendo escasos en fuentes públicas verificables; donde no existe desagregación confiable, este informe reporta la cifra regional o global aplicable y lo señala explícitamente, en lugar de extrapolar.</p>
+</div>
+</section>
+<!-- 3. VOCES EXPERTAS -->
+<section class="fade" id="art-eficiencia-cognitiva-s3">
+<div class="wrap">
+<div class="sec-head"><span class="sec-num">03</span><h2 class="sec-title">Voces Expertas</h2></div>
+<p class="sec-lede">Analistas y practicantes convergen en un mismo diagnóstico: la tecnología ya no es el cuello de botella — la orquestación, la gobernanza y la disciplina de medición sí lo son.</p>
+<div class="quote-card">
+<p class="q">"Con estas tecnologías, tareas complejas pueden hacerse no diez veces más rápido, no cincuenta veces más rápido, sino cien veces más rápido. Eso es genuinamente difícil de asimilar cuando se han pasado 30 años en un entorno relativamente estable."</p>
+<div class="who"><strong>Klemens Hjartar</strong> — citado en McKinsey, "Agentic AI transforms banking beyond automation" (2026)</div>
+</div>
+<div class="quote-card">
+<p class="q">"Dar Copilot a todo el mundo no genera valor por sí solo. Hablé con dos CEOs en las últimas dos semanas frustrados porque habían invertido sumas significativas en herramientas con bajo uso y cero impacto."</p>
+<div class="who"><strong>Andrea Del Miglio</strong> — McKinsey, sobre la diferencia entre desplegar IA y capturar valor (2026)</div>
+</div>
+<div class="quote-card">
+<p class="q">"La IA seguirá dominando la agenda global de pagos. No se trata solo de una moda: está redefiniendo todo el ciclo del pago, desde cómo se origina y procesa hasta cómo se asegura y se convierte en una experiencia más inteligente para el usuario."</p>
+<div class="who"><strong>Cristian Sánchez</strong>, VP de Ventas LATAM — Temenos, tendencias de pagos 2026</div>
+</div>
+<div class="quote-card">
+<p class="q">"A diferencia de los humanos, los agentes dejan un rastro de auditoría completo de cada acción que toman. Por primera vez, se puede rastrear hasta el único prompt que generó una pieza de código. Ese nivel de trazabilidad nunca había existido."</p>
+<div class="who"><strong>Andrea Del Miglio</strong> — McKinsey, sobre gobernanza e identidad de agentes (2026)</div>
+</div>
+</div>
+</section>
+<!-- 4. TENDENCIAS EMERGENTES -->
+<section class="fade" id="art-eficiencia-cognitiva-s4">
+<div class="wrap">
+<div class="sec-head"><span class="sec-num">04</span><h2 class="sec-title">Tendencias Emergentes</h2></div>
+<p class="sec-lede">La hoja de ruta de madurez que Gartner traza para la empresa agéntica global ya tiene traducción directa al calendario de transformación de la banca latinoamericana.</p>
+<div class="trend-list">
+<div class="trend">
+<div class="yr">2026</div>
+<div><h4>De copiloto a agente de tarea específica</h4><p>40% de las aplicaciones empresariales incorporará agentes de IA con tareas específicas hacia fin de 2026, frente a menos del 5% en 2025 (Gartner). En banca y seguros LATAM esto se traduce en back-office —conciliaciones, excepciones, liquidaciones— pasando de tareas manuales a flujos supervisados.</p></div>
+</div>
+<div class="trend">
+<div class="yr">2026–27</div>
+<div><h4>Banca agéntica como arquitectura, no como feature</h4><p>La convergencia de rieles de pago con orquestación por IA convierte el back-office en un componente estructural de la operación diaria, no un proyecto aislado (banca argentina, mexicana y brasileña como casos tempranos).</p></div>
+</div>
+<div class="trend">
+<div class="yr">2027</div>
+<div><h4>Agentes colaborativos multi-función</h4><p>Gartner proyecta el salto de agentes de tarea única a agentes colaborativos capaces de coordinar procesos de punta a punta — scoring, KYC, cobranza y atención — bajo un mismo marco de gobierno.</p></div>
+</div>
+<div class="trend">
+<div class="yr">2028</div>
+<div><h4>Ecosistemas cross-app y "Guardian Agents"</h4><p>40% de los CIO exigirá "agentes guardianes" que supervisen de forma autónoma las acciones de otros agentes; 25% de las brechas de seguridad empresarial se atribuirá al abuso de agentes de IA (Gartner/Deloitte).</p></div>
+</div>
+<div class="trend">
+<div class="yr">2029</div>
+<div><h4>El agente como herramienta de trabajo estándar</h4><p>La mitad de los trabajadores del conocimiento construirá y gestionará agentes como parte rutinaria de su función — el momento en que la automatización cognitiva deja de ser una capacidad de TI para volverse una competencia de negocio.</p></div>
+</div>
+</div>
+</div>
+</section>
+<!-- 5. DEBATES Y CONTROVERSIAS -->
+<section class="fade" id="art-eficiencia-cognitiva-s5">
+<div class="wrap">
+<div class="sec-head"><span class="sec-num">05</span><h2 class="sec-title">Debates y Controversias</h2></div>
+<p class="sec-lede">NEXUM LATAM toma postura editorial: la evidencia disponible en 2026 no respalda ni el entusiasmo acrítico ni el escepticismo defensivo. Ambos extremos ignoran la misma variable — la disciplina de gobernanza.</p>
+<div class="debate">
+<div class="pos">
+<span class="side-label">A favor de la aceleración</span>
+<div class="debate-title">¿Vale la pena el riesgo de escalar agentes ahora?</div>
+<p>Los agentes que sí llegan a producción generan un ROI promedio de 171% (192% en EE. UU.); en banca y seguros la tasa de despliegue productivo (47%) ya lidera todas las verticales. Esperar a que la gobernanza esté "perfecta" cede la ventaja competitiva a quien itera primero.</p>
+</div>
+<div class="neg">
+<span class="side-label">A favor de la cautela</span>
+<div class="debate-title">¿Es prudente escalar sin gobernanza madura?</div>
+<p>88% de los agentes de IA nunca llegan a producción y Gartner prevé que 40% de los proyectos agénticos serán cancelados hacia 2027 por costos descontrolados y valor de negocio poco claro. Solo 21% de las organizaciones tiene un modelo de gobierno maduro — escalar sin él es acumular deuda de riesgo, no ventaja.</p>
+</div>
+</div>
+<div class="debate">
+<div class="pos">
+<span class="side-label">Postura regulatoria activa</span>
+<div class="debate-title">¿Debe la banca central LATAM anticiparse a la regulación?</div>
+<p>Banxico ya trata todo output de IA generativa como borrador, nunca como verdad final, y documenta públicamente los riesgos sistémicos desde 2025. Brasil avanza su Marco Regulatório (PL 2.688/2025) con transparencia algorítmica obligatoria en decisiones de crédito. La anticipación regulatoria reduce el riesgo reputacional y de cumplimiento futuro.</p>
+</div>
+<div class="neg">
+<span class="side-label">Postura de mercado primero</span>
+<div class="debate-title">¿Frena la regulación temprana la competitividad regional?</div>
+<p>La regulación de IA en LATAM avanza de forma fragmentada — Brasil con ley aprobada, Chile y México con proyectos en trámite, Colombia con decretos sectoriales. Esta heterogeneidad genera costos de cumplimiento desproporcionados para instituciones que operan en múltiples jurisdicciones, mientras competidores globales sin esa fragmentación avanzan más rápido.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- 6. MATRIZ DE MADUREZ -->
+<section class="fade" id="art-eficiencia-cognitiva-s6">
+<div class="wrap">
+<div class="sec-head"><span class="sec-num">06</span><h2 class="sec-title">Matriz de Madurez LATAM</h2></div>
+<p class="sec-lede">Evaluación editorial de NEXUM LATAM sobre el estado de adopción de automatización cognitiva en el sector financiero, no una medición certificada.</p>
+<div class="matrix-wrap">
+<table class="matrix">
+<thead>
+<tr><th>País</th><th>Adopción IA agéntica</th><th>Marco regulatorio</th><th>Madurez de gobernanza</th><th>Nivel editorial</th></tr>
+</thead>
+<tbody>
+<tr>
+<td class="country">Brasil</td>
+<td>Bancos líderes (Itaú, Bradesco) en fase productiva; foco en pagos y back-office</td>
+<td>PL 2.688/2025 en Cámara de Diputados; PL 2.338/2023 aprobado en Senado</td>
+<td>Marco de riesgo más avanzado de la región, aún en trámite legislativo</td>
+<td><span class="lvl"><div class="dot-row"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot"></div></div></span></td>
+</tr>
+<tr>
+<td class="country">México</td>
+<td>65% de firmas financieras ya usa IA en operaciones (NVIDIA, 2026); Banorte, BBVA México, Santander México invirtiendo en automatización</td>
+<td>Banxico documenta riesgos sistémicos desde 2025; proyecto de ley de IA en trámite</td>
+<td>Supervisión activa del banco central; gobierno corporativo desigual entre instituciones</td>
+<td><span class="lvl"><div class="dot-row"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div></div></span></td>
+</tr>
+<tr>
+<td class="country">Chile</td>
+<td>Adopción intermedia; foco en prevención de fraude y banca conversacional</td>
+<td>Ley 21.719 de datos personales (vigencia dic. 2026); proyecto de ley de IA en trámite</td>
+<td>CMF activa en lineamientos de riesgo tecnológico</td>
+<td><span class="lvl"><div class="dot-row"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div></div></span></td>
+</tr>
+<tr>
+<td class="country">Argentina</td>
+<td>Convergencia de rieles de pago + IA en back-office; +15 mil millones de transacciones/año procesadas por proveedores locales</td>
+<td>Marco regulatorio propio en desarrollo, sin ley integral de IA aún</td>
+<td>Gobernanza emergente, impulsada por proveedores de infraestructura de pagos</td>
+<td><span class="lvl"><div class="dot-row"><div class="dot on"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></span></td>
+</tr>
+<tr>
+<td class="country">Colombia</td>
+<td>Chatbots de IA conversacional en bancos con &gt;500k consultas/mes; decretos sectoriales para uso público de IA</td>
+<td>Decretos específicos para sector público; sin ley integral privada</td>
+<td><em style="color:var(--ink-dim); font-style:italic;">Dato insuficiente para calificación de confianza alta — brecha declarada</em></td>
+<td><span class="lvl"><div class="dot-row"><div class="dot on"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></span></td>
+</tr>
+<tr>
+<td class="country">Perú</td>
+<td>Adopción concentrada en fraude y AML; menor cobertura pública de casos productivos</td>
+<td>Sin marco integral de IA identificado en fuentes consultadas</td>
+<td><em style="color:var(--ink-dim); font-style:italic;">Dato insuficiente para calificación de confianza alta — brecha declarada</em></td>
+<td><span class="lvl"><div class="dot-row"><div class="dot on"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="editorial-note">Escala editorial NEXUM (1–5 puntos): mide exposición pública de casos de uso, marco regulatorio y evidencia de gobernanza — no sustituye una auditoría de madurez institucional.</p>
+</div>
+</section>
+<!-- 7. HOJA DE RUTA -->
+<section class="fade" id="art-eficiencia-cognitiva-s7">
+<div class="wrap">
+<div class="sec-head"><span class="sec-num">07</span><h2 class="sec-title">Hoja de Ruta Estratégica</h2></div>
+<p class="sec-lede">Cuatro fases de 0 a 48 meses para pasar de la automatización de tareas puntuales a una operación gobernada por agentes de IA.</p>
+<div class="roadmap">
+<div class="phase">
+<div class="ph-range">0–6 meses</div>
+<h4>Fundación</h4>
+<ul>
+<li>Inventario de procesos candidatos (back-office, KYC, conciliación)</li>
+<li>Diagnóstico de deuda técnica y legacy como bloqueador principal</li>
+<li>Definición de criterios de éxito y ROI medible por caso de uso</li>
+</ul>
+</div>
+<div class="phase">
+<div class="ph-range">6–18 meses</div>
+<h4>Pilotos gobernados</h4>
+<ul>
+<li>Arquitectura orquestador + agentes especializados + agentes críticos</li>
+<li>Marco mínimo de gobernanza: identidad de agente, auditoría, límites de acción</li>
+<li>Evaluación continua — no solo despliegue puntual</li>
+</ul>
+</div>
+<div class="phase">
+<div class="ph-range">18–36 meses</div>
+<h4>Escalamiento orquestado</h4>
+<ul>
+<li>Pipelines de datos cloud-native y estructuras MLOps para producción real-time</li>
+<li>Extensión a wealth management, banca agéntica y bancaseguros</li>
+<li>Guardian agents para supervisión autónoma de otros agentes</li>
+</ul>
+</div>
+<div class="phase">
+<div class="ph-range">36–48 meses</div>
+<h4>Operación cognitiva madura</h4>
+<ul>
+<li>Agentes colaborativos multi-función integrados al core</li>
+<li>Gobernanza como ventaja competitiva ante reguladores y auditores</li>
+<li>Talento: agentes como herramienta rutinaria del trabajador de conocimiento</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<!-- 8. IMPERATIVOS EJECUTIVOS -->
+<section class="fade" id="art-eficiencia-cognitiva-s8">
+<div class="wrap">
+<div class="sec-head"><span class="sec-num">08</span><h2 class="sec-title">Imperativos Ejecutivos</h2></div>
+<p class="sec-lede">Cada rol del C-suite enfrenta una responsabilidad distinta frente a la automatización cognitiva. La coordinación entre ellos, no la excelencia individual, es lo que determina el resultado.</p>
+<div class="imp-grid">
+<div class="imp"><div class="role">CEO</div><p>Exigir evidencia de ROI real por caso de uso, no adopción vanidosa. Distinguir entre "dar herramientas" y "rediseñar procesos" — la primera no genera valor por sí sola.</p></div>
+<div class="imp"><div class="role">CIO</div><p>Priorizar modernización legacy antes que expansión de pilotos: 68% de los CTO ya identifican los sistemas heredados como el freno principal a escalar IA.</p></div>
+<div class="imp"><div class="role">CTO</div><p>Construir pipelines de datos cloud-native y MLOps que operacionalicen agentes en tiempo real, con arquitectura de orquestación multiagente desde el diseño.</p></div>
+<div class="imp"><div class="role">CISO</div><p>Resolver la gestión de identidad de agentes de IA ahora — no existe aún un estándar de mercado, y 68% de las organizaciones carece de controles de seguridad de identidad para IA.</p></div>
+<div class="imp"><div class="role">CDO</div><p>Convertir la trazabilidad de agentes en activo de gobierno: cada acción de un agente deja auditoría completa hasta el prompt origen — una oportunidad de control sin precedentes.</p></div>
+<div class="imp"><div class="role">CCO / Legal</div><p>Anticipar la convergencia regulatoria regional hacia el modelo europeo de clasificación por riesgo, y preparar transparencia algorítmica en decisiones de crédito antes de que sea obligatoria.</p></div>
+</div>
+</div>
+</section>
+<!-- 9. BIBLIOGRAFIA -->
+<section class="fade" id="art-eficiencia-cognitiva-s9">
+<div class="wrap">
+<div class="sec-head"><span class="sec-num">09</span><h2 class="sec-title">Bibliografía Verificada</h2></div>
+<ul class="biblio">
+<li><a href="https://www.mckinsey.com/featured-insights/mckinsey-explainers/banking-and-ai-when-the-tech-starts-doing-the-work-not-just-assisting-it" rel="noopener" target="_blank">McKinsey — Agentic AI transforms banking beyond automation</a> <span class="date">jun. 2026</span></li>
+<li><a href="https://www.ciodive.com/news/banks-pursue-ai-efficiency-gains/809898/" rel="noopener" target="_blank">CIO Dive — Big banks continue the hunt for AI-driven efficiencies</a> <span class="date">ene. 2026</span></li>
+<li><a href="https://kms-technology.com/blog/top-ai-trends-driving-the-future-of-banking/" rel="noopener" target="_blank">KMS Technology — Top 8 AI Trends Driving the Future of Banking in 2026</a> <span class="date">jun. 2026</span></li>
+<li><a href="https://www.backbase.com/banking-predictions-report-2026/ai-and-the-future-of-banking" rel="noopener" target="_blank">Backbase — Banking Predictions 2026: AI &amp; the Future of Banking</a></li>
+<li><a href="https://www.gartner.com/en/documents/7201830" rel="noopener" target="_blank">Gartner — Banking Predicts 2026: AI Agents and Autonomous Business</a> <span class="date">nov. 2025</span></li>
+<li><a href="https://blog.n5now.com/ia-en-banca-y-seguros-latam-crecimiento-de-productividad-que-rompe-records-en-2025-2026/" rel="noopener" target="_blank">N5now — IA en Banca y Seguros LATAM: productividad 2025–2026</a></li>
+<li><a href="https://www.jornada.com.mx/2026/07/12/economia/013n1eco" rel="noopener" target="_blank">La Jornada — La inteligencia artificial ya está detrás de la nueva banca en México</a> <span class="date">jul. 2026</span></li>
+<li><a href="https://www.topazevolution.com/es/blog/inteligencia-artificial-en-la-banca-aplicaciones-y-pasos-para-adaptarla" rel="noopener" target="_blank">Topaz — IA en banca: seguridad, chatbots y casos de éxito en LatAm</a> <span class="date">jun. 2026</span></li>
+<li><a href="https://ladonware.com/estrategias-transformacion-digital-bancos-2026/" rel="noopener" target="_blank">Ladonware — Estrategias de transformación digital para bancos en 2026</a> <span class="date">jun. 2026</span></li>
+<li><a href="https://www.diariodelsur.com.co/transparencia-algoritmos-ia-brasil-regulacion-credito/" rel="noopener" target="_blank">Diario del Sur — Brasil busca poner límites a las decisiones automatizadas de IA</a></li>
+<li><a href="https://nodo.build/blog/regulacion-ia-latam-2026" rel="noopener" target="_blank">nodo. — ¿Qué regulación de IA aplica en Chile y LATAM en 2026?</a> <span class="date">jul. 2026</span></li>
+<li><a href="https://marketing4ecommerce.mx/lo-que-banxico-advirtio-sobre-la-ia/" rel="noopener" target="_blank">Banxico — Riesgos de la IA en la banca y el sistema financiero</a> <span class="date">jun. 2026</span></li>
+<li><a href="https://www.banxico.org.mx/publicaciones-y-prensa/reportes-sobre-el-sistema-financiero/recuadros/%7B7502BB2B-2EBF-F5E3-3062-8C36A51D6947%7D.pdf" rel="noopener" target="_blank">Banxico — Uso de la Inteligencia Artificial en Bancos Centrales</a></li>
+<li><a href="https://mercado.com.ar/finanzas/temenos-identifica-cinco-tendencias-que-marcaran-la-banca-latinoamericana-en-2026" rel="noopener" target="_blank">Temenos / Revista Mercado — Cinco tendencias que marcarán la banca LATAM</a> <span class="date">abr. 2026</span></li>
+<li><a href="https://www.digitalapplied.com/blog/agentic-ai-statistics-2026-definitive-collection-150-data-points" rel="noopener" target="_blank">Digital Applied — Agentic AI Statistics 2026: 150+ Data Points</a> <span class="date">mar. 2026</span></li>
+<li><a href="https://azumo.com/artificial-intelligence/ai-insights/ai-agent-statistics" rel="noopener" target="_blank">Azumo — 60+ AI Agent Statistics for 2026</a></li>
+<li><a href="https://unicoconnect.com/blogs/agentic-ai-statistics-2026" rel="noopener" target="_blank">Unico Connect — Agentic AI Statistics 2026: Adoption, ROI, and Market Size</a> <span class="date">jun. 2026</span></li>
+<li><a href="https://evolvancemarketresearch.com/statistics/ai-governance-statistics/" rel="noopener" target="_blank">Evolvance — AI Governance Statistics 2026</a></li>
+<li><a href="https://www.digitalapplied.com/blog/ai-agent-adoption-2026-enterprise-data-points" rel="noopener" target="_blank">Digital Applied — AI Agent Adoption 2026: 120+ Enterprise Data Points</a> <span class="date">abr. 2026</span></li>
+<li><a href="https://www.mpmsoftware.com/latam/automatizacion-procesos-seguros-eficiencia-latam/" rel="noopener" target="_blank">MPM Software — Automatización y Eficiencia Operativa en Seguros LATAM</a> <span class="date">feb. 2026</span></li>
+</ul>
+</div>
+</section>
+<footer>
+<div class="brand">NEXUM LATAM</div>
+<p>Inteligencia ejecutiva para el sector financiero de América Latina · Este informe constituye análisis editorial de NEXUM LATAM Advisory basado en fuentes públicas verificables. La Matriz de Madurez es una evaluación editorial, no una medición certificada.</p>
+</footer>
+
+
+
+<script>
+(function(){
+  // scroll progress
+  var bar=document.getElementById('progress');
+  function onScroll(){
+    var h=document.documentElement;
+    var pct=(h.scrollTop)/(h.scrollHeight-h.clientHeight)*100;
+    bar.style.width=pct+'%';
+  }
+
+
+  // fade-up observer
+
+
+  // Chart defaults
+  if(window.Chart){
+    Chart.defaults.color = '#A9AFC4';
+    Chart.defaults.font.family = "'Jost', sans-serif";
+    Chart.defaults.font.size = 12;
+
+    var ctx1=document.getElementById('art-eficiencia-cognitiva-chartGap').getContext('2d');
+    new Chart(ctx1,{
+      type:'bar',
+      data:{
+        labels:['Adoptaron agentes\nen alguna forma','Escalando\nagentes','En producción\nreal'],
+        datasets:[{
+          data:[79,23,11],
+          backgroundColor:['rgba(0,175,201,0.85)','rgba(95,179,179,0.75)','rgba(127,216,164,0.85)'],
+          borderRadius:4,
+          maxBarThickness:70
+        }]
+      },
+      options:{
+        responsive:true, maintainAspectRatio:false,
+        plugins:{legend:{display:false}, tooltip:{callbacks:{label:function(c){return c.parsed.y+'% de organizaciones';}}}},
+        scales:{
+          y:{beginAtZero:true, max:100, grid:{color:'rgba(0,175,201,0.08)'}, ticks:{callback:function(v){return v+'%';}}},
+          x:{grid:{display:false}}
+        }
+      }
+    });
+
+    var ctx2=document.getElementById('art-eficiencia-cognitiva-chartCost').getContext('2d');
+    new Chart(ctx2,{
+      type:'bar',
+      data:{
+        labels:['McKinsey\n(Global Banking\nReview 2025)','Autonomous\n(proyección 2030)','BCG\n(valor incremental\nanual)'],
+        datasets:[{
+          label:'Impacto estimado',
+          data:[20,22,null],
+          backgroundColor:'rgba(0,175,201,0.85)',
+          borderRadius:4,
+          maxBarThickness:70,
+          yAxisID:'y'
+        }]
+      },
+      options:{
+        responsive:true, maintainAspectRatio:false,
+        plugins:{
+          legend:{display:false},
+          tooltip:{callbacks:{label:function(c){
+            if(c.dataIndex===2){return 'US$370 mil millones/año adicionales para banca global (BCG)';}
+            return 'Reducción de costos operativos: '+c.parsed.y+'%';
+          }}}
+        },
+        scales:{
+          y:{beginAtZero:true, max:30, grid:{color:'rgba(0,175,201,0.08)'}, ticks:{callback:function(v){return v+'%';}}},
+          x:{grid:{display:false}}
+        }
+      }
+    });
+  }
+})();
 </script>
       </div>
       </div><!-- /artBody -->
