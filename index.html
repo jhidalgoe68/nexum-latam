@@ -1086,6 +1086,107 @@
       color: rgba(255,255,255,0.80);
     }
 
+    /* ── ARQUITECTURA · escena scroll-driven ────────── */
+    .nxb { position: relative; background: var(--ink); color: var(--cream); --shade: 1; --glow: 0; }
+    .nxb-stage {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      height: 100lvh;
+      margin-bottom: -100vh;
+      margin-bottom: -100lvh;
+      overflow: hidden;
+      contain: paint;
+      background: var(--ink) url("media/arquitectura/sm/f000.webp") center / cover no-repeat;
+      z-index: 0;
+    }
+    .nxb-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+    .nxb-glow {
+      position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(60% 45% at var(--glow-x, 66%) 88%, rgba(0,192,220,0.32), transparent 70%);
+      opacity: var(--glow);
+      mix-blend-mode: screen;
+    }
+    .nxb-shade {
+      position: absolute; inset: 0; pointer-events: none;
+      background:
+        linear-gradient(180deg, var(--ink) 0%, rgba(9,27,56,0) 14%, rgba(9,27,56,0) 62%, var(--ink) 100%),
+        linear-gradient(90deg, rgba(9,27,56,calc(0.96 * var(--shade))) 0%, rgba(9,27,56,calc(0.82 * var(--shade))) 32%, rgba(9,27,56,calc(0.18 * var(--shade))) 58%, rgba(9,27,56,0) 75%);
+    }
+    .nxb-grain {
+      position: absolute; inset: -50%; pointer-events: none; opacity: 0.06;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+    .nxb-hud {
+      position: absolute; right: var(--gutter); bottom: 2.25rem;
+      display: flex; flex-direction: column; align-items: flex-end; gap: 0.4rem;
+      font-family: var(--font-body); font-size: var(--mono); letter-spacing: 0.16em; text-transform: uppercase;
+      pointer-events: none;
+    }
+    .nxb-hud-k { color: rgba(255,255,255,0.55); }
+    .nxb-hud-phase { color: var(--gold-lt); transition: opacity 0.4s var(--ease); }
+    .nxb-hud-phase.swap { opacity: 0; }
+
+    .nxb-copy, .nxb-chapters { position: relative; z-index: 1; }
+    .nxb .section--dk.nxb-copy { background: transparent; }
+    .nxb-copy .manifesto-grid { grid-template-columns: 1fr; gap: 0; max-width: 40rem; }
+    .nxb-copy .manifesto-quote { font-size: clamp(2.1rem, 3.6vw, 3.6rem); }
+    .nxb-copy .manifesto-quote,
+    .nxb-copy .pillar-t { text-shadow: 0 2px 24px rgba(9,27,56,0.55); }
+    .nxb-copy .pillars { grid-template-columns: 1fr; max-width: 40rem; margin-top: 3.5rem; }
+    .nxb-copy .pillar,
+    .nxb-copy .pillar:nth-child(2),
+    .nxb-copy .pillar:last-child {
+      border-right: none; border-bottom: 1px solid var(--border-dk);
+      padding: 1.75rem 0;
+      display: grid; grid-template-columns: 3.5rem 1fr; column-gap: 1rem;
+    }
+    .nxb-copy .pillar-n { margin: 0.35rem 0 0; grid-row: span 2; }
+
+    .nxb-ch {
+      min-height: 100vh;
+      min-height: 100lvh;
+      display: flex; align-items: center;
+    }
+    .nxb-ch .wrap { width: 100%; }
+    .nxb-ch-in { max-width: 34rem; will-change: transform, opacity; }
+    .nxb-ch-k {
+      font-family: var(--font-body); font-size: var(--mono); letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1.25rem;
+    }
+    .nxb-ch-t {
+      font-family: var(--font-heading); font-size: var(--h2); font-weight: 300;
+      line-height: 1.12; letter-spacing: -0.015em; color: #fff;
+      text-shadow: 0 2px 30px rgba(9,27,56,0.65);
+    }
+    .nxb-ch-t i { font-style: italic; color: var(--gold-lt); }
+    .nxb-ch-d {
+      margin-top: 1.25rem; font-size: 1rem; font-weight: 300; line-height: 1.75;
+      color: rgba(255,255,255,0.86); text-shadow: 0 1px 16px rgba(9,27,56,0.8);
+    }
+    .nxb-ch--final { align-items: flex-end; padding-bottom: 14vh; }
+    .nxb-ch--final .nxb-ch-in { max-width: 56rem; margin-inline: auto; text-align: center; }
+    .nxb-ch--final .nxb-ch-t { font-size: clamp(2.6rem, 6vw, 6.2rem); font-weight: 300; line-height: 1.02; }
+
+    @media (max-width: 899px) {
+      .nxb-shade {
+        background:
+          linear-gradient(180deg, var(--ink) 0%, rgba(9,27,56,0) 16%, rgba(9,27,56,0) 62%, var(--ink) 100%),
+          linear-gradient(0deg, rgba(9,27,56,calc(0.80 * var(--shade))), rgba(9,27,56,calc(0.80 * var(--shade))));
+      }
+      .nxb-ch:not(.nxb-ch--final) .nxb-ch-in {
+        background: rgba(9,27,56,0.62);
+        border-left: 1px solid rgba(0,192,220,0.6);
+        padding: 1.5rem 1.4rem;
+        -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+      }
+      .nxb-ch--final { padding-bottom: 10vh; }
+      .nxb-hud { display: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .nxb-ch-in { will-change: auto; }
+    }
+
     /* ── CAPACIDADES ────────────────────────────────── */
     .cap-hdr {
       display: grid;
@@ -2760,7 +2861,21 @@
   <!-- ════════════════════════════════════════
        02 · MANIFIESTO
   ════════════════════════════════════════ -->
-  <section class="section section--dk" id="manifiesto">
+  <!-- Escena "Arquitectura": animación controlada por scroll (Manifiesto → Capacidades).
+       La posición de scroll es la única fuente de verdad del timeline; ver script NXB. -->
+  <div class="nxb" id="arquitectura" data-frames="80" data-src="media/arquitectura/">
+    <div class="nxb-stage" aria-hidden="true">
+      <canvas class="nxb-canvas"></canvas>
+      <div class="nxb-glow"></div>
+      <div class="nxb-shade"></div>
+      <div class="nxb-grain"></div>
+      <div class="nxb-hud">
+        <span class="nxb-hud-k">Arquitectura NEXUM</span>
+        <span class="nxb-hud-phase" data-phase>Complejidad</span>
+      </div>
+    </div>
+
+  <section class="section section--dk nxb-copy" id="manifiesto">
     <div class="wrap">
       <div class="manifesto-grid">
         <div>
@@ -2795,6 +2910,38 @@
       </div>
     </div>
   </section>
+
+
+    <div class="nxb-chapters">
+      <div class="nxb-ch">
+        <div class="wrap"><div class="nxb-ch-in">
+          <p class="nxb-ch-k">01 · Complejidad</p>
+          <h3 class="nxb-ch-t">Capacidades dispersas. Datos aislados. <i>Potencial</i> sin realizar.</h3>
+          <p class="nxb-ch-d">Iniciativas desconectadas, tecnología sin gobierno y riesgos invisibles fragmentan el valor de la organización.</p>
+        </div></div>
+      </div>
+      <div class="nxb-ch">
+        <div class="wrap"><div class="nxb-ch-in">
+          <p class="nxb-ch-k">02 · Arquitectura</p>
+          <h3 class="nxb-ch-t">Cada pieza encuentra <i>su lugar</i>.</h3>
+          <p class="nxb-ch-d">Estrategia, datos, cloud, ciberseguridad e inteligencia artificial se integran en una arquitectura coherente, gobernada y medible.</p>
+        </div></div>
+      </div>
+      <div class="nxb-ch">
+        <div class="wrap"><div class="nxb-ch-in">
+          <p class="nxb-ch-k">03 · Ejecución</p>
+          <h3 class="nxb-ch-t">Gobierno que <i>sostiene</i> la estructura.</h3>
+          <p class="nxb-ch-d">Marcos de decisión, trazabilidad y gestión del cambio convierten el diseño en ejecución resiliente.</p>
+        </div></div>
+      </div>
+      <div class="nxb-ch nxb-ch--final">
+        <div class="wrap"><div class="nxb-ch-in">
+          <p class="nxb-ch-k">NEXUM LATAM</p>
+          <h2 class="nxb-ch-t">Transformamos la <i>complejidad</i> en valor.</h2>
+        </div></div>
+      </div>
+    </div>
+  </div>
 
 
   <!-- ════════════════════════════════════════
@@ -5797,6 +5944,220 @@
 
     window.nexumOpenArticle = nexumOpenArticle;
     window.nexumCloseArticle = nexumCloseArticle;
+  })();
+  </script>
+
+  <script>
+  /* ─────────────────────────────────────────
+     ARQUITECTURA · scroll-driven frame scrubbing
+     Scroll position is the single source of truth:
+     progress 0 = scene pinned (Manifiesto, building exploded),
+     progress 1 = Capacidades arriving (building complete).
+     Reverse scroll plays the timeline backwards.
+  ───────────────────────────────────────── */
+  (function () {
+    const root = document.getElementById('arquitectura');
+    if (!root) return;
+    const stage  = root.querySelector('.nxb-stage');
+    const canvas = root.querySelector('.nxb-canvas');
+    const ctx    = canvas.getContext('2d', { alpha: false });
+    const copy   = root.querySelector('.nxb-copy');
+    const chs    = Array.from(root.querySelectorAll('.nxb-ch-in'));
+    const phaseEl = root.querySelector('[data-phase]');
+    const N      = parseInt(root.dataset.frames, 10) || 80;
+    const BASE   = root.dataset.src || 'media/arquitectura/';
+    const INK    = '#091B38';
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const PHASES = [[0, 'Complejidad'], [0.3, 'Arquitectura'], [0.62, 'Ejecución'], [0.9, 'Valor']];
+
+    const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+    const lerp  = (a, b, t) => a + (b - a) * t;
+    const smooth = (e0, e1, x) => { const t = clamp((x - e0) / (e1 - e0), 0, 1); return t * t * (3 - 2 * t); };
+    // Gentle ease: linear core blended with sine in-out → ~50% assembled at mid-scroll.
+    const ease = p => { const f = clamp(p / 0.9, 0, 1); return 0.6 * f + 0.4 * (0.5 - 0.5 * Math.cos(Math.PI * f)); };
+
+    /* ── Frame loading (progressive: coarse frames first, then fill in) ── */
+    const frames = new Array(N).fill(null);
+    let set = null, started = false;
+
+    function pickSet() {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const saveData = navigator.connection && navigator.connection.saveData;
+      return (!saveData && stage.clientWidth * dpr > 1000) ? 'lg' : 'sm';
+    }
+    function url(i) { return BASE + set + '/f' + String(i).padStart(3, '0') + '.webp'; }
+    function load(i) {
+      return new Promise(res => {
+        if (frames[i]) return res();
+        const img = new Image();
+        img.decoding = 'async';
+        img.src = url(i);
+        const done = () => { frames[i] = img; dirty = true; kick(); res(); };
+        (img.decode ? img.decode() : new Promise((ok, ko) => { img.onload = ok; img.onerror = ko; }))
+          .then(done, () => res());
+      });
+    }
+    function order() {
+      const seen = new Set([0, N - 1]), out = [0, N - 1];
+      for (let step = 16; step >= 1; step >>= 1)
+        for (let i = 0; i < N; i += step) if (!seen.has(i)) { seen.add(i); out.push(i); }
+      return out;
+    }
+    function startLoading() {
+      if (started) return;
+      started = true;
+      set = pickSet();
+      const queue = order();
+      let active = 0;
+      const next = () => {
+        while (active < 6 && queue.length) {
+          active++;
+          load(queue.shift()).then(() => { active--; next(); });
+        }
+      };
+      next();
+    }
+    function nearest(i) {
+      if (frames[i]) return i;
+      for (let d = 1; d < N; d++) {
+        if (i - d >= 0 && frames[i - d]) return i - d;
+        if (i + d < N && frames[i + d]) return i + d;
+      }
+      return -1;
+    }
+
+    /* ── Geometry ── */
+    let W = 0, H = 0, wide = false, top = 0, span = 1, vh = window.innerHeight;
+    function measure() {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      W = Math.round(stage.clientWidth * dpr);
+      H = Math.round(stage.clientHeight * dpr);
+      if (canvas.width !== W) canvas.width = W;
+      if (canvas.height !== H) canvas.height = H;
+      wide = stage.clientWidth >= 900;
+      vh = stage.clientHeight || window.innerHeight;
+      top = root.getBoundingClientRect().top + window.scrollY;
+      span = Math.max(1, root.offsetHeight - vh);
+      dirty = true;
+    }
+
+    /* ── Draw: crossfade between neighbouring frames for sub-frame smoothness ── */
+    function draw(e) {
+      ctx.fillStyle = INK;
+      ctx.fillRect(0, 0, W, H);
+      const f = e * (N - 1);
+      const a = Math.floor(f), b = Math.min(N - 1, a + 1), t = f - a;
+      const ia = nearest(a);
+      if (ia < 0) return;
+      const imgA = frames[ia];
+      const iw = imgA.naturalWidth, ih = imgA.naturalHeight;
+      // Camera: slight dolly-out as the structure completes; on wide screens the
+      // building sits right of the narrative and glides to centre for the finale.
+      // Portrait screens show the whole tower (width-led fit, feathered top/bottom)
+      // instead of a tight cover crop.
+      const portrait = W / H < 0.9;
+      const fit = portrait ? Math.max((W / iw) * 1.75, (H / ih) * 0.5) : Math.max(W / iw, H / ih);
+      const s  = fit * lerp(1.1, 1.0, e);
+      const dw = iw * s, dh = ih * s;
+      const fx = wide ? lerp(0.66, 0.5, smooth(0.8, 0.97, e)) : 0.5;
+      let x = W * fx - dw / 2;
+      x = Math.max(x, W - dw);                 // never expose the right edge
+      const y = (H * (portrait ? 0.44 : 0.5) - dh / 2) + H * 0.02 * (1 - e);
+      ctx.globalAlpha = 1;
+      ctx.drawImage(imgA, x, y, dw, dh);
+      if (ia === a && b !== a && frames[b] && t > 0.001) {
+        ctx.globalAlpha = t;
+        ctx.drawImage(frames[b], x, y, dw, dh);
+        ctx.globalAlpha = 1;
+      }
+      if (x > 0) {                             // feather exposed left edge into ink
+        const g = ctx.createLinearGradient(x, 0, x + dw * 0.2, 0);
+        g.addColorStop(0, INK); g.addColorStop(1, 'rgba(9,27,56,0)');
+        ctx.fillStyle = g;
+        ctx.fillRect(0, 0, x + dw * 0.2, H);
+      }
+      if (y > 0) {                             // feather exposed top/bottom edges
+        const f = dh * 0.22;
+        let g = ctx.createLinearGradient(0, y, 0, y + f);
+        g.addColorStop(0, INK); g.addColorStop(1, 'rgba(9,27,56,0)');
+        ctx.fillStyle = g; ctx.fillRect(0, 0, W, y + f);
+        g = ctx.createLinearGradient(0, y + dh, 0, y + dh - f);
+        g.addColorStop(0, INK); g.addColorStop(1, 'rgba(9,27,56,0)');
+        ctx.fillStyle = g; ctx.fillRect(0, y + dh - f, W, H - (y + dh - f));
+      }
+      root.style.setProperty('--glow-x', (fx * 100).toFixed(1) + '%');
+    }
+
+    /* ── Scroll → progress (with critically-damped smoothing that always converges) ── */
+    let target = 0, current = 0, dirty = true, raf = 0, last = 0, inView = false, phase = '';
+    function readScroll() {
+      target = clamp((window.scrollY - top) / span, 0, 1);
+    }
+    function overlays(e) {
+      // Shade follows the manifesto copy so text stays legible, then lifts for the reveal.
+      const r = copy.getBoundingClientRect();
+      const copyVis = clamp(r.bottom / (vh * 0.55), 0, 1);
+      root.style.setProperty('--shade', (0.55 + 0.45 * copyVis).toFixed(3));
+      root.style.setProperty('--glow', (e * e * 0.9).toFixed(3));
+      const motion = !reduce.matches;
+      for (const el of chs) {
+        const rr = el.getBoundingClientRect();
+        const d = ((rr.top + rr.height / 2) - vh / 2) / vh;      // −0.5…0.5 around centre
+        el.style.opacity = (1 - smooth(0.2, 0.48, Math.abs(d))).toFixed(3);
+        el.style.transform = motion ? 'translate3d(0,' + (d * 70).toFixed(1) + 'px,0)' : '';
+      }
+      let p = PHASES[0][1];
+      for (const [at, name] of PHASES) if (e >= at) p = name;
+      if (p !== phase && phaseEl) {
+        phase = p;
+        phaseEl.classList.add('swap');
+        setTimeout(() => { phaseEl.textContent = phase; phaseEl.classList.remove('swap'); }, 200);
+      }
+    }
+    function tick(now) {
+      raf = 0;
+      const dt = last ? Math.min(64, now - last) : 16;
+      last = now;
+      const k = reduce.matches ? 1 : 1 - Math.exp(-dt / 70);
+      const prev = current;
+      current += (target - current) * k;
+      if (Math.abs(target - current) < 0.0004) current = target;
+      if (dirty || current !== prev) {
+        dirty = false;
+        const e = ease(current);
+        draw(e);
+        overlays(e);
+      }
+      if (current !== target) kick(); else last = 0;
+    }
+    function kick() { if (!raf) raf = requestAnimationFrame(tick); }
+
+    function onScroll() {
+      if (!inView) return;
+      readScroll();
+      kick();
+    }
+
+    new IntersectionObserver(entries => {
+      inView = entries[0].isIntersecting;
+      if (inView) { measure(); readScroll(); current = target; dirty = true; kick(); }
+    }, { rootMargin: '0px' }).observe(root);
+
+    // Begin fetching frames ahead of arrival (about 1.5 screens before the scene).
+    const pre = new IntersectionObserver(entries => {
+      if (entries.some(en => en.isIntersecting)) { startLoading(); pre.disconnect(); }
+    }, { rootMargin: '150% 0px 150% 0px' });
+    pre.observe(root);
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    let rT;
+    window.addEventListener('resize', () => {
+      clearTimeout(rT);
+      rT = setTimeout(() => { measure(); readScroll(); kick(); }, 120);
+    });
+    if ('ResizeObserver' in window) new ResizeObserver(() => { measure(); readScroll(); kick(); }).observe(root);
+    window.addEventListener('load', () => { measure(); readScroll(); kick(); });
+    measure();
   })();
   </script>
 
