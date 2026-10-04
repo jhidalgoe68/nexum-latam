@@ -6,7 +6,7 @@
 <title>NEXUM — Propuesta de Nueva Paleta 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=Onest:wght@400;500&display=swap" rel="stylesheet">
 
 <style>
 /* ═══════════════════════════════════════════
@@ -20,9 +20,13 @@
   --page-mid: #6B6358;
   --page-gold: #9A7C58;
   --page-border: rgba(14,12,11,0.09);
-  --mono: 'DM Mono', monospace;
-  --serif: 'Cormorant Garamond', serif;
-  --sans: 'DM Sans', system-ui, sans-serif;
+
+  /* Typography */
+  --font-heading: 'Bricolage Grotesque', system-ui, sans-serif;
+  --font-body:    'Onest', system-ui, sans-serif;
+  --mono:  var(--font-body);
+  --serif: var(--font-heading);
+  --sans:  var(--font-body);
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -781,7 +785,7 @@ body {
       <div class="cover-meta-block">
         <p>Propuesta de Esquema de Color</p>
         <p>3 Direcciones · Moodboard · UI Application</p>
-        <p>Cormorant Garamond · DM Sans · DM Mono</p>
+        <p>Bricolage Grotesque · Onest</p>
       </div>
       <div class="cover-scroll">Desplazar <span style="display:inline-block;width:1px;height:32px;background:rgba(255,255,255,0.15);"></span></div>
     </div>
@@ -868,7 +872,7 @@ body {
 <section class="section wrap" id="paletas">
   <div class="s-label fade-up">02 / Propuestas — Tres Direcciones</div>
   <h2 class="s-title fade-up">Tres lecturas<br>de una misma <i>identidad.</i></h2>
-  <p class="s-body fade-up d1" style="margin-bottom:0;">Cada dirección mantiene el ADN tipográfico de NEXUM — Cormorant + DM Sans — y trabaja sobre los tokens existentes, no desde cero. Se proponen tres lecturas con diferentes temperaturas y niveles de contraste.</p>
+  <p class="s-body fade-up d1" style="margin-bottom:0;">Cada dirección mantiene el ADN tipográfico de NEXUM — Bricolage Grotesque + Onest — y trabaja sobre los tokens existentes, no desde cero. Se proponen tres lecturas con diferentes temperaturas y niveles de contraste.</p>
 
   <div class="palettes-wrap">
 
@@ -1304,32 +1308,32 @@ body {
     <div class="ui-frame" id="frame-typo">
       <div class="typo-preview">
         <div class="tp-row">
-          <p class="tp-meta">Display / Cormorant Garamond 300 · clamp(3.8rem → 9.5rem)</p>
+          <p class="tp-meta">Display / Bricolage Grotesque 700 · clamp(3.8rem → 9.5rem)</p>
           <div style="font-family:var(--serif); font-size:clamp(2.8rem,6vw,5.5rem); font-weight:300; line-height:0.95; letter-spacing:-0.025em; color:var(--tp-ink);">
             La <em style="font-style:italic; color:var(--tp-accent);">complejidad</em><br>es nuestra materia.
           </div>
         </div>
         <div class="tp-row">
-          <p class="tp-meta">H2 / Cormorant Garamond 300 · clamp(1.9rem → 3.2rem)</p>
+          <p class="tp-meta">H2 / Bricolage Grotesque 600 · clamp(1.9rem → 3.2rem)</p>
           <div style="font-family:var(--serif); font-size:clamp(1.6rem,3vw,2.6rem); font-weight:300; line-height:1.15; color:var(--tp-ink);">
             Treinta años en el centro de <em style="font-style:italic; color:var(--tp-accent);">decisiones.</em>
           </div>
         </div>
         <div class="tp-row">
-          <p class="tp-meta">Body / DM Sans 300 · 1rem · line-height 1.8</p>
+          <p class="tp-meta">Body / Onest 400 · 1rem · line-height 1.8</p>
           <p style="font-family:var(--sans); font-size:1rem; font-weight:300; line-height:1.8; color:var(--tp-mid); max-width:560px;">
             Integramos estrategia, procesos, gobierno e inteligencia artificial para ayudar a organizaciones complejas a tomar mejores decisiones y generar valor sostenible en América Latina.
           </p>
         </div>
         <div class="tp-row">
-          <p class="tp-meta">Mono label / DM Mono 400 · 0.68rem · tracking +0.14em</p>
+          <p class="tp-meta">Label / Onest 500 · 0.68rem · tracking +0.14em</p>
           <div style="font-family:var(--mono); font-size:0.68rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--tp-accent); display:flex; align-items:center; gap:0.75rem;">
             <span style="display:block;width:2rem;height:1px;background:currentColor;"></span>
             03 / Capacidades Estratégicas
           </div>
         </div>
         <div class="tp-row" style="border-bottom:none; margin-bottom:0; padding-bottom:0;">
-          <p class="tp-meta">Sobre fondo oscuro · Cormorant Garamond italic</p>
+          <p class="tp-meta">Sobre fondo oscuro · Bricolage Grotesque</p>
           <div style="background:var(--tp-dark); padding:2rem; margin-top:0.75rem;">
             <blockquote style="font-family:var(--serif); font-size:clamp(1.3rem,2.5vw,2rem); font-weight:300; line-height:1.2; color:var(--tp-cream);">
               La transformación real no empieza con tecnología. Empieza con <em style="font-style:italic; color:var(--tp-accent-dark);">claridad estratégica.</em>
@@ -1365,10 +1369,10 @@ body {
     </div>
     <div class="consist-item">
       <h4>Tipografía</h4>
-      <div class="consist-rule"><div class="dot"></div><p>Cormorant Garamond weight 300 para grandes titulares. Weight 500–600 solo para logo.</p></div>
+      <div class="consist-rule"><div class="dot"></div><p>Bricolage Grotesque weight 700 para grandes titulares. Weight 600 para subtítulos y logo.</p></div>
       <div class="consist-rule"><div class="dot"></div><p>Itálica Cormorant = color acento. Siempre. Sin itálicas en color neutro.</p></div>
-      <div class="consist-rule"><div class="dot"></div><p>DM Mono en MAYÚSCULAS + tracking amplio para toda metainformación.</p></div>
-      <div class="consist-rule"><div class="dot"></div><p>DM Sans weight 300 para cuerpo. Nunca bold en párrafos.</p></div>
+      <div class="consist-rule"><div class="dot"></div><p>Onest weight 500 en MAYÚSCULAS + tracking amplio para toda metainformación.</p></div>
+      <div class="consist-rule"><div class="dot"></div><p>Onest weight 400 para cuerpo. Weight 500 como máximo en párrafos.</p></div>
     </div>
     <div class="consist-item">
       <h4>Secciones & Fondos</h4>

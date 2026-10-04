@@ -8,14 +8,14 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=Onest:wght@400;500&display=swap" rel="stylesheet">
 
   <style>
     /* ===================================================
        NEXUM MVP — Editorial Website
        Estética: Editorial boutique, asimétrico, luxury-minimal
        Paleta: Ice / Navy / Cyan — Logo Complementary
-       Tipografía: Cormorant Garamond + DM Sans + DM Mono
+       Tipografía: Bricolage Grotesque + Onest
        v2.0 · 2026 — Logo-based Complementary Palette
     =================================================== */
 
@@ -34,6 +34,10 @@
       --amber-lt:    #E8981E;
       --border:      rgba(9,27,56,0.09);
       --border-dk:   rgba(255,255,255,0.14);
+
+      /* Typography */
+      --font-heading: 'Bricolage Grotesque', system-ui, sans-serif;
+      --font-body:    'Onest', system-ui, sans-serif;
 
       /* Type scale — fluid */
       --display:  clamp(3.8rem, 8.5vw, 9.5rem);
@@ -67,7 +71,7 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; font-size: 16px; }
     body {
-      font-family: 'DM Sans', system-ui, sans-serif;
+      font-family: var(--font-body);
       background: var(--cream);
       color: var(--ink);
       overflow-x: hidden;
@@ -91,7 +95,7 @@
 
     /* Section marker */
     .marker {
-      font-family: 'DM Mono', monospace;
+      font-family: var(--font-body);
       font-size: var(--mono);
       letter-spacing: 0.14em;
       text-transform: uppercase;
@@ -129,7 +133,7 @@
       display: inline-flex;
       align-items: center;
       gap: 0.625rem;
-      font-family: 'DM Sans', sans-serif;
+      font-family: var(--font-body);
       font-size: var(--sm);
       font-weight: 500;
       letter-spacing: 0.07em;
@@ -169,7 +173,7 @@
       align-items: center;
       justify-content: center;
       gap: 0.625rem;
-      font-family: 'DM Sans', sans-serif;
+      font-family: var(--font-body);
       font-size: var(--sm);
       font-weight: 500;
       letter-spacing: 0.08em;
@@ -210,7 +214,7 @@
     }
 
     .logo {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-heading);
       font-size: 1.5rem;
       font-weight: 600;
       letter-spacing: 0.1em;
@@ -319,7 +323,7 @@
       overflow: hidden;
     }
     .mobile-nav-links a {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-heading);
       font-size: clamp(2.4rem, 7vw, 3.5rem);
       font-weight: 300;
       color: rgba(255,255,255,0.95);
@@ -347,7 +351,7 @@
     }
     .mobile-nav.open .mobile-nav-foot { opacity: 1; }
     .mobile-nav-foot p {
-      font-family: 'DM Mono', monospace;
+      font-family: var(--font-body);
       font-size: var(--mono);
       color: rgba(255,255,255,0.70);
       letter-spacing: 0.1em;
@@ -370,7 +374,7 @@
       right: -3rem;
       top: 50%;
       transform: translateY(-50%);
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-heading);
       font-size: clamp(20rem, 32vw, 36rem);
       font-weight: 600;
       color: transparent;
@@ -393,7 +397,7 @@
     }
 
     .hero-eyebrow {
-      font-family: 'DM Mono', monospace;
+      font-family: var(--font-body);
       font-size: var(--mono);
       letter-spacing: 0.16em;
       text-transform: uppercase;
@@ -412,7 +416,7 @@
     }
 
     .hero-headline {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-heading);
       font-size: var(--display);
       font-weight: 300;
       line-height: 0.95;
@@ -448,7 +452,7 @@
     }
 
     .stat-num {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-heading);
       font-size: clamp(3rem, 5vw, 4.5rem);
       font-weight: 300;
       line-height: 1;
@@ -473,7 +477,7 @@
       justify-content: space-between;
     }
     .hero-tag {
-      font-family: 'DM Mono', monospace;
+      font-family: var(--font-body);
       font-size: var(--mono);
       color: var(--mid-lt);
       letter-spacing: 0.1em;
@@ -482,7 +486,7 @@
       display: flex;
       align-items: center;
       gap: 0.75rem;
-      font-family: 'DM Mono', monospace;
+      font-family: var(--font-body);
       font-size: var(--mono);
       color: var(--mid-lt);
       letter-spacing: 0.1em;
@@ -518,7 +522,7 @@
     }
 
     .manifesto-quote {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-heading);
       font-size: var(--h1);
       font-weight: 300;
       line-height: 1.15;
@@ -561,14 +565,14 @@
     }
 
     .pillar-n {
-      font-family: 'DM Mono', monospace;
+      font-family: var(--font-body);
       font-size: var(--mono);
       color: var(--gold);
       letter-spacing: 0.12em;
       margin-bottom: 1.5rem;
     }
     .pillar-t {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-heading);
       font-size: var(--h3);
       font-weight: 400;
       color: var(--cream);
@@ -594,7 +598,7 @@
     }
 
     .cap-title {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-heading);
       font-size: var(--h1);
       font-weight: 300;
       line-height: 1.1;
@@ -625,13 +629,13 @@
     .accord-head:hover .accord-ttl { color: var(--gold); }
 
     .accord-n {
-      font-family: 'DM Mono', monospace;
+      font-family: var(--font-body);
       font-size: var(--mono);
       color: var(--gold);
       letter-spacing: 0.12em;
     }
     .accord-ttl {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-heading);
       font-size: clamp(1.3rem, 2.5vw, 2rem);
       font-weight: 400;
       line-height: 1.2;
@@ -684,7 +688,7 @@
 
     .tag-group { display: flex; flex-direction: column; gap: 0.45rem; }
     .tag {
-      font-family: 'DM Mono', monospace;
+      font-family: var(--font-body);
       font-size: 0.68rem;
       letter-spacing: 0.1em;
       text-transform: uppercase;
@@ -696,7 +700,7 @@
 
     /* ── SECTORES ───────────────────────────────────── */
     .sectores-title {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-heading);
       font-size: var(--h1);
       font-weight: 300;
       line-height: 1.1;
@@ -721,14 +725,14 @@
     }
     .sector:hover { background: rgba(255,255,255,0.05); }
     .sector-n {
-      font-family: 'DM Mono', monospace;
+      font-family: var(--font-body);
       font-size: var(--mono);
       color: var(--gold);
       letter-spacing: 0.12em;
       margin-bottom: 1.1rem;
     }
     .sector-t {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-heading);
       font-size: 1.45rem;
       font-weight: 400;
       color: var(--cream);
@@ -787,13 +791,13 @@
 
     .portrait-caption { margin-top: 1.25rem; }
     .portrait-name {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-heading);
       font-size: 1.35rem;
       font-weight: 500;
       line-height: 1.2;
     }
     .portrait-role {
-      font-family: 'DM Mono', monospace;
+      font-family: var(--font-body);
       font-size: var(--mono);
       color: var(--gold);
       letter-spacing: 0.1em;
@@ -805,7 +809,7 @@
     @media (min-width: 900px) { .advisory-content { padding-top: 3.5rem; } }
 
     .advisory-headline {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-heading);
       font-size: var(--h2);
       font-weight: 300;
       line-height: 1.15;
@@ -832,7 +836,7 @@
       align-items: start;
     }
     .hl-arrow {
-      font-family: 'DM Mono', monospace;
+      font-family: var(--font-body);
       font-size: var(--mono);
       color: var(--gold);
       padding-top: 0.2rem;
@@ -866,7 +870,7 @@
     /* Section header */
     .air-header { max-width: 780px; margin-bottom: 5rem; }
     .air-title {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-heading);
       font-size: var(--h1);
       font-weight: 600;
       line-height: 1.05;
@@ -924,14 +928,14 @@
     .air-card:hover::before { opacity: 1; }
 
     .air-card-num {
-      font-family: 'DM Mono', monospace;
+      font-family: var(--font-body);
       font-size: var(--mono);
       letter-spacing: 0.16em;
       text-transform: uppercase;
       color: var(--gold);
     }
     .air-card-title {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-heading);
       font-size: clamp(1.35rem, 2.2vw, 1.75rem);
       font-weight: 600;
       line-height: 1.2;
@@ -952,7 +956,7 @@
       border-top: 1px solid rgba(255,255,255,0.08);
     }
     .air-card-count {
-      font-family: 'DM Mono', monospace;
+      font-family: var(--font-body);
       font-size: 0.68rem;
       letter-spacing: 0.1em;
       text-transform: uppercase;
@@ -967,7 +971,7 @@
       border: 1px solid rgba(0,192,220,0.5);
       color: var(--gold);
       padding: 0.75rem 1.5rem;
-      font-family: 'DM Sans', sans-serif;
+      font-family: var(--font-body);
       font-size: 0.8rem;
       font-weight: 500;
       letter-spacing: 0.08em;
@@ -994,7 +998,7 @@
       background: none;
       border: none;
       color: var(--gold);
-      font-family: 'DM Mono', monospace;
+      font-family: var(--font-body);
       font-size: 0.72rem;
       letter-spacing: 0.12em;
       text-transform: uppercase;
@@ -1012,7 +1016,7 @@
       border-bottom: 1px solid var(--border);
     }
     .air-panel-title h3 {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-heading);
       font-size: var(--air-title);
       font-weight: 700;
       line-height: 1.1;
@@ -1049,7 +1053,7 @@
       border-bottom: 1px solid var(--border);
     }
     .air-q-group {
-      font-family: 'DM Mono', monospace;
+      font-family: var(--font-body);
       font-size: 0.65rem;
       letter-spacing: 0.14em;
       text-transform: uppercase;
@@ -1087,7 +1091,7 @@
     }
     .air-result-inner { max-width: 640px; }
     .air-result-label {
-      font-family: 'DM Mono', monospace;
+      font-family: var(--font-body);
       font-size: var(--mono);
       letter-spacing: 0.14em;
       text-transform: uppercase;
@@ -1110,7 +1114,7 @@
       transition: width 0.9s var(--ease);
     }
     .air-score-text {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-heading);
       font-size: clamp(1.8rem, 4vw, 3rem);
       font-weight: 600;
       color: var(--cream);
@@ -1126,7 +1130,7 @@
 
     /* Group label for yesno assessments */
     .air-group-label {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-heading);
       font-size: var(--air-section);
       font-weight: 700;
       text-transform: none;
@@ -1139,7 +1143,7 @@
     }
     .air-group-label small {
       display: block;
-      font-family: 'DM Mono', monospace;
+      font-family: var(--font-body);
       font-size: var(--air-category);
       font-weight: 400;
       text-transform: uppercase;
@@ -1150,7 +1154,7 @@
     /* Fix question element display */
     .air-q-num {
       display: block;
-      font-family: 'DM Mono', monospace;
+      font-family: var(--font-body);
       font-size: var(--air-category);
       letter-spacing: 0.14em;
       color: rgba(9,27,56,0.4);
@@ -1172,7 +1176,7 @@
       border: 1px solid rgba(255,255,255,0.3);
       color: var(--cream);
       padding: 0.85rem 2rem;
-      font-family: 'DM Sans', sans-serif;
+      font-family: var(--font-body);
       font-size: 0.82rem;
       font-weight: 500;
       letter-spacing: 0.06em;
@@ -1195,7 +1199,7 @@
     }
 
     .contact-headline {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-heading);
       font-size: var(--h1);
       font-weight: 300;
       line-height: 1.1;
@@ -1214,7 +1218,7 @@
 
     .contact-info { display: flex; flex-direction: column; gap: 1.5rem; }
     .ci-label {
-      font-family: 'DM Mono', monospace;
+      font-family: var(--font-body);
       font-size: var(--mono);
       letter-spacing: 0.12em;
       color: var(--gold);
@@ -1243,7 +1247,7 @@
     .fg { margin-bottom: 1.35rem; }
     .fl {
       display: block;
-      font-family: 'DM Mono', monospace;
+      font-family: var(--font-body);
       font-size: var(--mono);
       letter-spacing: 0.12em;
       text-transform: uppercase;
@@ -1255,7 +1259,7 @@
       background: rgba(255,255,255,0.06);
       border: 1px solid var(--border-dk);
       color: var(--cream);
-      font-family: 'DM Sans', sans-serif;
+      font-family: var(--font-body);
       font-size: 0.9375rem;
       font-weight: 300;
       padding: 0.875rem 1rem;
@@ -1273,7 +1277,7 @@
       width: 100%;
       background: var(--gold);
       color: var(--ink);
-      font-family: 'DM Sans', sans-serif;
+      font-family: var(--font-body);
       font-size: var(--sm);
       font-weight: 500;
       letter-spacing: 0.08em;
@@ -1292,7 +1296,7 @@
     .form-status {
       margin-top: 1rem;
       padding: 0.875rem 1.125rem;
-      font-family: 'DM Sans', sans-serif;
+      font-family: var(--font-body);
       font-size: var(--sm);
       font-weight: 400;
       line-height: 1.6;
@@ -1329,7 +1333,7 @@
     }
 
     .foot-logo {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-heading);
       font-size: 1.25rem;
       font-weight: 600;
       letter-spacing: 0.1em;
@@ -1338,7 +1342,7 @@
     .foot-logo em { font-style: normal; color: var(--gold); }
 
     .foot-copy {
-      font-family: 'DM Mono', monospace;
+      font-family: var(--font-body);
       font-size: 0.68rem;
       letter-spacing: 0.07em;
       color: rgba(255,255,255,0.65);
@@ -1346,7 +1350,7 @@
 
     .foot-links { display: flex; gap: 1.5rem; }
     .foot-links a {
-      font-family: 'DM Mono', monospace;
+      font-family: var(--font-body);
       font-size: 0.68rem;
       letter-spacing: 0.08em;
       text-transform: uppercase;
@@ -1409,7 +1413,7 @@
     .sector-sq.active::after { width: 100%; }
 
     .sector-sq-n {
-      font-family: 'DM Mono', monospace;
+      font-family: var(--font-body);
       font-size: clamp(0.6rem, 1.1vw, 0.7rem);
       color: var(--gold);
       letter-spacing: 0.1em;
@@ -1419,7 +1423,7 @@
       line-height: 1;
     }
     .sector-sq-title {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-heading);
       font-size: clamp(0.78rem, 1.3vw, 1.2rem);
       font-weight: 400;
       line-height: 1.2;
@@ -1451,7 +1455,7 @@
       align-items: center;
       justify-content: center;
       font-size: clamp(0.7rem, 1vw, 0.9rem);
-      font-family: 'DM Sans', sans-serif;
+      font-family: var(--font-body);
       font-weight: 300;
       color: rgba(255,255,255,0.5);
       flex-shrink: 0;
@@ -1487,14 +1491,14 @@
       margin-bottom: 0.5rem;
     }
     .sector-panel-name {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-heading);
       font-size: clamp(1.4rem, 2.5vw, 2rem);
       font-weight: 300;
       color: var(--cream);
       line-height: 1.15;
     }
     .sector-panel-close {
-      font-family: 'DM Mono', monospace;
+      font-family: var(--font-body);
       font-size: 0.62rem;
       letter-spacing: 0.12em;
       text-transform: uppercase;
@@ -1535,14 +1539,14 @@
     .sector-points li::before {
       content: '—';
       color: var(--gold);
-      font-family: 'DM Mono', monospace;
+      font-family: var(--font-body);
       font-size: 0.65rem;
       flex-shrink: 0;
       margin-top: 0.25rem;
     }
     .sector-tags { display: flex; flex-direction: column; gap: 0.45rem; align-self: start; }
     .sector-tag {
-      font-family: 'DM Mono', monospace;
+      font-family: var(--font-body);
       font-size: 0.62rem;
       letter-spacing: 0.1em;
       text-transform: uppercase;
@@ -1564,7 +1568,7 @@
     }
 
     .blog-title {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-heading);
       font-size: var(--h1);
       font-weight: 300;
       line-height: 1.1;
@@ -1652,7 +1656,7 @@
       flex-wrap: wrap;
     }
     .blog-cat {
-      font-family: 'DM Mono', monospace;
+      font-family: var(--font-body);
       font-size: 0.6rem;
       letter-spacing: 0.12em;
       text-transform: uppercase;
@@ -1661,7 +1665,7 @@
       padding: 0.2rem 0.6rem;
     }
     .blog-date {
-      font-family: 'DM Mono', monospace;
+      font-family: var(--font-body);
       font-size: 0.6rem;
       letter-spacing: 0.1em;
       color: var(--mid-lt);
@@ -1669,7 +1673,7 @@
 
     /* Featured typography */
     .blog-featured-title {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-heading);
       font-size: clamp(1.7rem, 2.8vw, 2.5rem);
       font-weight: 300;
       line-height: 1.12;
@@ -1691,7 +1695,7 @@
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      font-family: 'DM Sans', sans-serif;
+      font-family: var(--font-body);
       font-size: var(--sm);
       font-weight: 500;
       letter-spacing: 0.07em;
@@ -1705,7 +1709,7 @@
 
     /* Card typography */
     .blog-card-title {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-heading);
       font-size: clamp(1.05rem, 1.7vw, 1.3rem);
       font-weight: 400;
       line-height: 1.25;

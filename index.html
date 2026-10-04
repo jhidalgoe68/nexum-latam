@@ -16,9 +16,6 @@
   --teal:#00C0DC;
   --amber:#C87A18;
   --red:#B3433A;
-  --f-display:'Cormorant Garamond', 'Iowan Old Style', Georgia, serif;
-  --f-body:'DM Sans', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;
-  --f-mono:'DM Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
   color-scheme: light;
 }
 
@@ -27,7 +24,7 @@
 .art-frame *{box-sizing:border-box}
 .art-frame{scroll-behavior:smooth}
 @media (prefers-reduced-motion: reduce){.art-frame{scroll-behavior:auto} .art-frame *{animation:none!important;transition:none!important}}
-.art-frame{margin:0;background:var(--navy-900);color:var(--ink);font-family:var(--f-body);font-weight:300;font-size:16.5px;line-height:1.65;-webkit-font-smoothing:antialiased}
+.art-frame{margin:0;background:var(--navy-900);color:var(--ink);font-family:var(--font-body);font-weight:300;font-size:16.5px;line-height:1.65;-webkit-font-smoothing:antialiased}
 .art-frame a{color:var(--gold-1);text-decoration-color:var(--gold-3);text-underline-offset:3px}
 .art-frame a:hover{color:var(--ink)}
 .art-frame a:focus-visible, .art-frame button:focus-visible{outline:2px solid var(--gold-1);outline-offset:3px;border-radius:2px}
@@ -41,9 +38,9 @@
   linear-gradient(180deg,var(--navy-950),var(--navy-900));
   padding-inline:20px;padding-block:28px 44px}
 .art-frame .mast-in{max-width:1180px;margin:0 auto}
-.art-frame .brandline{display:flex;flex-wrap:wrap;gap:8px 20px;align-items:center;justify-content:space-between;font-family:var(--f-mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+.art-frame .brandline{display:flex;flex-wrap:wrap;gap:8px 20px;align-items:center;justify-content:space-between;font-family:var(--font-body);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
 .art-frame .brandline .mark{color:var(--gold-2);letter-spacing:.28em}
-.art-frame .mast h1{font-family:var(--f-display);font-weight:600;font-size:clamp(2.4rem,6.2vw,4.6rem);line-height:1.02;letter-spacing:-.01em;margin:40px 0 18px;text-wrap:balance;max-width:16ch}
+.art-frame .mast h1{font-family:var(--font-heading);font-weight:600;font-size:clamp(2.4rem,6.2vw,4.6rem);line-height:1.02;letter-spacing:-.01em;margin:40px 0 18px;text-wrap:balance;max-width:16ch}
 .art-frame .mast h1 em{font-style:italic;color:var(--gold-1);font-weight:500}
 .art-frame .dek{font-size:clamp(1.05rem,1.6vw,1.22rem);color:var(--ink-2);max-width:62ch;margin:0}
 .art-frame .meta{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:28px;font-size:13px;color:var(--ink-3)}
@@ -54,33 +51,33 @@
 .art-frame .thesis-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--gold-3);border-bottom:1px solid var(--line)}
 .art-frame .kpi{padding:20px 18px 22px;border-right:1px solid var(--line);min-width:0}
 .art-frame .kpi:last-child{border-right:0}
-.art-frame .kpi .n{font-family:var(--f-display);font-weight:600;font-size:clamp(2rem,3.6vw,2.8rem);line-height:1;color:var(--gold-1);font-variant-numeric:tabular-nums}
+.art-frame .kpi .n{font-family:var(--font-heading);font-weight:600;font-size:clamp(2rem,3.6vw,2.8rem);line-height:1;color:var(--gold-1);font-variant-numeric:tabular-nums}
 .art-frame .kpi .l{font-size:13.5px;color:var(--ink-2);margin-top:10px;line-height:1.45}
-.art-frame .kpi .s{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.06em;color:var(--ink-3);margin-top:10px;text-transform:uppercase}
+.art-frame .kpi .s{font-family:var(--font-body);font-size:10.5px;letter-spacing:.06em;color:var(--ink-3);margin-top:10px;text-transform:uppercase}
 @media (max-width:820px){.art-frame .thesis-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.art-frame .kpi:nth-child(2){border-right:0}.art-frame .kpi:nth-child(-n+2){border-bottom:1px solid var(--line)}}
 
 /* Shell */
 .art-frame .shell{max-width:1180px;margin:0 auto;padding-inline:20px;padding-block:28px 80px;display:grid;grid-template-columns:220px minmax(0,1fr);gap:56px}
 .art-frame .toc{position:sticky;top:calc(env(safe-area-inset-top,0px) + 24px);align-self:start;font-size:13.5px}
-.art-frame .toc h2{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-2);font-weight:500;margin:0 0 14px}
+.art-frame .toc h2{font-family:var(--font-body);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-2);font-weight:500;margin:0 0 14px}
 .art-frame .toc ol{list-style:none;margin:0;padding:0;display:grid;gap:2px;counter-reset:t}
 .art-frame .toc a{display:grid;grid-template-columns:26px 1fr;padding:6px 0 6px 10px;border-left:1px solid var(--line);color:var(--ink-3);text-decoration:none;line-height:1.35}
-.art-frame .toc a span{font-family:var(--f-mono);font-size:11px;color:var(--gold-3)}
+.art-frame .toc a span{font-family:var(--font-body);font-size:11px;color:var(--gold-3)}
 .art-frame .toc a:hover, .art-frame .toc a.on{color:var(--ink);border-left-color:var(--gold-1)}
 
 
 .art-frame main{min-width:0}
 .art-frame section{padding-top:48px;scroll-margin-top:70px}
 .art-frame section+section{border-top:1px solid var(--line);margin-top:48px}
-.art-frame .eyebrow{font-family:var(--f-mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-2)}
-.art-frame h2.sec{font-family:var(--f-display);font-weight:600;font-size:clamp(1.9rem,3.4vw,2.6rem);line-height:1.08;margin:8px 0 14px;text-wrap:balance}
-.art-frame h3{font-family:var(--f-display);font-weight:600;font-size:1.45rem;line-height:1.2;margin:0 0 8px;color:var(--ink);text-wrap:balance}
+.art-frame .eyebrow{font-family:var(--font-body);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-2)}
+.art-frame h2.sec{font-family:var(--font-heading);font-weight:600;font-size:clamp(1.9rem,3.4vw,2.6rem);line-height:1.08;margin:8px 0 14px;text-wrap:balance}
+.art-frame h3{font-family:var(--font-heading);font-weight:600;font-size:1.45rem;line-height:1.2;margin:0 0 8px;color:var(--ink);text-wrap:balance}
 .art-frame p{margin:0 0 14px;max-width:70ch}
 .art-frame .lead{font-size:1.1rem;color:var(--ink-2);max-width:68ch}
-.art-frame .so{font-family:var(--f-display);font-style:italic;font-size:1.3rem;line-height:1.4;color:var(--gold-1);border-left:2px solid var(--gold-2);padding:4px 0 4px 18px;margin:22px 0;max-width:62ch}
+.art-frame .so{font-family:var(--font-heading);font-style:italic;font-size:1.3rem;line-height:1.4;color:var(--gold-1);border-left:2px solid var(--gold-2);padding:4px 0 4px 18px;margin:22px 0;max-width:62ch}
 
 /* Badges */
-.art-frame .b{display:inline-flex;align-items:center;gap:6px;font-family:var(--f-mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:3px;border:1px solid;white-space:nowrap;vertical-align:middle;font-weight:500}
+.art-frame .b{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-body);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:3px;border:1px solid;white-space:nowrap;vertical-align:middle;font-weight:500}
 .art-frame .b::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
 .art-frame .b.alta{color:var(--teal);border-color:rgba(0,192,220,.45)}
 .art-frame .b.media{color:var(--amber);border-color:rgba(200,122,24,.45)}
@@ -89,11 +86,11 @@
 /* Findings */
 .art-frame .findings{display:grid;gap:0;margin-top:22px;border-top:1px solid var(--line)}
 .art-frame .f{display:grid;grid-template-columns:118px minmax(0,1fr);gap:22px;padding:22px 0;border-bottom:1px solid var(--line)}
-.art-frame .f .d{font-family:var(--f-mono);font-size:11.5px;color:var(--ink-3);line-height:1.5;padding-top:4px}
+.art-frame .f .d{font-family:var(--font-body);font-size:11.5px;color:var(--ink-3);line-height:1.5;padding-top:4px}
 .art-frame .f .d b{display:block;color:var(--gold-2);font-weight:500;letter-spacing:.06em}
 .art-frame .f p{margin:0 0 8px}
 .art-frame .f .so-what{font-size:14.5px;color:var(--ink-2)}
-.art-frame .f .so-what::before{content:"Implicación LATAM · ";font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-2)}
+.art-frame .f .so-what::before{content:"Implicación LATAM · ";font-family:var(--font-body);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-2)}
 .art-frame .src{font-size:13px;color:var(--ink-3)}
 @media (max-width:620px){.art-frame .f{grid-template-columns:minmax(0,1fr);gap:6px}}
 
@@ -101,16 +98,16 @@
 .art-frame .tw{overflow-x:auto;margin:20px 0;border:1px solid var(--line);border-radius:4px;background:var(--navy-800)}
 .art-frame table{border-collapse:collapse;width:100%;font-size:14px;min-width:640px}
 .art-frame th, .art-frame td{padding:11px 14px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
-.art-frame th{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-2);font-weight:500;background:var(--navy-700)}
+.art-frame th{font-family:var(--font-body);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-2);font-weight:500;background:var(--navy-700)}
 .art-frame tr:last-child td{border-bottom:0}
-.art-frame td.num{font-variant-numeric:tabular-nums;font-family:var(--f-mono);font-size:13.5px;color:var(--ink);white-space:nowrap}
+.art-frame td.num{font-variant-numeric:tabular-nums;font-family:var(--font-body);font-size:13.5px;color:var(--ink);white-space:nowrap}
 .art-frame td a{font-size:12.5px}
 
 /* Bars */
 .art-frame .charts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin:24px 0}
 @media (max-width:760px){.art-frame .charts{grid-template-columns:minmax(0,1fr)}}
 .art-frame .chart{border:1px solid var(--line);background:var(--navy-800);border-radius:4px;padding:18px 18px 16px;min-width:0}
-.art-frame .chart h4{margin:0 0 4px;font-family:var(--f-body);font-weight:500;font-size:14.5px;color:var(--ink)}
+.art-frame .chart h4{margin:0 0 4px;font-family:var(--font-body);font-weight:500;font-size:14.5px;color:var(--ink)}
 .art-frame .chart .u{font-size:12px;color:var(--ink-3);margin-bottom:16px}
 .art-frame .bar{display:grid;grid-template-columns:118px minmax(0,1fr) 64px;gap:10px;align-items:center;margin:9px 0;font-size:13px}
 .art-frame .bar .k{color:var(--ink-2);line-height:1.25}
@@ -118,7 +115,7 @@
 .art-frame .bar .v{height:100%;background:var(--gold-3);border-radius:2px;transform-origin:left;animation:grow 1.1s cubic-bezier(.2,.7,.2,1) both}
 .art-frame .bar.hi .v{background:linear-gradient(90deg,var(--gold-2),var(--gold-1))}
 .art-frame .bar.tl .v{background:var(--teal)}
-.art-frame .bar .x{font-family:var(--f-mono);font-size:12.5px;text-align:right;color:var(--ink);font-variant-numeric:tabular-nums}
+.art-frame .bar .x{font-family:var(--font-body);font-size:12.5px;text-align:right;color:var(--ink);font-variant-numeric:tabular-nums}
 @keyframes grow{from{transform:scaleX(.15)}to{transform:scaleX(1)}}
 .art-frame .chart .foot{font-size:11.5px;color:var(--ink-3);margin-top:12px;border-top:1px solid var(--line);padding-top:10px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
 
@@ -126,7 +123,7 @@
 .art-frame .voices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-top:22px}
 @media (max-width:760px){.art-frame .voices{grid-template-columns:minmax(0,1fr)}}
 .art-frame .voice{background:var(--navy-900);padding:22px 22px 20px;min-width:0}
-.art-frame .voice q{display:block;font-family:var(--f-display);font-size:1.32rem;line-height:1.35;color:var(--ink);quotes:"“" "”"}
+.art-frame .voice q{display:block;font-family:var(--font-heading);font-size:1.32rem;line-height:1.35;color:var(--ink);quotes:"“" "”"}
 .art-frame .voice .para{font-size:15px;color:var(--ink-2)}
 .art-frame .voice .who{margin-top:14px;font-size:13px;color:var(--ink-3)}
 .art-frame .voice .who b{color:var(--gold-2);font-weight:500}
@@ -138,7 +135,7 @@
 .art-frame .tr .h h3{margin:0;font-size:1.28rem}
 .art-frame .tr p{font-size:15px;margin:0}
 .art-frame .hz{font-size:12.5px;color:var(--ink-3);border-left:1px solid var(--line);padding-left:16px}
-.art-frame .hz b{display:block;font-family:var(--f-mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-2);font-weight:500;margin-bottom:4px}
+.art-frame .hz b{display:block;font-family:var(--font-body);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-2);font-weight:500;margin-bottom:4px}
 .art-frame .hz .meter{display:flex;gap:3px;margin:6px 0 8px}
 .art-frame .hz .meter i{flex:1;height:5px;background:var(--navy-700);border-radius:1px}
 .art-frame .hz .meter i.on{background:var(--gold-2)}
@@ -146,18 +143,18 @@
 
 /* Debates */
 .art-frame .deb{border:1px solid var(--line);border-radius:4px;margin-top:16px;overflow:hidden}
-.art-frame .deb .q{padding:16px 20px;background:var(--navy-700);font-family:var(--f-display);font-size:1.3rem;font-weight:600;color:var(--ink)}
+.art-frame .deb .q{padding:16px 20px;background:var(--navy-700);font-family:var(--font-heading);font-size:1.3rem;font-weight:600;color:var(--ink)}
 .art-frame .deb .sides{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
 .art-frame .deb .side{padding:16px 20px;font-size:14.5px;color:var(--ink-2);min-width:0}
 .art-frame .deb .side+.side{border-left:1px solid var(--line)}
-.art-frame .deb .side b{display:block;font-family:var(--f-mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);font-weight:500;margin-bottom:6px}
+.art-frame .deb .side b{display:block;font-family:var(--font-body);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);font-weight:500;margin-bottom:6px}
 .art-frame .deb .stance{padding:14px 20px;border-top:1px solid var(--gold-3);background:rgba(200,122,24,.07);font-size:14.5px}
-.art-frame .deb .stance b{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-1);font-weight:500;margin-right:8px}
+.art-frame .deb .stance b{font-family:var(--font-body);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-1);font-weight:500;margin-right:8px}
 @media (max-width:680px){.art-frame .deb .sides{grid-template-columns:minmax(0,1fr)}.art-frame .deb .side+.side{border-left:0;border-top:1px solid var(--line)}}
 
 /* Matrix */
 .art-frame .mx td.c{text-align:center;padding:9px 6px}
-.art-frame .lv{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:3px;font-family:var(--f-mono);font-size:13px;font-weight:500}
+.art-frame .lv{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:3px;font-family:var(--font-body);font-size:13px;font-weight:500}
 .art-frame .l1{background:rgba(179,67,58,.12);color:#B3433A}
 .art-frame .l2{background:rgba(200,122,24,.14);color:#C87A18}
 .art-frame .l3{background:rgba(9,27,56,.08);color:#1A3252}
@@ -173,13 +170,13 @@
 .art-frame .card .top{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;align-items:end;padding:20px 22px;border-bottom:1px solid var(--line)}
 .art-frame .card .top h3{font-size:1.7rem;margin:0}
 .art-frame .card .top .from{font-size:14px;color:var(--ink-2);margin-top:4px}
-.art-frame .card .top .tag{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-2);text-align:right}
+.art-frame .card .top .tag{font-family:var(--font-body);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-2);text-align:right}
 .art-frame .card .body{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr)}
 .art-frame .card .moves{padding:18px 22px}
 .art-frame .card .moves ol{margin:0;padding-left:20px;display:grid;gap:9px;font-size:15px}
-.art-frame .card .moves li::marker{color:var(--gold-2);font-family:var(--f-mono);font-size:12px}
+.art-frame .card .moves li::marker{color:var(--gold-2);font-family:var(--font-body);font-size:12px}
 .art-frame .card .kpis{padding:18px 22px;border-left:1px solid var(--line);background:var(--navy-900)}
-.art-frame .card h5{margin:0 0 10px;font-family:var(--f-mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-2);font-weight:500}
+.art-frame .card h5{margin:0 0 10px;font-family:var(--font-body);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-2);font-weight:500}
 .art-frame .card .kpis ul{margin:0;padding:0;list-style:none;display:grid;gap:8px;font-size:14px;color:var(--ink-2)}
 .art-frame .card .kpis li{display:grid;grid-template-columns:12px 1fr;gap:8px}
 .art-frame .card .kpis li::before{content:"";width:6px;height:6px;margin-top:9px;background:var(--gold-2);transform:rotate(45deg)}
@@ -192,35 +189,35 @@
 .art-frame .ph{padding:18px 16px 4px;border-right:1px solid var(--line);min-width:0;position:relative}
 .art-frame .ph:last-child{border-right:0}
 .art-frame .ph::before{content:"";position:absolute;top:-7px;left:16px;width:12px;height:12px;border-radius:50%;background:var(--navy-900);border:2px solid var(--gold-1)}
-.art-frame .ph .w{font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;color:var(--gold-2);text-transform:uppercase}
+.art-frame .ph .w{font-family:var(--font-body);font-size:11px;letter-spacing:.12em;color:var(--gold-2);text-transform:uppercase}
 .art-frame .ph h3{font-size:1.3rem;margin:6px 0 10px}
 .art-frame .ph ul{margin:0;padding-left:16px;font-size:14px;color:var(--ink-2);display:grid;gap:6px}
 .art-frame .ph .out{margin-top:12px;font-size:13px;color:var(--ink);border-top:1px solid var(--line);padding-top:10px}
-.art-frame .ph .out b{font-family:var(--f-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);font-weight:500;display:block}
+.art-frame .ph .out b{font-family:var(--font-body);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);font-weight:500;display:block}
 @media (max-width:900px){.art-frame .road{grid-template-columns:repeat(2,minmax(0,1fr))}.art-frame .ph:nth-child(2){border-right:0}.art-frame .ph:nth-child(-n+2){border-bottom:1px solid var(--line);padding-bottom:16px}}
 @media (max-width:540px){.art-frame .road{grid-template-columns:minmax(0,1fr)}.art-frame .ph{border-right:0;border-bottom:1px solid var(--line);padding-bottom:16px}}
 
 /* Roles */
 .art-frame .roles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-top:22px}
 .art-frame .role{background:var(--navy-900);padding:18px 18px 16px;min-width:0}
-.art-frame .role .r{font-family:var(--f-display);font-size:1.5rem;font-weight:700;color:var(--gold-1);line-height:1}
+.art-frame .role .r{font-family:var(--font-heading);font-size:1.5rem;font-weight:700;color:var(--gold-1);line-height:1}
 .art-frame .role .rn{font-size:12px;color:var(--ink-3);margin:4px 0 10px}
 .art-frame .role p{font-size:14.5px;margin:0 0 8px;color:var(--ink)}
 .art-frame .role .ask{font-size:13px;color:var(--ink-2);border-top:1px solid var(--line);padding-top:8px}
-.art-frame .role .ask i{font-family:var(--f-display);font-size:1.02rem;color:var(--gold-2)}
+.art-frame .role .ask i{font-family:var(--font-heading);font-size:1.02rem;color:var(--gold-2)}
 @media (max-width:900px){.art-frame .roles{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:560px){.art-frame .roles{grid-template-columns:minmax(0,1fr)}}
 
 /* Bibliography */
 .art-frame .bib{list-style:none;margin:20px 0 0;padding:0;display:grid;gap:0;counter-reset:b}
 .art-frame .bib li{counter-increment:b;display:grid;grid-template-columns:40px minmax(0,1fr);gap:8px;padding:11px 0;border-bottom:1px solid var(--line);font-size:14px;color:var(--ink-2)}
-.art-frame .bib li::before{content:"[" counter(b) "]";font-family:var(--f-mono);font-size:12px;color:var(--gold-3);padding-top:2px}
+.art-frame .bib li::before{content:"[" counter(b) "]";font-family:var(--font-body);font-size:12px;color:var(--gold-3);padding-top:2px}
 .art-frame .bib a{word-break:break-word}
 .art-frame .note{font-size:13px;color:var(--ink-3);border:1px dashed var(--line);border-radius:4px;padding:12px 16px;margin-top:18px;max-width:none}
 
 .art-frame footer{border-top:1px solid var(--line);padding-inline:20px;padding-block:28px 40px;font-size:12.5px;color:var(--ink-3)}
 .art-frame footer .in{max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;gap:10px 30px;justify-content:space-between}
-.art-frame footer .mark{font-family:var(--f-mono);letter-spacing:.24em;color:var(--gold-2)}
+.art-frame footer .mark{font-family:var(--font-body);letter-spacing:.24em;color:var(--gold-2)}
 
   
   /* ── Native-integration overrides (not part of the article's own CSS) ── */
@@ -255,7 +252,7 @@
       padding: 1rem 0 0.9rem;
     }
     .art-nav-label {
-      font-family: 'DM Mono', monospace;
+      font-family: var(--font-body);
       font-size: 0.65rem;
       letter-spacing: 0.2em;
       text-transform: uppercase;
@@ -276,7 +273,7 @@
       border: 1.5px solid var(--gold);
       border-radius: 3px;
       color: var(--ink);
-      font-family: 'DM Sans', sans-serif;
+      font-family: var(--font-body);
       font-size: 0.78rem;
       font-weight: 700;
       letter-spacing: 0.01em;
@@ -286,7 +283,7 @@
       transition: background 0.2s var(--ease), color 0.2s var(--ease), transform 0.15s var(--ease);
     }
     .art-nav-btn .num {
-      font-family: 'DM Mono', monospace;
+      font-family: var(--font-body);
       font-weight: 500;
       font-size: 0.68rem;
       color: var(--gold);
@@ -345,9 +342,6 @@
   --teal:#00C0DC;
   --amber:#C87A18;
   --red:#B3433A;
-  --f-display:'Cormorant Garamond', 'Iowan Old Style', Georgia, serif;
-  --f-body:'DM Sans', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;
-  --f-mono:'DM Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
   color-scheme: light;
 }
 
@@ -357,12 +351,12 @@
   .art-frame{
     background:var(--navy-900);
     color:var(--ink-soft);
-    font-family:'Jost',sans-serif;
+    font-family:var(--font-body);
     font-weight:300;
     line-height:1.7;
     overflow-x:hidden;
   }
-  .art-frame h1, .art-frame h2, .art-frame h3, .art-frame h4{font-family:'Cormorant Garamond',serif; color:var(--cream); font-weight:600; letter-spacing:0.01em;}
+  .art-frame h1, .art-frame h2, .art-frame h3, .art-frame h4{font-family:var(--font-heading); color:var(--cream); font-weight:600; letter-spacing:0.01em;}
   .art-frame a{color:var(--gold-1); text-decoration:none; border-bottom:1px solid var(--gold-3);}
   .art-frame a:hover{color:var(--gold-2);}
 
@@ -379,7 +373,7 @@
     display:flex; align-items:center; justify-content:space-between;
     padding:14px 5vw;
   }
-  .art-frame nav .brand{font-family:'Cormorant Garamond',serif; font-size:1.15rem; color:var(--gold-1); letter-spacing:0.08em; font-weight:600;}
+  .art-frame nav .brand{font-family:var(--font-heading); font-size:1.15rem; color:var(--gold-1); letter-spacing:0.08em; font-weight:600;}
   .art-frame nav .brand span{color:var(--cream); font-weight:400; font-size:0.7rem; letter-spacing:0.15em; display:block; text-transform:uppercase; opacity:0.6;}
   .art-frame nav ul{display:flex; gap:22px; list-style:none;}
   .art-frame nav ul li a{font-size:0.72rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--ink-soft); border-bottom:none; opacity:0.75;}
@@ -418,10 +412,10 @@
   .art-frame .fade.in{opacity:1; transform:translateY(0);}
 
   /* Executive summary */
-  .art-frame .lede{font-family:'Cormorant Garamond',serif; font-size:1.5rem; color:var(--cream); font-weight:500; line-height:1.5; max-width:80ch; margin-bottom:36px;}
+  .art-frame .lede{font-family:var(--font-heading); font-size:1.5rem; color:var(--cream); font-weight:500; line-height:1.5; max-width:80ch; margin-bottom:36px;}
   .art-frame .thesis-grid{display:flex; gap:28px; flex-wrap:wrap; margin-top:40px;}
   .art-frame .thesis-card{flex:1 1 260px; background:var(--navy-800); border:1px solid var(--line); border-radius:4px; padding:28px 26px;}
-  .art-frame .thesis-card .num{font-family:'Cormorant Garamond',serif; font-size:2.2rem; color:var(--gold-1); font-weight:600; margin-bottom:10px; display:block;}
+  .art-frame .thesis-card .num{font-family:var(--font-heading); font-size:2.2rem; color:var(--gold-1); font-weight:600; margin-bottom:10px; display:block;}
   .art-frame .thesis-card h4{font-size:1.05rem; margin-bottom:8px;}
   .art-frame .thesis-card p{font-size:0.86rem; color:var(--ink-dim);}
 
@@ -451,7 +445,7 @@
   .art-frame .chart-wrap{position:relative; height:280px;}
   .art-frame .stat-strip{display:flex; gap:24px; flex-wrap:wrap; margin:44px 0;}
   .art-frame .stat{flex:1 1 190px; border-left:2px solid var(--gold-3); padding-left:16px;}
-  .art-frame .stat .v{font-family:'Cormorant Garamond',serif; font-size:2.1rem; color:var(--gold-1); font-weight:600;}
+  .art-frame .stat .v{font-family:var(--font-heading); font-size:2.1rem; color:var(--gold-1); font-weight:600;}
   .art-frame .stat .l{font-size:0.78rem; color:var(--ink-dim); margin-top:4px;}
 
   /* Quotes */
@@ -459,16 +453,16 @@
   @media(max-width:800px){.art-frame .quote-grid{grid-template-columns:1fr;}}
   .art-frame blockquote{
     background:var(--navy-800); border-left:3px solid var(--gold-2); border-radius:4px;
-    padding:24px 26px; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:1.15rem; color:var(--cream);
+    padding:24px 26px; font-family:var(--font-heading); font-style:italic; font-size:1.15rem; color:var(--cream);
   }
-  .art-frame blockquote footer{margin-top:14px; font-family:'Jost',sans-serif; font-style:normal; font-size:0.78rem; color:var(--ink-dim);}
+  .art-frame blockquote footer{margin-top:14px; font-family:var(--font-body); font-style:normal; font-size:0.78rem; color:var(--ink-dim);}
   .art-frame blockquote footer strong{color:var(--gold-2); font-style:normal;}
 
   /* Trends */
   .art-frame .trend-list{display:flex; flex-direction:column; gap:0;}
   .art-frame .trend{display:flex; gap:24px; align-items:flex-start; padding:22px 0; border-top:1px solid var(--line);}
   .art-frame .trend:first-child{border-top:none;}
-  .art-frame .trend .mark{font-family:'Cormorant Garamond',serif; font-size:1.6rem; color:var(--gold-3); min-width:40px;}
+  .art-frame .trend .mark{font-family:var(--font-heading); font-size:1.6rem; color:var(--gold-3); min-width:40px;}
   .art-frame .trend h4{font-size:1.05rem; margin-bottom:6px;}
   .art-frame .trend p{font-size:0.9rem; color:var(--ink-soft);}
 
@@ -497,7 +491,7 @@
   .art-frame .src-item .d{color:var(--ink-dim); font-size:0.76rem; white-space:nowrap;}
 
   .art-frame footer.closing{padding:60px 6vw 80px; text-align:center;}
-  .art-frame footer.closing .brand-mark{font-family:'Cormorant Garamond',serif; color:var(--gold-1); font-size:1.3rem; letter-spacing:0.08em; margin-bottom:8px;}
+  .art-frame footer.closing .brand-mark{font-family:var(--font-heading); color:var(--gold-1); font-size:1.3rem; letter-spacing:0.08em; margin-bottom:8px;}
   .art-frame footer.closing p{font-size:0.76rem; color:var(--ink-dim); max-width:60ch; margin:0 auto;}
 
 .art-frame .fade{opacity:1!important;transform:none!important}
@@ -513,14 +507,14 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=Onest:wght@400;500&display=swap" rel="stylesheet">
 
   <style>
     /* ===================================================
        NEXUM MVP — Editorial Website
        Estética: Editorial boutique, asimétrico, luxury-minimal
        Paleta: Ice / Navy / Cyan — Logo Complementary
-       Tipografía: Cormorant Garamond + DM Sans + DM Mono
+       Tipografía: Bricolage Grotesque + Onest
        v2.0 · 2026 — Logo-based Complementary Palette
     =================================================== */
 
@@ -539,6 +533,10 @@
       --amber-lt:    #E8981E;
       --border:      rgba(9,27,56,0.09);
       --border-dk:   rgba(255,255,255,0.14);
+
+      /* Typography */
+      --font-heading: 'Bricolage Grotesque', system-ui, sans-serif;
+      --font-body:    'Onest', system-ui, sans-serif;
 
       /* Type scale — fluid */
       --display:  clamp(3.8rem, 8.5vw, 9.5rem);
@@ -572,7 +570,7 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; font-size: 16px; }
     body {
-      font-family: 'DM Sans', system-ui, sans-serif;
+      font-family: var(--font-body);
       background: var(--cream);
       color: var(--ink);
       overflow-x: hidden;
@@ -596,7 +594,7 @@
 
     /* Section marker */
     .marker {
-      font-family: 'DM Mono', monospace;
+      font-family: var(--font-body);
       font-size: var(--mono);
       letter-spacing: 0.14em;
       text-transform: uppercase;
@@ -634,7 +632,7 @@
       display: inline-flex;
       align-items: center;
       gap: 0.625rem;
-      font-family: 'DM Sans', sans-serif;
+      font-family: var(--font-body);
       font-size: var(--sm);
       font-weight: 500;
       letter-spacing: 0.07em;
@@ -674,7 +672,7 @@
       align-items: center;
       justify-content: center;
       gap: 0.625rem;
-      font-family: 'DM Sans', sans-serif;
+      font-family: var(--font-body);
       font-size: var(--sm);
       font-weight: 500;
       letter-spacing: 0.08em;
@@ -715,7 +713,7 @@
     }
 
     .logo {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-heading);
       font-size: 1.5rem;
       font-weight: 600;
       letter-spacing: 0.1em;
@@ -825,7 +823,7 @@
       overflow: hidden;
     }
     .mobile-nav-links a {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-heading);
       font-size: clamp(2.4rem, 7vw, 3.5rem);
       font-weight: 300;
       color: rgba(255,255,255,0.95);
@@ -853,7 +851,7 @@
     }
     .mobile-nav.open .mobile-nav-foot { opacity: 1; }
     .mobile-nav-foot p {
-      font-family: 'DM Mono', monospace;
+      font-family: var(--font-body);
       font-size: var(--mono);
       color: rgba(255,255,255,0.70);
       letter-spacing: 0.1em;
@@ -876,7 +874,7 @@
       right: -3rem;
       top: 50%;
       transform: translateY(-50%);
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-heading);
       font-size: clamp(20rem, 32vw, 36rem);
       font-weight: 600;
       color: transparent;
@@ -899,7 +897,7 @@
     }
 
     .hero-eyebrow {
-      font-family: 'DM Mono', monospace;
+      font-family: var(--font-body);
       font-size: var(--mono);
       letter-spacing: 0.16em;
       text-transform: uppercase;
@@ -918,7 +916,7 @@
     }
 
     .hero-headline {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-heading);
       font-size: var(--display);
       font-weight: 300;
       line-height: 0.95;
@@ -954,7 +952,7 @@
     }
 
     .stat-num {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-heading);
       font-size: clamp(3rem, 5vw, 4.5rem);
       font-weight: 300;
       line-height: 1;
@@ -979,7 +977,7 @@
       justify-content: space-between;
     }
     .hero-tag {
-      font-family: 'DM Mono', monospace;
+      font-family: var(--font-body);
       font-size: var(--mono);
       color: var(--mid-lt);
       letter-spacing: 0.1em;
@@ -988,7 +986,7 @@
       display: flex;
       align-items: center;
       gap: 0.75rem;
-      font-family: 'DM Mono', monospace;
+      font-family: var(--font-body);
       font-size: var(--mono);
       color: var(--mid-lt);
       letter-spacing: 0.1em;
@@ -1024,7 +1022,7 @@
     }
 
     .manifesto-quote {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-heading);
       font-size: var(--h1);
       font-weight: 300;
       line-height: 1.15;
@@ -1067,14 +1065,14 @@
     }
 
     .pillar-n {
-      font-family: 'DM Mono', monospace;
+      font-family: var(--font-body);
       font-size: var(--mono);
       color: var(--gold);
       letter-spacing: 0.12em;
       margin-bottom: 1.5rem;
     }
     .pillar-t {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-heading);
       font-size: var(--h3);
       font-weight: 400;
       color: var(--cream);
@@ -1100,7 +1098,7 @@
     }
 
     .cap-title {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-heading);
       font-size: var(--h1);
       font-weight: 300;
       line-height: 1.1;
@@ -1131,13 +1129,13 @@
     .accord-head:hover .accord-ttl { color: var(--gold); }
 
     .accord-n {
-      font-family: 'DM Mono', monospace;
+      font-family: var(--font-body);
       font-size: var(--mono);
       color: var(--gold);
       letter-spacing: 0.12em;
     }
     .accord-ttl {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-heading);
       font-size: clamp(1.3rem, 2.5vw, 2rem);
       font-weight: 400;
       line-height: 1.2;
@@ -1190,7 +1188,7 @@
 
     .tag-group { display: flex; flex-direction: column; gap: 0.45rem; }
     .tag {
-      font-family: 'DM Mono', monospace;
+      font-family: var(--font-body);
       font-size: 0.68rem;
       letter-spacing: 0.1em;
       text-transform: uppercase;
@@ -1202,7 +1200,7 @@
 
     /* ── SECTORES ───────────────────────────────────── */
     .sectores-title {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-heading);
       font-size: var(--h1);
       font-weight: 300;
       line-height: 1.1;
@@ -1227,14 +1225,14 @@
     }
     .sector:hover { background: rgba(255,255,255,0.05); }
     .sector-n {
-      font-family: 'DM Mono', monospace;
+      font-family: var(--font-body);
       font-size: var(--mono);
       color: var(--gold);
       letter-spacing: 0.12em;
       margin-bottom: 1.1rem;
     }
     .sector-t {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-heading);
       font-size: 1.45rem;
       font-weight: 400;
       color: var(--cream);
@@ -1293,13 +1291,13 @@
 
     .portrait-caption { margin-top: 1.25rem; }
     .portrait-name {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-heading);
       font-size: 1.35rem;
       font-weight: 500;
       line-height: 1.2;
     }
     .portrait-role {
-      font-family: 'DM Mono', monospace;
+      font-family: var(--font-body);
       font-size: var(--mono);
       color: var(--gold);
       letter-spacing: 0.1em;
@@ -1311,7 +1309,7 @@
     @media (min-width: 900px) { .advisory-content { padding-top: 3.5rem; } }
 
     .advisory-headline {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-heading);
       font-size: var(--h2);
       font-weight: 300;
       line-height: 1.15;
@@ -1338,7 +1336,7 @@
       align-items: start;
     }
     .hl-arrow {
-      font-family: 'DM Mono', monospace;
+      font-family: var(--font-body);
       font-size: var(--mono);
       color: var(--gold);
       padding-top: 0.2rem;
@@ -1372,7 +1370,7 @@
     /* Section header */
     .air-header { max-width: 780px; margin-bottom: 5rem; }
     .air-title {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-heading);
       font-size: var(--h1);
       font-weight: 600;
       line-height: 1.05;
@@ -1430,14 +1428,14 @@
     .air-card:hover::before { opacity: 1; }
 
     .air-card-num {
-      font-family: 'DM Mono', monospace;
+      font-family: var(--font-body);
       font-size: var(--mono);
       letter-spacing: 0.16em;
       text-transform: uppercase;
       color: var(--gold);
     }
     .air-card-title {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-heading);
       font-size: clamp(1.35rem, 2.2vw, 1.75rem);
       font-weight: 600;
       line-height: 1.2;
@@ -1458,7 +1456,7 @@
       border-top: 1px solid rgba(255,255,255,0.08);
     }
     .air-card-count {
-      font-family: 'DM Mono', monospace;
+      font-family: var(--font-body);
       font-size: 0.68rem;
       letter-spacing: 0.1em;
       text-transform: uppercase;
@@ -1473,7 +1471,7 @@
       border: 1px solid rgba(0,192,220,0.5);
       color: var(--gold);
       padding: 0.75rem 1.5rem;
-      font-family: 'DM Sans', sans-serif;
+      font-family: var(--font-body);
       font-size: 0.8rem;
       font-weight: 500;
       letter-spacing: 0.08em;
@@ -1500,7 +1498,7 @@
       background: none;
       border: none;
       color: var(--gold);
-      font-family: 'DM Mono', monospace;
+      font-family: var(--font-body);
       font-size: 0.72rem;
       letter-spacing: 0.12em;
       text-transform: uppercase;
@@ -1518,7 +1516,7 @@
       border-bottom: 1px solid var(--border);
     }
     .air-panel-title h3 {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-heading);
       font-size: var(--air-title);
       font-weight: 700;
       line-height: 1.1;
@@ -1555,7 +1553,7 @@
       border-bottom: 1px solid var(--border);
     }
     .air-q-group {
-      font-family: 'DM Mono', monospace;
+      font-family: var(--font-body);
       font-size: 0.65rem;
       letter-spacing: 0.14em;
       text-transform: uppercase;
@@ -1593,7 +1591,7 @@
     }
     .air-result-inner { max-width: 640px; }
     .air-result-label {
-      font-family: 'DM Mono', monospace;
+      font-family: var(--font-body);
       font-size: var(--mono);
       letter-spacing: 0.14em;
       text-transform: uppercase;
@@ -1616,7 +1614,7 @@
       transition: width 0.9s var(--ease);
     }
     .air-score-text {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-heading);
       font-size: clamp(1.8rem, 4vw, 3rem);
       font-weight: 600;
       color: var(--cream);
@@ -1632,7 +1630,7 @@
 
     /* Group label for yesno assessments */
     .air-group-label {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-heading);
       font-size: var(--air-section);
       font-weight: 700;
       text-transform: none;
@@ -1645,7 +1643,7 @@
     }
     .air-group-label small {
       display: block;
-      font-family: 'DM Mono', monospace;
+      font-family: var(--font-body);
       font-size: var(--air-category);
       font-weight: 400;
       text-transform: uppercase;
@@ -1656,7 +1654,7 @@
     /* Fix question element display */
     .air-q-num {
       display: block;
-      font-family: 'DM Mono', monospace;
+      font-family: var(--font-body);
       font-size: var(--air-category);
       letter-spacing: 0.14em;
       color: rgba(9,27,56,0.4);
@@ -1678,7 +1676,7 @@
       border: 1px solid rgba(255,255,255,0.3);
       color: var(--cream);
       padding: 0.85rem 2rem;
-      font-family: 'DM Sans', sans-serif;
+      font-family: var(--font-body);
       font-size: 0.82rem;
       font-weight: 500;
       letter-spacing: 0.06em;
@@ -1701,7 +1699,7 @@
     }
 
     .contact-headline {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-heading);
       font-size: var(--h1);
       font-weight: 300;
       line-height: 1.1;
@@ -1720,7 +1718,7 @@
 
     .contact-info { display: flex; flex-direction: column; gap: 1.5rem; }
     .ci-label {
-      font-family: 'DM Mono', monospace;
+      font-family: var(--font-body);
       font-size: var(--mono);
       letter-spacing: 0.12em;
       color: var(--gold);
@@ -1749,7 +1747,7 @@
     .fg { margin-bottom: 1.35rem; }
     .fl {
       display: block;
-      font-family: 'DM Mono', monospace;
+      font-family: var(--font-body);
       font-size: var(--mono);
       letter-spacing: 0.12em;
       text-transform: uppercase;
@@ -1761,7 +1759,7 @@
       background: rgba(255,255,255,0.06);
       border: 1px solid var(--border-dk);
       color: var(--cream);
-      font-family: 'DM Sans', sans-serif;
+      font-family: var(--font-body);
       font-size: 0.9375rem;
       font-weight: 300;
       padding: 0.875rem 1rem;
@@ -1779,7 +1777,7 @@
       width: 100%;
       background: var(--gold);
       color: var(--ink);
-      font-family: 'DM Sans', sans-serif;
+      font-family: var(--font-body);
       font-size: var(--sm);
       font-weight: 500;
       letter-spacing: 0.08em;
@@ -1798,7 +1796,7 @@
     .form-status {
       margin-top: 1rem;
       padding: 0.875rem 1.125rem;
-      font-family: 'DM Sans', sans-serif;
+      font-family: var(--font-body);
       font-size: var(--sm);
       font-weight: 400;
       line-height: 1.6;
@@ -1835,7 +1833,7 @@
     }
 
     .foot-logo {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-heading);
       font-size: 1.25rem;
       font-weight: 600;
       letter-spacing: 0.1em;
@@ -1844,7 +1842,7 @@
     .foot-logo em { font-style: normal; color: var(--gold); }
 
     .foot-copy {
-      font-family: 'DM Mono', monospace;
+      font-family: var(--font-body);
       font-size: 0.68rem;
       letter-spacing: 0.07em;
       color: rgba(255,255,255,0.65);
@@ -1852,7 +1850,7 @@
 
     .foot-links { display: flex; gap: 1.5rem; }
     .foot-links a {
-      font-family: 'DM Mono', monospace;
+      font-family: var(--font-body);
       font-size: 0.68rem;
       letter-spacing: 0.08em;
       text-transform: uppercase;
@@ -1915,7 +1913,7 @@
     .sector-sq.active::after { width: 100%; }
 
     .sector-sq-n {
-      font-family: 'DM Mono', monospace;
+      font-family: var(--font-body);
       font-size: clamp(0.6rem, 1.1vw, 0.7rem);
       color: var(--gold);
       letter-spacing: 0.1em;
@@ -1925,7 +1923,7 @@
       line-height: 1;
     }
     .sector-sq-title {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-heading);
       font-size: clamp(0.78rem, 1.3vw, 1.2rem);
       font-weight: 400;
       line-height: 1.2;
@@ -1957,7 +1955,7 @@
       align-items: center;
       justify-content: center;
       font-size: clamp(0.7rem, 1vw, 0.9rem);
-      font-family: 'DM Sans', sans-serif;
+      font-family: var(--font-body);
       font-weight: 300;
       color: rgba(255,255,255,0.5);
       flex-shrink: 0;
@@ -1993,14 +1991,14 @@
       margin-bottom: 0.5rem;
     }
     .sector-panel-name {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-heading);
       font-size: clamp(1.4rem, 2.5vw, 2rem);
       font-weight: 300;
       color: var(--cream);
       line-height: 1.15;
     }
     .sector-panel-close {
-      font-family: 'DM Mono', monospace;
+      font-family: var(--font-body);
       font-size: 0.62rem;
       letter-spacing: 0.12em;
       text-transform: uppercase;
@@ -2041,14 +2039,14 @@
     .sector-points li::before {
       content: '—';
       color: var(--gold);
-      font-family: 'DM Mono', monospace;
+      font-family: var(--font-body);
       font-size: 0.65rem;
       flex-shrink: 0;
       margin-top: 0.25rem;
     }
     .sector-tags { display: flex; flex-direction: column; gap: 0.45rem; align-self: start; }
     .sector-tag {
-      font-family: 'DM Mono', monospace;
+      font-family: var(--font-body);
       font-size: 0.62rem;
       letter-spacing: 0.1em;
       text-transform: uppercase;
@@ -2070,7 +2068,7 @@
     }
 
     .blog-title {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-heading);
       font-size: var(--h1);
       font-weight: 300;
       line-height: 1.1;
@@ -2130,7 +2128,7 @@
       flex-wrap: wrap;
     }
     .blog-cat {
-      font-family: 'DM Mono', monospace;
+      font-family: var(--font-body);
       font-size: 0.6rem;
       letter-spacing: 0.12em;
       text-transform: uppercase;
@@ -2139,7 +2137,7 @@
       padding: 0.2rem 0.6rem;
     }
     .blog-date {
-      font-family: 'DM Mono', monospace;
+      font-family: var(--font-body);
       font-size: 0.6rem;
       letter-spacing: 0.1em;
       color: var(--mid-lt);
@@ -2148,7 +2146,7 @@
     /* Article item typography — identical for every item, no
        "featured" variant */
     .blog-item-title {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-heading);
       font-size: clamp(1.4rem, 2.3vw, 1.9rem);
       font-weight: 300;
       line-height: 1.18;
@@ -2184,7 +2182,7 @@
       gap: 0.5rem;
       border: 1.5px solid var(--gold);
       border-radius: 3px;
-      font-family: 'DM Sans', sans-serif;
+      font-family: var(--font-body);
       font-size: 0.78rem;
       font-weight: 700;
       letter-spacing: 0.04em;
@@ -2235,13 +2233,9 @@
   --teal:#00C0DC;
   --amber:#C87A18;
   --red:#B3433A;
-  --f-display:'Cormorant Garamond', 'Iowan Old Style', Georgia, serif;
-  --f-body:'DM Sans', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;
-  --f-mono:'DM Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
   color-scheme: light;
 }
 
-  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;.art-frame 0, .art-frame 500;0, .art-frame 600;0, .art-frame 700;1, .art-frame 500&family=Jost:wght@300;400;500;600;700&display=swap');
 
   
 
@@ -2250,7 +2244,7 @@
   .art-frame{
     background:var(--navy-900);
     color:var(--ink);
-    font-family:'Jost',system-ui,sans-serif;
+    font-family:var(--font-body);
     font-weight:300;
     line-height:1.6;
     -webkit-font-smoothing:antialiased;
@@ -2259,7 +2253,7 @@
   .art-frame ::selection{background:var(--gold-2);color:var(--navy-900);}
 
   .art-frame h1, .art-frame h2, .art-frame h3, .art-frame h4{
-    font-family:'Cormorant Garamond',Georgia,serif;
+    font-family:var(--font-heading);
     font-weight:600;
     color:var(--cream);
     text-wrap:balance;
@@ -2288,7 +2282,7 @@
       var(--navy-900);
   }
   .art-frame .eyebrow{
-    font-family:'Jost',sans-serif; font-size:.72rem; letter-spacing:.22em;
+    font-family:var(--font-body); font-size:.72rem; letter-spacing:.22em;
     text-transform:uppercase; color:var(--gold-2); font-weight:600;
     display:flex; align-items:center; gap:10px; margin-bottom:22px;
   }
@@ -2305,7 +2299,7 @@
   }
   .art-frame .meta-item{display:flex; flex-direction:column; gap:4px;}
   .art-frame .meta-item .k{font-size:.68rem; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-dim);}
-  .art-frame .meta-item .v{font-family:'Cormorant Garamond',serif; font-size:1.15rem; color:var(--cream); font-weight:600;}
+  .art-frame .meta-item .v{font-family:var(--font-heading); font-size:1.15rem; color:var(--cream); font-weight:600;}
 
   /* ---------- SECTION SCAFFOLD ---------- */
   .art-frame section{padding:72px 24px; border-bottom:1px solid var(--line); position:relative;}
@@ -2314,7 +2308,7 @@
 
   .art-frame .sec-head{display:flex; align-items:baseline; gap:18px; margin-bottom:36px;}
   .art-frame .sec-num{
-    font-family:'Cormorant Garamond',serif; font-size:1rem; color:var(--gold-2);
+    font-family:var(--font-heading); font-size:1rem; color:var(--gold-2);
     letter-spacing:.08em; font-weight:600; white-space:nowrap;
   }
   .art-frame .sec-title{font-size:clamp(1.6rem,3vw,2.2rem);}
@@ -2333,7 +2327,7 @@
   /* ---------- 1. HALLAZGOS CLAVE ---------- */
   .art-frame .findings-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--line); border:1px solid var(--line);}
   .art-frame .finding{background:var(--navy-800); padding:28px 26px; display:flex; flex-direction:column; gap:12px;}
-  .art-frame .finding .num{font-family:'Cormorant Garamond',serif; font-size:2.6rem; color:var(--gold-1); font-weight:700; line-height:1;}
+  .art-frame .finding .num{font-family:var(--font-heading); font-size:2.6rem; color:var(--gold-1); font-weight:700; line-height:1;}
   .art-frame .finding .label{font-size:.92rem; color:var(--ink); font-weight:400; line-height:1.5;}
   .art-frame .finding .src{font-size:.72rem; color:var(--ink-dim); margin-top:auto;}
   @media(max-width:700px){.art-frame .findings-grid{grid-template-columns:1fr;}}
@@ -2348,7 +2342,7 @@
   .art-frame .chart-wrap{position:relative; height:280px;}
   .art-frame .stat-row{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line); margin-top:24px;}
   .art-frame .stat{background:var(--navy-800); padding:22px 20px;}
-  .art-frame .stat .v{font-family:'Cormorant Garamond',serif; font-size:2.1rem; color:var(--gold-1); font-weight:700;}
+  .art-frame .stat .v{font-family:var(--font-heading); font-size:2.1rem; color:var(--gold-1); font-weight:700;}
   .art-frame .stat .l{font-size:.8rem; color:var(--ink-dim); margin-top:4px;}
   @media(max-width:700px){.art-frame .stat-row{grid-template-columns:1fr;}}
 
@@ -2356,7 +2350,7 @@
   .art-frame .quote-card{
     border-left:2px solid var(--gold-2); padding:6px 0 6px 28px; margin-bottom:34px;
   }
-  .art-frame .quote-card p.q{font-family:'Cormorant Garamond',serif; font-size:1.35rem; font-style:italic; color:var(--cream); line-height:1.45;}
+  .art-frame .quote-card p.q{font-family:var(--font-heading); font-size:1.35rem; font-style:italic; color:var(--cream); line-height:1.45;}
   .art-frame .quote-card .who{margin-top:12px; font-size:.85rem; color:var(--ink-dim);}
   .art-frame .quote-card .who strong{color:var(--gold-2); font-weight:600; font-style:normal;}
 
@@ -2367,7 +2361,7 @@
     padding:26px 0; border-top:1px solid var(--line);
   }
   .art-frame .trend:last-child{border-bottom:1px solid var(--line);}
-  .art-frame .trend .yr{font-family:'Cormorant Garamond',serif; color:var(--gold-2); font-size:1.3rem; font-weight:600;}
+  .art-frame .trend .yr{font-family:var(--font-heading); color:var(--gold-2); font-size:1.3rem; font-weight:600;}
   .art-frame .trend h4{font-size:1.1rem; margin-bottom:6px; color:var(--cream);}
   .art-frame .trend p{font-size:.92rem; color:var(--ink-dim); margin:0;}
 
@@ -2383,7 +2377,7 @@
   .art-frame .debate .pos .side-label{color:var(--alta);}
   .art-frame .debate .neg .side-label{color:#E39B9B;}
   .art-frame .debate p{font-size:.9rem; color:var(--ink); margin:0;}
-  .art-frame .debate-title{font-family:'Cormorant Garamond',serif; font-size:1.25rem; color:var(--cream); margin-bottom:12px; font-weight:600;}
+  .art-frame .debate-title{font-family:var(--font-heading); font-size:1.25rem; color:var(--cream); margin-bottom:12px; font-weight:600;}
   @media(max-width:700px){.art-frame .debate{grid-template-columns:1fr;} .art-frame .debate .pos{border-right:none; border-bottom:1px solid var(--line);}}
 
   /* ---------- 6. MATRIZ DE MADUREZ ---------- */
@@ -2391,10 +2385,10 @@
   .art-frame table.matrix{width:100%; border-collapse:collapse; min-width:720px;}
   .art-frame table.matrix th, .art-frame table.matrix td{padding:14px 16px; text-align:left; border-bottom:1px solid var(--line); font-size:.88rem;}
   .art-frame table.matrix th{
-    font-family:'Jost',sans-serif; font-size:.68rem; letter-spacing:.1em; text-transform:uppercase;
+    font-family:var(--font-body); font-size:.68rem; letter-spacing:.1em; text-transform:uppercase;
     color:var(--gold-2); font-weight:600; border-bottom:1px solid var(--gold-2);
   }
-  .art-frame table.matrix td.country{font-family:'Cormorant Garamond',serif; font-weight:600; color:var(--cream); font-size:1.05rem;}
+  .art-frame table.matrix td.country{font-family:var(--font-heading); font-weight:600; color:var(--cream); font-size:1.05rem;}
   .art-frame .lvl{display:inline-flex; align-items:center; gap:8px;}
   .art-frame .dot-row{display:flex; gap:3px;}
   .art-frame .dot{width:7px; height:7px; border-radius:50%; background:rgba(255,255,255,0.12);}
@@ -2417,7 +2411,7 @@
   /* ---------- 8. IMPERATIVOS ---------- */
   .art-frame .imp-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line);}
   .art-frame .imp{background:var(--navy-800); padding:24px 22px;}
-  .art-frame .imp .role{font-family:'Cormorant Garamond',serif; font-size:1.3rem; color:var(--gold-1); font-weight:700; margin-bottom:10px;}
+  .art-frame .imp .role{font-family:var(--font-heading); font-size:1.3rem; color:var(--gold-1); font-weight:700; margin-bottom:10px;}
   .art-frame .imp p{font-size:.86rem; color:var(--ink); margin:0;}
   @media(max-width:900px){.art-frame .imp-grid{grid-template-columns:1fr 1fr;}}
   @media(max-width:560px){.art-frame .imp-grid{grid-template-columns:1fr;}}
@@ -2435,7 +2429,7 @@
   @media(max-width:700px){.art-frame .biblio{columns:1;}}
 
   .art-frame footer{padding:48px 24px 64px; text-align:center;}
-  .art-frame footer .brand{font-family:'Cormorant Garamond',serif; font-size:1.3rem; color:var(--gold-1); letter-spacing:.04em;}
+  .art-frame footer .brand{font-family:var(--font-heading); font-size:1.3rem; color:var(--gold-1); letter-spacing:.04em;}
   .art-frame footer p{font-size:.78rem; color:var(--ink-dim); margin-top:8px;}
 
 .art-frame .fade{opacity:1!important;transform:none!important}
@@ -2458,9 +2452,6 @@
   --teal:#00C0DC;
   --amber:#C87A18;
   --red:#B3433A;
-  --f-display:'Cormorant Garamond', 'Iowan Old Style', Georgia, serif;
-  --f-body:'DM Sans', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;
-  --f-mono:'DM Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
   color-scheme: light;
 }
 
@@ -2468,7 +2459,7 @@
 .art-frame *{box-sizing:border-box}
 .art-frame{scroll-behavior:smooth}
 @media (prefers-reduced-motion: reduce){.art-frame{scroll-behavior:auto}}
-.art-frame{background:var(--navy-900);color:var(--ink);font-family:var(--sans);font-weight:300;font-size:16px;line-height:1.65;margin:0;-webkit-font-smoothing:antialiased}
+.art-frame{background:var(--navy-900);color:var(--ink);font-family:var(--font-body);font-weight:300;font-size:16px;line-height:1.65;margin:0;-webkit-font-smoothing:antialiased}
 .art-frame a{color:var(--gold-1);text-decoration:none;border-bottom:1px solid rgba(232,200,116,.3)}
 .art-frame a:hover{border-bottom-color:var(--gold-1)}
 .art-frame a:focus-visible, .art-frame button:focus-visible{outline:2px solid var(--gold-1);outline-offset:3px}
@@ -2479,8 +2470,8 @@
 .art-frame #progress{position:fixed;top:0;left:0;height:2px;width:0;background:linear-gradient(90deg,var(--gold-3),var(--gold-1));z-index:60}
 .art-frame .topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:rgba(10,14,26,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line-soft)}
 .art-frame .topbar .wrap{display:flex;align-items:center;gap:20px;height:56px}
-.art-frame .brand{font-family:var(--serif);font-weight:600;letter-spacing:.18em;font-size:15px;color:var(--gold-1);white-space:nowrap}
-.art-frame .brand span{color:var(--ink-3);font-family:var(--sans);font-weight:400;letter-spacing:.2em;font-size:10px;margin-left:8px}
+.art-frame .brand{font-family:var(--font-heading);font-weight:600;letter-spacing:.18em;font-size:15px;color:var(--gold-1);white-space:nowrap}
+.art-frame .brand span{color:var(--ink-3);font-family:var(--font-body);font-weight:400;letter-spacing:.2em;font-size:10px;margin-left:8px}
 .art-frame .nav{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;flex:1;justify-content:flex-end}
 .art-frame .nav::-webkit-scrollbar{display:none}
 .art-frame .nav a{border:0;color:var(--ink-3);font-size:12px;letter-spacing:.06em;padding:6px 10px;border-radius:2px;white-space:nowrap}
@@ -2492,7 +2483,7 @@
   radial-gradient(900px 380px at 85% -10%, rgba(201,169,97,.10), transparent 60%),
   linear-gradient(180deg,var(--navy-950),var(--navy-900))}
 .art-frame .eyebrow{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold-2);font-weight:500}
-.art-frame .hero h1{font-family:var(--serif);font-weight:600;font-size:clamp(40px,6.4vw,78px);line-height:1.02;margin:18px 0 22px;text-wrap:balance;letter-spacing:-.01em}
+.art-frame .hero h1{font-family:var(--font-heading);font-weight:600;font-size:clamp(40px,6.4vw,78px);line-height:1.02;margin:18px 0 22px;text-wrap:balance;letter-spacing:-.01em}
 .art-frame .hero h1 em{font-style:italic;color:var(--gold-1);font-weight:500}
 .art-frame .hero .lede{font-size:clamp(17px,1.9vw,20px);color:var(--ink-2);max-width:62ch;margin:0}
 .art-frame .meta{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:34px;font-size:12px;color:var(--ink-3);letter-spacing:.04em}
@@ -2500,18 +2491,18 @@
 .art-frame .thesis{margin-top:40px;display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);}
 .art-frame .thesis div{padding:22px 22px 0 0}
 .art-frame .thesis div+div{padding-left:22px;border-left:1px solid var(--line-soft)}
-.art-frame .thesis .k{font-family:var(--serif);font-size:44px;line-height:1;color:var(--gold-1);font-variant-numeric:tabular-nums}
+.art-frame .thesis .k{font-family:var(--font-heading);font-size:44px;line-height:1;color:var(--gold-1);font-variant-numeric:tabular-nums}
 .art-frame .thesis p{margin:8px 0 0;font-size:14px;color:var(--ink-2)}
 @media (max-width:760px){.art-frame .thesis{grid-template-columns:1fr}.art-frame .thesis div+div{padding-left:0;border-left:0;border-top:1px solid var(--line-soft)}.art-frame .thesis div{padding:18px 0}}
 
 /* sections */
 .art-frame section.sec{padding-block:72px;border-bottom:1px solid var(--line-soft);scroll-margin-top:64px}
 .art-frame .sec-head{display:grid;grid-template-columns:120px 1fr;gap:24px;margin-bottom:36px;align-items:end}
-.art-frame .sec-num{font-family:var(--serif);font-size:72px;line-height:.8;color:var(--gold-3);font-variant-numeric:tabular-nums}
-.art-frame .sec-head h2{font-family:var(--serif);font-weight:600;font-size:clamp(30px,3.6vw,44px);line-height:1.05;margin:6px 0 0;text-wrap:balance}
+.art-frame .sec-num{font-family:var(--font-heading);font-size:72px;line-height:.8;color:var(--gold-3);font-variant-numeric:tabular-nums}
+.art-frame .sec-head h2{font-family:var(--font-heading);font-weight:600;font-size:clamp(30px,3.6vw,44px);line-height:1.05;margin:6px 0 0;text-wrap:balance}
 .art-frame .sec-head p{margin:10px 0 0;color:var(--ink-2);max-width:68ch}
 @media (max-width:640px){.art-frame .sec-head{grid-template-columns:1fr;gap:6px}.art-frame .sec-num{font-size:48px}}
-.art-frame h3{font-family:var(--serif);font-weight:600;font-size:24px;line-height:1.2;margin:0 0 8px;text-wrap:balance}
+.art-frame h3{font-family:var(--font-heading);font-weight:600;font-size:24px;line-height:1.2;margin:0 0 8px;text-wrap:balance}
 .art-frame h4{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-2);font-weight:500;margin:0 0 10px}
 .art-frame p{margin:0 0 12px}
 .art-frame .muted{color:var(--ink-3)}
@@ -2539,7 +2530,7 @@
 /* KPI */
 .art-frame .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line-soft);border:1px solid var(--line-soft);margin-bottom:40px}
 .art-frame .kpi{background:var(--navy-850);padding:22px 20px;display:flex;flex-direction:column;gap:6px}
-.art-frame .kpi .v{font-family:var(--serif);font-size:40px;line-height:1;color:var(--gold-1);font-variant-numeric:tabular-nums}
+.art-frame .kpi .v{font-family:var(--font-heading);font-size:40px;line-height:1;color:var(--gold-1);font-variant-numeric:tabular-nums}
 .art-frame .kpi .l{font-size:13px;color:var(--ink-2);line-height:1.45;flex:1}
 .art-frame .kpi .f{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:11px;color:var(--ink-3)}
 @media (max-width:900px){.art-frame .kpis{grid-template-columns:1fr 1fr}}
@@ -2563,7 +2554,7 @@
 /* quotes */
 .art-frame .quotes{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
 .art-frame .quote{border-top:1px solid var(--gold-3);padding-top:20px;margin:0}
-.art-frame .quote blockquote{margin:0;font-family:var(--serif);font-size:23px;line-height:1.3;font-style:italic;color:var(--ink);text-wrap:pretty}
+.art-frame .quote blockquote{margin:0;font-family:var(--font-heading);font-size:23px;line-height:1.3;font-style:italic;color:var(--ink);text-wrap:pretty}
 .art-frame .quote .es{font-size:14px;color:var(--ink-2);margin-top:10px}
 .art-frame .quote .who{margin-top:14px;font-size:12px;letter-spacing:.04em;color:var(--ink-3)}
 .art-frame .quote .who b{color:var(--gold-2);font-weight:500}
@@ -2581,7 +2572,7 @@
 @media (max-width:560px){.art-frame .trends{grid-template-columns:1fr}}
 .art-frame .predict{margin-top:36px;display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
 .art-frame .pr{border-left:1px solid var(--gold-3);padding-left:16px}
-.art-frame .pr .y{font-family:var(--serif);font-size:28px;color:var(--gold-1);line-height:1}
+.art-frame .pr .y{font-family:var(--font-heading);font-size:28px;color:var(--gold-1);line-height:1}
 .art-frame .pr p{font-size:14px;color:var(--ink-2);margin:8px 0 0}
 @media (max-width:860px){.art-frame .predict{grid-template-columns:1fr 1fr}}
 @media (max-width:460px){.art-frame .predict{grid-template-columns:1fr}}
@@ -2590,7 +2581,7 @@
 .art-frame .debate{display:grid;grid-template-columns:1fr 1fr 1.1fr;border-top:1px solid var(--line);}
 .art-frame .debate>div{padding:22px 22px 22px 0}
 .art-frame .debate>div+div{padding-left:22px;border-left:1px solid var(--line-soft)}
-.art-frame .debate .q{grid-column:1/-1;padding:24px 0 0;font-family:var(--serif);font-size:26px;line-height:1.2}
+.art-frame .debate .q{grid-column:1/-1;padding:24px 0 0;font-family:var(--font-heading);font-size:26px;line-height:1.2}
 .art-frame .debate .side h4{color:var(--ink-3)}
 .art-frame .debate .side p{font-size:14px;color:var(--ink-2)}
 .art-frame .debate .stance{background:linear-gradient(180deg,rgba(201,169,97,.06),transparent)}
@@ -2612,7 +2603,7 @@
 .art-frame .road{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative}
 .art-frame .phase{padding:0 22px 0 0;position:relative}
 .art-frame .phase+.phase{padding-left:22px;border-left:1px solid var(--line-soft)}
-.art-frame .phase .when{font-family:var(--serif);font-size:30px;color:var(--gold-1);line-height:1;font-variant-numeric:tabular-nums}
+.art-frame .phase .when{font-family:var(--font-heading);font-size:30px;color:var(--gold-1);line-height:1;font-variant-numeric:tabular-nums}
 .art-frame .phase .name{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-2);margin:8px 0 14px}
 .art-frame .phase ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px}
 .art-frame .phase li{font-size:14px;color:var(--ink-2);padding-left:14px;position:relative}
@@ -2634,7 +2625,7 @@
 .art-frame .roles{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line)}
 .art-frame .role{padding:22px 22px 22px 0;border-bottom:1px solid var(--line-soft)}
 .art-frame .role:not(:nth-child(3n+1)){padding-left:22px;border-left:1px solid var(--line-soft)}
-.art-frame .role .r{font-family:var(--serif);font-size:24px;color:var(--gold-1);font-weight:600}
+.art-frame .role .r{font-family:var(--font-heading);font-size:24px;color:var(--gold-1);font-weight:600}
 .art-frame .role .m{font-size:12px;color:var(--ink-3);margin-bottom:10px}
 .art-frame .role ol{margin:0;padding-left:18px;font-size:14px;color:var(--ink-2);display:flex;flex-direction:column;gap:6px}
 .art-frame .role ol li::marker{color:var(--gold-3);font-variant-numeric:tabular-nums}
@@ -2644,7 +2635,7 @@
 /* frame */
 .art-frame .frame{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:40px}
 .art-frame .frame>div{background:var(--navy-950);padding:22px}
-.art-frame .frame .n{font-family:var(--serif);font-size:20px;color:var(--gold-1);font-weight:600}
+.art-frame .frame .n{font-family:var(--font-heading);font-size:20px;color:var(--gold-1);font-weight:600}
 .art-frame .frame p{font-size:14px;color:var(--ink-2);margin:6px 0 0}
 @media (max-width:760px){.art-frame .frame{grid-template-columns:1fr}}
 
@@ -2657,7 +2648,7 @@
 .art-frame .method{margin-top:36px;padding:22px;border:1px solid var(--line-soft);background:var(--navy-850);font-size:13.5px;color:var(--ink-2)}
 .art-frame footer{padding-block:40px 60px;font-size:12px;color:var(--ink-3)}
 .art-frame footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
-.art-frame footer b{font-family:var(--serif);color:var(--gold-2);letter-spacing:.18em;font-weight:600;font-size:14px}
+.art-frame footer b{font-family:var(--font-heading);color:var(--gold-2);letter-spacing:.18em;font-weight:600;font-size:14px}
 
   </style>
   
@@ -3799,7 +3790,7 @@
 
   // Chart defaults
   Chart.defaults.color = '#1A3252';
-  Chart.defaults.font.family = "'Jost', sans-serif";
+  Chart.defaults.font.family = getComputedStyle(document.documentElement).getPropertyValue('--font-body').trim() || 'Onest, system-ui, sans-serif';
   Chart.defaults.borderColor = 'rgba(0,175,201,0.12)';
 
   new Chart(document.getElementById('art-nuevos-modelos-negocio-chartEmbedded'), {
@@ -4191,7 +4182,7 @@
   // Chart defaults
   if(window.Chart){
     Chart.defaults.color = '#A9AFC4';
-    Chart.defaults.font.family = "'Jost', sans-serif";
+    Chart.defaults.font.family = getComputedStyle(document.documentElement).getPropertyValue('--font-body').trim() || 'Onest, system-ui, sans-serif';
     Chart.defaults.font.size = 12;
 
     var ctx1=document.getElementById('art-eficiencia-cognitiva-chartGap').getContext('2d');
@@ -4642,7 +4633,7 @@
   var ink2=css.getPropertyValue('--ink-2').trim(), ink3=css.getPropertyValue('--ink-3').trim();
   var gold1=css.getPropertyValue('--gold-1').trim(), gold2=css.getPropertyValue('--gold-2').trim(), gold3=css.getPropertyValue('--gold-3').trim();
   var grid='rgba(38,48,77,.6)';
-  Chart.defaults.font.family="'Jost', 'Segoe UI', system-ui, sans-serif";
+  Chart.defaults.font.family=css.getPropertyValue('--font-body').trim()||'Onest, system-ui, sans-serif';
   Chart.defaults.color=ink3;
   var tip={backgroundColor:'#EDF3F9',borderColor:gold3,borderWidth:1,titleColor:gold1,bodyColor:ink2,padding:10};
 
