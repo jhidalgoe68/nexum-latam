@@ -1746,6 +1746,23 @@
 
 
     /* ── CONTACTO ───────────────────────────────────── */
+    /* Anchor target for every "Conversemos / Solicitar conversación" CTA.
+       --header-h is kept in sync with the fixed header by JS. */
+    #contacto { scroll-margin-top: calc(var(--header-h, 116px) + 1.5rem); }
+    #contacto:focus { outline: none; }
+    .contact-form-kicker {
+      font-family: var(--font-body);
+      font-size: var(--mono);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold-lt);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+    .contact-form-kicker::before { content: ''; width: 2rem; height: 1px; background: var(--gold-lt); }
+
     .contact-grid {
       display: grid;
       grid-template-columns: 1fr;
@@ -2783,7 +2800,7 @@
         </p>
 
         <div class="hero-actions">
-          <a href="#contacto" class="btn btn-primary">Solicitar conversación</a>
+          <a href="#contacto" class="btn btn-primary" aria-label="Solicitar conversación: ir al formulario de contacto">Solicitar conversación</a>
           <a href="#capacidades" class="btn btn-arrow">Ver capacidades <span class="arr">→</span></a>
         </div>
       </div>
@@ -4890,7 +4907,8 @@
           </div>
         </div>
 
-        <div>
+        <div id="contacto" class="contact-form-col" role="region" aria-labelledby="contactoTitle" tabindex="-1">
+          <p class="contact-form-kicker reveal" id="contactoTitle">Solicitar conversación</p>
           <form id="contactForm" class="reveal d1" novalidate>
             <div class="form-row">
               <div class="fg">
@@ -5599,12 +5617,24 @@
     /* ─────────────────────────────────────────
        5. SMOOTH SCROLL — anchor links
     ───────────────────────────────────────── */
+    const headerEl = document.querySelector('.header');
+    const syncHeaderH = () => {
+      if (headerEl) document.documentElement.style.setProperty('--header-h', headerEl.offsetHeight + 'px');
+    };
+    syncHeaderH();
+    window.addEventListener('resize', syncHeaderH);
+
     document.querySelectorAll('a[href^="#"]').forEach(a => {
       a.addEventListener('click', (e) => {
-        const target = document.querySelector(a.getAttribute('href'));
+        const id = a.getAttribute('href').slice(1);
+        const target = id && document.getElementById(id);
         if (!target) return;
         e.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth' });
+        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        target.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+        if (history.pushState) history.pushState(null, '', '#' + id);
+        // Move keyboard / screen-reader focus to the destination without a second scroll.
+        if (target.hasAttribute('tabindex')) target.focus({ preventScroll: true });
       });
     });
 
