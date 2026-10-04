@@ -892,7 +892,9 @@
       position: relative;
     }
     @media (min-width: 900px) {
-      .hero-body { grid-template-columns: 1.2fr 0.8fr; gap: 4rem; align-items: end; }
+      .hero-body { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 4rem; align-items: end; }
+      /* Two-column hero: headline sized to its half so it stays on three lines */
+      .hero-body .hero-headline { font-size: clamp(2.9rem, 4.3vw, 5rem); }
     }
 
     .hero-eyebrow {
@@ -935,20 +937,19 @@
 
     .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
 
-    /* Hero aside stats */
-    .hero-stats {
-      display: none;
+    /* Hero KPIs — single row under the CTAs */
+    .hero-kpis {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-top: 2.5rem;
+      border-top: 1px solid var(--border);
+      max-width: 34rem;
     }
-    @media (min-width: 900px) {
-      .hero-stats {
-        display: flex;
-        flex-direction: column;
-        gap: 2.25rem;
-        border-left: 1px solid var(--border);
-        padding-left: 3.5rem;
-        justify-self: end;
-      }
-    }
+    .hero-kpi { padding: 1.25rem 1.25rem 0; border-left: 1px solid var(--border); }
+    .hero-kpi:first-child { border-left: none; padding-left: 0; }
+    .hero-kpis .stat-num { font-size: clamp(2.1rem, 3.4vw, 3rem); }
+    .hero-kpis .stat-lbl { max-width: 11rem; }
 
     .stat-num {
       font-family: var(--font-heading);
@@ -964,7 +965,129 @@
       color: var(--mid-lt);
       max-width: 130px;
       line-height: 1.4;
-      margin-top: 0.2rem;
+      margin-top: 0.35rem;
+    }
+    @media (max-width: 479px) {
+      .hero-kpi { padding: 1rem 0.75rem 0; }
+      .hero-kpis .stat-lbl { font-size: 0.75rem; }
+    }
+
+    /* Hero benchmark — "Dónde estamos hoy" */
+    .hero-bench {
+      --bench-cur: #0A8FA8;   /* NEXUM teal, deepened for >=3:1 on --cream */
+      --bench-tgt: var(--amber);
+      margin: 0;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--ink);
+      position: relative;
+      min-width: 0;
+    }
+    .bench-k {
+      font-family: var(--font-body); font-size: var(--mono); letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--mid-lt); margin-bottom: 0.6rem;
+    }
+    .bench-t { font-family: var(--font-heading); font-size: var(--h3); font-weight: 400; line-height: 1.15; color: var(--ink); }
+    .bench-sub { font-size: var(--sm); font-weight: 300; line-height: 1.5; color: var(--mid-lt); margin-top: 0.35rem; }
+    .bench-legend {
+      list-style: none; display: flex; flex-wrap: wrap; gap: 0.4rem 1.5rem; margin: 1rem 0 1.1rem;
+      font-size: 0.75rem; color: var(--mid);
+    }
+    .bench-legend li { display: inline-flex; align-items: center; gap: 0.5rem; }
+    .bench-sw { display: inline-block; }
+    .bench-sw--cur { width: 18px; height: 8px; border-radius: 0 4px 4px 0; background: var(--bench-cur); }
+    .bench-sw--tgt { width: 10px; height: 10px; border-radius: 50%; background: var(--bench-tgt); }
+
+    .bench-plot { position: relative; }
+    .bench-rows { list-style: none; }
+    .bench-row {
+      display: grid;
+      align-items: center;
+      height: 2rem;
+      border-radius: 3px;
+      cursor: default;
+    }
+    .bench-row:hover, .bench-row.is-active { background: rgba(9,27,56,0.045); }
+    .bench-lbl { font-size: 0.8125rem; font-weight: 400; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .bench-goal { font-size: 0.75rem; color: var(--mid-lt); text-align: right; font-variant-numeric: tabular-nums; }
+    .bench-track {
+      position: relative; height: 100%;
+      background: repeating-linear-gradient(90deg, var(--border) 0 1px, transparent 1px 20%);  /* hairline gridlines at 0,1,2,3,4 */
+      box-shadow: inset -1px 0 0 var(--border);                                                  /* gridline at 5 */
+    }
+    .bench-bar {
+      position: absolute; left: 0; top: 50%; height: 10px; margin-top: -5px;
+      width: calc(var(--cur) * 100%);
+      background: var(--bench-cur);
+      border-radius: 0 4px 4px 0;
+      transform-origin: left center;
+    }
+    .bench-val {
+      position: absolute; left: 100%; top: 50%; transform: translate(6px, -50%);
+      font-size: 0.75rem; font-weight: 500; color: var(--ink); font-variant-numeric: tabular-nums;
+      background: var(--cream); padding: 0 3px; line-height: 1.3;
+    }
+    .bench-gap {   /* the gap to close, current → 2030 */
+      position: absolute; top: 50%; height: 2px; margin-top: -1px;
+      left: calc(var(--cur) * 100%); width: calc((var(--tgt) - var(--cur)) * 100%);
+      background: rgba(200,122,24,0.35);
+    }
+    .bench-dot {
+      position: absolute; top: 50%; left: calc(var(--tgt) * 100%);
+      width: 10px; height: 10px; margin: -5px 0 0 -5px; border-radius: 50%;
+      background: var(--bench-tgt);
+      box-shadow: 0 0 0 2px var(--cream);   /* surface ring */
+    }
+    .bench-row, .bench-axis {
+      grid-template-columns: minmax(8.5rem, 11.5rem) minmax(0, 1fr) 2.25rem;
+      column-gap: 0.9rem;
+    }
+    .bench-axis { display: grid; margin-top: 0.35rem; font-size: 0.6875rem; color: var(--mid-lt); font-variant-numeric: tabular-nums; }
+    .bench-ticks { position: relative; height: 1rem; }
+    .bench-ticks span { position: absolute; top: 0; transform: translateX(-50%); }
+    .bench-tip {
+      position: absolute; z-index: 2; pointer-events: none; opacity: 0;
+      transform: translate(-50%, calc(-100% - 10px));
+      background: var(--ink); color: var(--cream); font-size: 0.75rem; line-height: 1.5;
+      padding: 0.55rem 0.75rem; border-radius: 3px; white-space: nowrap;
+      box-shadow: 0 6px 24px rgba(9,27,56,0.18);
+      transition: opacity 0.2s var(--ease);
+    }
+    .bench-tip.on { opacity: 1; }
+    .bench-tip b { font-weight: 500; display: block; margin-bottom: 0.15rem; }
+    .bench-tip i { font-style: normal; color: var(--gold-lt); }
+
+    @media (max-width: 599px) {   /* stack the label above its bar on phones */
+      .bench-row, .bench-axis { grid-template-columns: minmax(0, 1fr) 2.25rem; }
+      .bench-row { height: auto; padding: 0.3rem 0; row-gap: 0.1rem; }
+      .bench-lbl { grid-column: 1 / -1; }
+      .bench-track { height: 1.1rem; }
+      .bench-axis > span:first-child { display: none; }
+    }
+
+    /* Entrance: bars grow from the baseline in sequence, then targets land */
+    .js .hero-bench .bench-bar { transform: scaleX(0); }
+    .js .hero-bench .bench-val,
+    .js .hero-bench .bench-dot,
+    .js .hero-bench .bench-gap { opacity: 0; }
+    .hero-bench.in .bench-bar {
+      transform: scaleX(1);
+      transition: transform 1.1s var(--ease) calc(var(--i) * 60ms);
+    }
+    .hero-bench.in .bench-gap,
+    .hero-bench.in .bench-dot,
+    .hero-bench.in .bench-val {
+      opacity: 1;
+      transition: opacity 0.5s var(--ease) calc(0.55s + var(--i) * 60ms);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .js .hero-bench .bench-bar { transform: none; }
+      .js .hero-bench .bench-val, .js .hero-bench .bench-dot, .js .hero-bench .bench-gap { opacity: 1; }
+      .hero-bench.in .bench-bar, .hero-bench.in .bench-gap, .hero-bench.in .bench-dot, .hero-bench.in .bench-val { transition: none; }
+    }
+
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
     }
 
     /* Hero foot bar */
@@ -2803,22 +2926,107 @@
           <a href="#contacto" class="btn btn-primary" aria-label="Solicitar conversación: ir al formulario de contacto">Solicitar conversación</a>
           <a href="#capacidades" class="btn btn-arrow">Ver capacidades <span class="arr">→</span></a>
         </div>
+
+        <ul class="hero-kpis" aria-label="Cifras clave">
+          <li class="hero-kpi">
+            <span class="stat-num">30<sup>+</sup></span>
+            <p class="stat-lbl">años de experiencia ejecutiva en LATAM</p>
+          </li>
+          <li class="hero-kpi">
+            <span class="stat-num">4</span>
+            <p class="stat-lbl">capacidades integradas</p>
+          </li>
+          <li class="hero-kpi">
+            <span class="stat-num">6<sup>+</sup></span>
+            <p class="stat-lbl">sectores de alto impacto</p>
+          </li>
+        </ul>
       </div>
 
-      <aside class="hero-stats" aria-label="Cifras clave">
-        <div class="stat">
-          <span class="stat-num">30<sup>+</sup></span>
-          <p class="stat-lbl">años de experiencia ejecutiva en LATAM</p>
+      <script>document.documentElement.classList.add('js');</script>
+      <figure class="hero-bench" id="benchmark" aria-labelledby="benchTitle">
+        <figcaption class="bench-hd">
+          <p class="bench-k">Benchmark · Madurez empresarial</p>
+          <h2 class="bench-t" id="benchTitle">Dónde estamos hoy</h2>
+          <p class="bench-sub">Nivel actual frente al objetivo 2030, por dimensión empresarial (escala 0–5).</p>
+          <ul class="bench-legend" aria-hidden="true">
+            <li><span class="bench-sw bench-sw--cur"></span>Nivel actual</li>
+            <li><span class="bench-sw bench-sw--tgt"></span>Objetivo 2030</li>
+          </ul>
+        </figcaption>
+        <div class="bench-plot" aria-hidden="true">
+          <ol class="bench-rows">
+            <li class="bench-row" style="--cur:0.560;--tgt:0.840;--i:0" data-label="Cliente y mercado" data-cur="2.8" data-tgt="4.2" data-gap="1.4">
+              <span class="bench-lbl">Cliente y mercado</span>
+              <span class="bench-track"><span class="bench-gap"></span><span class="bench-bar"><span class="bench-val">2.8</span></span><span class="bench-dot"></span></span>
+              <span class="bench-goal">4.2</span>
+            </li>
+            <li class="bench-row" style="--cur:0.620;--tgt:0.900;--i:1" data-label="Negocio y estrategia" data-cur="3.1" data-tgt="4.5" data-gap="1.4">
+              <span class="bench-lbl">Negocio y estrategia</span>
+              <span class="bench-track"><span class="bench-gap"></span><span class="bench-bar"><span class="bench-val">3.1</span></span><span class="bench-dot"></span></span>
+              <span class="bench-goal">4.5</span>
+            </li>
+            <li class="bench-row" style="--cur:0.480;--tgt:0.800;--i:2" data-label="Operaciones y procesos" data-cur="2.4" data-tgt="4.0" data-gap="1.6">
+              <span class="bench-lbl">Operaciones y procesos</span>
+              <span class="bench-track"><span class="bench-gap"></span><span class="bench-bar"><span class="bench-val">2.4</span></span><span class="bench-dot"></span></span>
+              <span class="bench-goal">4.0</span>
+            </li>
+            <li class="bench-row" style="--cur:0.520;--tgt:0.860;--i:3" data-label="Datos e IA" data-cur="2.6" data-tgt="4.3" data-gap="1.7">
+              <span class="bench-lbl">Datos e IA</span>
+              <span class="bench-track"><span class="bench-gap"></span><span class="bench-bar"><span class="bench-val">2.6</span></span><span class="bench-dot"></span></span>
+              <span class="bench-goal">4.3</span>
+            </li>
+            <li class="bench-row" style="--cur:0.580;--tgt:0.840;--i:4" data-label="Tecnología y plataformas" data-cur="2.9" data-tgt="4.2" data-gap="1.3">
+              <span class="bench-lbl">Tecnología y plataformas</span>
+              <span class="bench-track"><span class="bench-gap"></span><span class="bench-bar"><span class="bench-val">2.9</span></span><span class="bench-dot"></span></span>
+              <span class="bench-goal">4.2</span>
+            </li>
+            <li class="bench-row" style="--cur:0.460;--tgt:0.800;--i:5" data-label="Personas y cultura" data-cur="2.3" data-tgt="4.0" data-gap="1.7">
+              <span class="bench-lbl">Personas y cultura</span>
+              <span class="bench-track"><span class="bench-gap"></span><span class="bench-bar"><span class="bench-val">2.3</span></span><span class="bench-dot"></span></span>
+              <span class="bench-goal">4.0</span>
+            </li>
+            <li class="bench-row" style="--cur:0.600;--tgt:0.880;--i:6" data-label="Gobierno y riesgo" data-cur="3.0" data-tgt="4.4" data-gap="1.4">
+              <span class="bench-lbl">Gobierno y riesgo</span>
+              <span class="bench-track"><span class="bench-gap"></span><span class="bench-bar"><span class="bench-val">3.0</span></span><span class="bench-dot"></span></span>
+              <span class="bench-goal">4.4</span>
+            </li>
+            <li class="bench-row" style="--cur:0.420;--tgt:0.800;--i:7" data-label="Ecosistemas y alianzas" data-cur="2.1" data-tgt="4.0" data-gap="1.9">
+              <span class="bench-lbl">Ecosistemas y alianzas</span>
+              <span class="bench-track"><span class="bench-gap"></span><span class="bench-bar"><span class="bench-val">2.1</span></span><span class="bench-dot"></span></span>
+              <span class="bench-goal">4.0</span>
+            </li>
+            <li class="bench-row" style="--cur:0.500;--tgt:0.800;--i:8" data-label="Sostenibilidad y sociedad" data-cur="2.5" data-tgt="4.0" data-gap="1.5">
+              <span class="bench-lbl">Sostenibilidad y sociedad</span>
+              <span class="bench-track"><span class="bench-gap"></span><span class="bench-bar"><span class="bench-val">2.5</span></span><span class="bench-dot"></span></span>
+              <span class="bench-goal">4.0</span>
+            </li>
+            <li class="bench-row" style="--cur:0.640;--tgt:0.900;--i:9" data-label="Resiliencia y continuidad" data-cur="3.2" data-tgt="4.5" data-gap="1.3">
+              <span class="bench-lbl">Resiliencia y continuidad</span>
+              <span class="bench-track"><span class="bench-gap"></span><span class="bench-bar"><span class="bench-val">3.2</span></span><span class="bench-dot"></span></span>
+              <span class="bench-goal">4.5</span>
+            </li>
+          </ol>
+          <div class="bench-axis"><span></span><span class="bench-ticks"><span style="left:0%">0</span><span style="left:20%">1</span><span style="left:40%">2</span><span style="left:60%">3</span><span style="left:80%">4</span><span style="left:100%">5</span></span><span></span></div>
+          <div class="bench-tip" role="presentation"></div>
         </div>
-        <div class="stat">
-          <span class="stat-num">4</span>
-          <p class="stat-lbl">capacidades integradas</p>
-        </div>
-        <div class="stat">
-          <span class="stat-num">6<sup>+</sup></span>
-          <p class="stat-lbl">sectores de alto impacto</p>
-        </div>
-      </aside>
+        <table class="sr-only">
+          <caption>Madurez por dimensión empresarial: nivel actual, objetivo 2030 y brecha (escala 0–5)</caption>
+          <thead><tr><th scope="col">Dimensión</th><th scope="col">Nivel actual</th><th scope="col">Objetivo 2030</th><th scope="col">Brecha</th></tr></thead>
+          <tbody>
+              <tr><th scope="row">Cliente y mercado</th><td>2.8</td><td>4.2</td><td>1.4</td></tr>
+              <tr><th scope="row">Negocio y estrategia</th><td>3.1</td><td>4.5</td><td>1.4</td></tr>
+              <tr><th scope="row">Operaciones y procesos</th><td>2.4</td><td>4.0</td><td>1.6</td></tr>
+              <tr><th scope="row">Datos e IA</th><td>2.6</td><td>4.3</td><td>1.7</td></tr>
+              <tr><th scope="row">Tecnología y plataformas</th><td>2.9</td><td>4.2</td><td>1.3</td></tr>
+              <tr><th scope="row">Personas y cultura</th><td>2.3</td><td>4.0</td><td>1.7</td></tr>
+              <tr><th scope="row">Gobierno y riesgo</th><td>3.0</td><td>4.4</td><td>1.4</td></tr>
+              <tr><th scope="row">Ecosistemas y alianzas</th><td>2.1</td><td>4.0</td><td>1.9</td></tr>
+              <tr><th scope="row">Sostenibilidad y sociedad</th><td>2.5</td><td>4.0</td><td>1.5</td></tr>
+              <tr><th scope="row">Resiliencia y continuidad</th><td>3.2</td><td>4.5</td><td>1.3</td></tr>
+          </tbody>
+        </table>
+      </figure>
     </div>
 
     <div class="hero-foot wrap">
@@ -5897,6 +6105,49 @@
 
     window.nexumOpenArticle = nexumOpenArticle;
     window.nexumCloseArticle = nexumCloseArticle;
+  })();
+  </script>
+
+  <script>
+  /* ─────────────────────────────────────────
+     HERO BENCHMARK — entrance animation on first view + row tooltip
+  ───────────────────────────────────────── */
+  (function () {
+    const fig = document.getElementById('benchmark');
+    if (!fig) return;
+    const plot = fig.querySelector('.bench-plot');
+    const tip  = fig.querySelector('.bench-tip');
+
+    const io = new IntersectionObserver(entries => {
+      if (entries.some(e => e.isIntersecting)) { fig.classList.add('in'); io.disconnect(); }
+    }, { threshold: 0.25 });
+    io.observe(fig);
+
+    let active = null;
+    function show(row) {
+      if (active) active.classList.remove('is-active');
+      active = row;
+      row.classList.add('is-active');
+      const d = row.dataset;
+      tip.innerHTML = '<b>' + d.label + '</b>Actual ' + d.cur + ' · Objetivo 2030 ' + d.tgt + ' · <i>Brecha ' + d.gap + '</i>';
+      const pr = plot.getBoundingClientRect();
+      const tr = row.querySelector('.bench-track').getBoundingClientRect();
+      const rr = row.getBoundingClientRect();
+      const x  = tr.left - pr.left + tr.width * parseFloat(row.style.getPropertyValue('--tgt'));
+      tip.style.left = Math.min(Math.max(x, tip.offsetWidth / 2), pr.width - tip.offsetWidth / 2) + 'px';
+      tip.style.top  = (rr.top - pr.top) + 'px';
+      tip.classList.add('on');
+    }
+    function hide() {
+      if (active) active.classList.remove('is-active');
+      active = null;
+      tip.classList.remove('on');
+    }
+    fig.querySelectorAll('.bench-row').forEach(row => {
+      row.addEventListener('pointerenter', () => show(row));
+      row.addEventListener('click', () => show(row));            // touch
+    });
+    plot.addEventListener('pointerleave', hide);
   })();
   </script>
 
