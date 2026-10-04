@@ -362,12 +362,33 @@ def parse_article(article_path, art_id):
         "structure is different, adapt the extraction step first."
     )
 
-    # ── Masthead: two known conventions ──
+    # ── Masthead: several known conventions, and growing ──
     # A ("mast"): <header class="mast"><h1>, <p class="dek">, <div class="meta">
-    # B ("hero"): <header class="hero"><div class="eyebrow">type · date</div>
+    # B ("hero" header): <header class="hero"><div class="eyebrow">type · date</div>
     #             <h1 class="title">, <p class="subtitle">, <div class="hero-meta">
+    # D ("hero" section): the <header> (if any) is just a sticky top nav bar
+    #             with no h1 in it at all — the real title/lede/meta/thesis
+    #             sit in a sibling <section class="hero">. Don't assume the
+    #             masthead lives in a <header> tag at all going forward:
+    #             find whichever element actually contains the first h1.
     mast = body_el.find('header', class_='mast')
     header_el = mast or body_el.find('header')
+    thesis_el = None
+
+    if not (header_el and header_el.find('h1')):
+        h1_anywhere = body_el.find('h1')
+        hero_section = h1_anywhere.find_parent('section') if h1_anywhere else None
+        if hero_section:
+            mast = None
+            header_el = hero_section
+            # A stat/KPI strip (e.g. .thesis) can live inside this hero
+            # section alongside the title — it's real content other
+            # conventions keep as a visible block, not masthead chrome, so
+            # pull it out before the hero section gets decomposed below and
+            # re-insert it as ordinary body content rather than losing it.
+            thesis_el = hero_section.find(class_='thesis')
+            if thesis_el:
+                thesis_el.extract()
 
     if mast:
         h1_el = mast.find('h1')
@@ -437,6 +458,10 @@ def parse_article(article_path, art_id):
         meta_el.extract()
     if header_el:
         header_el.decompose()
+    if thesis_el:
+        # Put it back as the first thing in the body, in its original
+        # visual position relative to the (now-removed) masthead.
+        body_el.insert(0, thesis_el)
 
     # Strip script/link/title tags (scripts handled specially below), all
     # <style> tags, the article's own progress bar div and its own

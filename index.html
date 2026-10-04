@@ -2439,6 +2439,227 @@
 
 .art-frame .fade{opacity:1!important;transform:none!important}
   </style>
+    <style id="art-scoped-css-art-sostenibilidad-valor">
+  /* ── SCOPED + RETHEMED ARTICLE CSS: art-sostenibilidad-valor ── */
+  
+.art-frame{
+  --navy-950:#DEE9F5;
+  --navy-900:#EDF3F9;
+  --navy-800:#FFFFFF;
+  --navy-700:#DEE9F5;
+  --line:rgba(9,27,56,.14);
+  --ink:#091B38;
+  --ink-2:#1A3252;
+  --ink-3:#4A5A72;
+  --gold-1:#00AFC9;
+  --gold-2:#0C2B5C;
+  --gold-3:#C87A18;
+  --teal:#00C0DC;
+  --amber:#C87A18;
+  --red:#B3433A;
+  --f-display:'Cormorant Garamond', 'Iowan Old Style', Georgia, serif;
+  --f-body:'DM Sans', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;
+  --f-mono:'DM Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  color-scheme: light;
+}
+
+
+.art-frame *{box-sizing:border-box}
+.art-frame{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){.art-frame{scroll-behavior:auto}}
+.art-frame{background:var(--navy-900);color:var(--ink);font-family:var(--sans);font-weight:300;font-size:16px;line-height:1.65;margin:0;-webkit-font-smoothing:antialiased}
+.art-frame a{color:var(--gold-1);text-decoration:none;border-bottom:1px solid rgba(232,200,116,.3)}
+.art-frame a:hover{border-bottom-color:var(--gold-1)}
+.art-frame a:focus-visible, .art-frame button:focus-visible{outline:2px solid var(--gold-1);outline-offset:3px}
+.art-frame .wrap{max-width:1120px;margin:0 auto;padding-inline:24px}
+@media (max-width:520px){.art-frame .wrap{padding-inline:16px}}
+
+/* progress + nav */
+.art-frame #progress{position:fixed;top:0;left:0;height:2px;width:0;background:linear-gradient(90deg,var(--gold-3),var(--gold-1));z-index:60}
+.art-frame .topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:rgba(10,14,26,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line-soft)}
+.art-frame .topbar .wrap{display:flex;align-items:center;gap:20px;height:56px}
+.art-frame .brand{font-family:var(--serif);font-weight:600;letter-spacing:.18em;font-size:15px;color:var(--gold-1);white-space:nowrap}
+.art-frame .brand span{color:var(--ink-3);font-family:var(--sans);font-weight:400;letter-spacing:.2em;font-size:10px;margin-left:8px}
+.art-frame .nav{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;flex:1;justify-content:flex-end}
+.art-frame .nav::-webkit-scrollbar{display:none}
+.art-frame .nav a{border:0;color:var(--ink-3);font-size:12px;letter-spacing:.06em;padding:6px 10px;border-radius:2px;white-space:nowrap}
+.art-frame .nav a:hover, .art-frame .nav a.on{color:var(--gold-1);background:rgba(232,200,116,.06)}
+.art-frame .nav a b{font-weight:500;color:var(--gold-3);margin-right:5px;font-variant-numeric:tabular-nums}
+
+/* hero */
+.art-frame .hero{padding-block:72px 56px;border-bottom:1px solid var(--line-soft);background:
+  radial-gradient(900px 380px at 85% -10%, rgba(201,169,97,.10), transparent 60%),
+  linear-gradient(180deg,var(--navy-950),var(--navy-900))}
+.art-frame .eyebrow{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold-2);font-weight:500}
+.art-frame .hero h1{font-family:var(--serif);font-weight:600;font-size:clamp(40px,6.4vw,78px);line-height:1.02;margin:18px 0 22px;text-wrap:balance;letter-spacing:-.01em}
+.art-frame .hero h1 em{font-style:italic;color:var(--gold-1);font-weight:500}
+.art-frame .hero .lede{font-size:clamp(17px,1.9vw,20px);color:var(--ink-2);max-width:62ch;margin:0}
+.art-frame .meta{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:34px;font-size:12px;color:var(--ink-3);letter-spacing:.04em}
+.art-frame .meta b{color:var(--ink-2);font-weight:500}
+.art-frame .thesis{margin-top:40px;display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);}
+.art-frame .thesis div{padding:22px 22px 0 0}
+.art-frame .thesis div+div{padding-left:22px;border-left:1px solid var(--line-soft)}
+.art-frame .thesis .k{font-family:var(--serif);font-size:44px;line-height:1;color:var(--gold-1);font-variant-numeric:tabular-nums}
+.art-frame .thesis p{margin:8px 0 0;font-size:14px;color:var(--ink-2)}
+@media (max-width:760px){.art-frame .thesis{grid-template-columns:1fr}.art-frame .thesis div+div{padding-left:0;border-left:0;border-top:1px solid var(--line-soft)}.art-frame .thesis div{padding:18px 0}}
+
+/* sections */
+.art-frame section.sec{padding-block:72px;border-bottom:1px solid var(--line-soft);scroll-margin-top:64px}
+.art-frame .sec-head{display:grid;grid-template-columns:120px 1fr;gap:24px;margin-bottom:36px;align-items:end}
+.art-frame .sec-num{font-family:var(--serif);font-size:72px;line-height:.8;color:var(--gold-3);font-variant-numeric:tabular-nums}
+.art-frame .sec-head h2{font-family:var(--serif);font-weight:600;font-size:clamp(30px,3.6vw,44px);line-height:1.05;margin:6px 0 0;text-wrap:balance}
+.art-frame .sec-head p{margin:10px 0 0;color:var(--ink-2);max-width:68ch}
+@media (max-width:640px){.art-frame .sec-head{grid-template-columns:1fr;gap:6px}.art-frame .sec-num{font-size:48px}}
+.art-frame h3{font-family:var(--serif);font-weight:600;font-size:24px;line-height:1.2;margin:0 0 8px;text-wrap:balance}
+.art-frame h4{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-2);font-weight:500;margin:0 0 10px}
+.art-frame p{margin:0 0 12px}
+.art-frame .muted{color:var(--ink-3)}
+.art-frame .src{font-size:12px;color:var(--ink-3);margin-top:10px}
+.art-frame .src a{color:var(--ink-2);border-bottom-color:var(--line)}
+
+/* badges */
+.art-frame .badge{display:inline-flex;align-items:center;gap:6px;font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;padding:3px 8px;border-radius:2px;border:1px solid;white-space:nowrap;vertical-align:middle}
+.art-frame .badge::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.art-frame .b-alta{color:var(--alta);border-color:rgba(111,195,154,.35);background:rgba(111,195,154,.07)}
+.art-frame .b-media{color:var(--media);border-color:rgba(224,169,90,.35);background:rgba(224,169,90,.07)}
+.art-frame .b-ed{color:var(--teal);border-color:rgba(95,184,176,.35);background:rgba(95,184,176,.07)}
+
+/* findings */
+.art-frame .findings{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid var(--line)}
+.art-frame .finding{padding:26px 28px 26px 0;border-bottom:1px solid var(--line-soft)}
+.art-frame .finding:nth-child(even){padding-left:28px;padding-right:0;border-left:1px solid var(--line-soft)}
+.art-frame .finding .tag{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:10px}
+.art-frame .finding .tag span.t{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-2)}
+.art-frame .finding p{color:var(--ink-2);font-size:15px}
+.art-frame .finding .so{font-size:14px;color:var(--ink);border-left:2px solid var(--gold-3);padding-left:12px;margin-top:12px}
+.art-frame .finding .so b{color:var(--gold-1);font-weight:500}
+@media (max-width:760px){.art-frame .findings{grid-template-columns:1fr}.art-frame .finding, .art-frame .finding:nth-child(even){padding:22px 0;border-left:0}}
+
+/* KPI */
+.art-frame .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line-soft);border:1px solid var(--line-soft);margin-bottom:40px}
+.art-frame .kpi{background:var(--navy-850);padding:22px 20px;display:flex;flex-direction:column;gap:6px}
+.art-frame .kpi .v{font-family:var(--serif);font-size:40px;line-height:1;color:var(--gold-1);font-variant-numeric:tabular-nums}
+.art-frame .kpi .l{font-size:13px;color:var(--ink-2);line-height:1.45;flex:1}
+.art-frame .kpi .f{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:11px;color:var(--ink-3)}
+@media (max-width:900px){.art-frame .kpis{grid-template-columns:1fr 1fr}}
+@media (max-width:460px){.art-frame .kpis{grid-template-columns:1fr}}
+
+.art-frame .charts{display:grid;grid-template-columns:1.25fr 1fr;gap:24px;margin-bottom:40px}
+.art-frame .panel{background:var(--navy-850);border:1px solid var(--line-soft);padding:24px}
+.art-frame .panel .ph{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:14px}
+.art-frame .panel .ph h3{font-size:20px;margin:0}
+.art-frame .chartbox{position:relative;height:260px}
+@media (max-width:860px){.art-frame .charts{grid-template-columns:1fr}}
+
+.art-frame .tbl{overflow-x:auto;border:1px solid var(--line-soft)}
+.art-frame table{border-collapse:collapse;width:100%;min-width:720px;font-size:14px}
+.art-frame th{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-2);font-weight:500;text-align:left;padding:14px 16px;background:var(--navy-800);border-bottom:1px solid var(--line)}
+.art-frame td{padding:14px 16px;border-bottom:1px solid var(--line-soft);vertical-align:top;color:var(--ink-2)}
+.art-frame td.num{font-variant-numeric:tabular-nums;color:var(--ink);font-weight:500;white-space:nowrap}
+.art-frame tr:last-child td{border-bottom:0}
+.art-frame td a{font-size:13px}
+
+/* quotes */
+.art-frame .quotes{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+.art-frame .quote{border-top:1px solid var(--gold-3);padding-top:20px;margin:0}
+.art-frame .quote blockquote{margin:0;font-family:var(--serif);font-size:23px;line-height:1.3;font-style:italic;color:var(--ink);text-wrap:pretty}
+.art-frame .quote .es{font-size:14px;color:var(--ink-2);margin-top:10px}
+.art-frame .quote .who{margin-top:14px;font-size:12px;letter-spacing:.04em;color:var(--ink-3)}
+.art-frame .quote .who b{color:var(--gold-2);font-weight:500}
+.art-frame .quote .why{font-size:13px;color:var(--ink-3);margin-top:8px;border-left:2px solid var(--line);padding-left:10px}
+@media (max-width:760px){.art-frame .quotes{grid-template-columns:1fr}}
+
+/* trends */
+.art-frame .trends{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line-soft);border:1px solid var(--line-soft)}
+.art-frame .trend{background:var(--navy-900);padding:24px;display:flex;flex-direction:column;gap:8px}
+.art-frame .trend .h{display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.art-frame .trend .h span{font-size:11px;letter-spacing:.14em;color:var(--gold-3);text-transform:uppercase}
+.art-frame .trend p{font-size:14px;color:var(--ink-2);margin:0}
+.art-frame .trend .impl{font-size:13px;color:var(--ink);margin-top:auto;padding-top:10px;border-top:1px dashed var(--line)}
+@media (max-width:900px){.art-frame .trends{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.art-frame .trends{grid-template-columns:1fr}}
+.art-frame .predict{margin-top:36px;display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.art-frame .pr{border-left:1px solid var(--gold-3);padding-left:16px}
+.art-frame .pr .y{font-family:var(--serif);font-size:28px;color:var(--gold-1);line-height:1}
+.art-frame .pr p{font-size:14px;color:var(--ink-2);margin:8px 0 0}
+@media (max-width:860px){.art-frame .predict{grid-template-columns:1fr 1fr}}
+@media (max-width:460px){.art-frame .predict{grid-template-columns:1fr}}
+
+/* debates */
+.art-frame .debate{display:grid;grid-template-columns:1fr 1fr 1.1fr;border-top:1px solid var(--line);}
+.art-frame .debate>div{padding:22px 22px 22px 0}
+.art-frame .debate>div+div{padding-left:22px;border-left:1px solid var(--line-soft)}
+.art-frame .debate .q{grid-column:1/-1;padding:24px 0 0;font-family:var(--serif);font-size:26px;line-height:1.2}
+.art-frame .debate .side h4{color:var(--ink-3)}
+.art-frame .debate .side p{font-size:14px;color:var(--ink-2)}
+.art-frame .debate .stance{background:linear-gradient(180deg,rgba(201,169,97,.06),transparent)}
+.art-frame .debate .stance h4{color:var(--gold-1)}
+.art-frame .debate .stance p{font-size:14px;color:var(--ink)}
+@media (max-width:820px){.art-frame .debate{grid-template-columns:1fr}.art-frame .debate>div+div{padding-left:0;border-left:0;border-top:1px solid var(--line-soft)}.art-frame .debate>div{padding:16px 0}}
+
+/* matrix */
+.art-frame .mx td.sc{text-align:center}
+.art-frame .dots{display:inline-flex;gap:4px}
+.art-frame .dots i{width:9px;height:9px;border-radius:50%;background:var(--navy-700);border:1px solid var(--line)}
+.art-frame .dots i.f{background:var(--gold-1);border-color:var(--gold-1)}
+.art-frame .nd{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--risk)}
+.art-frame .mx td:first-child{color:var(--ink);font-weight:500;white-space:nowrap}
+.art-frame .mx td.note{font-size:13px;min-width:240px}
+.art-frame .legend{display:flex;flex-wrap:wrap;gap:18px;font-size:12px;color:var(--ink-3);margin-top:14px;align-items:center}
+
+/* roadmap */
+.art-frame .road{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative}
+.art-frame .phase{padding:0 22px 0 0;position:relative}
+.art-frame .phase+.phase{padding-left:22px;border-left:1px solid var(--line-soft)}
+.art-frame .phase .when{font-family:var(--serif);font-size:30px;color:var(--gold-1);line-height:1;font-variant-numeric:tabular-nums}
+.art-frame .phase .name{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-2);margin:8px 0 14px}
+.art-frame .phase ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px}
+.art-frame .phase li{font-size:14px;color:var(--ink-2);padding-left:14px;position:relative}
+.art-frame .phase li::before{content:"";position:absolute;left:0;top:.7em;width:6px;height:1px;background:var(--gold-2)}
+.art-frame .phase .kpi-t{margin-top:16px;font-size:12px;color:var(--ink-3);border-top:1px dashed var(--line);padding-top:10px}
+.art-frame .phase .kpi-t b{color:var(--ink-2);font-weight:500}
+.art-frame .rail{height:2px;background:linear-gradient(90deg,var(--gold-3),var(--gold-1));margin-bottom:26px;position:relative}
+@media (max-width:900px){.art-frame .road{grid-template-columns:1fr 1fr;row-gap:28px}.art-frame .phase:nth-child(odd){padding-left:0;border-left:0}}
+@media (max-width:520px){.art-frame .road{grid-template-columns:1fr}.art-frame .phase, .art-frame .phase+.phase{padding:0;border-left:0}}
+
+/* imperatives */
+.art-frame .inst{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:48px}
+.art-frame .ins{background:var(--navy-850);border:1px solid var(--line-soft);padding:24px;display:flex;flex-direction:column;gap:10px}
+.art-frame .ins .from{font-size:13px;color:var(--ink-3)}
+.art-frame .ins .from b{color:var(--ink-2);font-weight:500}
+.art-frame .ins ul{margin:4px 0 0;padding-left:18px;color:var(--ink-2);font-size:14px;display:flex;flex-direction:column;gap:6px}
+.art-frame .ins ul li::marker{color:var(--gold-2)}
+@media (max-width:900px){.art-frame .inst{grid-template-columns:1fr}}
+.art-frame .roles{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line)}
+.art-frame .role{padding:22px 22px 22px 0;border-bottom:1px solid var(--line-soft)}
+.art-frame .role:not(:nth-child(3n+1)){padding-left:22px;border-left:1px solid var(--line-soft)}
+.art-frame .role .r{font-family:var(--serif);font-size:24px;color:var(--gold-1);font-weight:600}
+.art-frame .role .m{font-size:12px;color:var(--ink-3);margin-bottom:10px}
+.art-frame .role ol{margin:0;padding-left:18px;font-size:14px;color:var(--ink-2);display:flex;flex-direction:column;gap:6px}
+.art-frame .role ol li::marker{color:var(--gold-3);font-variant-numeric:tabular-nums}
+@media (max-width:900px){.art-frame .roles{grid-template-columns:1fr 1fr}.art-frame .role:not(:nth-child(3n+1)){padding-left:0;border-left:0}.art-frame .role:nth-child(even){padding-left:22px;border-left:1px solid var(--line-soft)}}
+@media (max-width:560px){.art-frame .roles{grid-template-columns:1fr}.art-frame .role, .art-frame .role:nth-child(even){padding:18px 0;border-left:0}}
+
+/* frame */
+.art-frame .frame{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:40px}
+.art-frame .frame>div{background:var(--navy-950);padding:22px}
+.art-frame .frame .n{font-family:var(--serif);font-size:20px;color:var(--gold-1);font-weight:600}
+.art-frame .frame p{font-size:14px;color:var(--ink-2);margin:6px 0 0}
+@media (max-width:760px){.art-frame .frame{grid-template-columns:1fr}}
+
+/* biblio */
+.art-frame .bib{columns:2;column-gap:40px;font-size:13.5px;margin:0;padding-left:22px;color:var(--ink-2)}
+.art-frame .bib li{break-inside:avoid;margin-bottom:12px;padding-left:4px}
+.art-frame .bib li::marker{color:var(--gold-3);font-variant-numeric:tabular-nums}
+.art-frame .bib .d{color:var(--ink-3)}
+@media (max-width:760px){.art-frame .bib{columns:1}}
+.art-frame .method{margin-top:36px;padding:22px;border:1px solid var(--line-soft);background:var(--navy-850);font-size:13.5px;color:var(--ink-2)}
+.art-frame footer{padding-block:40px 60px;font-size:12px;color:var(--ink-3)}
+.art-frame footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
+.art-frame footer b{font-family:var(--serif);color:var(--gold-2);letter-spacing:.18em;font-weight:600;font-size:14px}
+
+  </style>
+  
   
 </head>
 <body>
@@ -2815,6 +3036,20 @@
           </h3>
           <p class="blog-item-excerpt">
             Cómo la IA agéntica está redefiniendo el costo, la velocidad y el riesgo operativo en banca, seguros y cooperativas de América Latina — y qué separa el ROI real de la "teatralidad productiva".
+          </p>
+          <span class="blog-cta" aria-hidden="true">Leer Perspectiva <span class="arr">→</span></span>
+        </article>
+
+                <article class="blog-item" onclick="nexumOpenArticle('art-sostenibilidad-valor')" style="cursor:pointer" role="button" tabindex="0" aria-label="Leer: Sostenibilidad y Creación de Valor">
+          <div class="blog-meta">
+            <span class="blog-cat">Sostenibilidad y ESG</span>
+            <span class="blog-date">Septiembre 2026</span>
+          </div>
+          <h3 class="blog-item-title">
+            Sostenibilidad y Creación de Valor
+          </h3>
+          <p class="blog-item-excerpt">
+            La sostenibilidad dejó de ser una promesa reputacional y se convirtió en una variable de riesgo, de capital y de ingreso. Quien la gobierne con datos auditables e IA confiable capturará valor; quien la siga tratando como un informe anual pagará el costo de la brecha.
           </p>
           <span class="blog-cta" aria-hidden="true">Leer Perspectiva <span class="arr">→</span></span>
         </article>
@@ -4001,6 +4236,421 @@
       }
     });
   }
+})();
+</script>
+      </div>
+            <div id="art-sostenibilidad-valor" class="art-frame" hidden>
+        <div class="air-panel-title">
+          <h3>Sostenibilidad y <em>Creación de Valor</em></h3>
+          <p>La sostenibilidad dejó de ser una promesa reputacional y se convirtió en una variable de riesgo, de capital y de ingreso. Quien la gobierne con datos auditables e IA confiable capturará valor; quien la siga tratando como un informe anual pagará el costo de la brecha.</p>
+        </div>
+        <div class="meta">
+<div><b>Horizonte de análisis:</b> marzo – septiembre 2026</div>
+<div><b>Audiencia:</b> Juntas directivas y C-suite de bancos, cooperativas y aseguradoras</div>
+<div><b>Estándar de datos:</b> fuentes primarias fechadas · badge de confianza en cada cifra</div>
+</div>
+<div class="thesis">
+<div><div class="k">US$ 424 mil M</div><p>Brecha global de protección ante catástrofes naturales (2025). En LATAM el seguro cubre apenas 8–9 % de la necesidad modelada.</p></div>
+<div><div class="k">+50 %</div><p>Crecimiento del consumo eléctrico de los centros de datos dedicados a IA en 2025. La IA acelera la sostenibilidad y, a la vez, la presiona.</p></div>
+<div><div class="k">7</div><p>Jurisdicciones latinoamericanas que adoptaron o anunciaron las normas ISSB. Chile y México ya las exigen desde enero de 2026.</p></div>
+</div>
+
+
+
+
+
+
+<header class="topbar">
+<div class="wrap">
+<div class="brand">NEXUM<span>LATAM ESTRATÉGICO</span></div>
+
+</div>
+</header>
+<main>
+
+<!-- 01 -->
+<section class="sec" id="art-sostenibilidad-valor-hallazgos">
+<div class="wrap">
+<div class="sec-head"><div class="sec-num">01</div><div><div class="eyebrow">Hallazgos clave</div><h2>Siete señales que redefinen la ecuación de valor</h2><p>Hallazgos publicados entre marzo y septiembre de 2026, con su lectura estratégica para instituciones financieras de la región.</p></div></div>
+<div class="findings">
+<article class="finding">
+<div class="tag"><span class="t">Mercado de capitales</span><span class="badge b-alta">Alta</span></div>
+<h3>El mercado sostenible entra en fase de consolidación</h3>
+<p>S&amp;P Global proyecta una emisión global de bonos sostenibles de US$ 800–900 mil millones en 2026, estable frente a 2025. En el primer trimestre, la emisión en mercados emergentes cayó 30,7 % interanual y los bonos ligados a sostenibilidad casi se redujeron a la mitad.</p>
+<p class="so"><b>Lectura NEXUM:</b> el volumen ya no diferencia. Diferencian la credibilidad del uso de fondos y la medición de resultados.</p>
+<div class="src"><a href="https://investingnews.com/sp-global-ratings-forecasts-global-sustainable-bond-market-will-consolidate-in-2026-with-issuance-levels-at-800-900-billion/" rel="noopener" target="_blank">S&amp;P Global Ratings, 12 mar 2026</a> · <a href="https://thedocs.worldbank.org/en/doc/25f3886e31239aebd5a834c3c8ae7430-0340012026/original/WBG-TRE-Labeled-Sustainable-Bonds-Market-Update-2026-Q1.pdf" rel="noopener" target="_blank">World Bank Treasury, Q1 2026</a></div>
+</article>
+<article class="finding">
+<div class="tag"><span class="t">Regulación</span><span class="badge b-alta">Alta</span></div>
+<h3>La divulgación ISSB pasa de voluntaria a exigible</h3>
+<p>Las normas NIIF S1 y S2 rigen de forma obligatoria en Chile y México desde enero de 2026. Brasil las exige a emisores listados desde el 1 de enero de 2026, con aseguramiento limitado para el ejercicio 2025 y razonable para 2026.</p>
+<p class="so"><b>Lectura NEXUM:</b> el dato de sostenibilidad entra al perímetro de auditoría. Su calidad se vuelve un tema de control interno, no de comunicación.</p>
+<div class="src"><a href="https://forbescentroamerica.com/2026/06/16/el-nuevo-deber-fiduciario-de-los-consejos-en-america-latina" rel="noopener" target="_blank">Forbes Centroamérica, 16 jun 2026</a> · <a href="https://www.iss-corporate.com/resources/blog/latin-americas-sustainability-reporting-gains-momentum/" rel="noopener" target="_blank">ISS-Corporate, 2 feb 2026</a></div>
+</article>
+<article class="finding">
+<div class="tag"><span class="t">Seguros y resiliencia</span><span class="badge b-alta">Alta</span></div>
+<h3>La brecha de protección crece más rápido que la cobertura</h3>
+<p>Swiss Re estima en US$ 424 mil millones las pérdidas por catástrofes no aseguradas (+7 % en 2025). América Latina mantiene una resiliencia de apenas 8–9 %: casi toda su exposición a catástrofes carece de protección.</p>
+<p class="so"><b>Lectura NEXUM:</b> para aseguradoras y bancos, la brecha es a la vez un riesgo de cartera y el mayor mercado no atendido de la región.</p>
+<div class="src"><a href="https://www.swissre.com/institute/research/topics-and-risk-dialogues/climate-and-natural-catastrophe-risk/growing-exposure/Natcat-protection-gap.html" rel="noopener" target="_blank">Swiss Re Institute, 2 jun 2026</a></div>
+</article>
+<article class="finding">
+<div class="tag"><span class="t">Evento de referencia</span><span class="badge b-alta">Alta</span></div>
+<h3>Venezuela: la catástrofe más costosa de LATAM desde 2010</h3>
+<p>La secuencia sísmica del 24 de junio de 2026 dejó más de 5.000 víctimas mortales y daños estimados en US$ 20 mil millones. Swiss Re anticipa que las pérdidas aseguradas serán una fracción mínima por la baja penetración del seguro.</p>
+<p class="so"><b>Lectura NEXUM:</b> el evento convierte la brecha de protección en un caso concreto para cualquier junta directiva de la región.</p>
+<div class="src"><a href="https://www.swissre.com/institute/research/topics-and-risk-dialogues/climate-and-natural-catastrophe-risk/first-half-2026-insured-catastrophe-losses.html" rel="noopener" target="_blank">Swiss Re Institute, 20 ago 2026</a></div>
+</article>
+<article class="finding">
+<div class="tag"><span class="t">IA y energía</span><span class="badge b-alta">Alta</span></div>
+<h3>La IA acelera la transición y también la tensiona</h3>
+<p>La demanda eléctrica de los centros de datos creció 17 % en 2025 y la de los dedicados a IA, 50 %. La inversión de las grandes tecnológicas superó US$ 400 mil millones en 2025 y se espera que suba otro 75 % en 2026.</p>
+<p class="so"><b>Lectura NEXUM:</b> la huella de la IA pasa a ser un indicador ESG propio. Cada caso de uso debe justificar su costo energético con valor medible.</p>
+<div class="src"><a href="https://www.iea.org/reports/key-questions-on-energy-and-ai/executive-summary" rel="noopener" target="_blank">IEA, Key Questions on Energy and AI, 2026</a></div>
+</article>
+<article class="finding">
+<div class="tag"><span class="t">Banca</span><span class="badge b-alta">Alta</span></div>
+<h3>El mercado premia a la banca, pero duda de su crecimiento</h3>
+<p>Las instituciones financieras entregaron 30 % de TSR en 2025, por encima de todos los sectores, pero cotizan con los múltiplos P/E más bajos. La IA agéntica ya genera más de 50 % de productividad en crédito minorista y más de 30 % de ingreso por comisiones en gestión patrimonial.</p>
+<p class="so"><b>Lectura NEXUM:</b> la sostenibilidad que crea valor es la que demuestra crecimiento rentable, no la que solo reduce costos.</p>
+<div class="src"><a href="https://www.bcg.com/publications/2026/future-of-finance-2026-time-to-shift-gears" rel="noopener" target="_blank">BCG, Future of Finance 2026, 15 jun 2026</a></div>
+</article>
+<article class="finding">
+<div class="tag"><span class="t">Estrategia</span><span class="badge b-alta">Alta</span></div>
+<h3>La prima verde terminó: gana lo sostenible y más barato</h3>
+<p>McKinsey concluye que la etapa de compradores ideológicos y precios premium por beneficio ambiental ha terminado. Las empresas exitosas ofrecen soluciones fundamentalmente más baratas que las convencionales.</p>
+<p class="so"><b>Lectura NEXUM:</b> un producto financiero verde debe competir en precio, experiencia y riesgo. El sello no alcanza.</p>
+<div class="src"><a href="https://sustainabilitymag.com/news/mckinsey-capital-is-maturing-for-the-cleantech-era" rel="noopener" target="_blank">McKinsey vía Sustainability Magazine, 19 may 2026</a></div>
+</article>
+<article class="finding">
+<div class="tag"><span class="t">Cumplimiento</span><span class="badge b-media">Media</span></div>
+<h3>El greenwashing se sanciona por las palabras y los controles</h3>
+<p>Un rastreador privado registra más de 400 acciones de enforcement por greenwashing en 2026. La directiva europea ECD, aplicable desde septiembre de 2026, prohíbe afirmaciones ambientales genéricas sin sustento.</p>
+<p class="so"><b>Lectura NEXUM:</b> cada afirmación de producto verde requiere evidencia trazable. La IA sirve para vigilar el propio lenguaje antes de que lo haga el regulador.</p>
+<div class="src"><a href="https://www.issuewire.com/400-greenwashing-enforcement-actions-in-2026-new-data-shows-regulators-targeting-esg-claims-1862352417121949" rel="noopener" target="_blank">EcoAppraise, 26 abr 2026</a> · <a href="https://www.wfw.com/articles/the-rise-of-greenwashing-amid-growing-esg-pressures/" rel="noopener" target="_blank">Watson Farley &amp; Williams, ago 2025</a></div>
+</article>
+</div>
+</div>
+</section>
+<!-- 02 -->
+<section class="sec" id="art-sostenibilidad-valor-datos">
+<div class="wrap">
+<div class="sec-head"><div class="sec-num">02</div><div><div class="eyebrow">Datos y estadísticas</div><h2>Las cifras que sostienen la tesis</h2><p>Solo se presentan cifras de fuentes primarias o de primer nivel. Las proyecciones de firmas de investigación de mercado y los rastreadores privados llevan badge de confianza media.</p></div></div>
+<div class="kpis">
+<div class="kpi"><div class="v">US$ 900 mil M</div><div class="l">Emisión global de bonos sostenibles proyectada para 2026, estable frente a 2025</div><div class="f"><span>Moody's · ene 2026</span><span class="badge b-alta">Alta</span></div></div>
+<div class="kpi"><div class="v">US$ 187 mil M</div><div class="l">Emisión internacional de bonos de América Latina y el Caribe en 2025, récord histórico (+54 %)</div><div class="f"><span>CEPAL · 2026</span><span class="badge b-alta">Alta</span></div></div>
+<div class="kpi"><div class="v">8–9 %</div><div class="l">Resiliencia aseguradora de LATAM: porción de la protección necesaria que está efectivamente asegurada</div><div class="f"><span>Swiss Re · jun 2026</span><span class="badge b-alta">Alta</span></div></div>
+<div class="kpi"><div class="v">+36 %</div><div class="l">Crecimiento de préstamos verdes en 2025 (US$ 225 mil M). Los préstamos ligados a sostenibilidad cayeron 17 %</div><div class="f"><span>Natixis CIB · abr 2026</span><span class="badge b-alta">Alta</span></div></div>
+</div>
+<div class="charts">
+<div class="panel">
+<div class="ph"><div><h4>Composición proyectada 2026</h4><h3>Bonos sostenibles globales por tipo (US$ mil M)</h3></div><span class="badge b-alta">Alta</span></div>
+<div class="chartbox"><canvas aria-label="Gráfico de barras: verdes 530, sostenibilidad 190, sociales 115, transición 40, ligados a sostenibilidad 25" id="art-sostenibilidad-valor-chBonds" role="img"></canvas></div>
+<div class="src">Fuente: <a href="https://www.moodys.com/web/en/us/insights/credit-risk/outlooks/global-sustainable-finance.html" rel="noopener" target="_blank">Moody's, Global Sustainable Finance Outlook 2026, 23 ene 2026</a></div>
+</div>
+<div class="panel">
+<div class="ph"><div><h4>Trayectoria de riesgo</h4><h3>Pérdidas aseguradas globales por catástrofes (US$ mil M)</h3></div><span class="badge b-alta">Alta</span></div>
+<div class="chartbox"><canvas aria-label="Pérdidas aseguradas: 107 en 2025, 148 tendencia 2026, 186 proyección 2030" id="art-sostenibilidad-valor-chLoss" role="img"></canvas></div>
+<div class="src">2025 real; 2026 y 2030 según tendencia de largo plazo de 5–7 % anual real. Fuente: <a href="https://www.swissre.com/institute/research/sigma-research/sigma-2026-01-natcat-2025-wildfire-storm-risk.html" rel="noopener" target="_blank">Swiss Re, sigma 1/2026</a></div>
+</div>
+</div>
+<div class="tbl">
+<table>
+<thead><tr><th>Indicador</th><th>Valor</th><th>Fecha</th><th>Confianza</th><th>Fuente</th></tr></thead>
+<tbody>
+<tr><td>Consumo eléctrico de centros de datos (mundo)</td><td class="num">415 TWh · 1,5 % del total</td><td>2024</td><td><span class="badge b-alta">Alta</span></td><td><a href="https://www.iea.org/reports/energy-and-ai/executive-summary" rel="noopener" target="_blank">IEA, Energy and AI</a></td></tr>
+<tr><td>Proyección de consumo de centros de datos</td><td class="num">≈ 945 TWh</td><td>2030</td><td><span class="badge b-alta">Alta</span></td><td><a href="https://www.iea.org/reports/energy-and-ai/energy-demand-from-ai" rel="noopener" target="_blank">IEA, Energy and AI</a></td></tr>
+<tr><td>Emisión de bonos etiquetados, primer trimestre (mundo)</td><td class="num">US$ 270 mil M · −10,7 % a/a</td><td>Q1 2026</td><td><span class="badge b-alta">Alta</span></td><td><a href="https://thedocs.worldbank.org/en/doc/25f3886e31239aebd5a834c3c8ae7430-0340012026/original/WBG-TRE-Labeled-Sustainable-Bonds-Market-Update-2026-Q1.pdf" rel="noopener" target="_blank">World Bank Treasury</a></td></tr>
+<tr><td>Emisión acumulada de bonos GSS+ de Chile (mayor emisor soberano emergente)</td><td class="num">US$ 58 mil M</td><td>Q1 2026</td><td><span class="badge b-alta">Alta</span></td><td><a href="https://thedocs.worldbank.org/en/doc/25f3886e31239aebd5a834c3c8ae7430-0340012026/original/WBG-TRE-Labeled-Sustainable-Bonds-Market-Update-2026-Q1.pdf" rel="noopener" target="_blank">World Bank Treasury</a></td></tr>
+<tr><td>Pérdidas por catástrofe no aseguradas en economías emergentes</td><td class="num">80–90 %</td><td>mar 2026</td><td><span class="badge b-alta">Alta</span></td><td><a href="https://www.swissre.com/institute/research/sigma-research/sigma-2026-01-natcat-2025-wildfire-storm-risk/adaptation-insurance-narrow-protection-gap.html" rel="noopener" target="_blank">Swiss Re Institute</a></td></tr>
+<tr><td>Mercado global de seguros paramétricos</td><td class="num">US$ 23,9 mil M (2026) → 38,7 mil M (2030)</td><td>2026</td><td><span class="badge b-media">Media</span></td><td><a href="https://www.researchandmarkets.com/reports/6103797/parametric-insurance-market-report" rel="noopener" target="_blank">Research and Markets</a></td></tr>
+<tr><td>Usuarios de datos en bancos que reportan datos no disponibles o lentos</td><td class="num">&gt; 90 %</td><td>2024 (citado 2026)</td><td><span class="badge b-alta">Alta</span></td><td><a href="https://action.deloitte.com/insight/4845/banks-show-heightened-interest-in-ai-good-data" rel="noopener" target="_blank">Deloitte, abr 2026</a></td></tr>
+<tr><td>Valor anual potencial de la IA generativa en banca global</td><td class="num">US$ 200–340 mil M</td><td>citado feb 2026</td><td><span class="badge b-media">Media</span></td><td><a href="https://www.finastra.com/viewpoints/articles/future-of-ai-in-financial-services-2026" rel="noopener" target="_blank">McKinsey vía Finastra</a></td></tr>
+<tr><td>Fondo verde Chile Ecológico (BancoEstado)</td><td class="num">CLP 84 mil M · 39.000 clientes</td><td>oct 2025</td><td><span class="badge b-alta">Alta</span></td><td><a href="https://gfmag.com/award/award-winners/sustainable-finance-awards-2026-global-winners/" rel="noopener" target="_blank">Global Finance, 19 ago 2026</a></td></tr>
+</tbody>
+</table>
+</div>
+<p class="src">Brecha de datos declarada: no se encontró una serie regional oficial de 2026 con la emisión de bonos sostenibles de LATAM ni una medición actualizada de la gestión de riesgo climático en bancos de la región (la última encuesta UNEP FI–CAF–FELABAN es de 2020–2023). NEXUM no extrapola esas cifras.</p>
+</div>
+</section>
+<!-- 03 -->
+<section class="sec" id="art-sostenibilidad-valor-voces">
+<div class="wrap">
+<div class="sec-head"><div class="sec-num">03</div><div><div class="eyebrow">Voces expertas</div><h2>Lo que dicen quienes miden el riesgo y el capital</h2><p>Citas textuales en su idioma original, con traducción NEXUM y la implicación para la región.</p></div></div>
+<div class="quotes">
+<figure class="quote">
+<blockquote>"The era of rapid expansion is giving way to a period of measured growth."</blockquote>
+<p class="es">"La era de expansión acelerada da paso a un período de crecimiento medido."</p>
+<figcaption class="who"><b>Patrice Cochelin</b> · Managing Director, Sustainability Methodology and Research, S&amp;P Global Ratings · 12 mar 2026</figcaption>
+<p class="why">Implicación: el acceso a capital sostenible se decidirá por credibilidad y resultados, no por volumen de etiquetas.</p>
+</figure>
+<figure class="quote">
+<blockquote>"The speed of the AI revolution is increasingly contrasting with the speed of the physical, social and economic systems that underpin it."</blockquote>
+<p class="es">"La velocidad de la revolución de la IA contrasta cada vez más con la de los sistemas físicos, sociales y económicos que la sostienen."</p>
+<figcaption class="who"><b>Agencia Internacional de Energía (IEA)</b> · Key Questions on Energy and AI · 2026</figcaption>
+<p class="why">Implicación: la estrategia de IA de una institución financiera también es una decisión de energía, de proveedores y de huella.</p>
+</figure>
+<figure class="quote">
+<blockquote>"Below-trend natural catastrophe losses seen in 2025 are the result of favourable variability rather than any easing of underlying risk."</blockquote>
+<p class="es">"Las pérdidas por debajo de la tendencia en 2025 se deben a una variabilidad favorable, no a una reducción del riesgo subyacente."</p>
+<figcaption class="who"><b>Jerome Jean Haegeli y equipo</b> · Swiss Re Institute, sigma 1/2026</figcaption>
+<p class="why">Implicación: un año tranquilo no justifica recortar presupuestos de modelación climática ni de reaseguro.</p>
+</figure>
+<figure class="quote">
+<blockquote>Lo paramétrico "se está consolidando como una solución particularmente valiosa en regiones como América Latina, donde la exposición a amenazas naturales es alta".</blockquote>
+<p class="es">Traducción NEXUM del original en inglés.</p>
+<figcaption class="who"><b>Daniel Meilán</b> · Head of Non-Life Business Development, Mapfre · 23 mar 2026</figcaption>
+<p class="why">Implicación: el seguro paramétrico, alimentado por datos satelitales e IA, es la vía más rápida para cerrar la brecha de protección.</p>
+</figure>
+<figure class="quote">
+<blockquote>"Following a banner year for value creation, financial institutions must now reorient their organizations toward sustainable growth."</blockquote>
+<p class="es">"Tras un año excepcional de creación de valor, las instituciones financieras deben reorientarse hacia un crecimiento sostenible."</p>
+<figcaption class="who"><b>Boston Consulting Group</b> · Future of Finance 2026 · 15 jun 2026</figcaption>
+<p class="why">Implicación: "sostenible" también significa un modelo operativo que crece sin inflar costos ni plantilla.</p>
+</figure>
+<figure class="quote">
+<blockquote>"Most organizations are still focused on sustainability strategy. Regulators are focused on the words."</blockquote>
+<p class="es">"La mayoría de las organizaciones sigue enfocada en su estrategia de sostenibilidad. Los reguladores, en las palabras."</p>
+<figcaption class="who"><b>Vocero de EcoAppraise</b> · 26 abr 2026 <span class="badge b-media">Media</span></figcaption>
+<p class="why">Implicación: marketing, producto y cumplimiento deben revisar juntos cada afirmación verde antes de publicarla.</p>
+</figure>
+</div>
+</div>
+</section>
+<!-- 04 -->
+<section class="sec" id="art-sostenibilidad-valor-tendencias">
+<div class="wrap">
+<div class="sec-head"><div class="sec-num">04</div><div><div class="eyebrow">Tendencias emergentes</div><h2>Dónde se está moviendo el valor</h2><p>Seis tendencias observables en 2026 y su efecto directo sobre el modelo de negocio financiero.</p></div></div>
+<div class="trends">
+<div class="trend"><div class="h"><h3>Seguro paramétrico con IA</h3><span>Seguros</span></div><p>Pagos automáticos cuando un sensor o satélite confirma el umbral de lluvia, viento o sismo. Capgemini y Mapfre señalan datos climáticos de alta resolución y modelación predictiva como motores.</p><div class="impl">Ciclo de indemnización de meses a días; distribución embebida vía banca digital.</div></div>
+<div class="trend"><div class="h"><h3>Datos ESG dentro del core</h3><span>Datos</span></div><p>PwC anticipa que en 2026 los líderes integrarán el dato de sostenibilidad en las mismas plataformas que el dato financiero y operativo, para que la IA conecte energía, riesgo y margen.</p><div class="impl">Fin de la hoja de cálculo ESG paralela; un solo linaje de dato auditable.</div></div>
+<div class="trend"><div class="h"><h3>Financiar la adaptación</h3><span>Crédito</span></div><p>Moody's proyecta US$ 40 mil millones en bonos de transición en 2026 y ve la brecha de adaptación como motor de inversión, junto con infraestructura digital.</p><div class="impl">Nuevas líneas: resiliencia hídrica, agro climáticamente inteligente, vivienda resiliente.</div></div>
+<div class="trend"><div class="h"><h3>Supervisión prospectiva</h3><span>Riesgo</span></div><p>El NGFS publicará nuevos escenarios de largo plazo a fines de 2026. SUGEF propone estimaciones crediticias prospectivas desde 2027. El BCB avanza en requisitos cuantitativos del informe GRSAC.</p><div class="impl">El riesgo climático migra de la memoria anual al cálculo de provisiones y capital.</div></div>
+<div class="trend"><div class="h"><h3>Huella de la IA como métrica</h3><span>Tecnología</span></div><p>Con la IA como principal motor del crecimiento eléctrico de los centros de datos, la eficiencia de cómputo, la elección de región cloud y el mix energético del proveedor entran al reporte.</p><div class="impl">Cada caso de uso de IA con costo, valor y emisiones asociadas.</div></div>
+<div class="trend"><div class="h"><h3>IA contra el greenwashing</h3><span>Cumplimiento</span></div><p>La autoridad de publicidad del Reino Unido ya usa IA para detectar afirmaciones ambientales engañosas sin esperar denuncias. La supervisión algorítmica llegará a los productos financieros.</p><div class="impl">Revisión automatizada del lenguaje de producto antes de su lanzamiento.</div></div>
+</div>
+<p class="src">Fuentes: <a href="https://www.mapfre.com/en/insights/innovation/parametric-insurance-trends-2026-mapfre/" rel="noopener" target="_blank">Mapfre, mar 2026</a> · <a href="https://sustainabilitymag.com/news/pwc-2026-turning-point-ai-sustainability" rel="noopener" target="_blank">PwC vía Sustainability Magazine, feb 2026</a> · <a href="https://www.moodys.com/web/en/us/insights/credit-risk/outlooks/global-sustainable-finance.html" rel="noopener" target="_blank">Moody's, ene 2026</a> · <a href="https://www.ngfs.net/en/publications-and-statistics/publications/ngfs-climate-scenarios-central-banks-and-supervisors-phase-v" rel="noopener" target="_blank">NGFS</a> · <a href="https://www.nacion.com/economia/se-avecina-ajuste-en-calculo-del-riesgo-crediticio/4NN3TOB5PJGNHE7UQPAVONJPHE/story/" rel="noopener" target="_blank">La Nación, jun 2026</a> · <a href="https://sustainablefutures.linklaters.com/post/102lzgs/esg-legal-outlook-2026" rel="noopener" target="_blank">Linklaters, 2026</a></p>
+<h4 style="margin-top:44px">Predicciones NEXUM <span class="badge b-ed">Evaluación editorial</span></h4>
+<div class="predict">
+<div class="pr"><div class="y">2027</div><p>Los supervisores de la región pedirán pruebas de estrés climático con escenarios NGFS actualizados a los bancos sistémicos.</p></div>
+<div class="pr"><div class="y">2027</div><p>El aseguramiento externo del reporte de sostenibilidad expondrá debilidades de linaje de datos en la mayoría de las instituciones medianas.</p></div>
+<div class="pr"><div class="y">2028</div><p>El seguro paramétrico embebido en crédito agrícola y de pyme será estándar competitivo en Centroamérica y el Caribe.</p></div>
+<div class="pr"><div class="y">2029</div><p>El costo de fondeo mayorista de una institución reflejará la calidad verificable de su dato ESG tanto como su rating.</p></div>
+</div>
+</div>
+</section>
+<!-- 05 -->
+<section class="sec" id="art-sostenibilidad-valor-debates">
+<div class="wrap">
+<div class="sec-head"><div class="sec-num">05</div><div><div class="eyebrow">Debates y controversias</div><h2>Cuatro tensiones y la postura de NEXUM</h2><p>Presentamos ambas posiciones y tomamos partido. La neutralidad no ayuda a decidir.</p></div></div>
+<div class="debate">
+<div class="q">¿Retroceso ESG o maduración del mercado?</div>
+<div class="side"><h4>Posición A: retroceso</h4><p>La alianza bancaria Net-Zero cesó operaciones en octubre de 2025 tras la salida masiva de grandes bancos. Reguladores de EE. UU. abandonaron el NGFS. Críticos sostienen que la banca central excede su mandato.</p><p class="src"><a href="https://www.esgdive.com/news/NGFS-releases-short-term-climate-planning-scenario-tool-financial-institutions-climate-risks-policy/747551/" rel="noopener" target="_blank">ESG Dive, may 2025</a> · <a href="https://wattsupwiththat.com/2026/08/10/central-banks-double-down-on-climate-regulation-despite-collapse-of-green-finance/" rel="noopener" target="_blank">Watts Up With That, ago 2026 (opinión)</a></p></div>
+<div class="side"><h4>Posición B: maduración</h4><p>La emisión sostenible se estabiliza cerca de US$ 900 mil millones y los préstamos verdes crecen 36 %. En LATAM, la divulgación ISSB se vuelve obligatoria en tres de las mayores economías.</p><p class="src"><a href="https://www.moodys.com/web/en/us/insights/credit-risk/outlooks/global-sustainable-finance.html" rel="noopener" target="_blank">Moody's</a> · <a href="https://home.cib.natixis.com/articles/2026-sustainability-outlook" rel="noopener" target="_blank">Natixis</a></p></div>
+<div class="side stance"><h4>Postura NEXUM</h4><p>Maduración. Se retiran las alianzas voluntarias, pero avanzan las normas exigibles. Para LATAM la agenda la fijan el supervisor local y el riesgo físico, no la política de Washington. Un banco que desmonte su capacidad climática hoy la reconstruirá más cara en 2028.</p></div>
+</div>
+<div class="debate">
+<div class="q">¿La IA es aliada o pasivo de la sostenibilidad?</div>
+<div class="side"><h4>Posición A: pasivo</h4><p>El consumo de los centros de datos podría más que duplicarse hacia 2030. En Irlanda ya representan cerca de 21 % de la electricidad nacional y en Virginia, 26 %.</p><p class="src"><a href="https://www.carbonbrief.org/ai-five-charts-that-put-data-centre-energy-use-and-emissions-into-context" rel="noopener" target="_blank">Carbon Brief, jul 2026</a></p></div>
+<div class="side"><h4>Posición B: aliada</h4><p>La IA automatiza el reporte, mide la huella de carbono de carteras, modela el riesgo físico y habilita el seguro paramétrico. Las renovables cubrirían cerca de la mitad del crecimiento de la demanda de los centros de datos al 2030.</p><p class="src"><a href="https://www.iea.org/reports/energy-and-ai/energy-supply-for-ai" rel="noopener" target="_blank">IEA, Energy and AI</a></p></div>
+<div class="side stance"><h4>Postura NEXUM</h4><p>Ambas son ciertas, y por eso la IA debe gobernarse como cualquier activo con externalidades: inventario de casos de uso, costo energético por caso y umbral de valor mínimo. Una IA sin métrica de valor es consumo, no inversión.</p></div>
+</div>
+<div class="debate">
+<div class="q">¿Siguen teniendo sentido los instrumentos ligados a KPI de sostenibilidad?</div>
+<div class="side"><h4>Posición A: agotados</h4><p>Los préstamos ligados a sostenibilidad cayeron 17 % en 2025 y los bonos SLB casi se redujeron a la mitad en el primer trimestre de 2026. Grandes emisores cuestionan su valor incremental.</p><p class="src"><a href="https://home.cib.natixis.com/articles/2026-sustainability-outlook" rel="noopener" target="_blank">Natixis, abr 2026</a></p></div>
+<div class="side"><h4>Posición B: rediseño</h4><p>El problema fue la credibilidad de los KPI, no el mecanismo. Con datos verificables y monitoreo continuo, el instrumento conserva su lógica de incentivo.</p><p class="src"><a href="https://esgpedia.io/industry-insights/2026-esg-outlook-trends-climate-ai-reporting-supply-chain-transparency/" rel="noopener" target="_blank">ESGpedia, ene 2026</a></p></div>
+<div class="side stance"><h4>Postura NEXUM</h4><p>Rediseño selectivo. Para pymes y cooperativas, un crédito con tasa ligada a métricas simples y verificables (energía, agua, formalización) sigue siendo una poderosa herramienta de fidelización. Para grandes corporativos, solo con KPI auditados externamente.</p></div>
+</div>
+<div class="debate">
+<div class="q">¿Conviene esperar al plazo regulatorio?</div>
+<div class="side"><h4>Posición A: esperar</h4><p>Costa Rica adoptó NIIF S1/S2 antes que Chile, pero el Acuerdo CONASSIF 6-18 postergó la obligatoriedad al informe de 2028, con datos de 2027. Colombia aún no tiene mandato formal.</p><p class="src"><a href="https://www.cursosderse.com/2026/08/costa-rica-sostenible-2026-analisis-esg-pais/" rel="noopener" target="_blank">CapacitaRSE, ago 2026</a></p></div>
+<div class="side"><h4>Posición B: anticiparse</h4><p>Los fondeadores internacionales, los multilaterales y las casas matrices ya piden datos alineados a ISSB. El supervisor costarricense exige además la implementación completa del capítulo ASG del SUGEF 2-10 en diciembre de 2026.</p><p class="src"><a href="https://www.eyca-sda.com/actualidad.cfm?uuid=DF38D539" rel="noopener" target="_blank">EY, ene 2024</a></p></div>
+<div class="side stance"><h4>Postura NEXUM</h4><p>Anticiparse. La norma fija el mínimo; el mercado de fondeo fija el ritmo. Construir el linaje de datos toma entre 18 y 24 meses: quien empiece en 2027 llegará tarde a 2028.</p></div>
+</div>
+</div>
+</section>
+<!-- 06 -->
+<section class="sec" id="art-sostenibilidad-valor-matriz">
+<div class="wrap">
+<div class="sec-head"><div class="sec-num">06</div><div><div class="eyebrow">Matriz de madurez LATAM <span class="badge b-ed">Evaluación editorial</span></div><h2>Seis mercados, cinco dimensiones</h2><p>Evaluación editorial de NEXUM basada en la normativa y los datos públicos revisados. No es una medición certificada. Escala de 1 (incipiente) a 5 (avanzado).</p></div></div>
+<div class="tbl">
+<table class="mx">
+<thead><tr><th>País</th><th>Divulgación ISSB</th><th>Supervisión de riesgo climático</th><th>Taxonomía</th><th>Mercado de deuda sostenible</th><th>Hito clave verificado</th></tr></thead>
+<tbody id="art-sostenibilidad-valor-mxBody"></tbody>
+</table>
+</div>
+<div class="legend"><span class="dots"><i class="f"></i><i class="f"></i><i class="f"></i><i></i><i></i></span> Puntaje sobre 5 <span class="nd">Sin dato</span> Brecha declarada: sin fuente verificable en el período</div>
+<p class="src">Perú: no se encontraron en el período fuentes verificables sobre el calendario ISSB ni sobre la supervisión climática de la SBS. NEXUM declara la brecha en lugar de extrapolar.</p>
+</div>
+</section>
+<!-- 07 -->
+<section class="sec" id="art-sostenibilidad-valor-ruta">
+<div class="wrap">
+<div class="sec-head"><div class="sec-num">07</div><div><div class="eyebrow">Hoja de ruta estratégica</div><h2>De la divulgación a la creación de valor en 48 meses</h2><p>Secuencia recomendada para bancos, cooperativas y aseguradoras. Cada fase tiene un entregable de junta y un indicador de salida.</p></div></div>
+<div aria-hidden="true" class="rail"></div>
+<div class="road">
+<div class="phase"><div class="when">0–6 m</div><div class="name">Diagnóstico y gobierno</div>
+<ul><li>Brecha regulatoria por país frente a ISSB, taxonomía local y norma de riesgo ASG del supervisor</li><li>Materialidad financiera de la cartera: sectores y geografías expuestos a riesgo físico y de transición</li><li>Inventario de casos de uso de IA con costo, valor y huella</li><li>Comité de junta con mandato explícito sobre riesgo climático y valor sostenible</li></ul>
+<div class="kpi-t"><b>Salida:</b> mapa de exposición aprobado por la junta</div></div>
+<div class="phase"><div class="when">6–18 m</div><div class="name">Datos y control</div>
+<ul><li>Linaje único del dato ESG dentro de la plataforma de datos corporativa</li><li>Captura de datos del cliente en origen, con geolocalización de garantías</li><li>Modelos de riesgo físico integrados a la originación de crédito y la suscripción</li><li>Revisión automatizada del lenguaje de producto contra el greenwashing</li></ul>
+<div class="kpi-t"><b>Salida:</b> dato ESG listo para aseguramiento limitado</div></div>
+<div class="phase"><div class="when">18–30 m</div><div class="name">Producto y precio</div>
+<ul><li>Portafolio verde con precio competitivo sin depender de una prima</li><li>Paramétrico embebido en crédito agrícola, pyme y vivienda</li><li>Tasas ligadas a KPI simples y verificables para pymes y socios</li><li>Emisión o fondeo temático con uso de fondos trazable</li></ul>
+<div class="kpi-t"><b>Salida:</b> ingreso sostenible como línea propia del P&amp;L</div></div>
+<div class="phase"><div class="when">30–48 m</div><div class="name">Capital y escala</div>
+<ul><li>Pruebas de estrés climático con escenarios NGFS en planeación de capital</li><li>Provisiones prospectivas con variables climáticas</li><li>Agentes de IA para monitoreo continuo de cartera y alertas de riesgo físico</li><li>Aseguramiento razonable del reporte de sostenibilidad</li></ul>
+<div class="kpi-t"><b>Salida:</b> menor costo de fondeo y capital asignado por riesgo real</div></div>
+</div>
+</div>
+</section>
+<!-- 08 -->
+<section class="sec" id="art-sostenibilidad-valor-imperativos">
+<div class="wrap">
+<div class="sec-head"><div class="sec-num">08</div><div><div class="eyebrow">Imperativos ejecutivos</div><h2>Cómo debe evolucionar cada institución con IA</h2><p>La pregunta del contexto de esta edición: qué deben cambiar bancos, cooperativas y aseguradoras para convertir sostenibilidad e IA en valor.</p></div></div>
+<div class="inst">
+<div class="ins"><h4>Bancos</h4><h3>De financiador a gestor del riesgo de transición</h3><p class="from"><b>De</b> reporte anual con datos manuales <b>a</b> cartera monitoreada en tiempo real por riesgo físico y de transición.</p>
+<ul><li>IA para mapear la huella financiada y el riesgo físico por garantía</li><li>Originación que incorpore escenarios climáticos en el precio</li><li>Líneas de adaptación: agua, agro, vivienda resiliente</li><li>Crecimiento con modelo operativo agéntico, no con más plantilla</li></ul></div>
+<div class="ins"><h4>Cooperativas</h4><h3>De inclusión financiera a resiliencia de sus socios</h3><p class="from"><b>De</b> crédito verde marginal <b>a</b> propuesta de valor que protege el ingreso del socio frente al clima.</p>
+<ul><li>Tasas ligadas a métricas simples: energía, agua, formalización</li><li>Seguro paramétrico colectivo embebido en el crédito agrícola</li><li>IA ética para análisis crediticio de socios sin historial, como impulsa COLAC</li><li>Plataformas compartidas de datos ESG entre cooperativas para escalar</li></ul></div>
+<div class="ins"><h4>Aseguradoras</h4><h3>De indemnizar la pérdida a prevenirla</h3><p class="from"><b>De</b> suscripción basada en historia <b>a</b> suscripción prospectiva con datos satelitales y de sensores.</p>
+<ul><li>Paramétrico con pago automático para pymes, agro y gobiernos locales</li><li>Modelos de catástrofe calibrados a la exposición regional real</li><li>Distribución embebida en banca digital y cooperativas</li><li>Servicios de prevención que reduzcan la siniestralidad</li></ul></div>
+</div>
+<h4>Imperativos por rol</h4>
+<div class="roles">
+<div class="role"><div class="r">CEO y Junta</div><div class="m">Propósito y apetito de riesgo</div><ol><li>Fijar el riesgo climático dentro del apetito de riesgo institucional</li><li>Exigir el valor sostenible como línea medible del plan estratégico</li><li>Aprobar la política de uso de IA con criterio de valor y huella</li></ol></div>
+<div class="role"><div class="r">CFO</div><div class="m">Capital, fondeo y reporte</div><ol><li>Preparar el aseguramiento del reporte ISSB con rigor de estado financiero</li><li>Vincular la calidad del dato ESG al costo de fondeo</li><li>Medir el ingreso verde y su rentabilidad ajustada por riesgo</li></ol></div>
+<div class="role"><div class="r">CRO</div><div class="m">Riesgo integral</div><ol><li>Integrar escenarios NGFS en pruebas de estrés y planeación de capital</li><li>Llevar el riesgo físico a provisiones prospectivas</li><li>Incluir riesgo de greenwashing y de modelos de IA en el mapa de riesgos</li></ol></div>
+<div class="role"><div class="r">CIO / CTO</div><div class="m">Arquitectura y eficiencia</div><ol><li>Unificar dato ESG, financiero y operativo en una sola plataforma</li><li>Elegir regiones cloud y proveedores por mix energético</li><li>Reportar costo energético por caso de uso de IA</li></ol></div>
+<div class="role"><div class="r">CDO / CAIO</div><div class="m">Datos e IA gobernada</div><ol><li>Garantizar trazabilidad de cada dato ESG hasta su fuente</li><li>Evitar la automatización de insumos defectuosos antes del aseguramiento</li><li>Desplegar IA de vigilancia del lenguaje de producto</li></ol></div>
+<div class="role"><div class="r">Negocio y Sostenibilidad</div><div class="m">Producto y cliente</div><ol><li>Diseñar productos verdes que compitan sin prima</li><li>Embebir cobertura paramétrica en crédito y cuentas</li><li>Sustentar cada afirmación verde con evidencia auditable</li></ol></div>
+</div>
+<div class="frame">
+<div><div class="n">Riesgo evitado</div><p>Menores pérdidas crediticias y técnicas por riesgo físico, menor exposición a sanciones por greenwashing.</p></div>
+<div><div class="n">Ingreso nuevo</div><p>Crédito de adaptación, seguro paramétrico, asesoría y productos de inversión temáticos.</p></div>
+<div><div class="n">Capital más barato</div><p>Fondeo temático y acceso a multilaterales condicionados a dato verificable y reporte asegurado.</p></div>
+</div>
+<p class="src">Marco NEXUM de tres motores de valor, inspirado en la lógica de defensa y ataque de <a href="https://www.mckinsey.com/capabilities/strategy-and-corporate-finance/our-insights/sustainability-sources-of-value-creation" rel="noopener" target="_blank">McKinsey, Sustainability: Sources of value creation (dic 2024)</a>.</p>
+</div>
+</section>
+<!-- 09 -->
+<section class="sec" id="art-sostenibilidad-valor-fuentes">
+<div class="wrap">
+<div class="sec-head"><div class="sec-num">09</div><div><div class="eyebrow">Bibliografía verificada</div><h2>Fuentes consultadas</h2><p>Todas las fuentes fueron consultadas el 23 de septiembre de 2026. Se indica la fecha de publicación.</p></div></div>
+<ol class="bib">
+<li><a href="https://www.bcg.com/publications/2026/future-of-finance-2026-time-to-shift-gears" rel="noopener" target="_blank">BCG. Future of Finance 2026: Time to Shift Gears?</a> <span class="d">15 jun 2026</span></li>
+<li><a href="https://www.moodys.com/web/en/us/insights/credit-risk/outlooks/global-sustainable-finance.html" rel="noopener" target="_blank">Moody's. Global Sustainable Finance Outlook 2026</a> <span class="d">23 ene 2026</span></li>
+<li><a href="https://investingnews.com/sp-global-ratings-forecasts-global-sustainable-bond-market-will-consolidate-in-2026-with-issuance-levels-at-800-900-billion/" rel="noopener" target="_blank">S&amp;P Global Ratings. Sustainable bond market will consolidate in 2026</a> <span class="d">12 mar 2026</span></li>
+<li><a href="https://www.spglobal.com/ratings/en/regulatory/article/sustainability-insights-sustainable-bonds-outlook-2026-modest-growth-in-latin-america-s101670795" rel="noopener" target="_blank">S&amp;P Global Ratings. Sustainable Bonds Outlook 2026: Modest Growth in Latin America</a> <span class="d">25 feb 2026</span></li>
+<li><a href="https://thedocs.worldbank.org/en/doc/25f3886e31239aebd5a834c3c8ae7430-0340012026/original/WBG-TRE-Labeled-Sustainable-Bonds-Market-Update-2026-Q1.pdf" rel="noopener" target="_blank">World Bank Treasury. Labeled Sustainable Bonds, Quarterly Market Update Q1 2026</a> <span class="d">2026</span></li>
+<li><a href="https://home.cib.natixis.com/articles/2026-sustainability-outlook" rel="noopener" target="_blank">Natixis CIB. 2026 Sustainability Outlook</a> <span class="d">29 abr 2026</span></li>
+<li><a href="https://www.cepal.org/es/node/82619" rel="noopener" target="_blank">CEPAL. Capital flows to Latin America and the Caribbean: 2025 year-in-review</a> <span class="d">2026</span></li>
+<li><a href="https://www.iea.org/reports/key-questions-on-energy-and-ai/executive-summary" rel="noopener" target="_blank">IEA. Key Questions on Energy and AI</a> <span class="d">2026</span></li>
+<li><a href="https://www.iea.org/reports/energy-and-ai/executive-summary" rel="noopener" target="_blank">IEA. Energy and AI</a> <span class="d">2025</span></li>
+<li><a href="https://www.carbonbrief.org/ai-five-charts-that-put-data-centre-energy-use-and-emissions-into-context" rel="noopener" target="_blank">Carbon Brief. AI: Five charts that put data-centre energy use into context</a> <span class="d">15 jul 2026</span></li>
+<li><a href="https://www.swissre.com/institute/research/topics-and-risk-dialogues/climate-and-natural-catastrophe-risk/growing-exposure/Natcat-protection-gap.html" rel="noopener" target="_blank">Swiss Re Institute. Natural catastrophe protection gap</a> <span class="d">2 jun 2026</span></li>
+<li><a href="https://www.swissre.com/institute/research/sigma-research/sigma-2026-01-natcat-2025-wildfire-storm-risk.html" rel="noopener" target="_blank">Swiss Re Institute. sigma 1/2026: Natural catastrophes in 2025</a> <span class="d">mar 2026</span></li>
+<li><a href="https://www.swissre.com/institute/research/topics-and-risk-dialogues/climate-and-natural-catastrophe-risk/first-half-2026-insured-catastrophe-losses.html" rel="noopener" target="_blank">Swiss Re Institute. First-half 2026 insured catastrophe losses</a> <span class="d">20 ago 2026</span></li>
+<li><a href="https://www.mapfre.com/en/insights/innovation/parametric-insurance-trends-2026-mapfre/" rel="noopener" target="_blank">Mapfre. Parametric Insurance: Key Trends and Mapfre's Vision</a> <span class="d">23 mar 2026</span></li>
+<li><a href="https://www.intelligentinsurer.com/miami-reinsurance-week-today/latin-america-emerges-as-key-growth-market-for-parametric-insurance" rel="noopener" target="_blank">Intelligent Insurer. Latin America emerges as key growth market for parametric insurance</a> <span class="d">10 feb 2026</span></li>
+<li><a href="https://www.researchandmarkets.com/reports/6103797/parametric-insurance-market-report" rel="noopener" target="_blank">Research and Markets. Parametric Insurance Market Report 2026</a> <span class="d">2026</span></li>
+<li><a href="https://forbescentroamerica.com/2026/06/16/el-nuevo-deber-fiduciario-de-los-consejos-en-america-latina" rel="noopener" target="_blank">Forbes Centroamérica. El nuevo deber fiduciario de los consejos en América Latina</a> <span class="d">16 jun 2026</span></li>
+<li><a href="https://www.iss-corporate.com/resources/blog/latin-americas-sustainability-reporting-gains-momentum/" rel="noopener" target="_blank">ISS-Corporate. Latin America's Sustainability Reporting Gains Momentum</a> <span class="d">2 feb 2026</span></li>
+<li><a href="https://reporting.academy/en/pages/ifrs-and-idb-partner-to-advance-issb-standards-in-latin-america/" rel="noopener" target="_blank">Reporting Academy. IFRS and IDB Partner to Advance ISSB Standards in Latin America</a> <span class="d">16 feb 2026</span></li>
+<li><a href="https://www.cursosderse.com/2026/08/costa-rica-sostenible-2026-analisis-esg-pais/" rel="noopener" target="_blank">CapacitaRSE. Costa Rica Sostenible 2026</a> <span class="d">ago 2026</span></li>
+<li><a href="https://www.cursosderse.com/2026/08/colombia-sostenible-2026-analisis-esg-pais/" rel="noopener" target="_blank">CapacitaRSE. Colombia Sostenible 2026</a> <span class="d">13 ago 2026</span></li>
+<li><a href="https://www.hklaw.com/en/insights/publications/2025/09/colombia-regula-gestion-de-riesgos-ambientales-sociales" rel="noopener" target="_blank">Holland &amp; Knight. Colombia regula gestión de riesgos ambientales, sociales y climáticos</a> <span class="d">oct 2025</span></li>
+<li><a href="https://www.eyca-sda.com/actualidad.cfm?uuid=DF38D539" rel="noopener" target="_blank">EY. Modificación al Acuerdo SUGEF 2-10: riesgos ASG</a> <span class="d">ene 2024</span></li>
+<li><a href="https://www.nacion.com/economia/se-avecina-ajuste-en-calculo-del-riesgo-crediticio/4NN3TOB5PJGNHE7UQPAVONJPHE/story/" rel="noopener" target="_blank">La Nación. Se avecina nuevo cambio para calificar créditos</a> <span class="d">23 jun 2026</span></li>
+<li><a href="https://www.bcb.gov.br/content/estabilidadefinanceira/regulacao_prudencial_docs/Relatorio_GRSAC/BCB_PublicConsultation_127.pdf" rel="noopener" target="_blank">Banco Central do Brasil. Public Consultation 127 (GRSAC)</a> <span class="d">4 nov 2025</span></li>
+<li><a href="https://www.imf.org/-/media/files/publications/cr/2026/english/1braea2026002.pdf" rel="noopener" target="_blank">FMI. Brazil, Country Report No. 26/192 (FSAP)</a> <span class="d">23 jul 2026</span></li>
+<li><a href="https://www.ngfs.net/en/publications-and-statistics/publications/ngfs-climate-scenarios-central-banks-and-supervisors-phase-v" rel="noopener" target="_blank">NGFS. Climate Scenarios for central banks and supervisors, Phase V</a> <span class="d">2025</span></li>
+<li><a href="https://felaban.com/transformacion-climatica-en-latinoamerica-y-el-caribe-climate-mitigation-journey-para-la-banca/" rel="noopener" target="_blank">FELABAN y UNEP FI. Climate Mitigation Journey para la banca</a> <span class="d">13 may 2026</span></li>
+<li><a href="https://gfmag.com/award/award-winners/sustainable-finance-awards-2026-global-winners/" rel="noopener" target="_blank">Global Finance. Sustainable Finance Awards 2026</a> <span class="d">19 ago 2026</span></li>
+<li><a href="https://sustainabilitymag.com/news/mckinsey-capital-is-maturing-for-the-cleantech-era" rel="noopener" target="_blank">Sustainability Magazine. McKinsey: How Capital is Maturing for the Cleantech Era</a> <span class="d">19 may 2026</span></li>
+<li><a href="https://www.mckinsey.com/capabilities/strategy-and-corporate-finance/our-insights/sustainability-sources-of-value-creation" rel="noopener" target="_blank">McKinsey. Sustainability: Sources of value creation</a> <span class="d">18 dic 2024</span></li>
+<li><a href="https://sustainabilitymag.com/news/pwc-2026-turning-point-ai-sustainability" rel="noopener" target="_blank">Sustainability Magazine. PwC: Why 2026 is a Turning Point for AI and Sustainability</a> <span class="d">16 feb 2026</span></li>
+<li><a href="https://www.nasdaq.com/articles/sustainability/ai-sustainability-reporting" rel="noopener" target="_blank">Nasdaq. How AI Is Transforming ESG Reporting</a> <span class="d">2026</span></li>
+<li><a href="https://action.deloitte.com/insight/4845/banks-show-heightened-interest-in-ai-good-data" rel="noopener" target="_blank">Deloitte. Banks show heightened interest in AI, good data</a> <span class="d">12 abr 2026</span></li>
+<li><a href="https://www.finastra.com/viewpoints/articles/future-of-ai-in-financial-services-2026" rel="noopener" target="_blank">Finastra. AI in banking and financial services: Trends for 2026</a> <span class="d">24 feb 2026</span></li>
+<li><a href="https://sustainablefutures.linklaters.com/post/102lzgs/esg-legal-outlook-2026" rel="noopener" target="_blank">Linklaters. ESG Legal Outlook 2026</a> <span class="d">2026</span></li>
+<li><a href="https://www.issuewire.com/400-greenwashing-enforcement-actions-in-2026-new-data-shows-regulators-targeting-esg-claims-1862352417121949" rel="noopener" target="_blank">EcoAppraise vía IssueWire. 400+ Greenwashing Enforcement Actions in 2026</a> <span class="d">26 abr 2026</span></li>
+<li><a href="https://www.councilfire.org/guides/esg-enforcement-actions-regulators-target/" rel="noopener" target="_blank">Council Fire. ESG Enforcement Actions: What Regulators Target</a> <span class="d">7 jul 2026</span></li>
+<li><a href="https://kchcomunicacion.com/2026/05/16/colac-y-el-desafio-historico-de-modernizar-el-cooperativismo-financiero-latinoamericano/" rel="noopener" target="_blank">KCH. COLAC y el desafío de modernizar el cooperativismo financiero latinoamericano</a> <span class="d">16 may 2026</span></li>
+<li><a href="https://www.esgdive.com/news/NGFS-releases-short-term-climate-planning-scenario-tool-financial-institutions-climate-risks-policy/747551/" rel="noopener" target="_blank">ESG Dive. Central bank climate coalition releases near-term scenario tool</a> <span class="d">8 may 2025</span></li>
+<li><a href="https://wattsupwiththat.com/2026/08/10/central-banks-double-down-on-climate-regulation-despite-collapse-of-green-finance/" rel="noopener" target="_blank">Watts Up With That. Central Banks Double Down on Climate Regulation (artículo de opinión)</a> <span class="d">10 ago 2026</span></li>
+</ol>
+<div class="method"><b style="color:var(--gold-1);font-weight:500">Nota metodológica.</b> Badge <span class="badge b-alta">Alta</span>: cifra publicada por organismo internacional, agencia calificadora, regulador, reaseguradora global o consultora de primer nivel, con metodología declarada. Badge <span class="badge b-media">Media</span>: proyección de firma de investigación de mercado, rastreador privado o cifra citada por un tercero. Badge <span class="badge b-ed">Editorial</span>: juicio analítico de NEXUM, no medición. Las citas en inglés se reproducen textualmente; las traducciones son de NEXUM.</div>
+</div>
+</section>
+</main>
+<footer>
+<div class="wrap"><b>NEXUM LATAM ADVISORY</b><span>Sostenibilidad y Creación de Valor · Edición septiembre 2026 · Inteligencia estratégica para el sector financiero</span></div>
+</footer>
+
+
+
+<script>
+(function(){
+  // Maturity matrix
+  var rows=[
+    ["Brasil",5,5,4,4,"NIIF S1/S2 obligatorias desde 1 ene 2026 (CVM 193); aseguramiento razonable para FY2026. BCB avanza requisitos cuantitativos GRSAC."],
+    ["Chile",5,3,null,5,"NIIF S1/S2 obligatorias desde 2026 para emisores listados; mayor emisor soberano emergente de bonos GSS+ (US$ 58 mil M)."],
+    ["México",4,3,4,4,"CNBV exige reportes NIIF S1/S2 del FY2025, presentados en 2026; aseguramiento limitado 2027 y razonable 2028. Taxonomía 2023."],
+    ["Colombia",2,4,5,3,"Sin mandato ISSB. Circular Externa 015/2025 de la SFC: gestión de riesgo ambiental, social y climático en 18 meses. Taxonomía verde 2022."],
+    ["Costa Rica",3,4,3,2,"Adopción NIIF S1/S2 en 2024, obligatoria recién con informe 2028. Capítulo ASG del SUGEF 2-10 con implementación completa a dic 2026."],
+    ["Perú",null,null,null,null,"Brecha declarada: sin fuente verificable en el período analizado."]
+  ];
+  function dots(n){
+    if(n===null) return '<span class="nd">Sin dato</span>';
+    var s='<span class="dots" aria-label="'+n+' de 5">';
+    for(var i=1;i<=5;i++) s+='<i'+(i<=n?' class="f"':'')+'></i>';
+    return s+'</span>';
+  }
+  var body=document.getElementById('art-sostenibilidad-valor-mxBody');
+  body.innerHTML=rows.map(function(r){
+    return '<tr><td>'+r[0]+'</td><td class="sc">'+dots(r[1])+'</td><td class="sc">'+dots(r[2])+'</td><td class="sc">'+dots(r[3])+'</td><td class="sc">'+dots(r[4])+'</td><td class="note">'+r[5]+'</td></tr>';
+  }).join('');
+
+  // progress + active nav
+  var bar=document.getElementById('progress');
+  var links=[].slice.call(document.querySelectorAll('.nav a'));
+  var secs=links.map(function(a){return document.querySelector(a.getAttribute('href'))});
+  function onScroll(){
+    var h=document.documentElement;
+    var max=h.scrollHeight-h.clientHeight;
+    bar.style.width=(max>0?(h.scrollTop/max*100):0)+'%';
+    var cur=-1;
+    secs.forEach(function(s,i){ if(s && s.getBoundingClientRect().top<120) cur=i; });
+    links.forEach(function(a,i){ a.classList.toggle('on',i===cur); });
+  }
+
+
+  // charts
+  if(typeof Chart==='undefined') return;
+  var css=getComputedStyle(document.documentElement);
+  var ink2=css.getPropertyValue('--ink-2').trim(), ink3=css.getPropertyValue('--ink-3').trim();
+  var gold1=css.getPropertyValue('--gold-1').trim(), gold2=css.getPropertyValue('--gold-2').trim(), gold3=css.getPropertyValue('--gold-3').trim();
+  var grid='rgba(38,48,77,.6)';
+  Chart.defaults.font.family="'Jost', 'Segoe UI', system-ui, sans-serif";
+  Chart.defaults.color=ink3;
+  var tip={backgroundColor:'#EDF3F9',borderColor:gold3,borderWidth:1,titleColor:gold1,bodyColor:ink2,padding:10};
+
+  new Chart(document.getElementById('art-sostenibilidad-valor-chBonds'),{
+    type:'bar',
+    data:{labels:['Verdes','Sostenibilidad','Sociales','Transición','Ligados a sostenibilidad'],
+      datasets:[{data:[530,190,115,40,25],backgroundColor:[gold1,gold2,gold3,'#5FB8B0','#3E6F83'],borderRadius:2,barThickness:22}]},
+    options:{indexAxis:'y',maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:Object.assign({callbacks:{label:function(c){return ' US$ '+c.parsed.x+' mil M'}}},tip)},
+      scales:{x:{grid:{color:grid},border:{display:false},ticks:{color:ink3}},y:{grid:{display:false},border:{display:false},ticks:{color:ink2,font:{size:12}}}}}
+  });
+
+  new Chart(document.getElementById('art-sostenibilidad-valor-chLoss'),{
+    type:'bar',
+    data:{labels:['2025 (real)','2026 (tendencia)','2030 (proyección)'],
+      datasets:[{data:[107,148,186],backgroundColor:[gold1,gold2,gold3],borderRadius:2,barThickness:42}]},
+    options:{maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:Object.assign({callbacks:{label:function(c){return ' US$ '+c.parsed.y+' mil M'}}},tip)},
+      scales:{y:{beginAtZero:true,max:200,grid:{color:grid},border:{display:false},ticks:{color:ink3,stepSize:50}},x:{grid:{display:false},border:{display:false},ticks:{color:ink2}}}}
+  });
 })();
 </script>
       </div>
