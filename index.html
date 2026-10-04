@@ -2920,8 +2920,9 @@
     var STREAM = ['AI', 'DATA', 'CYBER', 'VALUE'];
     var INK = '#091B38';
 
-    // Timeline (seconds). Build is short; the hold only lasts as long as the page needs.
-    var T_BUILD = 1.1, T_MARK = 0.22, T_BRAND = 1.15, T_MIN_EXIT = 1.45, T_CAP_EXIT = 3.45, T_EXIT = 0.5;
+    // Timeline (seconds). The full story always plays for at least T_MIN_EXIT, even on a fast
+    // connection; after that the loader leaves as soon as the page is ready (cap ~4s).
+    var T_BUILD = 1.3, T_MARK = 0.25, T_BRAND = 1.4, T_MIN_EXIT = 2.0, T_CAP_EXIT = 3.5, T_EXIT = 0.5;
 
     var W, H, dpr, S, cx, cy, parts = [], words = [], edges = [], streams = [];
     var rnd = Math.random;
