@@ -860,10 +860,9 @@
 
     /* ── HERO ───────────────────────────────────────── */
     .hero {
-      min-height: 100svh;
       display: grid;
       grid-template-rows: 1fr auto;
-      padding-block-start: 5.5rem;
+      padding-block-start: 7.25rem;   /* clears the fixed header (~116px) */
       position: relative;
       overflow: hidden;
     }
@@ -889,7 +888,7 @@
       grid-template-columns: 1fr;
       gap: 3rem;
       align-items: center;
-      padding: 3rem var(--gutter) 2rem;
+      padding: 1.25rem var(--gutter) 2.5rem;
       position: relative;
     }
     @media (min-width: 900px) {
@@ -905,7 +904,7 @@
       display: flex;
       align-items: center;
       gap: 0.75rem;
-      margin-bottom: 1.75rem;
+      margin-bottom: 1.25rem;
     }
     .hero-eyebrow::before {
       content: '';
@@ -917,11 +916,11 @@
 
     .hero-headline {
       font-family: var(--font-heading);
-      font-size: var(--display);
+      font-size: clamp(2.9rem, 6vw, 6.4rem);
       font-weight: 300;
       line-height: 0.95;
       letter-spacing: -0.025em;
-      margin-bottom: 2.25rem;
+      margin-bottom: 1.5rem;
     }
     .hero-headline i { font-style: italic; color: var(--gold); }
 
@@ -931,7 +930,7 @@
       line-height: 1.72;
       color: var(--mid);
       max-width: 500px;
-      margin-bottom: 2.75rem;
+      margin-bottom: 2rem;
     }
 
     .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
@@ -1087,18 +1086,18 @@
     }
 
     /* ── ARQUITECTURA · escena scroll-driven (Manifiesto + Capacidades) ── */
-    .nxb { position: relative; background: var(--ink); color: var(--cream); }
+    .nxb { position: relative; background: var(--ink); color: var(--cream); isolation: isolate; }
+    /* The pin track spans exactly Manifiesto + Capacidades, so the sticky stage
+       can never outlive the scene: it unpins when Capacidades ends. */
+    .nxb-pin { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
     .nxb-stage {
       position: sticky;
       top: 0;
       height: 100vh;
       height: 100lvh;
-      margin-bottom: -100vh;
-      margin-bottom: -100lvh;
       overflow: hidden;
       contain: paint;
       background: var(--ink);
-      z-index: 0;
     }
     .nxb-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
     /* Contrast veil: the animation is a supporting layer; text always wins. */
@@ -2821,9 +2820,11 @@
   <!-- Escena "Arquitectura": animación controlada por scroll a lo largo de Manifiesto + Capacidades.
        Frame 0 al fijarse Manifiesto · frame final al final de Capacidades. Ver script NXB. -->
   <div class="nxb" id="arquitectura" data-frames="80" data-src="media/arquitectura/">
-    <div class="nxb-stage" aria-hidden="true">
-      <canvas class="nxb-canvas"></canvas>
-      <div class="nxb-veil"></div>
+    <div class="nxb-pin" aria-hidden="true">
+      <div class="nxb-stage">
+        <canvas class="nxb-canvas"></canvas>
+        <div class="nxb-veil"></div>
+      </div>
     </div>
 
   <section class="section section--dk nxb-layer" id="manifiesto">
@@ -5987,11 +5988,23 @@
     /* ── Scroll → frame, synchronously each animation frame ── */
     let raf = 0;
     function requestDraw() {
-      if (!raf) raf = requestAnimationFrame(() => { raf = 0; draw(progress()); });
+      if (!raf) raf = requestAnimationFrame(() => {
+        raf = 0;
+        draw(progress());
+        // Once Capacidades ends the stage unpins and scrolls away; fade the
+        // building out over the next 280px so it is gone before Perspectivas.
+        const past = clamp((window.scrollY - (top + span)) / 280, 0, 1);
+        canvas.style.opacity = past ? (1 - past).toFixed(3) : '';
+      });
     }
     function refresh() { measure(); requestDraw(); }
 
-    window.addEventListener('scroll', requestDraw, { passive: true });
+    let inView = false;
+    new IntersectionObserver(entries => {
+      inView = entries[0].isIntersecting;
+      if (inView) refresh();
+    }).observe(root);
+    window.addEventListener('scroll', () => { if (inView) requestDraw(); }, { passive: true });
     window.addEventListener('resize', refresh);
     window.addEventListener('load', refresh);
     // Section heights change when Capacidades accordion items open/close.
