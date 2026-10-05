@@ -1,0 +1,71 @@
+{
+  "topic": "Madurez empresarial",
+  "title": "Dónde estamos hoy",
+  "subtitle": "Nivel actual frente al objetivo 2030, por dimensión empresarial (escala 0–5).",
+  "caption": "Madurez por dimensión empresarial: nivel actual, objetivo 2030 y brecha (escala 0–5)",
+  "scale": {
+    "min": 0,
+    "max": 5
+  },
+  "format": {
+    "decimals": 1,
+    "suffix": ""
+  },
+  "series": {
+    "primary": "Nivel actual",
+    "secondary": "Objetivo 2030",
+    "gap": "Brecha"
+  },
+  "rows": [
+    {
+      "label": "Cliente y mercado",
+      "value": 2.8,
+      "target": 4.2
+    },
+    {
+      "label": "Negocio y estrategia",
+      "value": 3.1,
+      "target": 4.5
+    },
+    {
+      "label": "Operaciones y procesos",
+      "value": 2.4,
+      "target": 4.0
+    },
+    {
+      "label": "Datos e IA",
+      "value": 2.6,
+      "target": 4.3
+    },
+    {
+      "label": "Tecnología y plataformas",
+      "value": 2.9,
+      "target": 4.2
+    },
+    {
+      "label": "Personas y cultura",
+      "value": 2.3,
+      "target": 4.0
+    },
+    {
+      "label": "Gobierno y riesgo",
+      "value": 3.0,
+      "target": 4.4
+    },
+    {
+      "label": "Ecosistemas y alianzas",
+      "value": 2.1,
+      "target": 4.0
+    },
+    {
+      "label": "Sostenibilidad y sociedad",
+      "value": 2.5,
+      "target": 4.0
+    },
+    {
+      "label": "Resiliencia y continuidad",
+      "value": 3.2,
+      "target": 4.5
+    }
+  ]
+}
