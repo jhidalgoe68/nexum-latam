@@ -1871,6 +1871,27 @@
 
 
     /* ── CONTACTO ───────────────────────────────────── */
+    /* ── CONVERSEMOS · escena scroll-driven ─────────── */
+    .nxc { position: relative; background: #0C224E; isolation: isolate; overflow-x: clip; }   /* video's own navy; clip (not hidden) keeps the sticky stage working while side offsets never widen the page */
+    .nxc-pin { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+    .nxc-intro { height: 150vh; height: 150svh; }   /* empty blue runway: the video plays on its own before text and form arrive */
+    .nxc-stage { position: sticky; top: 0; height: 100vh; height: 100lvh; overflow: hidden; contain: paint; }
+    .nxc-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+    /* Veil deepens as the content organises (--veil set by NXC): the swirl leads while the section is still
+       fragmented, then recedes to a watermark so the finished form and copy read cleanly. */
+    .nxc-veil { position: absolute; inset: 0; background: radial-gradient(ellipse 85% 80% at 50% 55%, rgba(12,34,78,0.86), rgba(12,34,78,0.97)); opacity: var(--veil, 0.9); }
+    .nxc > .wrap { position: relative; z-index: 1; }
+    .nxc .contact-headline, .nxc .contact-body, .nxc .ci-val, .nxc .fl { text-shadow: 0 1px 14px rgba(12,34,78,0.9); }
+    .nxc .fi, .nxc .ft, .nxc .fs { background: rgba(9,27,56,0.82); }
+    /* Scroll choreography: --k (0→1) is set per element by the NXC script; 1 = final layout. */
+    #conversemos .reveal { opacity: 1; transform: none; transition: none; }
+    #conversemos [data-nxc] {
+      transform: translate3d(calc((1 - var(--k, 1)) * var(--dx, 0px)), calc((var(--k, 1) - 1) * var(--dy, 0px)), 0);
+      opacity: calc(0.55 + 0.45 * var(--k, 1));   /* never below 55%: readable and usable from the first frame */
+      will-change: transform, opacity;
+    }
+    #conversemos .fl { display: block; transform: translateX(calc((1 - var(--kl, 1)) * 10px)); }
+
     /* Anchor target for every "Conversemos / Solicitar conversación" CTA.
        --header-h is kept in sync with the fixed header by JS. */
     #contacto { scroll-margin-top: calc(var(--header-h, 116px) + 1.5rem); }
@@ -5417,7 +5438,7 @@
           </div>
 
           <div class="advisory-ctas reveal d4">
-            <a href="#conversemos" class="btn btn-primary">Conversar con nosotros</a>
+            <a href="#contacto" class="btn btn-primary">Conversar con nosotros</a>
             <a href="https://wa.me/50670104381?text=Hola%2C%20me%20gustar%C3%ADa%20conversar%20con%20NEXUM"
                target="_blank" rel="noopener"
                class="btn btn-whatsapp">
@@ -5465,7 +5486,7 @@
             </div>
             <p class="air-result-desc" id="airResultDesc"></p>
             <div class="air-result-actions">
-              <a href="#conversemos" class="btn btn-primary">Conversar con NEXUM →</a>
+              <a href="#contacto" class="btn btn-primary">Conversar con NEXUM →</a>
               <button class="btn btn-outline" id="airReset">Reiniciar evaluación</button>
             </div>
           </div>
@@ -5479,22 +5500,25 @@
   <!-- ════════════════════════════════════════
        08 · CONTACTO
   ════════════════════════════════════════ -->
-  <section class="section section--dk" id="conversemos">
+  <section class="section section--dk nxc" id="conversemos" data-frames="65" data-src="media/conversemos/">
+    <!-- Escena "Conversación": video 1:1 controlado por scroll; el contenido se organiza en paralelo. Ver script NXC. -->
+    <div class="nxc-pin" aria-hidden="true"><div class="nxc-stage"><canvas class="nxc-canvas"></canvas><div class="nxc-veil"></div></div></div>
+    <div class="nxc-intro" aria-hidden="true"></div>   <!-- runway: the animation plays here before the content arrives -->
     <div class="wrap">
       <div class="contact-grid">
 
         <div>
-          <div class="marker marker--dk reveal">08 / Conversemos</div>
+          <div class="marker marker--dk reveal" data-nxc="0,.2,0,26">08 / Conversemos</div>
 
-          <h2 class="contact-headline reveal">
+          <h2 class="contact-headline reveal" data-nxc="0,.26,0,40">
             ¿Tu organización<br>navega en<br><i>aguas complejas?</i>
           </h2>
 
-          <p class="contact-body reveal d1">
+          <p class="contact-body reveal d1" data-nxc=".08,.36,-14,24">
             Ofrecemos una primera conversación ejecutiva — sin compromiso, sin presentaciones genéricas. Treinta a cuarenta y cinco minutos para entender tu contexto, identificar oportunidades reales y evaluar cómo podemos generar valor juntos.
           </p>
 
-          <div class="contact-info reveal d2">
+          <div class="contact-info reveal d2" data-nxc=".16,.46,10,18">
             <div>
               <p class="ci-label">Email</p>
               <p class="ci-val"><a href="mailto:contact@nexum-latam.com">contact@nexum-latam.com</a></p>
@@ -5515,9 +5539,9 @@
         </div>
 
         <div id="contacto" class="contact-form-col" role="region" aria-labelledby="contactoTitle" tabindex="-1">
-          <p class="contact-form-kicker reveal" id="contactoTitle">Solicitar conversación</p>
+          <p class="contact-form-kicker reveal" id="contactoTitle" data-nxc=".3,.5,0,20">Solicitar conversación</p>
           <form id="contactForm" class="reveal d1" novalidate>
-            <div class="form-row">
+            <div class="form-row" data-nxc=".45,.6,-16,22">
               <div class="fg">
                 <label class="fl" for="fn">Nombre completo</label>
                 <input class="fi" type="text" id="fn" placeholder="Tu nombre" autocomplete="name">
@@ -5527,7 +5551,7 @@
                 <input class="fi" type="text" id="co" placeholder="Tu organización" autocomplete="organization">
               </div>
             </div>
-            <div class="form-row">
+            <div class="form-row" data-nxc=".52,.66,16,22">
               <div class="fg">
                 <label class="fl" for="ro">Cargo</label>
                 <input class="fi" type="text" id="ro" placeholder="Tu posición" autocomplete="organization-title">
@@ -5537,14 +5561,14 @@
                 <input class="fi" type="email" id="em" placeholder="correo@empresa.com" autocomplete="work email" required>
               </div>
             </div>
-            <div class="form-row">
+            <div class="form-row" data-nxc=".57,.71,-12,20">
               <div class="fg">
                 <label class="fl" for="ph">Teléfono <span style="color:var(--gold)">*</span></label>
                 <input class="fi" type="tel" id="ph" placeholder="+506 0000-0000" autocomplete="tel" required>
               </div>
               <div class="fg"><!-- spacer --></div>
             </div>
-            <div class="fg">
+            <div class="fg" data-nxc=".6,.74,12,20">
               <label class="fl" for="ch">Principal desafío</label>
               <select class="fs" id="ch">
                 <option value="" disabled selected>Selecciona un área</option>
@@ -5558,16 +5582,16 @@
                 <option>Otro</option>
               </select>
             </div>
-            <div class="fg">
+            <div class="fg" data-nxc=".64,.78,-14,22">
               <label class="fl" for="ms">Contexto</label>
               <textarea class="ft" id="ms" placeholder="Describe brevemente tu desafío o contexto..."></textarea>
             </div>
             <div id="formStatus" class="form-status" role="alert" aria-live="polite"></div>
-            <button type="submit" class="btn-send" id="sendBtn">Solicitar conversación ejecutiva</button>
+            <button type="submit" class="btn-send" id="sendBtn" data-nxc=".72,.9,0,22">Solicitar conversación ejecutiva</button>
           </form>
           <a href="https://wa.me/50670104381?text=Hola%2C%20me%20gustar%C3%ADa%20solicitar%20una%20conversaci%C3%B3n%20ejecutiva%20con%20NEXUM"
              target="_blank" rel="noopener"
-             class="btn-whatsapp--dk">
+             class="btn-whatsapp--dk" data-nxc=".76,.92,0,22">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
             Contactar por WhatsApp
           </a>
@@ -6624,6 +6648,120 @@
 
     window.nexumOpenArticle = nexumOpenArticle;
     window.nexumCloseArticle = nexumCloseArticle;
+  })();
+  </script>
+
+  <script>
+  /* ─────────────────────────────────────────
+     CONVERSEMOS · scroll-driven 1:1 video + content choreography
+     Two scroll-linked timelines:
+       video   — Section 8 enters the viewport (frame 0) → the content is about to
+                 appear (final frame); it plays over an empty runway (.nxc-intro).
+       content — the content enters the viewport (fragmented) → the last call-to-
+                 action is fully on screen (organised), so the form is complete by
+                 the time it can be used in full. Scroll is the only source of truth — scrubbing
+     backwards re-fragments the layout and reverses the video.
+  ───────────────────────────────────────── */
+  (function () {
+    const sec = document.getElementById('conversemos');
+    if (!sec || !sec.classList.contains('nxc')) return;
+    const stage = sec.querySelector('.nxc-stage'), canvas = sec.querySelector('.nxc-canvas');
+    const ctx = canvas.getContext('2d', { alpha: false });
+    const header = document.querySelector('.header');
+    const N = parseInt(sec.dataset.frames, 10) || 65, BASE = sec.dataset.src || 'media/conversemos/';
+    const BG = '#0C224E';
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+    const ease = t => 1 - Math.pow(1 - t, 3);   // soft settle, no overshoot
+
+    // Choreography: each element moves from (dx, -dy) to its place within [start, end] of the timeline.
+    const items = Array.from(sec.querySelectorAll('[data-nxc]')).map(el => {
+      const [a, b, dx, dy] = el.dataset.nxc.split(',').map(Number);
+      el.style.setProperty('--dx', dx + 'px');
+      el.style.setProperty('--dy', dy + 'px');
+      return { el, a, b };
+    });
+
+    /* frames: progressive loading, coarse first */
+    const frames = new Array(N).fill(null);
+    let set = null, started = false;
+    function startLoading() {
+      if (started) return; started = true;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      set = stage.clientWidth * dpr > 900 ? 'lg' : 'sm';
+      const seen = new Set([0, N - 1]), q = [0, N - 1];
+      for (let st = 16; st >= 1; st >>= 1) for (let i = 0; i < N; i += st) if (!seen.has(i)) { seen.add(i); q.push(i); }
+      let active = 0;
+      const next = () => { while (active < 6 && q.length) { active++; const i = q.shift(), img = new Image();
+        img.decoding = 'async'; img.src = BASE + set + '/f' + String(i).padStart(3, '0') + '.webp';
+        (img.decode ? img.decode() : new Promise(r => { img.onload = r; })).then(() => { frames[i] = img; request(); }, () => {})
+          .finally(() => { active--; next(); }); } };
+      next();
+    }
+    function nearest(i) {
+      if (frames[i]) return i;
+      for (let d = 1; d < N; d++) { if (i - d >= 0 && frames[i - d]) return i - d; if (i + d < N && frames[i + d]) return i + d; }
+      return -1;
+    }
+
+    let W = 0, H = 0, dpr = 1, top = 0, vh = 1, vStart = 0, vSpan = 1, cStart = 0, cSpan = 1, contentTop = 0;
+    const intro = sec.querySelector('.nxc-intro');
+    const last = items.length ? items[items.length - 1].el : sec;
+    function layoutBottom(el) {   // bottom of el inside the section, ignoring the choreography transforms
+      let y = el.offsetHeight, n = el;
+      while (n && n !== sec) { y += n.offsetTop; n = n.offsetParent; }
+      return y;
+    }
+    function measure() {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      W = canvas.width = Math.round(stage.clientWidth * dpr);
+      H = canvas.height = Math.round(stage.clientHeight * dpr);
+      vh = window.innerHeight;
+      top = sec.getBoundingClientRect().top + window.scrollY;
+      contentTop = top + (intro ? layoutBottom(intro) : 0);
+      vStart = top - vh * 0.4;                                       // section mostly on screen
+      vSpan = Math.max(vh * 0.5, (contentTop - vh * 0.95) - vStart); // complete just as the content peeks in
+      cStart = contentTop - vh;                                      // content enters
+      const end = top + Math.min(sec.offsetHeight, layoutBottom(last) + 32) - vh;
+      cSpan = Math.max(vh * 0.6, end - cStart);
+    }
+    const videoProgress = () => clamp((window.scrollY - vStart) / vSpan, 0, 1);
+    const contentProgress = () => clamp((window.scrollY - cStart) / cSpan, 0, 1);
+
+    function draw(p) {
+      ctx.fillStyle = BG; ctx.fillRect(0, 0, W, H);
+      const f = p * (N - 1), a = Math.floor(f), b = Math.min(N - 1, a + 1), t = f - a, ia = nearest(a);
+      if (ia < 0) return;
+      const hdr = header ? Math.round(header.offsetHeight * dpr) : 0;
+      const size = Math.min(W, H - hdr) * 0.96;                    // 1:1, fully visible, centred below the header
+      const x = (W - size) / 2, y = hdr + (H - hdr - size) / 2;
+      ctx.drawImage(frames[ia], x, y, size, size);
+      if (ia === a && b !== a && frames[b] && t > 0.001) { ctx.globalAlpha = t; ctx.drawImage(frames[b], x, y, size, size); ctx.globalAlpha = 1; }
+    }
+
+    function organise(p) {
+      if (reduce.matches) p = 1;   // reduced motion: the layout is simply in place
+      for (const it of items) it.el.style.setProperty('--k', ease(clamp((p - it.a) / (it.b - it.a), 0, 1)).toFixed(3));
+      sec.style.setProperty('--kl', ease(clamp((p - 0.7) / 0.16, 0, 1)).toFixed(3));
+      // Veil: light while the video plays alone (and on the finished logo), deepening as the headline
+      // rises from 75% to 35% of the viewport so the copy reads cleanly.
+      const v = reduce.matches ? 1 : clamp((0.75 - (contentTop - window.scrollY) / vh) / 0.4, 0, 1);
+      sec.style.setProperty('--veil', (0.32 + 0.6 * v * v * (3 - 2 * v)).toFixed(3));
+    }
+
+    let raf = 0, inView = false;
+    function request() {
+      if (!raf) raf = requestAnimationFrame(() => { raf = 0; draw(videoProgress()); organise(contentProgress()); });
+    }
+    function refresh() { measure(); request(); }
+
+    new IntersectionObserver(e => { inView = e[0].isIntersecting; if (inView) refresh(); }).observe(sec);
+    new IntersectionObserver(e => { if (e[0].isIntersecting) startLoading(); }, { rootMargin: '150% 0px' }).observe(sec);
+    window.addEventListener('scroll', () => { if (inView) request(); }, { passive: true });
+    window.addEventListener('resize', refresh);
+    window.addEventListener('load', refresh);
+    if ('ResizeObserver' in window) new ResizeObserver(refresh).observe(sec);
+    refresh();
   })();
   </script>
 
