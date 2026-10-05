@@ -1871,7 +1871,7 @@
 
     /* ── CONTACTO ───────────────────────────────────── */
     /* ── CONVERSEMOS · escena scroll-driven ─────────── */
-    .nxc { position: relative; background: #0C224E; isolation: isolate; }   /* the video's own navy, so its edges vanish */
+    .nxc { position: relative; background: #0C224E; isolation: isolate; overflow-x: clip; }   /* video's own navy; clip (not hidden) keeps the sticky stage working while side offsets never widen the page */
     .nxc-pin { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
     .nxc-stage { position: sticky; top: 0; height: 100vh; height: 100lvh; overflow: hidden; contain: paint; }
     .nxc-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
@@ -2077,6 +2077,132 @@
       transition: color 0.3s;
     }
     .foot-links a:hover { color: var(--gold); }
+
+    /* Footer legal links — open the Terms / Privacy modal */
+    .foot-legal { display: flex; align-items: center; gap: 0.6rem; }
+    .foot-legal-sep { color: rgba(255,255,255,0.35); font-size: 0.68rem; }
+    .foot-legal-btn {
+      font-family: var(--font-body);
+      font-size: 0.68rem;
+      letter-spacing: 0.07em;
+      color: rgba(255,255,255,0.65);
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      text-decoration: underline;
+      text-decoration-color: rgba(255,255,255,0.3);
+      text-underline-offset: 3px;
+      transition: color 0.3s, text-decoration-color 0.3s;
+    }
+    .foot-legal-btn:hover, .foot-legal-btn:focus-visible {
+      color: var(--gold);
+      text-decoration-color: var(--gold);
+    }
+
+    /* ── LEGAL MODAL (Términos de Servicio / Política de Privacidad) ── */
+    .legal-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+    .legal-modal[hidden] { display: none; }
+    .legal-modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(9,27,56,0.55);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+    .legal-modal-card {
+      position: relative;
+      background: var(--cream);
+      color: var(--ink);
+      width: min(720px, 100%);
+      max-height: min(82vh, 760px);
+      border-radius: 6px;
+      box-shadow: 0 30px 80px rgba(9,27,56,0.35);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      animation: legalIn 0.3s var(--ease);
+    }
+    @keyframes legalIn {
+      from { opacity: 0; transform: translateY(14px) scale(0.98); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .legal-modal-hd {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1.75rem 2rem 1.25rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .legal-modal-hd h2 {
+      font-family: var(--font-heading);
+      font-size: clamp(1.25rem, 2vw, 1.55rem);
+      font-weight: 600;
+      color: var(--ink);
+      line-height: 1.2;
+    }
+    .legal-modal-hd p {
+      font-family: var(--font-body);
+      font-size: var(--sm);
+      color: var(--mid-lt);
+      margin-top: 0.35rem;
+    }
+    .legal-modal-close {
+      flex-shrink: 0;
+      width: 2.25rem;
+      height: 2.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--mid);
+      cursor: pointer;
+      transition: background 0.25s, color 0.25s, border-color 0.25s;
+    }
+    .legal-modal-close:hover, .legal-modal-close:focus-visible {
+      background: var(--ink);
+      color: var(--cream);
+      border-color: var(--ink);
+    }
+    .legal-modal-body {
+      overflow-y: auto;
+      padding: 1.75rem 2rem 2.25rem;
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      font-weight: 300;
+      line-height: 1.7;
+      color: var(--mid);
+    }
+    .legal-modal-body h3 {
+      font-family: var(--font-heading);
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin: 1.75rem 0 0.6rem;
+    }
+    .legal-modal-body h3:first-child { margin-top: 0; }
+    .legal-modal-body p { margin: 0 0 0.85rem; }
+    .legal-modal-body ul { margin: 0 0 0.85rem; padding-left: 1.2rem; }
+    .legal-modal-body li { margin-bottom: 0.4rem; }
+    .legal-modal-body strong { color: var(--ink); font-weight: 500; }
+    .legal-modal-foot {
+      font-size: 0.75rem;
+      color: var(--mid-lt);
+      border-top: 1px solid var(--border);
+      padding-top: 1rem;
+      margin-top: 1.5rem;
+    }
 
     /* ── SECTORES GRID + PANEL ─────────────────────────── */
     .sectors-sq-grid {
@@ -3245,86 +3371,74 @@
       </div>
 
       <script>document.documentElement.classList.add('js');</script>
-      <figure class="hero-bench" id="benchmark" aria-labelledby="benchTitle" data-cur-label="Nivel actual" data-tgt-label="Objetivo 2030" data-gap-label="Brecha" style="--bench-grid:20%">
+      <figure class="hero-bench" id="benchmark" aria-labelledby="benchTitle" data-cur-label="Estado actual" data-tgt-label="Estado deseable" data-gap-label="Brecha" style="--bench-grid:20%">
         <figcaption class="bench-hd">
-          <p class="bench-k">Benchmark · Madurez empresarial</p>
-          <h2 class="bench-t" id="benchTitle">Dónde estamos hoy</h2>
-          <p class="bench-sub">Nivel actual frente al objetivo 2030, por dimensión empresarial (escala 0–5).</p>
+          <p class="bench-k">Benchmark · Gobernanza de Datos</p>
+          <h2 class="bench-t" id="benchTitle">Madurez en gobernanza de datos</h2>
+          <p class="bench-sub">Estado actual de la industria frente al nivel deseable para operar con IA, por componente DGOS (escala 0–5).</p>
           <ul class="bench-legend" aria-hidden="true">
-            <li><span class="bench-sw bench-sw--cur"></span>Nivel actual</li>
-            <li><span class="bench-sw bench-sw--tgt"></span>Objetivo 2030</li>
+            <li><span class="bench-sw bench-sw--cur"></span>Estado actual</li>
+            <li><span class="bench-sw bench-sw--tgt"></span>Estado deseable</li>
           </ul>
         </figcaption>
         <div class="bench-plot" aria-hidden="true">
           <ol class="bench-rows">
-            <li class="bench-row" style="--cur:0.560;--tgt:0.840;--i:0" data-label="Cliente y mercado" data-cur="2.8" data-tgt="4.2" data-gap="+1.4">
-              <span class="bench-lbl">Cliente y mercado</span>
-              <span class="bench-track"><span class="bench-gap"></span><span class="bench-bar"><span class="bench-val">2.8</span></span><span class="bench-dot"></span></span>
-              <span class="bench-goal">4.2</span>
-            </li>
-            <li class="bench-row" style="--cur:0.620;--tgt:0.900;--i:1" data-label="Negocio y estrategia" data-cur="3.1" data-tgt="4.5" data-gap="+1.4">
-              <span class="bench-lbl">Negocio y estrategia</span>
-              <span class="bench-track"><span class="bench-gap"></span><span class="bench-bar"><span class="bench-val">3.1</span></span><span class="bench-dot"></span></span>
+            <li class="bench-row" style="--cur:0.460;--tgt:0.900;--i:0" data-label="Estrategia y alineación" data-cur="2.3" data-tgt="4.5" data-gap="+2.2">
+              <span class="bench-lbl">Estrategia y alineación</span>
+              <span class="bench-track"><span class="bench-gap"></span><span class="bench-bar"><span class="bench-val">2.3</span></span><span class="bench-dot"></span></span>
               <span class="bench-goal">4.5</span>
             </li>
-            <li class="bench-row" style="--cur:0.480;--tgt:0.800;--i:2" data-label="Operaciones y procesos" data-cur="2.4" data-tgt="4.0" data-gap="+1.6">
-              <span class="bench-lbl">Operaciones y procesos</span>
-              <span class="bench-track"><span class="bench-gap"></span><span class="bench-bar"><span class="bench-val">2.4</span></span><span class="bench-dot"></span></span>
-              <span class="bench-goal">4.0</span>
+            <li class="bench-row" style="--cur:0.380;--tgt:0.840;--i:1" data-label="Organización y roles" data-cur="1.9" data-tgt="4.2" data-gap="+2.3">
+              <span class="bench-lbl">Organización y roles</span>
+              <span class="bench-track"><span class="bench-gap"></span><span class="bench-bar"><span class="bench-val">1.9</span></span><span class="bench-dot"></span></span>
+              <span class="bench-goal">4.2</span>
             </li>
-            <li class="bench-row" style="--cur:0.520;--tgt:0.860;--i:3" data-label="Datos e IA" data-cur="2.6" data-tgt="4.3" data-gap="+1.7">
-              <span class="bench-lbl">Datos e IA</span>
-              <span class="bench-track"><span class="bench-gap"></span><span class="bench-bar"><span class="bench-val">2.6</span></span><span class="bench-dot"></span></span>
+            <li class="bench-row" style="--cur:0.420;--tgt:0.860;--i:2" data-label="Políticas y estándares" data-cur="2.1" data-tgt="4.3" data-gap="+2.2">
+              <span class="bench-lbl">Políticas y estándares</span>
+              <span class="bench-track"><span class="bench-gap"></span><span class="bench-bar"><span class="bench-val">2.1</span></span><span class="bench-dot"></span></span>
               <span class="bench-goal">4.3</span>
             </li>
-            <li class="bench-row" style="--cur:0.580;--tgt:0.840;--i:4" data-label="Tecnología y plataformas" data-cur="2.9" data-tgt="4.2" data-gap="+1.3">
-              <span class="bench-lbl">Tecnología y plataformas</span>
-              <span class="bench-track"><span class="bench-gap"></span><span class="bench-bar"><span class="bench-val">2.9</span></span><span class="bench-dot"></span></span>
-              <span class="bench-goal">4.2</span>
+            <li class="bench-row" style="--cur:0.400;--tgt:0.860;--i:3" data-label="Calidad de datos" data-cur="2.0" data-tgt="4.3" data-gap="+2.3">
+              <span class="bench-lbl">Calidad de datos</span>
+              <span class="bench-track"><span class="bench-gap"></span><span class="bench-bar"><span class="bench-val">2.0</span></span><span class="bench-dot"></span></span>
+              <span class="bench-goal">4.3</span>
             </li>
-            <li class="bench-row" style="--cur:0.460;--tgt:0.800;--i:5" data-label="Personas y cultura" data-cur="2.3" data-tgt="4.0" data-gap="+1.7">
-              <span class="bench-lbl">Personas y cultura</span>
-              <span class="bench-track"><span class="bench-gap"></span><span class="bench-bar"><span class="bench-val">2.3</span></span><span class="bench-dot"></span></span>
-              <span class="bench-goal">4.0</span>
-            </li>
-            <li class="bench-row" style="--cur:0.600;--tgt:0.880;--i:6" data-label="Gobierno y riesgo" data-cur="3.0" data-tgt="4.4" data-gap="+1.4">
-              <span class="bench-lbl">Gobierno y riesgo</span>
-              <span class="bench-track"><span class="bench-gap"></span><span class="bench-bar"><span class="bench-val">3.0</span></span><span class="bench-dot"></span></span>
+            <li class="bench-row" style="--cur:0.440;--tgt:0.880;--i:4" data-label="Arquitectura y catálogo" data-cur="2.2" data-tgt="4.4" data-gap="+2.2">
+              <span class="bench-lbl">Arquitectura y catálogo</span>
+              <span class="bench-track"><span class="bench-gap"></span><span class="bench-bar"><span class="bench-val">2.2</span></span><span class="bench-dot"></span></span>
               <span class="bench-goal">4.4</span>
             </li>
-            <li class="bench-row" style="--cur:0.420;--tgt:0.800;--i:7" data-label="Ecosistemas y alianzas" data-cur="2.1" data-tgt="4.0" data-gap="+1.9">
-              <span class="bench-lbl">Ecosistemas y alianzas</span>
-              <span class="bench-track"><span class="bench-gap"></span><span class="bench-bar"><span class="bench-val">2.1</span></span><span class="bench-dot"></span></span>
-              <span class="bench-goal">4.0</span>
-            </li>
-            <li class="bench-row" style="--cur:0.500;--tgt:0.800;--i:8" data-label="Sostenibilidad y sociedad" data-cur="2.5" data-tgt="4.0" data-gap="+1.5">
-              <span class="bench-lbl">Sostenibilidad y sociedad</span>
-              <span class="bench-track"><span class="bench-gap"></span><span class="bench-bar"><span class="bench-val">2.5</span></span><span class="bench-dot"></span></span>
-              <span class="bench-goal">4.0</span>
-            </li>
-            <li class="bench-row" style="--cur:0.640;--tgt:0.900;--i:9" data-label="Resiliencia y continuidad" data-cur="3.2" data-tgt="4.5" data-gap="+1.3">
-              <span class="bench-lbl">Resiliencia y continuidad</span>
-              <span class="bench-track"><span class="bench-gap"></span><span class="bench-bar"><span class="bench-val">3.2</span></span><span class="bench-dot"></span></span>
+            <li class="bench-row" style="--cur:0.480;--tgt:0.900;--i:5" data-label="Seguridad y privacidad" data-cur="2.4" data-tgt="4.5" data-gap="+2.1">
+              <span class="bench-lbl">Seguridad y privacidad</span>
+              <span class="bench-track"><span class="bench-gap"></span><span class="bench-bar"><span class="bench-val">2.4</span></span><span class="bench-dot"></span></span>
               <span class="bench-goal">4.5</span>
+            </li>
+            <li class="bench-row" style="--cur:0.420;--tgt:0.860;--i:6" data-label="Ciclo de vida operativo" data-cur="2.1" data-tgt="4.3" data-gap="+2.2">
+              <span class="bench-lbl">Ciclo de vida operativo</span>
+              <span class="bench-track"><span class="bench-gap"></span><span class="bench-bar"><span class="bench-val">2.1</span></span><span class="bench-dot"></span></span>
+              <span class="bench-goal">4.3</span>
+            </li>
+            <li class="bench-row" style="--cur:0.360;--tgt:0.820;--i:7" data-label="Analítica y monetización" data-cur="1.8" data-tgt="4.1" data-gap="+2.3">
+              <span class="bench-lbl">Analítica y monetización</span>
+              <span class="bench-track"><span class="bench-gap"></span><span class="bench-bar"><span class="bench-val">1.8</span></span><span class="bench-dot"></span></span>
+              <span class="bench-goal">4.1</span>
             </li>
           </ol>
           <div class="bench-axis"><span></span><span class="bench-ticks"><span style="left:0%">0</span><span style="left:20%">1</span><span style="left:40%">2</span><span style="left:60%">3</span><span style="left:80%">4</span><span style="left:100%">5</span></span><span></span></div>
           <div class="bench-tip" role="presentation"></div>
         </div>
         <table class="sr-only">
-          <caption>Madurez por dimensión empresarial: nivel actual, objetivo 2030 y brecha (escala 0–5)</caption>
-          <thead><tr><th scope="col">Dimensión</th><th scope="col">Nivel actual</th><th scope="col">Objetivo 2030</th><th scope="col">Brecha</th></tr></thead>
+          <caption>Madurez en gobernanza de datos: estado actual de la industria, estado deseable y brecha, por componente operativo (escala 0–5)</caption>
+          <thead><tr><th scope="col">Dimensión</th><th scope="col">Estado actual</th><th scope="col">Estado deseable</th><th scope="col">Brecha</th></tr></thead>
           <tbody>
-              <tr><th scope="row">Cliente y mercado</th><td>2.8</td><td>4.2</td><td>+1.4</td></tr>
-              <tr><th scope="row">Negocio y estrategia</th><td>3.1</td><td>4.5</td><td>+1.4</td></tr>
-              <tr><th scope="row">Operaciones y procesos</th><td>2.4</td><td>4.0</td><td>+1.6</td></tr>
-              <tr><th scope="row">Datos e IA</th><td>2.6</td><td>4.3</td><td>+1.7</td></tr>
-              <tr><th scope="row">Tecnología y plataformas</th><td>2.9</td><td>4.2</td><td>+1.3</td></tr>
-              <tr><th scope="row">Personas y cultura</th><td>2.3</td><td>4.0</td><td>+1.7</td></tr>
-              <tr><th scope="row">Gobierno y riesgo</th><td>3.0</td><td>4.4</td><td>+1.4</td></tr>
-              <tr><th scope="row">Ecosistemas y alianzas</th><td>2.1</td><td>4.0</td><td>+1.9</td></tr>
-              <tr><th scope="row">Sostenibilidad y sociedad</th><td>2.5</td><td>4.0</td><td>+1.5</td></tr>
-              <tr><th scope="row">Resiliencia y continuidad</th><td>3.2</td><td>4.5</td><td>+1.3</td></tr>
+              <tr><th scope="row">Estrategia y alineación</th><td>2.3</td><td>4.5</td><td>+2.2</td></tr>
+              <tr><th scope="row">Organización y roles</th><td>1.9</td><td>4.2</td><td>+2.3</td></tr>
+              <tr><th scope="row">Políticas y estándares</th><td>2.1</td><td>4.3</td><td>+2.2</td></tr>
+              <tr><th scope="row">Calidad de datos</th><td>2.0</td><td>4.3</td><td>+2.3</td></tr>
+              <tr><th scope="row">Arquitectura y catálogo</th><td>2.2</td><td>4.4</td><td>+2.2</td></tr>
+              <tr><th scope="row">Seguridad y privacidad</th><td>2.4</td><td>4.5</td><td>+2.1</td></tr>
+              <tr><th scope="row">Ciclo de vida operativo</th><td>2.1</td><td>4.3</td><td>+2.2</td></tr>
+              <tr><th scope="row">Analítica y monetización</th><td>1.8</td><td>4.1</td><td>+2.3</td></tr>
           </tbody>
         </table>
       </figure>
@@ -5493,11 +5607,131 @@
       <img alt="NEXUM" class="foot-logo-img js-nexum-logo">
     </span>
     <span class="foot-copy">© 2026 NEXUM-Latam Advisory · Todos los derechos reservados</span>
+    <div class="foot-legal">
+      <button type="button" class="foot-legal-btn" data-legal-open="terms">Términos de Servicio</button>
+      <span class="foot-legal-sep" aria-hidden="true">·</span>
+      <button type="button" class="foot-legal-btn" data-legal-open="privacy">Política de Privacidad</button>
+    </div>
     <div class="foot-links">
       <a href="mailto:contact@nexum-latam.com">Contacto</a>
       <a href="https://www.linkedin.com/in/javier-hidalgo-330421107/" target="_blank" rel="noopener">LinkedIn</a>
     </div>
   </footer>
+
+  <!-- ════════════════════════════════════════
+       LEGAL MODAL — Términos de Servicio / Política de Privacidad
+  ════════════════════════════════════════ -->
+  <div class="legal-modal" id="legalModal" hidden role="dialog" aria-modal="true" aria-labelledby="legalModalTitle">
+    <div class="legal-modal-backdrop" data-legal-close></div>
+    <div class="legal-modal-card">
+      <div class="legal-modal-hd">
+        <div>
+          <h2 id="legalModalTitle">Términos de Servicio</h2>
+          <p id="legalModalMeta">NEXUM-Latam Advisory · Vigente desde el 4 de octubre de 2026</p>
+        </div>
+        <button type="button" class="legal-modal-close" data-legal-close aria-label="Cerrar">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M1 1l14 14M15 1L1 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+      <div class="legal-modal-body" id="legalModalBody" tabindex="0">
+
+        <!-- ── TÉRMINOS DE SERVICIO ─────────────────────────── -->
+        <div id="legalContentTerms">
+          <h3>1. Identificación del prestador</h3>
+          <p>Estos Términos de Servicio ("Términos") regulan el acceso y uso del sitio web nexum-latam.com (el "Sitio") y de los servicios de consultoría estratégica ofrecidos bajo la marca <strong>NEXUM-Latam Advisory</strong> ("NEXUM", "nosotros"), firma de consultoría con sede operativa en San José, Costa Rica, dirigible al correo <strong>contact@nexum-latam.com</strong>. Al acceder o utilizar el Sitio, usted ("el Usuario") acepta quedar vinculado por estos Términos.</p>
+
+          <h3>2. Naturaleza informativa del Sitio</h3>
+          <p>El contenido del Sitio (incluyendo diagnósticos, benchmarks, assessments interactivos, artículos de Perspectivas y materiales descargables) tiene fines informativos y de divulgación profesional. No constituye asesoría legal, financiera, fiscal, de inversión ni regulatoria vinculante, y no sustituye el análisis particular que NEXUM realiza en el marco de un contrato de servicios profesionales formalmente suscrito. Las autoevaluaciones ("assessments") ofrecidas en el Sitio son herramientas orientativas de autodiagnóstico; sus resultados son estimaciones basadas en la información que el Usuario introduce y no constituyen una auditoría ni un dictamen profesional.</p>
+
+          <h3>3. Uso aceptable</h3>
+          <p>El Usuario se compromete a utilizar el Sitio conforme a la ley, la buena fe y el orden público, absteniéndose de: (a) interferir con su funcionamiento o seguridad; (b) extraer o reutilizar de forma sistemática su contenido con fines comerciales sin autorización escrita; (c) introducir código malicioso; o (d) suplantar la identidad de terceros al enviar formularios o solicitudes de contacto.</p>
+
+          <h3>4. Propiedad intelectual</h3>
+          <p>Los textos, metodologías propietarias, marcas (incluyendo "NEXUM", logotipos y nombres de frameworks), diseño, gráficos, benchmarks y demás contenidos del Sitio son titularidad de NEXUM-Latam Advisory o se utilizan bajo licencia, y están protegidos por la legislación costarricense de derechos de autor y propiedad industrial (Ley N.° 6683 de Derechos de Autor y Derechos Conexos, y normativa conexa), así como por los tratados internacionales aplicables. Queda prohibida su reproducción, distribución o uso comercial sin autorización previa y por escrito.</p>
+
+          <h3>5. Formularios y comunicaciones</h3>
+          <p>Al completar un formulario de contacto o solicitar una conversación ejecutiva, el Usuario declara que la información suministrada es veraz y que cuenta con la autorización necesaria para compartirla. El tratamiento de estos datos se rige por nuestra <strong>Política de Privacidad</strong>.</p>
+
+          <h3>6. Enlaces a terceros</h3>
+          <p>El Sitio puede incluir enlaces a plataformas de terceros (por ejemplo, WhatsApp o LinkedIn). NEXUM no controla ni se responsabiliza por el contenido, las políticas de privacidad o las prácticas de dichos terceros.</p>
+
+          <h3>7. Limitación de responsabilidad</h3>
+          <p>En la medida permitida por la ley aplicable, NEXUM no será responsable por daños indirectos, incidentales o derivados del uso o la imposibilidad de uso del Sitio, ni por decisiones de negocio adoptadas exclusivamente con base en los contenidos informativos o resultados de autoevaluación aquí publicados. Nada en esta cláusula limita derechos irrenunciables reconocidos a las personas consumidoras por la Ley N.° 7472 de Promoción de la Competencia y Defensa Efectiva del Consumidor (Costa Rica), ni los derechos imperativos de protección al consumidor que puedan corresponder a Usuarios ubicados en la Unión Europea conforme a su normativa local.</p>
+
+          <h3>8. Protección de datos personales</h3>
+          <p>El tratamiento de datos personales recabados a través del Sitio se describe en nuestra Política de Privacidad, elaborada con base en la Ley N.° 8968 de Protección de la Persona frente al Tratamiento de sus Datos Personales de Costa Rica y, para Usuarios ubicados en el Espacio Económico Europeo, en el Reglamento (UE) 2016/679 (RGPD).</p>
+
+          <h3>9. Modificaciones</h3>
+          <p>NEXUM podrá actualizar estos Términos en cualquier momento para reflejar cambios legales, operativos o del Sitio. La versión vigente, con su fecha de actualización, estará siempre disponible en esta misma sección.</p>
+
+          <h3>10. Ley aplicable y jurisdicción</h3>
+          <p>Estos Términos se rigen por las leyes de la República de Costa Rica. Para cualquier controversia, las partes se someten a los tribunales competentes de San José, Costa Rica, sin perjuicio de los derechos imperativos que, conforme a su normativa de protección al consumidor, puedan corresponder a Usuarios con residencia habitual en un Estado miembro de la Unión Europea.</p>
+
+          <h3>11. Contacto</h3>
+          <p>Para consultas sobre estos Términos, puede escribirnos a <strong>contact@nexum-latam.com</strong>.</p>
+
+          <p class="legal-modal-foot">Este documento es un modelo informativo de referencia y no sustituye la revisión de un asesor legal calificado antes de su publicación definitiva.</p>
+        </div>
+
+        <!-- ── POLÍTICA DE PRIVACIDAD ───────────────────────── -->
+        <div id="legalContentPrivacy" hidden>
+          <p>NEXUM-Latam Advisory ("NEXUM", "nosotros") respeta la privacidad de quienes visitan nexum-latam.com (el "Sitio") y de sus contactos comerciales. Esta Política de Privacidad explica qué datos personales recopilamos, con qué finalidad, en qué nos basamos legalmente para tratarlos y qué derechos puede ejercer, en cumplimiento de la <strong>Ley N.° 8968 de Protección de la Persona frente al Tratamiento de sus Datos Personales</strong> de Costa Rica (supervisada por PRODHAB) y, cuando corresponda a personas ubicadas en el Espacio Económico Europeo, del <strong>Reglamento (UE) 2016/679, Reglamento General de Protección de Datos ("RGPD")</strong>.</p>
+
+          <h3>1. Responsable del tratamiento</h3>
+          <p><strong>NEXUM-Latam Advisory</strong>, con sede operativa en San José, Costa Rica. Contacto para asuntos de privacidad: <strong>contact@nexum-latam.com</strong>.</p>
+
+          <h3>2. Datos que recopilamos</h3>
+          <ul>
+            <li><strong>Datos de contacto e identificación:</strong> nombre, cargo, organización, correo electrónico y teléfono, cuando usted completa el formulario de "Solicitar conversación ejecutiva" o nos escribe por correo o WhatsApp.</li>
+            <li><strong>Resultados de autoevaluaciones:</strong> las respuestas que usted introduce voluntariamente en los assessments de Executive Insights y la puntuación resultante, procesados localmente en su navegador salvo que usted decida compartirlos con nosotros.</li>
+            <li><strong>Datos técnicos y de navegación:</strong> dirección IP, tipo de dispositivo y navegador, páginas visitadas y tiempo de permanencia, recabados mediante cookies o tecnologías similares.</li>
+          </ul>
+
+          <h3>3. Finalidades del tratamiento</h3>
+          <ul>
+            <li>Responder solicitudes de contacto y coordinar conversaciones ejecutivas o propuestas de servicios.</li>
+            <li>Administrar, asegurar y mejorar el funcionamiento del Sitio.</li>
+            <li>Elaborar estadísticas agregadas y anónimas sobre el uso del Sitio.</li>
+            <li>Cumplir obligaciones legales y contractuales aplicables a NEXUM.</li>
+          </ul>
+
+          <h3>4. Base legal del tratamiento</h3>
+          <p>Tratamos sus datos personales con base en: (a) su <strong>consentimiento</strong>, otorgado al completar voluntariamente un formulario de contacto; (b) la <strong>ejecución de medidas precontractuales</strong> solicitadas por usted, como la preparación de una propuesta de servicios; y (c) nuestro <strong>interés legítimo</strong> en mantener la seguridad, el funcionamiento y la mejora continua del Sitio, siempre que dicho interés no prevalezca sobre sus derechos y libertades fundamentales.</p>
+
+          <h3>5. Conservación de los datos</h3>
+          <p>Conservamos los datos personales únicamente durante el tiempo necesario para cumplir la finalidad para la que fueron recabados, y posteriormente mientras subsistan obligaciones legales, contables o de defensa ante eventuales reclamos, tras lo cual son eliminados o anonimizados de forma segura.</p>
+
+          <h3>6. Destinatarios y encargados de tratamiento</h3>
+          <p>No vendemos ni comercializamos datos personales. Podemos compartir datos con proveedores que nos prestan servicios de alojamiento web, correo electrónico o mensajería (por ejemplo, infraestructura de hosting y WhatsApp Business), quienes actúan como encargados de tratamiento bajo instrucciones de NEXUM y obligaciones de confidencialidad, o cuando exista un requerimiento legal de autoridad competente.</p>
+
+          <h3>7. Transferencias internacionales</h3>
+          <p>Algunos de nuestros proveedores de infraestructura pueden procesar datos fuera de Costa Rica, incluyendo dentro del Espacio Económico Europeo o en países con decisión de adecuación reconocida. Cuando una transferencia internacional lo requiera, NEXUM adopta salvaguardas apropiadas, tales como cláusulas contractuales tipo u otros mecanismos reconocidos por el RGPD y, en lo aplicable, por PRODHAB.</p>
+
+          <h3>8. Sus derechos</h3>
+          <p><strong>Si usted se encuentra en Costa Rica</strong>, la Ley N.° 8968 le reconoce los derechos ARCO: acceso, rectificación, cancelación y oposición al tratamiento de sus datos, así como el derecho a revocar su consentimiento en cualquier momento. Puede ejercerlos escribiendo a <strong>contact@nexum-latam.com</strong>, y de considerarlo necesario, presentar una denuncia ante la <strong>Agencia de Protección de Datos de los Habitantes (PRODHAB)</strong>.</p>
+          <p><strong>Si usted se encuentra en el Espacio Económico Europeo</strong>, el RGPD le reconoce adicionalmente los derechos de acceso, rectificación, supresión ("derecho al olvido"), limitación del tratamiento, portabilidad de los datos y oposición, así como el derecho a no ser objeto de decisiones basadas únicamente en tratamiento automatizado que produzcan efectos jurídicos sobre usted. Puede ejercerlos en la misma dirección de contacto y, de no obtener respuesta satisfactoria, presentar una reclamación ante la autoridad de control de protección de datos de su país de residencia.</p>
+
+          <h3>9. Menores de edad</h3>
+          <p>El Sitio está dirigido a profesionales y organizaciones; no está destinado a personas menores de edad y no recopilamos intencionalmente datos de menores.</p>
+
+          <h3>10. Cookies y tecnologías similares</h3>
+          <p>El Sitio puede utilizar cookies propias y de terceros con fines estrictamente técnicos, de seguridad y, en su caso, analíticos, para comprender el uso agregado del Sitio y mejorar la experiencia. Usted puede configurar su navegador para bloquear o eliminar cookies; esto podría afectar algunas funcionalidades.</p>
+
+          <h3>11. Seguridad de la información</h3>
+          <p>Aplicamos medidas técnicas y organizativas razonables, proporcionales al riesgo, para proteger los datos personales frente a accesos no autorizados, pérdida, alteración o divulgación indebida.</p>
+
+          <h3>12. Cambios a esta política</h3>
+          <p>Esta Política puede actualizarse para reflejar cambios legales, técnicos u operativos. La versión vigente, con su fecha de actualización, estará siempre disponible en esta misma sección.</p>
+
+          <h3>13. Contacto</h3>
+          <p>Para consultas, solicitudes de ejercicio de derechos o reclamos relacionados con el tratamiento de sus datos personales, escríbanos a <strong>contact@nexum-latam.com</strong>.</p>
+
+          <p class="legal-modal-foot">Este documento es un modelo informativo de referencia y no sustituye la revisión de un asesor legal calificado antes de su publicación definitiva.</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
 
 
   <!-- ════════════════════════════════════════
@@ -6716,7 +6950,56 @@
   })();
   </script>
 
+  <script>
+  /* ─────────────────────────────────────────
+     LEGAL MODAL — Términos de Servicio / Política de Privacidad
+  ───────────────────────────────────────── */
+  (function () {
+    var modal   = document.getElementById('legalModal');
+    if (!modal) return;
+    var title   = document.getElementById('legalModalTitle');
+    var meta    = document.getElementById('legalModalMeta');
+    var body    = document.getElementById('legalModalBody');
+    var terms   = document.getElementById('legalContentTerms');
+    var privacy = document.getElementById('legalContentPrivacy');
+    var lastFocused = null;
+
+    var COPY = {
+      terms:   { title: 'Términos de Servicio',    panel: terms,   other: privacy },
+      privacy: { title: 'Política de Privacidad',  panel: privacy, other: terms   }
+    };
+
+    function openLegal(which) {
+      var cfg = COPY[which];
+      if (!cfg) return;
+      title.textContent = cfg.title;
+      meta.textContent = 'NEXUM-Latam Advisory · Vigente desde el 4 de octubre de 2026';
+      cfg.panel.hidden = false;
+      cfg.other.hidden = true;
+      body.scrollTop = 0;
+      lastFocused = document.activeElement;
+      modal.removeAttribute('hidden');
+      document.body.style.overflow = 'hidden';
+      modal.querySelector('.legal-modal-close').focus();
+    }
+
+    function closeLegal() {
+      modal.setAttribute('hidden', '');
+      document.body.style.overflow = '';
+      if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
+    }
+
+    document.querySelectorAll('[data-legal-open]').forEach(function (btn) {
+      btn.addEventListener('click', function () { openLegal(btn.getAttribute('data-legal-open')); });
+    });
+    modal.querySelectorAll('[data-legal-close]').forEach(function (el) {
+      el.addEventListener('click', closeLegal);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !modal.hidden) closeLegal();
+    });
+  })();
+  </script>
+
 </body>
 </html>
-
-</body></html>
