@@ -1873,6 +1873,7 @@
     /* ── CONVERSEMOS · escena scroll-driven ─────────── */
     .nxc { position: relative; background: #0C224E; isolation: isolate; overflow-x: clip; }   /* video's own navy; clip (not hidden) keeps the sticky stage working while side offsets never widen the page */
     .nxc-pin { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+    .nxc-intro { height: 150vh; height: 150svh; }   /* empty blue runway: the video plays on its own before text and form arrive */
     .nxc-stage { position: sticky; top: 0; height: 100vh; height: 100lvh; overflow: hidden; contain: paint; }
     .nxc-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
     /* Veil deepens as the content organises (--veil set by NXC): the swirl leads while the section is still
@@ -5436,7 +5437,7 @@
           </div>
 
           <div class="advisory-ctas reveal d4">
-            <a href="#conversemos" class="btn btn-primary">Conversar con nosotros</a>
+            <a href="#contacto" class="btn btn-primary">Conversar con nosotros</a>
             <a href="https://wa.me/50670104381?text=Hola%2C%20me%20gustar%C3%ADa%20conversar%20con%20NEXUM"
                target="_blank" rel="noopener"
                class="btn btn-whatsapp">
@@ -5484,7 +5485,7 @@
             </div>
             <p class="air-result-desc" id="airResultDesc"></p>
             <div class="air-result-actions">
-              <a href="#conversemos" class="btn btn-primary">Conversar con NEXUM →</a>
+              <a href="#contacto" class="btn btn-primary">Conversar con NEXUM →</a>
               <button class="btn btn-outline" id="airReset">Reiniciar evaluación</button>
             </div>
           </div>
@@ -5501,6 +5502,7 @@
   <section class="section section--dk nxc" id="conversemos" data-frames="65" data-src="media/conversemos/">
     <!-- Escena "Conversación": video 1:1 controlado por scroll; el contenido se organiza en paralelo. Ver script NXC. -->
     <div class="nxc-pin" aria-hidden="true"><div class="nxc-stage"><canvas class="nxc-canvas"></canvas><div class="nxc-veil"></div></div></div>
+    <div class="nxc-intro" aria-hidden="true"></div>   <!-- runway: the animation plays here before the content arrives -->
     <div class="wrap">
       <div class="contact-grid">
 
@@ -6651,9 +6653,12 @@
   <script>
   /* ─────────────────────────────────────────
      CONVERSEMOS · scroll-driven 1:1 video + content choreography
-     Progress 0 = Section 8 enters the viewport (fragmented, frame 0);
-     progress 1 = the last call-to-action is fully on screen (organised, final
-     frame), so the form is complete by the time it can be used in full. Scroll is the only source of truth — scrubbing
+     Two scroll-linked timelines:
+       video   — Section 8 enters the viewport (frame 0) → the content is about to
+                 appear (final frame); it plays over an empty runway (.nxc-intro).
+       content — the content enters the viewport (fragmented) → the last call-to-
+                 action is fully on screen (organised), so the form is complete by
+                 the time it can be used in full. Scroll is the only source of truth — scrubbing
      backwards re-fragments the layout and reverses the video.
   ───────────────────────────────────────── */
   (function () {
@@ -6698,7 +6703,8 @@
       return -1;
     }
 
-    let W = 0, H = 0, dpr = 1, top = 0, span = 1, vh = 1;
+    let W = 0, H = 0, dpr = 1, top = 0, vh = 1, vStart = 0, vSpan = 1, cStart = 0, cSpan = 1, contentTop = 0;
+    const intro = sec.querySelector('.nxc-intro');
     const last = items.length ? items[items.length - 1].el : sec;
     function layoutBottom(el) {   // bottom of el inside the section, ignoring the choreography transforms
       let y = el.offsetHeight, n = el;
@@ -6711,12 +6717,15 @@
       H = canvas.height = Math.round(stage.clientHeight * dpr);
       vh = window.innerHeight;
       top = sec.getBoundingClientRect().top + window.scrollY;
+      contentTop = top + (intro ? layoutBottom(intro) : 0);
+      vStart = top - vh * 0.4;                                       // section mostly on screen
+      vSpan = Math.max(vh * 0.5, (contentTop - vh * 0.95) - vStart); // complete just as the content peeks in
+      cStart = contentTop - vh;                                      // content enters
       const end = top + Math.min(sec.offsetHeight, layoutBottom(last) + 32) - vh;
-      span = Math.max(vh * 0.6, end - (top - vh));
+      cSpan = Math.max(vh * 0.6, end - cStart);
     }
-    function progress() {   // section top entering at the viewport bottom → last CTA fully visible
-      return clamp((window.scrollY - (top - vh)) / span, 0, 1);
-    }
+    const videoProgress = () => clamp((window.scrollY - vStart) / vSpan, 0, 1);
+    const contentProgress = () => clamp((window.scrollY - cStart) / cSpan, 0, 1);
 
     function draw(p) {
       ctx.fillStyle = BG; ctx.fillRect(0, 0, W, H);
@@ -6733,13 +6742,15 @@
       if (reduce.matches) p = 1;   // reduced motion: the layout is simply in place
       for (const it of items) it.el.style.setProperty('--k', ease(clamp((p - it.a) / (it.b - it.a), 0, 1)).toFixed(3));
       sec.style.setProperty('--kl', ease(clamp((p - 0.7) / 0.16, 0, 1)).toFixed(3));
-      const v = clamp((p - 0.45) / 0.55, 0, 1);
-      sec.style.setProperty('--veil', (0.56 + 0.36 * v * v * (3 - 2 * v)).toFixed(3));
+      // Veil: light while the video plays alone (and on the finished logo), deepening as the headline
+      // rises from 75% to 35% of the viewport so the copy reads cleanly.
+      const v = reduce.matches ? 1 : clamp((0.75 - (contentTop - window.scrollY) / vh) / 0.4, 0, 1);
+      sec.style.setProperty('--veil', (0.32 + 0.6 * v * v * (3 - 2 * v)).toFixed(3));
     }
 
     let raf = 0, inView = false;
     function request() {
-      if (!raf) raf = requestAnimationFrame(() => { raf = 0; const p = progress(); draw(p); organise(p); });
+      if (!raf) raf = requestAnimationFrame(() => { raf = 0; draw(videoProgress()); organise(contentProgress()); });
     }
     function refresh() { measure(); request(); }
 
