@@ -938,21 +938,19 @@
 
     .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
 
-    /* Hero side column — 3 stats (desktop-only, as in the original hero) + benchmark chart */
-    .hero-side { display: flex; flex-direction: column; gap: 2.5rem; }
-    .hero-stats { display: none; }
-    @media (min-width: 900px) {
-      .hero-side {
-        border-left: 1px solid var(--border);
-        padding-left: 3.5rem;
-        justify-self: end;
-      }
-      .hero-stats {
-        display: flex;
-        flex-direction: column;
-        gap: 2.25rem;
-      }
+    /* Hero KPIs — single row under the CTAs */
+    .hero-kpis {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-top: 2.5rem;
+      border-top: 1px solid var(--border);
+      max-width: 34rem;
     }
+    .hero-kpi { padding: 1.25rem 1.25rem 0; border-left: 1px solid var(--border); }
+    .hero-kpi:first-child { border-left: none; padding-left: 0; }
+    .hero-kpis .stat-num { font-size: clamp(2.1rem, 3.4vw, 3rem); }
+    .hero-kpis .stat-lbl { max-width: 11rem; }
 
     .stat-num {
       font-family: var(--font-heading);
@@ -969,6 +967,10 @@
       max-width: 130px;
       line-height: 1.4;
       margin-top: 0.35rem;
+    }
+    @media (max-width: 479px) {
+      .hero-kpi { padding: 1rem 0.75rem 0; }
+      .hero-kpis .stat-lbl { font-size: 0.75rem; }
     }
 
     /* Hero benchmark — "Dónde estamos hoy" */
@@ -3207,26 +3209,24 @@
           <a href="#capacidades" class="btn btn-arrow">Ver capacidades <span class="arr">→</span></a>
         </div>
 
-      </div>
-
-      <div class="hero-side">
-        <aside class="hero-stats" aria-label="Cifras clave">
-          <div class="stat">
+        <ul class="hero-kpis" aria-label="Cifras clave">
+          <li class="hero-kpi">
             <span class="stat-num">30<sup>+</sup></span>
             <p class="stat-lbl">años de experiencia ejecutiva en LATAM</p>
-          </div>
-          <div class="stat">
+          </li>
+          <li class="hero-kpi">
             <span class="stat-num">4</span>
             <p class="stat-lbl">capacidades integradas</p>
-          </div>
-          <div class="stat">
+          </li>
+          <li class="hero-kpi">
             <span class="stat-num">6<sup>+</sup></span>
             <p class="stat-lbl">sectores de alto impacto</p>
-          </div>
-        </aside>
+          </li>
+        </ul>
+      </div>
 
-        <script>document.documentElement.classList.add('js');</script>
-        <figure class="hero-bench" id="benchmark" aria-labelledby="benchTitle" data-cur-label="Nivel actual" data-tgt-label="Objetivo 2030" data-gap-label="Brecha" style="--bench-grid:20%">
+      <script>document.documentElement.classList.add('js');</script>
+      <figure class="hero-bench" id="benchmark" aria-labelledby="benchTitle" data-cur-label="Nivel actual" data-tgt-label="Objetivo 2030" data-gap-label="Brecha" style="--bench-grid:20%">
         <figcaption class="bench-hd">
           <p class="bench-k">Benchmark · Madurez empresarial</p>
           <h2 class="bench-t" id="benchTitle">Dónde estamos hoy</h2>
@@ -3309,7 +3309,6 @@
           </tbody>
         </table>
       </figure>
-      </div>
     </div>
 
     <div class="hero-foot wrap">
