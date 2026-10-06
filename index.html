@@ -2040,6 +2040,59 @@
       border-color: rgba(220,80,60,0.7);
     }
 
+    /* ── ALIADOS · logo carousel ────────────────────── */
+    .aliados {
+      background: linear-gradient(180deg, #0C224E 0%, var(--ink) 100%);   /* Section 8 navy → footer ink */
+      color: var(--cream);
+      padding-block: clamp(4.5rem, 9vw, 8rem);
+      border-top: 1px solid var(--border-dk);
+    }
+    .aliados-title { font-weight: 400; margin-bottom: 0; }
+    .aliados-viewport {
+      overflow: hidden;
+      margin-top: clamp(2.5rem, 5vw, 3.75rem);
+      -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 9%, #000 91%, transparent 100%);
+              mask-image: linear-gradient(90deg, transparent 0, #000 9%, #000 91%, transparent 100%);
+      touch-action: pan-y;   /* vertical page scrolling stays native on touch */
+    }
+    .aliados-track {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      width: max-content;
+      animation: aliados-scroll var(--aliados-dur, 40s) linear infinite;
+      will-change: transform;
+    }
+    .aliados-viewport:hover .aliados-track,
+    .aliados-viewport.is-paused .aliados-track,
+    .aliados.is-offscreen .aliados-track { animation-play-state: paused; }
+    @keyframes aliados-scroll { to { transform: translate3d(-50%, 0, 0); } }   /* track = two identical halves */
+    .aliados-item {
+      flex: none;
+      height: 64px;                                   /* equal-height containers */
+      padding-inline: clamp(1.75rem, 3.6vw, 3.25rem);  /* spacing lives inside items so the -50% loop is exact */
+      display: flex;
+      align-items: center;
+    }
+    .aliados-item img {
+      height: 100%;
+      width: auto;
+      max-width: 180px;                               /* wide wordmarks don't outweigh compact marks */
+      object-fit: contain;                            /* original aspect ratio, always */
+      filter: grayscale(1) brightness(1.45) contrast(0.92);
+      opacity: 0.68;
+      transition: filter 0.45s var(--ease), opacity 0.45s var(--ease);
+    }
+    .aliados-item:hover img,
+    .aliados-item.is-active img { filter: none; opacity: 1; }
+    @media (max-width: 600px) {
+      .aliados-item { height: 48px; padding-inline: 1.4rem; }
+      .aliados-item img { max-width: 136px; }
+    }
+    @media (prefers-reduced-motion: reduce) {   /* no motion: a calm, centred row */
+      .aliados-track { animation: none; width: auto; flex-wrap: wrap; justify-content: center; row-gap: 1.5rem; }
+    }
+
     /* ── FOOTER ─────────────────────────────────────── */
     footer {
       background: var(--ink);
@@ -5604,6 +5657,28 @@
 
 
   <!-- ════════════════════════════════════════
+       ALIADOS · carrusel de logos
+       Para añadir un aliado: suba su logo (fondo transparente) a media/aliados/
+       y agregue un <li class="aliados-item"> a la lista. El script duplica la
+       lista para el bucle infinito; no hay que tocar nada más.
+  ════════════════════════════════════════ -->
+  <section class="aliados" id="aliados" aria-labelledby="aliadosTitle">
+    <div class="wrap">
+      <h2 class="marker marker--dk aliados-title" id="aliadosTitle">Aliados</h2>
+    </div>
+    <div class="aliados-viewport">
+      <ul class="aliados-track">
+          <li class="aliados-item"><img src="media/aliados/bee.webp" alt="Bee" width="508" height="160" loading="lazy" decoding="async"></li>
+          <li class="aliados-item"><img src="media/aliados/group-ib.webp" alt="Group-IB" width="944" height="160" loading="lazy" decoding="async"></li>
+          <li class="aliados-item"><img src="media/aliados/blautech.webp" alt="Blautech — Simplifying Tech" width="486" height="160" loading="lazy" decoding="async"></li>
+          <li class="aliados-item"><img src="media/aliados/ksg.webp" alt="KSG — Kinetic Solutions Group" width="654" height="160" loading="lazy" decoding="async"></li>
+          <li class="aliados-item"><img src="media/aliados/twin-fin.webp" alt="Twin Fin Technologies" width="222" height="160" loading="lazy" decoding="async"></li>
+      </ul>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════
        FOOTER
   ════════════════════════════════════════ -->
   <footer>
@@ -6763,6 +6838,61 @@
     window.addEventListener('load', refresh);
     if ('ResizeObserver' in window) new ResizeObserver(refresh).observe(sec);
     refresh();
+  })();
+  </script>
+
+  <script>
+  /* ─────────────────────────────────────────
+     ALIADOS · seamless infinite marquee
+     The <li> list in the markup is the single source of logos. This script
+     repeats it until one "half" is wider than the viewport, then doubles that
+     half; the CSS animation moves the track by exactly -50%, so the loop has
+     no visible jump. Duration follows the half's width (constant speed).
+  ───────────────────────────────────────── */
+  (function () {
+    const sec = document.getElementById('aliados');
+    if (!sec) return;
+    const vp = sec.querySelector('.aliados-viewport'), track = sec.querySelector('.aliados-track');
+    const originals = Array.from(track.children);
+    if (!originals.length || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    function build() {
+      track.querySelectorAll('[data-clone]').forEach(n => n.remove());
+      const setW = originals.reduce((w, li) => w + li.getBoundingClientRect().width, 0);
+      if (!setW) return;
+      const sets = Math.max(1, Math.ceil(vp.clientWidth / setW));   // sets per half
+      const add = sets * 2 - 1;                                       // originals are the first set
+      for (let k = 0; k < add; k++) originals.forEach(li => {
+        const c = li.cloneNode(true);
+        c.setAttribute('data-clone', ''); c.setAttribute('aria-hidden', 'true');
+        c.querySelector('img').alt = '';
+        track.appendChild(c);
+      });
+      const speed = window.innerWidth < 600 ? 34 : 44;                // px per second
+      track.style.setProperty('--aliados-dur', ((setW * sets) / speed).toFixed(2) + 's');
+    }
+
+    // Touch: hold to pause, tap a logo to see it in colour.
+    let resume;
+    vp.addEventListener('pointerdown', e => {
+      if (e.pointerType === 'mouse') return;
+      clearTimeout(resume); vp.classList.add('is-paused');
+      const li = e.target.closest('.aliados-item');
+      track.querySelectorAll('.is-active').forEach(n => n !== li && n.classList.remove('is-active'));
+      if (li) li.classList.toggle('is-active');
+    });
+    ['pointerup', 'pointercancel'].forEach(t => vp.addEventListener(t, e => {
+      if (e.pointerType === 'mouse') return;
+      resume = setTimeout(() => vp.classList.remove('is-paused'), 1600);
+    }));
+
+    // Don't animate while off-screen.
+    new IntersectionObserver(en => sec.classList.toggle('is-offscreen', !en[0].isIntersecting)).observe(sec);
+
+    let rt;
+    window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(build, 200); });
+    build();
+    window.addEventListener('load', build);   // re-measure once logos have loaded
   })();
   </script>
 
