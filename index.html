@@ -734,8 +734,9 @@
     /* Desktop nav */
     .nav-desk {
       display: none;
-      gap: 2.25rem;
+      gap: clamp(1.15rem, 1.85vw, 2.25rem);   /* tightens on narrower desktops so all entries fit on one line */
       align-items: center;
+      white-space: nowrap;
     }
     @media (min-width: 1240px) { .nav-desk { display: flex; } }
 
@@ -807,8 +808,9 @@
       z-index: 95;
       display: flex;
       flex-direction: column;
-      justify-content: flex-end;
+      justify-content: flex-start;   /* bottom alignment comes from the list's margin-top:auto, which still scrolls when space runs out */
       padding: 5rem var(--gutter) 3.5rem;
+      overflow-y: auto;   /* eight entries: short phones can scroll the menu */
       transform: translateY(-100%);
       transition: transform 0.55s var(--ease);
       pointer-events: none;
@@ -818,7 +820,7 @@
       pointer-events: all;
     }
 
-    .mobile-nav-links { list-style: none; }
+    .mobile-nav-links { list-style: none; margin-top: auto; }
     .mobile-nav-links li {
       border-bottom: 1px solid rgba(255,255,255,0.09);
       overflow: hidden;
@@ -842,6 +844,9 @@
     .mobile-nav-links li:nth-child(3) a { transition-delay: 0.18s; }
     .mobile-nav-links li:nth-child(4) a { transition-delay: 0.23s; }
     .mobile-nav-links li:nth-child(5) a { transition-delay: 0.28s; }
+    .mobile-nav-links li:nth-child(6) a { transition-delay: 0.33s; }
+    .mobile-nav-links li:nth-child(7) a { transition-delay: 0.38s; }
+    .mobile-nav-links li:nth-child(8) a { transition-delay: 0.43s; }
     .mobile-nav-links a:hover { color: var(--gold); }
     .mobile-nav-links a .icon { font-size: 1.25rem; color: var(--gold); }
 
@@ -2047,7 +2052,14 @@
       padding-block: clamp(4.5rem, 9vw, 8rem);
       border-top: 1px solid var(--border-dk);
     }
-    .aliados-title { font-weight: 400; margin-bottom: 0; }
+    .aliados-title {
+      font-family: var(--font-heading);
+      font-size: var(--h1);
+      font-weight: 300;
+      line-height: 1.1;
+      letter-spacing: -0.015em;
+      color: #fff;
+    }
     .aliados-viewport {
       overflow: hidden;
       margin-top: clamp(2.5rem, 5vw, 3.75rem);
@@ -3360,6 +3372,7 @@
       <a href="#perspectivas">Perspectivas</a>
       <a href="#advisory">Advisory</a>
       <a href="#readyness">Executive Insights</a>
+      <a href="#aliados">Aliados</a>
       <a href="#contacto" class="nav-cta">Conversemos</a>
     </nav>
 
@@ -3377,6 +3390,7 @@
       <li><a href="#perspectivas" class="mn-lnk">Perspectivas <span class="icon">↗</span></a></li>
       <li><a href="#advisory" class="mn-lnk">Advisory <span class="icon">↗</span></a></li>
       <li><a href="#readyness" class="mn-lnk">Executive Insights <span class="icon">↗</span></a></li>
+      <li><a href="#aliados" class="mn-lnk">Aliados <span class="icon">↗</span></a></li>
       <li><a href="#contacto" class="mn-lnk">Conversemos <span class="icon">↗</span></a></li>
     </ul>
     <div class="mobile-nav-foot">
@@ -5657,14 +5671,15 @@
 
 
   <!-- ════════════════════════════════════════
-       ALIADOS · carrusel de logos
+       09 · ALIADOS · carrusel de logos
        Para añadir un aliado: suba su logo (fondo transparente) a media/aliados/
        y agregue un <li class="aliados-item"> a la lista. El script duplica la
        lista para el bucle infinito; no hay que tocar nada más.
   ════════════════════════════════════════ -->
   <section class="aliados" id="aliados" aria-labelledby="aliadosTitle">
     <div class="wrap">
-      <h2 class="marker marker--dk aliados-title" id="aliadosTitle">Aliados</h2>
+      <div class="marker marker--dk reveal">09 / Aliados</div>
+      <h2 class="aliados-title reveal d1" id="aliadosTitle">Aliados</h2>
     </div>
     <div class="aliados-viewport">
       <ul class="aliados-track">
