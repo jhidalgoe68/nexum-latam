@@ -1,4 +1,233 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}  <style id="art-scoped-css-cx-video-ia">
+  /* ── SCOPED + RETHEMED ARTICLE CSS: cx-video-ia ── */
+  
+.art-frame{
+  --navy-950:#DEE9F5;
+  --navy-900:#EDF3F9;
+  --navy-800:#FFFFFF;
+  --navy-700:#DEE9F5;
+  --line:rgba(9,27,56,.14);
+  --ink:#091B38;
+  --ink-2:#1A3252;
+  --ink-3:#4A5A72;
+  --gold-1:#00AFC9;
+  --gold-2:#0C2B5C;
+  --gold-3:#C87A18;
+  --teal:#00C0DC;
+  --amber:#C87A18;
+  --red:#B3433A;
+  --f-display: var(--font-heading);
+  --f-body: var(--font-body);
+  --f-mono: var(--font-body);
+  color-scheme: light;
+}
+
+
+/* Alias block: this article's token names (gold-4/5/6, ink-100/300/500,
+   *-conf) don't match the integrator's RETHEME_ROOT vocabulary
+   (gold-1/2/3, ink/ink-2/ink-3). Using `html{}` instead of a second
+   `:root{}` so the integrator's single :root-strip regex only removes
+   the block above, not this one — scope_css() still maps a bare `html`
+   selector to `.art-frame` same as :root does. */
+.art-frame{
+  --gold-400:#00AFC9;
+  --gold-500:#00AFC9;
+  --gold-600:#0C2B5C;
+  --ink-100:#091B38;
+  --ink-300:#1A3252;
+  --ink-500:#4A5A72;
+  --green-conf:#1F8A4C;
+  --amber-conf:#C87A18;
+  --red-conf:#B3433A;
+}
+.art-frame *{box-sizing:border-box; margin:0; padding:0;}
+.art-frame{scroll-behavior:smooth;}
+.art-frame{
+  background:var(--navy-950);
+  color:var(--ink-300);
+  font-family:var(--font-body);
+  font-weight:300;
+  line-height:1.65;
+  overflow-x:hidden;
+}
+.art-frame ::selection{background:var(--gold-500); color:var(--navy-950);}
+.art-frame h1, .art-frame h2, .art-frame h3, .art-frame h4{font-family:var(--font-heading); color:var(--ink-100); font-weight:600; letter-spacing:0.01em;}
+.art-frame a{color:var(--gold-400); text-decoration:none;}
+.art-frame a:hover{text-decoration:underline;}
+.art-frame .eyebrow{
+  font-family:var(--font-body); text-transform:uppercase; letter-spacing:0.28em;
+  font-size:0.72rem; color:var(--gold-500); font-weight:500; margin-bottom:14px; display:block;
+}
+/* Progress bar */
+.art-frame .progress-bar{position:fixed; top:0; left:0; height:3px; background:linear-gradient(90deg,var(--gold-600),var(--gold-400)); z-index:9999; width:0%; transition:width 0.1s ease-out;}
+/* Nav */
+.art-frame nav{
+  position:fixed; top:0; left:0; right:0; z-index:900;
+  background:rgba(5,9,20,0.86); backdrop-filter:blur(10px);
+  border-bottom:1px solid rgba(212,175,97,0.15);
+  padding:16px 40px; display:flex; align-items:center; justify-content:space-between;
+}
+.art-frame .nav-brand{font-family:var(--font-heading); font-size:1.25rem; color:var(--ink-100); letter-spacing:0.04em; font-weight:600;}
+.art-frame .nav-brand span{color:var(--gold-500);}
+.art-frame .nav-links{display:flex; gap:28px; flex-wrap:wrap;}
+.art-frame .nav-links a{font-size:0.78rem; text-transform:uppercase; letter-spacing:0.12em; color:var(--ink-500); font-weight:500;}
+.art-frame .nav-links a:hover{color:var(--gold-400); text-decoration:none;}
+.art-frame .nav-toggle{display:none; color:var(--ink-100); font-size:1.4rem; cursor:pointer; background:none; border:none;}
+@media(max-width:980px){
+  .art-frame .nav-links{position:fixed; top:64px; left:0; right:0; background:var(--navy-900); flex-direction:column; padding:24px 32px; gap:16px; max-height:0; overflow:hidden; transition:max-height 0.3s ease; border-bottom:1px solid rgba(212,175,97,0.15);}
+  .art-frame .nav-links.open{max-height:520px;}
+  .art-frame .nav-toggle{display:block;}
+}
+/* Hero */
+.art-frame .hero{
+  min-height:100vh; display:flex; flex-direction:column; justify-content:center;
+  padding:160px 40px 100px; position:relative;
+  background:
+    radial-gradient(ellipse 900px 500px at 15% 10%, rgba(212,175,97,0.10), transparent 60%),
+    radial-gradient(ellipse 700px 600px at 85% 90%, rgba(34,51,92,0.55), transparent 60%),
+    var(--navy-950);
+}
+.art-frame .hero::before{
+  content:""; position:absolute; inset:0; opacity:0.5; pointer-events:none;
+  background-image:
+    repeating-linear-gradient(90deg, transparent, transparent 79px, rgba(212,175,97,0.035) 80px),
+    repeating-linear-gradient(0deg, transparent, transparent 79px, rgba(212,175,97,0.035) 80px);
+}
+.art-frame .hero-inner{max-width:var(--maxw); margin:0 auto; width:100%; position:relative; z-index:2;}
+.art-frame .hero-meta{display:flex; gap:14px; align-items:center; margin-bottom:28px; flex-wrap:wrap;}
+.art-frame .pill{
+  border:1px solid rgba(212,175,97,0.35); color:var(--gold-400); font-size:0.72rem;
+  text-transform:uppercase; letter-spacing:0.14em; padding:6px 14px; border-radius:100px; font-weight:500;
+}
+.art-frame h1.hero-title{
+  font-size:clamp(2.6rem, 6vw, 5.1rem); line-height:1.03; font-weight:600; max-width:15ch;
+  margin-bottom:30px;
+}
+.art-frame h1.hero-title em{font-style:italic; color:var(--gold-400); font-weight:500;}
+.art-frame .hero-sub{font-size:1.2rem; color:var(--ink-300); max-width:62ch; font-weight:300; margin-bottom:44px;}
+.art-frame .hero-stats{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:rgba(212,175,97,0.15); border:1px solid rgba(212,175,97,0.15); max-width:920px;}
+.art-frame .hero-stat{background:var(--navy-950); padding:22px 20px;}
+.art-frame .hero-stat .num{font-family:var(--font-heading); font-size:2.1rem; color:var(--gold-400); font-weight:700; line-height:1;}
+.art-frame .hero-stat .lbl{font-size:0.72rem; color:var(--ink-500); margin-top:8px; text-transform:uppercase; letter-spacing:0.06em; line-height:1.4;}
+@media(max-width:760px){ .art-frame .hero-stats{grid-template-columns:repeat(2,1fr);} }
+/* Sections */
+.art-frame section{padding:120px 40px; position:relative; border-top:1px solid rgba(212,175,97,0.08);}
+.art-frame .section-inner{max-width:var(--maxw); margin:0 auto;}
+.art-frame .section-head{max-width:760px; margin-bottom:60px;}
+.art-frame .section-head h2{font-size:clamp(1.9rem,4vw,3rem); font-weight:600; line-height:1.12;}
+.art-frame .section-head p.lead{font-size:1.08rem; color:var(--ink-300); margin-top:18px; max-width:65ch;}
+.art-frame .reveal{opacity:0; transform:translateY(28px); transition:opacity 0.8s ease, transform 0.8s ease;}
+.art-frame .reveal.visible{opacity:1; transform:translateY(0);}
+/* Confidence badge */
+.art-frame .badge{
+  display:inline-flex; align-items:center; gap:6px; font-size:0.68rem; text-transform:uppercase; letter-spacing:0.08em;
+  padding:4px 10px; border-radius:100px; font-weight:600; white-space:nowrap;
+}
+.art-frame .badge.high{background:rgba(95,174,130,0.14); color:var(--green-conf); border:1px solid rgba(95,174,130,0.4);}
+.art-frame .badge.med{background:rgba(212,162,76,0.14); color:var(--amber-conf); border:1px solid rgba(212,162,76,0.4);}
+.art-frame .badge-dot{width:6px; height:6px; border-radius:50%; background:currentColor;}
+/* Findings grid */
+.art-frame .findings-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:24px;}
+@media(max-width:820px){.art-frame .findings-grid{grid-template-columns:1fr;}}
+.art-frame .card{
+  background:linear-gradient(180deg, var(--navy-800), var(--navy-900));
+  border:1px solid rgba(212,175,97,0.14); border-radius:6px; padding:32px; position:relative;
+}
+.art-frame .card .tag{font-size:0.7rem; text-transform:uppercase; letter-spacing:0.12em; color:var(--gold-500); font-weight:600; margin-bottom:12px; display:block;}
+.art-frame .card h3{font-size:1.35rem; margin-bottom:12px; font-weight:600;}
+.art-frame .card p{font-size:0.95rem; color:var(--ink-300);}
+.art-frame .card .src{margin-top:18px; padding-top:16px; border-top:1px solid rgba(212,175,97,0.1); font-size:0.76rem; color:var(--ink-500);}
+.art-frame .card .src a{color:var(--ink-500); border-bottom:1px dotted var(--ink-500);}
+.art-frame .card .src a:hover{color:var(--gold-400); border-color:var(--gold-400);}
+.art-frame .card-top-row{display:flex; justify-content:space-between; align-items:flex-start; gap:12px; margin-bottom:10px;}
+/* Stats block */
+.art-frame .stat-strip{display:grid; grid-template-columns:repeat(3,1fr); gap:24px;}
+@media(max-width:820px){.art-frame .stat-strip{grid-template-columns:1fr;}}
+.art-frame .stat-card{border:1px solid rgba(212,175,97,0.15); background:var(--navy-900); padding:28px; border-radius:6px;}
+.art-frame .stat-card .figure{font-family:var(--font-heading); color:var(--gold-400); font-size:2.6rem; font-weight:700; line-height:1;}
+.art-frame .stat-card .desc{margin-top:10px; font-size:0.9rem; color:var(--ink-300);}
+.art-frame .stat-card .fn{margin-top:14px; font-size:0.74rem; color:var(--ink-500);}
+/* Chart containers */
+.art-frame .chart-box{background:var(--navy-900); border:1px solid rgba(212,175,97,0.15); border-radius:6px; padding:32px; margin-top:36px;}
+.art-frame .chart-box h4{font-size:1.1rem; margin-bottom:4px;}
+.art-frame .chart-box .fn{font-size:0.76rem; color:var(--ink-500); margin-top:14px;}
+.art-frame canvas{max-height:360px;}
+/* Quotes */
+.art-frame .quote-block{
+  border-left:3px solid var(--gold-500); padding:8px 0 8px 30px; margin:30px 0;
+}
+.art-frame .quote-block p.qtext{font-family:var(--font-heading); font-style:italic; font-size:1.35rem; color:var(--ink-100); line-height:1.5;}
+.art-frame .quote-block .attrib{margin-top:14px; font-size:0.82rem; color:var(--gold-400); text-transform:uppercase; letter-spacing:0.06em; font-style:normal; font-family:var(--font-body);}
+.art-frame .quote-grid{display:grid; grid-template-columns:1fr 1fr; gap:36px;}
+@media(max-width:820px){.art-frame .quote-grid{grid-template-columns:1fr;}}
+/* Trends timeline */
+.art-frame .trend-row{display:grid; grid-template-columns:120px 1fr; gap:28px; padding:28px 0; border-bottom:1px solid rgba(212,175,97,0.1);}
+.art-frame .trend-row:last-child{border-bottom:none;}
+.art-frame .trend-row .horizon{font-family:var(--font-heading); color:var(--gold-400); font-size:1.1rem; font-weight:600;}
+.art-frame .trend-row h3{font-size:1.25rem; margin-bottom:8px;}
+@media(max-width:640px){.art-frame .trend-row{grid-template-columns:1fr; gap:10px;}}
+/* Debate */
+.art-frame .debate-card{background:var(--navy-800); border:1px solid rgba(212,175,97,0.15); border-radius:6px; padding:34px; margin-bottom:26px;}
+.art-frame .debate-card h3{font-size:1.3rem; margin-bottom:14px;}
+.art-frame .pos-neg{display:grid; grid-template-columns:1fr 1fr; gap:24px; margin:20px 0;}
+@media(max-width:700px){.art-frame .pos-neg{grid-template-columns:1fr;}}
+.art-frame .pos-neg .col-favor, .art-frame .pos-neg .col-contra{background:var(--navy-900); border-radius:5px; padding:20px;}
+.art-frame .pos-neg .col-favor .h, .art-frame .pos-neg .col-contra .h{font-size:0.72rem; text-transform:uppercase; letter-spacing:0.1em; font-weight:600; margin-bottom:10px;}
+.art-frame .pos-neg .col-favor .h{color:var(--green-conf);}
+.art-frame .pos-neg .col-contra .h{color:var(--red-conf);}
+.art-frame .editorial-box{
+  background:linear-gradient(135deg, rgba(212,175,97,0.09), rgba(212,175,97,0.02));
+  border:1px solid rgba(212,175,97,0.35); border-radius:5px; padding:22px 26px; margin-top:8px;
+}
+.art-frame .editorial-box .h{color:var(--gold-400); font-size:0.72rem; text-transform:uppercase; letter-spacing:0.12em; font-weight:600; margin-bottom:10px;}
+/* Country grid */
+.art-frame .country-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
+@media(max-width:980px){.art-frame .country-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:640px){.art-frame .country-grid{grid-template-columns:1fr;}}
+.art-frame .country-card{background:var(--navy-900); border:1px solid rgba(212,175,97,0.14); border-radius:6px; padding:26px; display:flex; flex-direction:column; gap:12px;}
+.art-frame .country-card .flag-row{display:flex; justify-content:space-between; align-items:center;}
+.art-frame .country-card h3{font-size:1.3rem;}
+.art-frame .country-card .maturity{font-size:0.68rem; text-transform:uppercase; letter-spacing:0.08em; padding:4px 10px; border-radius:100px; font-weight:600;}
+.art-frame .m-lead{background:rgba(95,174,130,0.14); color:var(--green-conf); border:1px solid rgba(95,174,130,0.4);}
+.art-frame .m-accel{background:rgba(212,162,76,0.14); color:var(--amber-conf); border:1px solid rgba(212,162,76,0.4);}
+.art-frame .m-early{background:rgba(196,104,90,0.14); color:var(--red-conf); border:1px solid rgba(196,104,90,0.4);}
+.art-frame .country-card ul{list-style:none; font-size:0.87rem; color:var(--ink-300);}
+.art-frame .country-card ul li{padding-left:16px; position:relative; margin-bottom:8px;}
+.art-frame .country-card ul li::before{content:"—"; position:absolute; left:0; color:var(--gold-500);}
+/* C-suite imperatives */
+.art-frame .role-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); gap:22px;}
+.art-frame .role-card{background:var(--navy-800); border-left:3px solid var(--gold-500); border-radius:4px; padding:26px;}
+.art-frame .role-card .role-tag{font-size:0.7rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--gold-400); font-weight:700; margin-bottom:14px;}
+.art-frame .role-card ul{list-style:none; font-size:0.9rem;}
+.art-frame .role-card ul li{margin-bottom:11px; padding-left:18px; position:relative;}
+.art-frame .role-card ul li::before{content:"›"; position:absolute; left:0; color:var(--gold-500); font-weight:700;}
+/* Roadmap */
+.art-frame .roadmap{position:relative; margin-top:40px;}
+.art-frame .roadmap-line{position:absolute; left:24px; top:0; bottom:0; width:1px; background:rgba(212,175,97,0.3);}
+.art-frame .phase{position:relative; padding-left:70px; margin-bottom:52px;}
+.art-frame .phase:last-child{margin-bottom:0;}
+.art-frame .phase-dot{position:absolute; left:14px; top:2px; width:22px; height:22px; border-radius:50%; background:var(--navy-950); border:2px solid var(--gold-500); display:flex; align-items:center; justify-content:center; font-size:0.65rem; color:var(--gold-400); font-weight:700;}
+.art-frame .phase .months{font-size:0.75rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--gold-500); font-weight:600; margin-bottom:6px;}
+.art-frame .phase h3{font-size:1.4rem; margin-bottom:10px;}
+.art-frame .phase ul{list-style:none; font-size:0.92rem; color:var(--ink-300); columns:2; column-gap:32px;}
+@media(max-width:700px){.art-frame .phase ul{columns:1;}}
+.art-frame .phase ul li{margin-bottom:8px; padding-left:16px; position:relative; break-inside:avoid;}
+.art-frame .phase ul li::before{content:"·"; position:absolute; left:0; color:var(--gold-500); font-weight:900;}
+/* Footer */
+.art-frame footer{padding:70px 40px 50px; border-top:1px solid rgba(212,175,97,0.12); background:var(--navy-900);}
+.art-frame footer .section-inner{display:flex; flex-direction:column; gap:26px;}
+.art-frame .footnotes{font-size:0.8rem; color:var(--ink-500); line-height:1.9;}
+.art-frame .footnotes a{color:var(--ink-500); border-bottom:1px dotted var(--ink-500);}
+.art-frame .footnotes a:hover{color:var(--gold-400); border-color:var(--gold-400);}
+.art-frame .footer-brand{font-family:var(--font-heading); font-size:1.3rem; color:var(--ink-100);}
+.art-frame .footer-brand span{color:var(--gold-500);}
+.art-frame .footer-tag{font-size:0.78rem; color:var(--ink-500); max-width:60ch;}
+.art-frame hr.rule{border:none; border-top:1px solid rgba(212,175,97,0.12); margin:20px 0;}
+.art-frame .two-col{display:grid; grid-template-columns:1.1fr 0.9fr; gap:48px; align-items:start;}
+@media(max-width:900px){.art-frame .two-col{grid-template-columns:1fr;}}
+
+  </style>
+  </style></head><body>
 <!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}  </style><style id="art-scoped-css">
   /* ── SCOPED + RETHEMED ARTICLE CSS (Radar de Resiliencia) ── */
   
@@ -3835,6 +4064,20 @@
           <span class="blog-cta" aria-hidden="true">Leer Perspectiva <span class="arr">→</span></span>
         </article>
 
+                <article class="blog-item" onclick="nexumOpenArticle('cx-video-ia')" style="cursor:pointer" role="button" tabindex="0" aria-label="Leer: La experiencia de cliente se vuelve rostro, voz y confianza en la era de la IA">
+          <div class="blog-meta">
+            <span class="blog-cat">CX e IA en Banca</span>
+            <span class="blog-date">Julio 2026</span>
+          </div>
+          <h3 class="blog-item-title">
+            La experiencia de cliente se vuelve rostro, voz y confianza en la era de la IA
+          </h3>
+          <p class="blog-item-excerpt">
+            La humanización con video impulsada por inteligencia artificial redefine cómo bancos, cooperativas y aseguradoras de América Latina construyen cercanía a escala — y abre, al mismo tiempo, el frente de riesgo más delicado del sector: la identidad sintética.
+          </p>
+          <span class="blog-cta" aria-hidden="true">Leer Perspectiva <span class="arr">→</span></span>
+        </article>
+
         <!-- Próximas perspectivas se agregan aquí automáticamente, cada una como .blog-item -->
 
       </div><!-- /blog-list -->
@@ -5437,6 +5680,457 @@
   });
 })();
 </script>
+      </div>
+            <div id="cx-video-ia" class="art-frame" hidden>
+        <div class="air-panel-title">
+          <h3>La experiencia de cliente se vuelve <em>rostro, voz y confianza</em> en la era de la IA</h3>
+          <p>La humanización con video impulsada por inteligencia artificial redefine cómo bancos, cooperativas y aseguradoras de América Latina construyen cercanía a escala — y abre, al mismo tiempo, el frente de riesgo más delicado del sector: la identidad sintética.</p>
+        </div>
+        <div class="meta">
+<span><b>Edición:</b> Julio 2026</span>
+<span><b>Alcance:</b> Banca · Cooperativas · Seguros</span>
+</div>
+
+
+
+<!-- HERO INTRO (kept in body, outside the masthead so it survives integration) -->
+<section id="cx-video-ia-resumen-ejecutivo">
+<div class="section-inner">
+<div class="section-head reveal">
+<span class="eyebrow">00 · Resumen Ejecutivo</span>
+<h2>La magnitud del cambio, de un vistazo</h2>
+</div>
+<div class="hero-meta">
+<span class="pill">Edición Especial · NEXUM LATAM</span>
+<span class="pill">Julio 2026</span>
+<span class="pill">Banca · Cooperativas · Seguros</span>
+</div>
+<div class="hero-stats">
+<div class="hero-stat"><div class="num">96%</div><div class="lbl">de usuarios de IA financiera reporta resultados positivos</div></div>
+<div class="hero-stat"><div class="num">1.7x</div><div class="lbl">mayor crecimiento de ingresos en bancos con alta lealtad de cliente</div></div>
+<div class="hero-stat"><div class="num">18</div><div class="lbl">insurtechs de IA agéntica ya operan en LATAM</div></div>
+<div class="hero-stat"><div class="num">77%</div><div class="lbl">de asegurados prefiere trato humano en siniestros complejos</div></div>
+</div>
+</div>
+</section>
+<!-- HALLAZGOS CLAVE -->
+<section id="cx-video-ia-hallazgos">
+<div class="section-inner">
+<div class="section-head reveal">
+<span class="eyebrow">01 · Hallazgos Clave</span>
+<h2>Lo que cambió en los últimos seis meses</h2>
+<p class="lead">Entre febrero y julio de 2026, la conversación pasó de "adoptar IA conversacional" a "humanizar la interacción a escala" mediante voz, avatares y video generado. Estos son los movimientos más relevantes para el sector financiero.</p>
+</div>
+<div class="findings-grid">
+<div class="card reveal">
+<div class="card-top-row"><span class="tag">Banca — Avatares Sintéticos</span><span class="badge high"><span class="badge-dot"></span>Alta</span></div>
+<h3>La conversión de analistas en avatares de IA ya es operativa</h3>
+<p>Un banco global convirtió a 35 analistas en avatares de IA para producir contenido en video personalizado, elevando la satisfacción de clientes en 25% y escalando su producción a 5.000 videos anuales — evidencia concreta de que la humanización con video dejó el terreno del piloto.</p>
+<div class="src">Fuente: Synechron, "The New Face of Banking" (2026) · <a href="https://www.synechron.com/insight/new-face-banking-how-synthetic-avatars-are-winning-customer-trust" target="_blank">ver fuente</a></div>
+</div>
+<div class="card reveal">
+<div class="card-top-row"><span class="tag">Ranking Regional de Madurez</span><span class="badge high"><span class="badge-dot"></span>Alta</span></div>
+<h3>La banca brasileña lidera el índice de madurez de IA en LATAM</h3>
+<p>Nubank, Itaú Unibanco, Bradesco y Banco do Brasil ocupan las primeras cuatro posiciones del primer ranking regional de madurez de IA de la plataforma Evident, con Banorte como único banco mexicano dentro del top 10 — señal de que la brecha competitiva ya es medible y se está ampliando.</p>
+<div class="src">Fuente: Índice Evident AI, vía Diário do Grande ABC (jul. 2026) · <a href="https://www.dgabc.com.br/Noticia/4336466/nubank-itau-bradesco-e-bb-lideram-ranking-de-ia-entre-bancos-da-america-latina" target="_blank">ver fuente</a></div>
+</div>
+<div class="card reveal">
+<div class="card-top-row"><span class="tag">Regulación · Datos Biométricos</span><span class="badge high"><span class="badge-dot"></span>Alta</span></div>
+<h3>La segunda ola regulatoria de IA llega a Colombia, Brasil, Chile y México</h3>
+<p>Según Deloitte, solo Perú y El Salvador cuentan hoy con legislación de IA plenamente vigente en la región, mientras Colombia, Brasil, Chile y México avanzan proyectos de alcance nacional que endurecen el tratamiento de datos biométricos — insumo directo de cualquier estrategia de video humanizado.</p>
+<div class="src">Fuente: Deloitte, "El nuevo mapa regulatorio de la IA en Latinoamérica" (jul. 2026) · <a href="https://www.sercolombiano.com/2026/07/16/colombia-avanza-en-la-regulacion-de-la-inteligencia-artificial-y-se-posiciona-entre-los-paises-lideres-de-america-latina/" target="_blank">ver fuente</a></div>
+</div>
+<div class="card reveal">
+<div class="card-top-row"><span class="tag">Fraude · Identidad Sintética</span><span class="badge high"><span class="badge-dot"></span>Alta</span></div>
+<h3>El bypass de KYC vía deepfake ya no es artesanal</h3>
+<p>La verificación de identidad remota que asumía que el rostro frente a la cámara coincidía con la persona real quedó obsoleta: intercambio de rostro en tiempo real e inyección de cámara se venden hoy como fraude-como-servicio por menos de 50 dólares mensuales.</p>
+<div class="src">Fuente: Truescreen, "Deepfake KYC bypass" (may. 2026) · <a href="https://truescreen.io/insights/deepfake-bypass-kyc-bank-onboarding/" target="_blank">ver fuente</a></div>
+</div>
+<div class="card reveal">
+<div class="card-top-row"><span class="tag">Aseguradoras · Siniestros</span><span class="badge high"><span class="badge-dot"></span>Alta</span></div>
+<h3>La IA agéntica ya coordina procesos completos de siniestros en LATAM</h3>
+<p>Dieciocho insurtechs especializadas en IA agéntica operan hoy en la región —una categoría casi inexistente hace dos años— transformando la gestión de siniestros, la detección de fraude, la suscripción y la atención al cliente de punta a punta.</p>
+<div class="src">Fuente: Digital Insurance LATAM / Seguros TV (jul. 2026) · <a href="https://blog.segurostv.es/financiacion-insurtech-latinoamerica-primer-semestre-2026/" target="_blank">ver fuente</a></div>
+</div>
+<div class="card reveal">
+<div class="card-top-row"><span class="tag">Brecha de Confianza</span><span class="badge med"><span class="badge-dot"></span>Media-Alta</span></div>
+<h3>La brecha de "resonancia emocional" se convierte en el nuevo campo de batalla</h3>
+<p>Accenture advierte que la mayoría de los canales digitales bancarios ya son funcionalmente correctos pero "emocionalmente vacíos"; la ventaja competitiva de 2026 ya no reside en la disponibilidad digital, sino en la capacidad de generar defensa activa del cliente (advocacy).</p>
+<div class="src">Fuente: Accenture, vía Unblu "CX Trends in Banking 2026" · <a href="https://www.unblu.com/en/blog/customer-experience-trends-in-banking" target="_blank">ver fuente</a></div>
+</div>
+</div>
+</div>
+</section>
+<!-- DATOS Y ESTADÍSTICAS -->
+<section id="cx-video-ia-datos">
+<div class="section-inner">
+<div class="section-head reveal">
+<span class="eyebrow">02 · Datos y Estadísticas</span>
+<h2>La magnitud del cambio, en cifras</h2>
+<p class="lead">Cada estadística fue verificada contra su fuente original y se etiqueta con un nivel de confianza igual o superior al 95%, siguiendo el estándar editorial de NEXUM LATAM.</p>
+</div>
+<div class="stat-strip">
+<div class="stat-card reveal">
+<div class="badge high" style="margin-bottom:14px;"><span class="badge-dot"></span>Confianza 95%+</div>
+<div class="figure">70%</div>
+<div class="desc">de los bancos de la región ya utiliza chatbots de IA en la interacción con clientes, con una reducción de 40% en costos operativos de atención.</div>
+<div class="fn">Capgemini Research Institute, World Banking AI Report (2024–2026)</div>
+</div>
+<div class="stat-card reveal">
+<div class="badge high" style="margin-bottom:14px;"><span class="badge-dot"></span>Confianza 95%+</div>
+<div class="figure">91%</div>
+<div class="desc">de los líderes de servicio al cliente planea optar por sistemas potenciados por IA hacia 2026, según Gartner — la mayoría de conversaciones bancarias ocurrirá sin agente humano.</div>
+<div class="fn">Gartner, vía Twixor AI Report (jun. 2026)</div>
+</div>
+<div class="stat-card reveal">
+<div class="badge high" style="margin-bottom:14px;"><span class="badge-dot"></span>Confianza 95%+</div>
+<div class="figure">15–20%</div>
+<div class="desc">de mejora en satisfacción del cliente bancario que puede aportar la IA generativa bien implementada, de acuerdo con McKinsey.</div>
+<div class="fn">McKinsey, "Generative AI in banking and financial services" (2026)</div>
+</div>
+<div class="stat-card reveal">
+<div class="badge high" style="margin-bottom:14px;"><span class="badge-dot"></span>Confianza 95%+</div>
+<div class="figure">700%</div>
+<div class="desc">de aumento en incidentes de fraude por deepfake reportados en el sector fintech, según el Centro de Servicios Financieros de Deloitte.</div>
+<div class="fn">Deloitte Center for Financial Services, "Deepfake Banking Fraud Risk on the Rise" (2024–2026)</div>
+</div>
+<div class="stat-card reveal">
+<div class="badge high" style="margin-bottom:14px;"><span class="badge-dot"></span>Confianza 95%+</div>
+<div class="figure">42.5%</div>
+<div class="desc">de los intentos de fraude ya utiliza IA generativa, y un 29% de estos consigue vulnerar las defensas de la institución, según datos de Signicat citados por Reality Defender.</div>
+<div class="fn">Signicat / Reality Defender (2026)</div>
+</div>
+<div class="stat-card reveal">
+<div class="badge med" style="margin-bottom:14px;"><span class="badge-dot"></span>Confianza 90-95%</div>
+<div class="figure">77%</div>
+<div class="desc">de los asegurados en Europa y LATAM prefiere ser atendido por una persona cuando el siniestro es complejo o tiene fuerte componente emocional.</div>
+<div class="fn">Sedgwick, "Informe Estratégico de Gestión de Siniestros 2026"</div>
+</div>
+</div>
+<div class="chart-box reveal">
+<h4>Adopción de canales de IA humanizada en instituciones financieras de LATAM</h4>
+<p style="font-size:0.85rem; color:var(--ink-500); margin-bottom:10px;">Proporción estimada de instituciones con la capacidad desplegada en producción (no en piloto), 2026.</p>
+<canvas id="cx-video-ia-chartAdopcion"></canvas>
+<div class="fn">Elaboración NEXUM LATAM a partir de Capgemini, Evident AI Index, Digital Insurance LATAM y Finnovista &amp; Microsoft Latin America Report.</div>
+</div>
+<div class="chart-box reveal">
+<h4>Índice de madurez de IA — primeras posiciones del ranking regional (Evident AI Index)</h4>
+<canvas id="cx-video-ia-chartRanking"></canvas>
+<div class="fn">Fuente: Índice Evident AI (2026), 20 instituciones evaluadas, 7 con sede en Brasil.</div>
+</div>
+</div>
+</section>
+<!-- VOCES EXPERTAS -->
+<section id="cx-video-ia-voces">
+<div class="section-inner">
+<div class="section-head reveal">
+<span class="eyebrow">03 · Voces Expertas</span>
+<h2>Lo que dicen quienes están construyendo esta transformación</h2>
+<p class="lead">Perspectivas de líderes de tecnología y estrategia en instituciones que ya operan IA humanizada en producción.</p>
+</div>
+<div class="quote-grid">
+<div class="quote-block reveal">
+<p class="qtext">"Hace años tratamos la IA como infraestructura estratégica, incorporándola a la forma en que desarrollamos productos, atendemos a nuestros clientes y operamos el negocio."</p>
+<div class="attrib">Eric Young — CTO, Nubank</div>
+</div>
+<div class="quote-block reveal">
+<p class="qtext">"Este semestre marca un punto de inflexión, con una aceleración del crecimiento del ecosistema insurtech en América Latina."</p>
+<div class="attrib">Hugues Bertin — CEO y Fundador, Digital Insurance LATAM</div>
+</div>
+<div class="quote-block reveal">
+<p class="qtext">"Colombia está construyendo las bases para que innovación y protección de derechos avancen de manera conjunta."</p>
+<div class="attrib">José Luis Jerez — Socio de Impuestos y Servicios Legales, Deloitte Spanish Latin America</div>
+</div>
+<div class="quote-block reveal">
+<p class="qtext">"Se implementó una nueva estructura en todo el banco: un grupo sostiene el día a día — el Run the Bank — y otro, más senior, atiende el Change the Bank."</p>
+<div class="attrib">Cristina Porras — Head de Negocios Digitales, Bradesco México</div>
+</div>
+</div>
+</div>
+</section>
+<!-- TENDENCIAS EMERGENTES -->
+<section id="cx-video-ia-tendencias">
+<div class="section-inner">
+<div class="section-head reveal">
+<span class="eyebrow">04 · Tendencias Emergentes y Predicciones</span>
+<h2>Hacia dónde se dirige la experiencia de cliente</h2>
+<p class="lead">Cinco vectores que definirán la próxima etapa de la relación entre instituciones financieras y clientes en América Latina.</p>
+</div>
+<div class="reveal">
+<div class="trend-row">
+<div class="horizon">0–12 m</div>
+<div>
+<h3>Del chatbot al agente con rostro</h3>
+<p>Los asistentes conversacionales de texto migran hacia avatares con voz e imagen — un salto que Mastercard Business Intelligence atribuye a la caída del costo de GPU y a marcos de desarrollo cada vez más accesibles para bancos medianos y cooperativas.</p>
+</div>
+</div>
+<div class="trend-row">
+<div class="horizon">6–18 m</div>
+<div>
+<h3>El video generativo se vuelve canal de asesoría, no solo de marketing</h3>
+<p>Los primeros casos de analistas convertidos en avatares para producir miles de videos personalizados por año anticipan un modelo de "asesoría escalada": el mismo mensaje, adaptado en tono e idioma, para millones de clientes.</p>
+</div>
+</div>
+<div class="trend-row">
+<div class="horizon">12–24 m</div>
+<div>
+<h3>La identidad se convierte en la nueva superficie de riesgo</h3>
+<p>A medida que el video generado por IA se normaliza como interfaz de servicio, el fraude de identidad sintética escala en paralelo. La detección de deepfakes deja de ser un control de cumplimiento aislado y se integra a la propia arquitectura de experiencia de cliente.</p>
+</div>
+</div>
+<div class="trend-row">
+<div class="horizon">18–36 m</div>
+<div>
+<h3>La regulación deja de ser opcional</h3>
+<p>Con Colombia, Brasil, Chile y México avanzando marcos de alcance nacional y clasificando los datos biométricos como sensibles, la gobernanza de IA se convertirá en un requisito de licencia para operar, no en una ventaja diferencial.</p>
+</div>
+</div>
+<div class="trend-row">
+<div class="horizon">24–48 m</div>
+<div>
+<h3>La "resonancia emocional" se mide como KPI de negocio</h3>
+<p>Los bancos con alta defensa de marca (advocacy) crecen sus ingresos 1,7 veces más rápido que sus pares; se espera que este indicador se incorpore formalmente a los tableros de gestión ejecutiva junto al NPS tradicional.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- DEBATES -->
+<section id="cx-video-ia-debates">
+<div class="section-inner">
+<div class="section-head reveal">
+<span class="eyebrow">05 · Debates y Puntos Controvertidos</span>
+<h2>Donde el sector aún no se pone de acuerdo</h2>
+<p class="lead">Cada debate se presenta con los argumentos de ambas posiciones y la posición editorial de NEXUM LATAM.</p>
+</div>
+<div class="debate-card reveal">
+<h3>¿El avatar de IA fortalece o erosiona la confianza del cliente?</h3>
+<div class="pos-neg">
+<div class="col-favor"><div class="h">A favor</div><p style="font-size:0.9rem;">Escala la atención personalizada 24/7, reduce tiempos de espera y libera talento humano para las conversaciones de mayor complejidad emocional.</p></div>
+<div class="col-contra"><div class="h">En contra</div><p style="font-size:0.9rem;">El "valle inquietante" —cuando el avatar parece casi humano pero no del todo— genera incomodidad, y Forrester anticipa que un tercio de las empresas dañará la experiencia con IA de autoservicio mal implementada en 2026.</p></div>
+</div>
+<div class="editorial-box"><div class="h">Posición Editorial NEXUM LATAM</div><p style="font-size:0.92rem;">El video humanizado con IA es una herramienta de escala, no un sustituto de la relación humana en momentos de alto riesgo emocional o financiero. Las instituciones que triunfen serán las que reserven al avatar las interacciones rutinarias y reserven al ser humano las de mayor sensibilidad — replicando exactamente el patrón que Sedgwick documenta en la gestión de siniestros.</p></div>
+</div>
+<div class="debate-card reveal">
+<h3>¿La detección de deepfakes puede ir al ritmo de la generación de deepfakes?</h3>
+<div class="pos-neg">
+<div class="col-favor"><div class="h">A favor</div><p style="font-size:0.9rem;">Los marcos regulatorios de FATF, FinCEN y la UE ya exigen controles activos, y los proveedores de detección avanzan en captura forense a nivel de sensor para anticipar la inyección de cámara.</p></div>
+<div class="col-contra"><div class="h">En contra</div><p style="font-size:0.9rem;">En un estudio de iProov de 2025, solo el 0,1% de los participantes identificó correctamente cada imagen y video real o falso mostrado — evidencia de que la brecha de percepción humana es, en la práctica, insalvable.</p></div>
+</div>
+<div class="editorial-box"><div class="h">Posición Editorial NEXUM LATAM</div><p style="font-size:0.92rem;">La detección basada en percepción humana ya no es una defensa viable. NEXUM LATAM sostiene que la única estrategia sostenible combina prueba de vida certificada, sellado criptográfico de sesión (nivel QTSP) y monitoreo conductual continuo — no la revisión manual de un video.</p></div>
+</div>
+<div class="debate-card reveal">
+<h3>¿La regulación de datos biométricos frena o habilita la innovación en CX?</h3>
+<div class="pos-neg">
+<div class="col-favor"><div class="h">A favor de regular con rigor</div><p style="font-size:0.9rem;">Colombia clasifica los datos biométricos como sensibles desde 2012, exigiendo consentimiento informado específico; esta base jurídica da previsibilidad a las instituciones y protege al cliente frente al uso indebido.</p></div>
+<div class="col-contra"><div class="h">Riesgo de fragmentación</div><p style="font-size:0.9rem;">Con Perú y El Salvador ya con legislación vigente y Brasil, Chile, Colombia y México en etapas distintas, las instituciones multipaís enfrentan un mosaico regulatorio que encarece el despliegue uniforme de video humanizado.</p></div>
+</div>
+<div class="editorial-box"><div class="h">Posición Editorial NEXUM LATAM</div><p style="font-size:0.92rem;">La fragmentación regulatoria no es una excusa para postergar la gobernanza de IA; es la razón por la que debe diseñarse desde el estándar más exigente de la región. Las instituciones que construyan su arquitectura de consentimiento y trazabilidad sobre la base colombiana o europea evitarán costosos rediseños cuando el resto de los países consoliden su marco normativo.</p></div>
+</div>
+</div>
+</section>
+<!-- PAÍSES -->
+<section id="cx-video-ia-paises">
+<div class="section-inner">
+<div class="section-head reveal">
+<span class="eyebrow">06 · Panorama por País</span>
+<h2>Seis mercados, seis velocidades distintas</h2>
+<p class="lead">La madurez de IA humanizada en experiencia de cliente varía sustancialmente entre los principales mercados financieros de la región.</p>
+</div>
+<div class="country-grid">
+<div class="country-card reveal">
+<div class="flag-row"><h3>Brasil</h3><span class="maturity m-lead">Líder</span></div>
+<ul>
+<li>Nubank, Itaú, Bradesco y Banco do Brasil ocupan las cuatro primeras posiciones del ranking regional de madurez de IA.</li>
+<li>Itaú reporta 2.800% de aumento en actualizaciones tecnológicas entre 2018 y 2026, y una reducción de 44% en costo unitario de procesamiento.</li>
+<li>La ANPD se consolidó en abril de 2026 como agencia regulatoria autónoma con patrimonio propio.</li>
+</ul>
+</div>
+<div class="country-card reveal">
+<div class="flag-row"><h3>México</h3><span class="maturity m-accel">Aceleración</span></div>
+<ul>
+<li>Banorte es el único banco mexicano dentro del top 10 regional de madurez de IA.</li>
+<li>BBVA México usa IA para evaluar capacidad crediticia sin historial financiero tradicional, ampliando la inclusión financiera.</li>
+<li>La reforma a la ley federal de protección de datos entró en vigor, pero la nueva autoridad aún no emite regulación secundaria ni sanciones públicas.</li>
+</ul>
+</div>
+<div class="country-card reveal">
+<div class="flag-row"><h3>Colombia</h3><span class="maturity m-accel">Aceleración</span></div>
+<ul>
+<li>Bancolombia redujo el fraude en banca móvil en 40% en dos años mediante IA de detección de patrones transaccionales.</li>
+<li>La Ley 1581 de 2012 y la jurisprudencia constitucional exigen consentimiento específico e informado para datos biométricos.</li>
+<li>El Proyecto de Ley 043/324 de 2025 avanza con ponencia positiva hacia un marco integral de IA basado en riesgo.</li>
+</ul>
+</div>
+<div class="country-card reveal">
+<div class="flag-row"><h3>Chile</h3><span class="maturity m-accel">Aceleración</span></div>
+<ul>
+<li>El proyecto de ley de regulación integral de IA, suscrito por once ministerios, prohíbe sistemas biométricos invasivos y bases de datos de reconocimiento facial por captura indiscriminada.</li>
+<li>La normativa de protección de datos, renovada en línea con el estándar europeo, alcanza plena exigibilidad en diciembre de 2026.</li>
+<li>Zurich Chile figura entre las aseguradoras que ya operan en alianza con insurtechs de gestión de siniestros con IA.</li>
+</ul>
+</div>
+<div class="country-card reveal">
+<div class="flag-row"><h3>Argentina</h3><span class="maturity m-early">Etapa Temprana</span></div>
+<ul>
+<li>El mercado insurtech regional muestra crecimiento sostenido, con Argentina entre los ecosistemas activos en financiación de nuevas soluciones de IA aplicada al seguro.</li>
+<li>La adopción de IA conversacional avanza principalmente en fintechs y bancos digitales, con menor tracción aún en video humanizado.</li>
+<li>El marco regulatorio de protección de datos se mantiene en revisión, sin legislación de IA específica plenamente vigente.</li>
+</ul>
+</div>
+<div class="country-card reveal">
+<div class="flag-row"><h3>Perú</h3><span class="maturity m-lead">Marco Vigente</span></div>
+<ul>
+<li>Perú es, junto con El Salvador, uno de los únicos dos países de la región con legislación de IA plenamente vigente.</li>
+<li>Mibanco e Infocorp participan activamente en los foros regionales de innovación bancaria centrados en cultura, diseño de experiencia y uso responsable de IA.</li>
+<li>El marco normativo vigente posiciona a Perú como referencia regulatoria temprana para el resto de la región.</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<!-- IMPERATIVOS -->
+<section id="cx-video-ia-imperativos">
+<div class="section-inner">
+<div class="section-head reveal">
+<span class="eyebrow">07 · Implicaciones Prácticas</span>
+<h2>Imperativos ejecutivos por rol de liderazgo</h2>
+<p class="lead">Cómo debe evolucionar cada función de la alta dirección frente a la humanización con video y la IA agéntica.</p>
+</div>
+<div class="role-grid">
+<div class="role-card reveal">
+<div class="role-tag">CEO</div>
+<ul>
+<li>Elevar la "resonancia emocional" a KPI de comité ejecutivo, junto al NPS y al costo de servicio.</li>
+<li>Definir con claridad qué interacciones se humanizan con IA y cuáles se reservan al criterio humano.</li>
+<li>Presupuestar la gobernanza de IA como inversión de licencia para operar, no como gasto discrecional.</li>
+</ul>
+</div>
+<div class="role-card reveal">
+<div class="role-tag">CIO / CTO</div>
+<ul>
+<li>Auditar la arquitectura de identidad digital antes de escalar cualquier canal de video conversacional.</li>
+<li>Adoptar prueba de vida certificada y sellado criptográfico de sesión como estándar mínimo de onboarding remoto.</li>
+<li>Diseñar la pila de IA generativa como capa integrada, no como parches sobre sistemas heredados.</li>
+</ul>
+</div>
+<div class="role-card reveal">
+<div class="role-tag">CISO</div>
+<ul>
+<li>Tratar el deepfake como vector de ataque de primer nivel, con simulaciones multicanal periódicas.</li>
+<li>Integrar detección de identidad sintética a nivel de sensor, no solo de revisión posterior del video.</li>
+<li>Establecer cadena de custodia forense (hash, sello cualificado, marca de tiempo) para toda sesión de video KYC.</li>
+</ul>
+</div>
+<div class="role-card reveal">
+<div class="role-tag">CDO</div>
+<ul>
+<li>Clasificar los datos biométricos con el nivel de protección más exigente de la región, anticipando la convergencia regulatoria.</li>
+<li>Construir consentimiento granular y trazable para cada finalidad específica de uso de imagen y voz.</li>
+<li>Unificar los datos conversacionales dispersos entre canales para evitar la fragmentación que hoy afecta al 78% de las organizaciones.</li>
+</ul>
+</div>
+<div class="role-card reveal">
+<div class="role-tag">CCO / Legal</div>
+<ul>
+<li>Mapear la exposición jurisdiccional por país antes de desplegar avatares o video generativo multipaís.</li>
+<li>Preparar la evidencia admisible en disputas de fraude por identidad sintética conforme a los estándares de cada regulador local.</li>
+<li>Anticipar las obligaciones de transparencia algorítmica que ya exigen México, Colombia y Chile en sus proyectos regulatorios.</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<!-- HOJA DE RUTA -->
+<section id="cx-video-ia-hoja-de-ruta">
+<div class="section-inner">
+<div class="section-head reveal">
+<span class="eyebrow">08 · Hoja de Ruta Estratégica</span>
+<h2>Cuatro fases para escalar la humanización con IA de forma responsable</h2>
+<p class="lead">Un horizonte de 0 a 48 meses, estructurado para que banca, cooperativas y aseguradoras avancen sin comprometer la confianza del cliente.</p>
+</div>
+<div class="roadmap reveal">
+<div class="roadmap-line"></div>
+<div class="phase">
+<div class="phase-dot">I</div>
+<div class="months">0–6 meses · Fundamentos</div>
+<h3>Diagnóstico y gobernanza base</h3>
+<ul>
+<li>Inventariar todos los puntos de contacto candidatos a humanización con video</li>
+<li>Clasificar datos biométricos según el estándar regulatorio más exigente aplicable</li>
+<li>Establecer comité de gobernanza de IA con participación de Legal, Riesgo y Tecnología</li>
+<li>Evaluar proveedores de detección de deepfakes y prueba de vida certificada</li>
+</ul>
+</div>
+<div class="phase">
+<div class="phase-dot">II</div>
+<div class="months">6–18 meses · Piloto Controlado</div>
+<h3>Despliegue en canales de bajo riesgo emocional</h3>
+<ul>
+<li>Lanzar avatares de IA en consultas rutinarias y contenido educativo personalizado</li>
+<li>Integrar sellado criptográfico de sesión en flujos de onboarding remoto</li>
+<li>Medir satisfacción y resonancia emocional junto a los KPIs operativos tradicionales</li>
+<li>Capacitar a equipos de fraude en los nuevos vectores de ataque sintético</li>
+</ul>
+</div>
+<div class="phase">
+<div class="phase-dot">III</div>
+<div class="months">18–30 meses · Escalamiento</div>
+<h3>Expansión a asesoría y gestión de siniestros</h3>
+<ul>
+<li>Extender el video generativo a asesoría financiera y de seguros de complejidad media</li>
+<li>Automatizar la coordinación de siniestros con IA agéntica, preservando escalamiento humano</li>
+<li>Armonizar el cumplimiento regulatorio entre las jurisdicciones donde opera la institución</li>
+<li>Incorporar la resonancia emocional como KPI formal del comité ejecutivo</li>
+</ul>
+</div>
+<div class="phase">
+<div class="phase-dot">IV</div>
+<div class="months">30–48 meses · Madurez Institucional</div>
+<h3>Diferenciación sostenible</h3>
+<ul>
+<li>Consolidar la arquitectura de identidad digital como activo de confianza de marca</li>
+<li>Convertir la hibridación humano-IA en ventaja competitiva medible frente a fintechs</li>
+<li>Auditar de forma continua sesgos, transparencia algorítmica y trazabilidad del consentimiento</li>
+<li>Posicionar a la institución como referencia regional en IA responsable</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<footer>
+<div class="section-inner">
+<div class="footer-brand">NEXUM <span>LATAM</span></div>
+<p class="footer-tag">Inteligencia ejecutiva para la alta dirección del sector financiero latinoamericano. Este informe aplica estándares de investigación equivalentes a firmas de consultoría líderes, con un umbral mínimo de confianza del 95% para cada dato citado.</p>
+<hr class="rule"/>
+<div class="footnotes">
+<strong style="color:var(--ink-300);">Fuentes citadas en esta edición:</strong><br/>
+      Deloitte Center for Financial Services, "Deepfake Banking Fraud Risk on the Rise" (2024–2026) · <a href="https://www.adaptivesecurity.com/blog/deepfake-statistics-2026-the-data-security-leaders-need-to-know" target="_blank">adaptivesecurity.com</a><br/>
+      Truescreen, "Deepfake KYC bypass: defending bank onboarding in 2026" · <a href="https://truescreen.io/insights/deepfake-bypass-kyc-bank-onboarding/" target="_blank">truescreen.io</a><br/>
+      Reality Defender / Signicat, "How Deepfakes Exploit KYC Verification Systems" (2026) · <a href="https://www.realitydefender.com/insights/how-deepfakes-exploit-kyc-verification-systems" target="_blank">realitydefender.com</a><br/>
+      Synechron, "The New Face of Banking: How Synthetic Avatars Are Winning Customer Trust" (2026) · <a href="https://www.synechron.com/insight/new-face-banking-how-synthetic-avatars-are-winning-customer-trust" target="_blank">synechron.com</a><br/>
+      Mastercard Business Intelligence, "Digital humans in financial services" (abr. 2026) · <a href="https://mbi.mastercardservices.com/industry-insights/market-trends/insights-and-research/digital-humans-financial-services-new-era-1" target="_blank">mbi.mastercardservices.com</a><br/>
+      McKinsey &amp; Company, "Generative AI in banking and financial services" (2026) · <a href="https://www.mckinsey.com/industries/financial-services/our-insights/capturing-the-full-value-of-generative-ai-in-banking" target="_blank">mckinsey.com</a><br/>
+      Unblu, "The most important customer experience trends in banking in 2026" (Accenture data) · <a href="https://www.unblu.com/en/blog/customer-experience-trends-in-banking" target="_blank">unblu.com</a><br/>
+      Diário do Grande ABC, "Nubank, Itaú, Bradesco e BB lideram ranking de IA" — Índice Evident (jul. 2026) · <a href="https://www.dgabc.com.br/Noticia/4336466/nubank-itau-bradesco-e-bb-lideram-ranking-de-ia-entre-bancos-da-america-latina" target="_blank">dgabc.com.br</a><br/>
+      Deloitte, "El nuevo mapa regulatorio de la Inteligencia Artificial en Latinoamérica" (jul. 2026) · <a href="https://www.sercolombiano.com/2026/07/16/colombia-avanza-en-la-regulacion-de-la-inteligencia-artificial-y-se-posiciona-entre-los-paises-lideres-de-america-latina/" target="_blank">sercolombiano.com</a><br/>
+      IAPP, "Notas de la IAPP América Latina: Brasil marca el ritmo..." (may. 2026) · <a href="https://iapp.org/news/a/notas-de-la-iapp-america-latina-brasil-marca-el-ritmo-mientras-la-regi-n-acelera-su-regulaci-n-en-ia-y-protecci-n-de-datos" target="_blank">iapp.org</a><br/>
+      MSLegal, "Datos biométricos e inteligencia artificial en Colombia" (abr. 2026) · <a href="https://mslegal.com.co/datos-biometricos-e-inteligencia-artificial/" target="_blank">mslegal.com.co</a><br/>
+      Derechos Digitales, "Inteligencia Artificial en América Latina: Regulación no significa protección" · <a href="https://www.derechosdigitales.org/recursos/inteligencia-artificial-en-america-latina-regulacion-no-significa-proteccion/" target="_blank">derechosdigitales.org</a><br/>
+      100% Seguro, "Europa y Latinoamérica comparten una misma tendencia" — Informe Sedgwick 2026 · <a href="https://100seguro.com.ar/europa-y-latinoamerica-comparten-una-misma-tendencia-la-ia-agiliza-los-siniestros-pero-el-factor-humano-sigue-siendo-irremplazable/" target="_blank">100seguro.com.ar</a><br/>
+      Seguros TV Blog, "La financiación insurtech en Latinoamérica alcanza los 90 millones de dólares" (jul. 2026) · <a href="https://blog.segurostv.es/financiacion-insurtech-latinoamerica-primer-semestre-2026/" target="_blank">blog.segurostv.es</a><br/>
+      Iupana, "De los pilotos al propósito: banca latinoamericana e IA" (ene. 2026) · <a href="https://iupana.com/2026/01/16/banca-latinoamericana-esta-reescribiendo-su-estrategia-de-innovacion-con-ia/" target="_blank">iupana.com</a><br/>
+      Cobis, "Inteligencia artificial en la banca: aplicaciones y claves para adoptarla" · <a href="https://blog.cobistopaz.com/es/blog/inteligencia-artificial-en-la-banca-aplicaciones-y-pasos-para-adaptarla" target="_blank">blog.cobistopaz.com</a><br/>
+      Twixor AI, "Top AI Customer Experience Tools for Banking in 2026" (jun. 2026) · <a href="https://twixor.ai/blog/ai-customer-experience-tools-banking/" target="_blank">twixor.ai</a><br/>
+      Brasil 247, "Itaú e Bradesco correm pela liderança no uso de IA" (may. 2026) · <a href="https://www.brasil247.com/blog/itau-e-bradesco-correm-pela-lideranca-no-uso-de-ia-no-mercado-financeiro-brasileiro" target="_blank">brasil247.com</a><br/>
+      Kayako, "Customer Experience Trends 2026: AI, Agents &amp; Growth" (McKinsey data) · <a href="https://kayako.com/blog/customer-experience-trends/" target="_blank">kayako.com</a>
+</div>
+<hr class="rule"/>
+<p class="footnotes">© 2026 NEXUM LATAM. Informe de investigación editorial para uso interno de suscriptores C-suite. Todas las cifras se presentan con su fuente y fecha de publicación; los enlaces dirigen a los artículos originales para verificación independiente.</p>
+</div>
+</footer>
+
+
       </div>
       </div><!-- /artBody -->
       </div>
@@ -7170,4 +7864,3 @@
 
 </body>
 </html>
-

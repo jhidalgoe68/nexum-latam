@@ -8,39 +8,6 @@ USAGE
   python3 integrate_article.py --html SITE.html --article ARTICLE.html \
       [--out OUT.html] [--category "Resiliencia Empresarial"] [--id my-slug]
 
-CHANGELOG (this run)
-  Two articles built from this "informe ejecutivo" family turned out to use
-  two different masthead/section-label conventions:
-    - Convention A ("mast"): <header class="mast"><h1>...<p class="dek">
-      ...<div class="meta">...; per-section label is `.eyebrow`
-      ("01 · Hallazgos clave").
-    - Convention B ("hero"): <header class="hero"><div class="eyebrow">
-      (type · date)</div><h1 class="title">...<p class="subtitle">...
-      <div class="hero-meta">...; per-section label is `.section-tag`
-      (plain text, no numbering).
-  The parser now detects and handles both, instead of asserting on `.mast`
-  and silently mis-extracting (or including the raw header/nav/footer
-  chrome verbatim) when an article uses convention B. buildArticleNav()
-  (the shared client JS) now also reads `.section-tag` as a nav-label
-  fallback when `.eyebrow` isn't present on a given section.
-
-  Convention-B exports seen so far also carry their own <script> block
-  with live Chart.js visualizations (not just static markup), which the
-  previous version of this script discarded along with the article's
-  decorative scroll-progress/IntersectionObserver boilerplate — leaving
-  blank canvases and an article stuck at opacity:0. The script now keeps
-  any script block that isn't one of those two known boilerplate patterns,
-  rewrites its literal getElementById('old-id') calls to match the
-  namespaced ids, remaps the handful of hardcoded old dark-theme hex
-  colors it sets on chart.js defaults/datasets to the site's real theme
-  hex, and makes sure the Chart.js CDN tag is present in <head> exactly
-  once if any kept script actually calls `new Chart(`. `.fade` elements
-  (whose reveal used to be driven by the discarded IntersectionObserver)
-  are now forced to stay visible via a CSS override, since this skill
-  deliberately never injects a second, per-article reveal-on-scroll
-  observer — that belongs to the site's own shared `.reveal` system, not
-  to anything re-added here.
-
   --html      The current site file (index.html / a saved copy of the live
               artifact). Required.
   --article   The uploaded article export to integrate. Required.
@@ -197,9 +164,9 @@ RETHEME_ROOT = '''
   --teal:#00C0DC;
   --amber:#C87A18;
   --red:#B3433A;
-  --f-display:'Cormorant Garamond', 'Iowan Old Style', Georgia, serif;
-  --f-body:'DM Sans', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;
-  --f-mono:'DM Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  --f-display: var(--font-heading);
+  --f-body: var(--font-body);
+  --f-mono: var(--font-body);
   color-scheme: light;
 }
 '''
@@ -213,27 +180,6 @@ MOBILE_TOC_BLOCK = '''@media (max-width:980px){
   .toc a{display:block;white-space:nowrap;border:1px solid var(--line);border-radius:999px;padding:5px 12px}
   .toc a span{margin-right:6px}
 }'''
-
-# Hardcoded old-palette hex/rgba literals that sometimes show up in an
-# article's own inline <script> (e.g. Chart.js dataset colors and
-# Chart.defaults), not just its CSS. retheme_css() already handles the
-# CSS side; this map lets kept <script> text get the same treatment via
-# plain string substitution (these are JS string literals, not selectors,
-# so the CSS scoper doesn't touch them).
-OLD_TO_NEW_HEX = {
-    '#E8C874': '#00AFC9',   # --gold-1
-    '#C9A961': '#0C2B5C',   # --gold-2
-    '#8A713D': '#C87A18',   # --gold-3
-    '#F4EFE2': '#EDF3F9',   # --cream / --navy-900
-    '#B9C0D4': '#1A3252',   # --ink-soft -> --ink-2 (was light-on-dark, needs to be dark-on-light)
-    '#7C88A6': '#4A5A72',   # --ink-dim -> --ink-3
-    '#0A0E1A': '#EDF3F9',   # --navy-900 (old, dark) -> new navy-900 (light)
-    '#0F1526': '#FFFFFF',   # --navy-800
-    '#161E36': '#DEE9F5',   # --navy-700
-    'rgba(232,200,116,': 'rgba(0,175,201,',   # gold-1 alpha variants
-    'rgba(201,169,97,':  'rgba(12,43,92,',    # gold-2 alpha variants
-    'rgba(124,136,166,': 'rgba(74,90,114,',   # ink-dim alpha variants
-}
 
 
 def retheme_css(raw_css: str) -> str:
@@ -261,25 +207,8 @@ def retheme_css(raw_css: str) -> str:
     css = css.replace('rgba(224,164,88,.45)', 'rgba(200,122,24,.45)')  # .b.media (old --amber)
     css = css.replace('rgba(232,200,116,.4)', 'rgba(0,175,201,.4)')    # .b.ed    (old --gold-1)
 
-    # Force any .fade elements to stay visible. Their opacity:0-until-
-    # revealed behavior was driven by the article's own IntersectionObserver
-    # script, which is deliberately dropped (see retheme_scripts) in favor
-    # of the site's single shared .reveal system — never a second,
-    # per-article observer.
-    if re.search(r'\.fade\s*\{', css):
-        css += '\n.fade{opacity:1!important;transform:none!important}'
-
     full_css = RETHEME_ROOT + css
     return scope_css(full_css, '.art-frame')
-
-
-def retheme_inline_script(js_text: str) -> str:
-    """Kept <script> blocks (chart init, etc.) may still carry hardcoded
-    hex/rgba literals from the article's original dark palette, since the
-    CSS scoper can't reach into JS string literals. Swap the known ones."""
-    for old, new in OLD_TO_NEW_HEX.items():
-        js_text = js_text.replace(old, new)
-    return js_text
 
 
 MANUAL_OVERRIDES = '''
@@ -301,39 +230,6 @@ def slugify(text, fallback='articulo'):
     text = unicodedata.normalize('NFKD', text).encode('ascii', 'ignore').decode('ascii')
     text = re.sub(r'[^a-zA-Z0-9]+', '-', text).strip('-').lower()
     return text[:40] or fallback
-
-
-# Every "informe ejecutivo" export bundles the same two page-chrome
-# behaviors — a #progress scroll-percentage bar, and an IntersectionObserver
-# that reveals .fade elements — and some (not all) bundle them in the SAME
-# <script> tag as actual article content (Chart.js setup, bespoke data-driven
-# widgets). Treating a whole tag as "boilerplate or not" wrongly discarded
-# real chart code whenever it shared a tag with the progress/fade blocks —
-# the first version of this fix for convention-B articles had exactly that
-# bug. Instead, surgically remove just those two known blocks (bounded by
-# the blank line that separates logical sections in this template family)
-# and keep whatever text remains; only drop the tag entirely if nothing
-# meaningful survives the strip.
-def _strip_block_after(text: str, anchor: str) -> str:
-    idx = text.find(anchor)
-    if idx == -1:
-        return text
-    # The anchor often sits mid-statement (e.g. "const obs = new
-    # IntersectionObserver(..."), so back up to the start of that line —
-    # cutting from idx itself left a dangling "const obs = " fragment
-    # that broke the whole script with a syntax error the first time
-    # this was tried.
-    start = text.rfind('\n', 0, idx) + 1
-    end = text.find('\n\n', idx)
-    if end == -1:
-        end = len(text)
-    return text[:start] + text[end:]
-
-
-def _strip_chrome_boilerplate(text: str) -> str:
-    text = _strip_block_after(text, "addEventListener('scroll'")
-    text = _strip_block_after(text, "IntersectionObserver(")
-    return text
 
 
 class ParsedArticle:
@@ -362,48 +258,10 @@ def parse_article(article_path, art_id):
         "structure is different, adapt the extraction step first."
     )
 
-    # ── Masthead: several known conventions, and growing ──
-    # A ("mast"): <header class="mast"><h1>, <p class="dek">, <div class="meta">
-    # B ("hero" header): <header class="hero"><div class="eyebrow">type · date</div>
-    #             <h1 class="title">, <p class="subtitle">, <div class="hero-meta">
-    # D ("hero" section): the <header> (if any) is just a sticky top nav bar
-    #             with no h1 in it at all — the real title/lede/meta/thesis
-    #             sit in a sibling <section class="hero">. Don't assume the
-    #             masthead lives in a <header> tag at all going forward:
-    #             find whichever element actually contains the first h1.
     mast = body_el.find('header', class_='mast')
-    header_el = mast or body_el.find('header')
-    thesis_el = None
-
-    if not (header_el and header_el.find('h1')):
-        h1_anywhere = body_el.find('h1')
-        hero_section = h1_anywhere.find_parent('section') if h1_anywhere else None
-        if hero_section:
-            mast = None
-            header_el = hero_section
-            # A stat/KPI strip (e.g. .thesis) can live inside this hero
-            # section alongside the title — it's real content other
-            # conventions keep as a visible block, not masthead chrome, so
-            # pull it out before the hero section gets decomposed below and
-            # re-insert it as ordinary body content rather than losing it.
-            thesis_el = hero_section.find(class_='thesis')
-            if thesis_el:
-                thesis_el.extract()
-
-    if mast:
-        h1_el = mast.find('h1')
-        dek_el = mast.find(class_='dek')
-        meta_el = mast.find(class_='meta')
-    elif header_el:
-        h1_el = header_el.find('h1')
-        dek_el = header_el.find(class_='dek') or header_el.find(class_='subtitle') or header_el.find('p')
-        meta_el = (header_el.find(class_='meta') or header_el.find(class_='hero-meta')
-                   or header_el.find(class_='meta-row'))
-    else:
-        h1_el = art.find('h1')
-        dek_el = art.find(class_='dek') or art.find(class_='subtitle')
-        meta_el = None
-
+    h1_el = mast.find('h1') if mast else art.find('h1')
+    dek_el = mast.find(class_='dek') if mast else art.find(class_='dek')
+    meta_el = mast.find(class_='meta') if mast else None
     title_tag = art.find('title')
 
     p = ParsedArticle()
@@ -413,97 +271,41 @@ def parse_article(article_path, art_id):
     p.excerpt_text = dek_el.get_text(strip=True) if dek_el else ''
     p.excerpt_html = dek_el.decode_contents() if dek_el else ''
 
-    # Date: tried against three known meta shapes in order, since every
-    # export so far has used a different one:
-    #  A ("meta"):     <span><b>Fecha:</b> value</span>
-    #  B ("hero-meta"): label/value as plain sibling text, not one span
-    #  C ("meta-row"):  <div class="meta-item"><span class="k">Edición</span>
-    #                   <span class="v">Septiembre 2026</span></div> — label
-    #                   and value are two SEPARATE sibling spans, so a
-    #                   single meta_el.find('span') only ever reaches the
-    #                   label. Don't special-case the exact class names
-    #                   forever; match by the label's TEXT instead (any of
-    #                   edición/fecha/date), which survives the next markup
-    #                   variant even if the wrapper classes change again.
     p.date = ''
     if meta_el:
-        label_el = meta_el.find(string=re.compile(r'edici[oó]n|fecha|^date$', re.IGNORECASE))
-        if label_el:
-            container = label_el.find_parent() if hasattr(label_el, 'find_parent') else None
-            value_el = container.find_next_sibling() if container else None
-            if value_el and value_el.get_text(strip=True):
-                p.date = value_el.get_text(strip=True)
-        if not p.date:
-            first_span = meta_el.find('span')
-            if first_span:
-                label = first_span.find('b')
-                txt = first_span.get_text(' ', strip=True)
-                if label:
-                    txt = txt.replace(label.get_text(strip=True), '', 1).strip()
-                if txt and txt != first_span.get_text(strip=True):
-                    p.date = txt
-    if not p.date and header_el:
-        top_eyebrow = header_el.find(class_='eyebrow')
-        if top_eyebrow:
-            parts = [x.strip() for x in top_eyebrow.get_text(' ', strip=True).split('·')]
-            parts = [x for x in parts if x]
-            if parts:
-                p.date = parts[-1]
+        first_span = meta_el.find('span')
+        if first_span:
+            label = first_span.find('b')
+            txt = first_span.get_text(' ', strip=True)
+            if label:
+                txt = txt.replace(label.get_text(strip=True), '', 1).strip()
+            if txt:
+                p.date = txt
+    if not p.date:
+        p.date = ''  # leave blank rather than guess
 
-    # Pull meta out before destroying the header so it survives for the
-    # panel header; then drop the whole header (whichever convention) —
-    # its H1/dek/date/eyebrow are already captured above, and the site's
-    # own masthead markup (#artPanel's own title block) replaces it.
+    # Pull meta out before destroying mast so it survives for the panel header
     if meta_el:
         meta_el.extract()
-    if header_el:
-        header_el.decompose()
-    if thesis_el:
-        # Put it back as the first thing in the body, in its original
-        # visual position relative to the (now-removed) masthead.
-        body_el.insert(0, thesis_el)
+    if mast:
+        mast.decompose()
 
-    # Strip script/link/title tags (scripts handled specially below), all
-    # <style> tags, the article's own progress bar div and its own
-    # hand-authored TOC nav — all superseded by the site's shared nav
-    # component. Unlike earlier versions of this script, NOT every <nav>
-    # was necessarily class="toc" (a convention-B export's top site-nav is
-    # a bare <nav>), so remove every <nav> found, not just nav.toc.
-    for tag in body_el(['link', 'title']):
+    # Strip script/link/title tags, all <style> tags, the article's own
+    # progress bar and its own hand-authored TOC — all superseded by the
+    # site's shared nav component.
+    for tag in body_el(['script', 'link', 'title']):
         tag.decompose()
     for s in body_el.find_all('style'):
         s.decompose()
     prog = body_el.find(id='progress')
     if prog:
         prog.decompose()
-    for navtag in body_el.find_all('nav'):
-        navtag.decompose()
-
-    # Scripts: discard known chrome boilerplate (scroll-progress listener,
-    # IntersectionObserver fade-reveal — both are page-chrome superseded by
-    # the shared site components), but KEEP anything else (e.g. Chart.js
-    # setup) since that's actual article content, not chrome. Re-insert
-    # kept scripts at the very end of the article body so they still run
-    # once the surrounding markup (including any canvases) exists.
-    kept_script_texts = []
-    uses_chartjs = False
-    for s in body_el.find_all('script'):
-        if s.get('src'):
-            # External script tags (e.g. a duplicate Chart.js CDN include)
-            # are handled once at the site <head> level, not per-article.
-            if 'chart' in s.get('src', '').lower():
-                uses_chartjs = True
-            s.decompose()
-            continue
-        text = s.string or s.get_text() or ''
-        text = _strip_chrome_boilerplate(text)
-        if not text.strip():
-            s.decompose()
-            continue
-        if 'new Chart(' in text:
-            uses_chartjs = True
-        kept_script_texts.append(text)
-        s.decompose()
+    prog2 = body_el.find(id='progressBar')
+    if prog2:
+        prog2.decompose()
+    toc_nav = body_el.find('nav', class_='toc')
+    if toc_nav:
+        toc_nav.decompose()
 
     rest_content = body_el.decode_contents()
     rest_content = re.sub(r'</?(?:body|html)[^>]*>', '', rest_content, flags=re.IGNORECASE)
@@ -513,34 +315,17 @@ def parse_article(article_path, art_id):
     # article's own id. Different articles built from the same "informe
     # ejecutivo" template reuse the same generic section ids (resumen,
     # hallazgos, datos, ...) — without this, a second article collides
-    # with the first one's ids document-wide. Build an explicit old->new
-    # map so kept <script> text (e.g. getElementById('chartEmbedded')) can
-    # be namespaced the same way — the HTML-attribute regex below can't
-    # reach into JS string literals.
+    # with the first one's ids document-wide.
     local_ids = sorted(set(re.findall(r'\bid="([^"]+)"', rest_content)), key=len, reverse=True)
-    id_map = {old_id: f'{art_id}-{old_id}' for old_id in local_ids}
-    for old_id, new_id in id_map.items():
+    for old_id in local_ids:
+        new_id = f'{art_id}-{old_id}'
         rest_content = re.sub(rf'\bid="{re.escape(old_id)}"', f'id="{new_id}"', rest_content)
         rest_content = re.sub(rf'href="#{re.escape(old_id)}"', f'href="#{new_id}"', rest_content)
-
-    # Namespace + retheme kept scripts, then append them at the end of the
-    # article body so they execute after their target elements exist.
-    if kept_script_texts:
-        fixed_scripts = []
-        for text in kept_script_texts:
-            fixed = text
-            for old_id, new_id in id_map.items():
-                fixed = fixed.replace(f"getElementById('{old_id}')", f"getElementById('{new_id}')")
-                fixed = fixed.replace(f'getElementById("{old_id}")', f'getElementById("{new_id}")')
-            fixed = retheme_inline_script(fixed)
-            fixed_scripts.append(f'<script>{fixed}</script>')
-        rest_content = rest_content + '\n' + '\n'.join(fixed_scripts)
 
     p.rest_content = rest_content
     p.meta_html = str(meta_el) if meta_el else ''
     p.scoped_css = retheme_css(real_style_text)
     p.art_id = art_id
-    p.uses_chartjs = uses_chartjs
 
     # Sanity: the article should have at least one section[id] for the
     # nav to auto-build from.
@@ -619,7 +404,7 @@ SHARED_NAV_CSS = '''
       padding: 1rem 0 0.9rem;
     }
     .art-nav-label {
-      font-family: 'DM Mono', monospace;
+      font-family: var(--font-body);
       font-size: 0.65rem;
       letter-spacing: 0.2em;
       text-transform: uppercase;
@@ -640,7 +425,7 @@ SHARED_NAV_CSS = '''
       border: 1.5px solid var(--gold);
       border-radius: 3px;
       color: var(--ink);
-      font-family: 'DM Sans', sans-serif;
+      font-family: var(--font-body);
       font-size: 0.78rem;
       font-weight: 700;
       letter-spacing: 0.01em;
@@ -650,7 +435,7 @@ SHARED_NAV_CSS = '''
       transition: background 0.2s var(--ease), color 0.2s var(--ease), transform 0.15s var(--ease);
     }
     .art-nav-btn .num {
-      font-family: 'DM Mono', monospace;
+      font-family: var(--font-body);
       font-weight: 500;
       font-size: 0.68rem;
       color: var(--gold);
@@ -686,10 +471,9 @@ SHARED_JS = '''
     function pad2(n) { return (n < 10 ? '0' : '') + n; }
 
     /* Shared, reusable: builds the sticky section nav for whichever
-       .art-frame is open, from its section[id] + .eyebrow (or, for
-       articles using the alternate masthead convention, .section-tag)
-       elements. Any future article that follows either convention gets
-       this automatically — nothing to wire up per article. */
+       .art-frame is open, from its section[id] + .eyebrow elements.
+       Any future article that follows the same convention gets this
+       automatically — nothing to wire up per article. */
     function buildArticleNav(frame) {
       var sections = [].slice.call(frame.querySelectorAll('section[id]'));
       var items = sections.map(function(s, i) {
@@ -706,14 +490,10 @@ SHARED_JS = '''
           }
         }
         if (!label) {
-          var tag = s.querySelector('.section-tag');
-          if (tag) label = tag.textContent.trim();
-        }
-        if (!label) {
           var h = s.querySelector('h2, h3');
           label = h ? h.textContent.trim() : s.id;
+          if (label.length > 30) label = label.slice(0, 28) + '\\u2026';
         }
-        if (label.length > 30) label = label.slice(0, 28) + '\\u2026';
         return { id: s.id, num: num, label: label, el: s };
       });
 
@@ -774,13 +554,6 @@ SHARED_JS = '''
         scrollBound = true;
       }
       setTimeout(artScrollHandler, 50);
-
-      // Charts (e.g. Chart.js canvases) drawn while the panel was
-      // `hidden` often size themselves to 0 and never recompute on
-      // their own. A generic resize nudge after the panel becomes
-      // visible is a one-line, article-agnostic fix rather than
-      // something every chart-bearing article has to work around.
-      setTimeout(function() { window.dispatchEvent(new Event('resize')); }, 80);
     }
 
     function nexumCloseArticle() {
@@ -804,76 +577,6 @@ SHARED_JS = '''
     window.nexumCloseArticle = nexumCloseArticle;
   })();
   </script>'''
-
-
-# buildArticleNav() is written into the page ONCE, at bootstrap time —
-# append_article() deliberately never touches it (that's what "only
-# append" means). That also means a bugfix to the shared JS made in a
-# later version of this script does NOT reach a site that was already
-# bootstrapped by an earlier version; the live file still carries
-# whatever buildArticleNav looked like the day #perspectivasHub was
-# first created. Rather than silently leaving old sites on a stale,
-# buggier nav forever, patch known-old snippets forward in place,
-# idempotently (the replace is a no-op once a site already has the new
-# text). This is the mechanism to use for any future buildArticleNav
-# fix too — add the old/new pair and a call below, don't rely on a
-# rebootstrap no one is going to do.
-_OLD_NAV_FALLBACK = """        if (!label) {
-          var h = s.querySelector('h2, h3');
-          label = h ? h.textContent.trim() : s.id;
-          if (label.length > 30) label = label.slice(0, 28) + '…';
-        }"""
-
-_NEW_NAV_FALLBACK = """        if (!label) {
-          var tag = s.querySelector('.section-tag');
-          if (tag) label = tag.textContent.trim();
-        }
-        if (!label) {
-          var h = s.querySelector('h2, h3');
-          label = h ? h.textContent.trim() : s.id;
-        }
-        if (label.length > 30) label = label.slice(0, 28) + '…';"""
-
-
-def ensure_nav_js_upgrades(page: str) -> str:
-    if _OLD_NAV_FALLBACK in page:
-        page = page.replace(_OLD_NAV_FALLBACK, _NEW_NAV_FALLBACK, 1)
-    return page
-
-
-def _real_site_anchor(page: str) -> int:
-    """This file is an artifact-wrapped document: an outer artifact <html>
-    (its own tiny <style>/<script>/</head>/<body>) wraps the real NEXUM
-    <html> as nested tag-soup the browser folds into one DOM tree. That
-    means `page.find('</style>')` or `page.find('</head>')` silently grab
-    the OUTER wrapper's tag — not the real site's — because the outer one
-    always comes first. Every insertion point in this script must be
-    anchored relative to something unambiguously inside the real site
-    (Section 05 itself) and located with rfind (nearest preceding match),
-    never a bare forward find. This is not optional hardening: exactly
-    this mistake once caused a site's own stylesheet open-tag text to be
-    swallowed as inert content inside the outer wrapper's <style>, instead
-    of becoming its own element — invisible in a browser's lenient tag-soup
-    rendering, but corrupting the document and defeating any id-based
-    lookup of that style block."""
-    anchor = page.find('<section class="section" id="perspectivas"')
-    assert anchor != -1, "Section perspectivas not found in --html"
-    return anchor
-
-
-def ensure_chartjs_head(page: str) -> str:
-    """Make sure the Chart.js CDN script is loaded exactly once in the real
-    site's <head>, needed whenever any integrated article keeps its own
-    `new Chart(...)` calls. A no-op if it's already present (first chart
-    article already added it, or a future one will reuse this same
-    check)."""
-    if 'chart.umd.min.js' in page or 'cdn.jsdelivr.net/npm/chart.js' in page:
-        return page
-    anchor = _real_site_anchor(page)
-    head_close = page.rfind('</head>', 0, anchor)
-    assert head_close != -1, "No </head> found before Section 05 in site file"
-    tag = '  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>\n'
-    return page[:head_close] + tag + page[head_close:]
 
 
 def bootstrap_section5(page, p, category):
@@ -933,18 +636,9 @@ def bootstrap_section5(page, p, category):
   {MANUAL_OVERRIDES}
   </style>'''
 
-    anchor = _real_site_anchor(page)
-    style_end = page.rfind('</style>', 0, anchor)
-    assert style_end != -1, "No </style> found before Section 05 in site file"
-    # SHARED_NAV_CSS is plain CSS text, meant to be merged INTO the real
-    # site's own stylesheet (so it goes before that tag's closing </style>).
-    # scoped_style_tag is a whole separate <style id="art-scoped-css">...
-    # </style> element and must come AFTER that close, as a sibling — a
-    # <style> tag is raw text, so anything placed before its own </style>
-    # becomes inert text *inside* it rather than a new element (this bit
-    # the very first version of this fix too: see _real_site_anchor).
-    page = (page[:style_end] + SHARED_NAV_CSS + '\n  </style>\n  ' + scoped_style_tag + '\n  '
-            + page[style_end + len('</style>'):])
+    style_end = page.find('</style>')
+    assert style_end != -1
+    page = page[:style_end] + SHARED_NAV_CSS + '\n  ' + scoped_style_tag + '\n  ' + page[style_end:]
 
     sec5_start = page.find('  <section class="section" id="perspectivas"')
     assert sec5_start != -1, "Section perspectivas not found in --html"
@@ -957,9 +651,6 @@ def bootstrap_section5(page, p, category):
     body_close = page.find('</body>')
     assert body_close != -1
     page = page[:body_close] + '\n' + SHARED_JS + '\n\n' + page[body_close:]
-
-    if p.uses_chartjs:
-        page = ensure_chartjs_head(page)
 
     return page
 
@@ -976,16 +667,13 @@ def append_article(page, p, category):
     )
 
     # 1. New scoped <style>, appended right after the existing one(s)
-    anchor = _real_site_anchor(page)
-    style_end = page.rfind('</style>', 0, anchor)
-    assert style_end != -1, "No </style> found before Section 05 in site file"
+    style_end = page.find('</style>')
+    assert style_end != -1
     new_style_tag = f'''  <style id="art-scoped-css-{p.art_id}">
   /* ── SCOPED + RETHEMED ARTICLE CSS: {p.art_id} ── */
   {p.scoped_css}
   </style>\n  '''
-    # Insert AFTER the preceding </style>, as a sibling — never before it,
-    # or this content becomes inert raw text inside that other <style> tag.
-    page = page[:style_end + len('</style>')] + '\n  ' + new_style_tag + page[style_end + len('</style>'):]
+    page = page[:style_end] + new_style_tag + page[style_end:]
 
     # 2. New item into the shared .blog-list — every article is an equal
     #    .blog-item row; there is no featured slot to protect.
@@ -1001,9 +689,6 @@ def append_article(page, p, category):
     bc_idx = page.find(body_close_marker)
     assert bc_idx != -1, "Could not find #artBody closing marker — is the shell bootstrapped?"
     page = page[:bc_idx] + art_frame_html(p) + '\n      ' + page[bc_idx:]
-
-    if p.uses_chartjs:
-        page = ensure_chartjs_head(page)
 
     return page
 
@@ -1024,6 +709,8 @@ def main():
     with open(args.html, 'r', encoding='utf-8') as f:
         page = f.read()
 
+    body_tags_before = len(re.findall(r'<body[^>]*>', page, re.IGNORECASE))
+
     is_bootstrap = 'id="artBody"' not in page
 
     # Need the title before we can default --id, so parse with a temp id first
@@ -1035,11 +722,9 @@ def main():
     print(f"Article   : {p.title}")
     print(f"H1        : {p.h1_text}")
     print(f"Date      : {p.date!r}")
-    print(f"Excerpt   : {p.excerpt_text[:70]!r}")
     print(f"Sections  : {p.section_count}")
     print(f"Art id    : {p.art_id}")
     print(f"Category  : {category}")
-    print(f"Chart.js  : {p.uses_chartjs}")
     print(f"Mode      : {'BOOTSTRAP (first article)' if is_bootstrap else 'APPEND (existing shell found)'}")
 
     if is_bootstrap:
@@ -1048,11 +733,12 @@ def main():
     else:
         page = append_article(page, p, category)
 
-    page = ensure_nav_js_upgrades(page)
-
     # ── Verify ──
     body_tags = len(re.findall(r'<body[^>]*>', page, re.IGNORECASE))
-    assert body_tags == 2, f"Expected 2 <body> tags (outer wrapper + page), found {body_tags}"
+    assert body_tags == body_tags_before, (
+        f"<body> tag count changed ({body_tags_before} -> {body_tags}) — this insertion "
+        f"must not add or remove a stray <body> tag, whatever the file's starting count is."
+    )
     assert page.count('<body') == page.lower().count('<body'), "case mismatch check"
     assert f'id="{p.art_id}"' in page, "new article id missing from output"
     assert 'nexum-art-modal' not in page, "a stale full-screen modal is still present — remove it first"
