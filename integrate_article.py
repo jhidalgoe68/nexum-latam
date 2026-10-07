@@ -666,14 +666,31 @@ def append_article(page, p, category):
         f"--id, or this article may already be integrated."
     )
 
-    # 1. New scoped <style>, appended right after the existing one(s)
-    style_end = page.find('</style>')
+    # 1. New scoped <style>, appended right after the LAST existing
+    #    art-scoped-css block — NOT page.find('</style>'), which only ever
+    #    finds the FIRST </style> in the whole document. That bug was
+    #    found live in this file: the first </style> in the page is the
+    #    tiny reset style in the outer artifact-wrapper's <head>, so every
+    #    article appended this way lands at the very top of the document,
+    #    ahead of every earlier-bootstrapped article. Since CSS cascade
+    #    resolves same-specificity property conflicts by source order,
+    #    that silently let EARLIER articles' bare-class rules (.lede,
+    #    .eyebrow, .kpi, ...) win over a newly-appended article's own
+    #    styling for any property the new rule didn't also redeclare —
+    #    a real, confirmed bug (a lead paragraph rendered in the wrong
+    #    font, at the wrong size, in a near-invisible color inherited
+    #    from a different article entirely). Always insert after the
+    #    LAST art-scoped-css block so new articles truly append at the
+    #    end of the cascade, matching "append-only" in both DOM and CSS.
+    last_style_open = page.rfind('<style id="art-scoped-css')
+    assert last_style_open != -1, "No existing art-scoped-css style block found — is the shell bootstrapped?"
+    style_end = page.find('</style>', last_style_open)
     assert style_end != -1
     new_style_tag = f'''  <style id="art-scoped-css-{p.art_id}">
   /* ── SCOPED + RETHEMED ARTICLE CSS: {p.art_id} ── */
   {p.scoped_css}
   </style>\n  '''
-    page = page[:style_end] + new_style_tag + page[style_end:]
+    page = page[:style_end] + '</style>\n  ' + new_style_tag + page[style_end + len('</style>'):]
 
     # 2. New item into the shared .blog-list — every article is an equal
     #    .blog-item row; there is no featured slot to protect.

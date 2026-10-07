@@ -1,232 +1,4 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}  <style id="art-scoped-css-cx-video-ia">
-  /* ── SCOPED + RETHEMED ARTICLE CSS: cx-video-ia ── */
-  
-.art-frame{
-  --navy-950:#DEE9F5;
-  --navy-900:#EDF3F9;
-  --navy-800:#FFFFFF;
-  --navy-700:#DEE9F5;
-  --line:rgba(9,27,56,.14);
-  --ink:#091B38;
-  --ink-2:#1A3252;
-  --ink-3:#4A5A72;
-  --gold-1:#00AFC9;
-  --gold-2:#0C2B5C;
-  --gold-3:#C87A18;
-  --teal:#00C0DC;
-  --amber:#C87A18;
-  --red:#B3433A;
-  --f-display: var(--font-heading);
-  --f-body: var(--font-body);
-  --f-mono: var(--font-body);
-  color-scheme: light;
-}
-
-
-/* Alias block: this article's token names (gold-4/5/6, ink-100/300/500,
-   *-conf) don't match the integrator's RETHEME_ROOT vocabulary
-   (gold-1/2/3, ink/ink-2/ink-3). Using `html{}` instead of a second
-   `:root{}` so the integrator's single :root-strip regex only removes
-   the block above, not this one — scope_css() still maps a bare `html`
-   selector to `.art-frame` same as :root does. */
-.art-frame{
-  --gold-400:#00AFC9;
-  --gold-500:#00AFC9;
-  --gold-600:#0C2B5C;
-  --ink-100:#091B38;
-  --ink-300:#1A3252;
-  --ink-500:#4A5A72;
-  --green-conf:#1F8A4C;
-  --amber-conf:#C87A18;
-  --red-conf:#B3433A;
-}
-.art-frame *{box-sizing:border-box; margin:0; padding:0;}
-.art-frame{scroll-behavior:smooth;}
-.art-frame{
-  background:var(--navy-950);
-  color:var(--ink-300);
-  font-family:var(--font-body);
-  font-weight:300;
-  line-height:1.65;
-  overflow-x:hidden;
-}
-.art-frame ::selection{background:var(--gold-500); color:var(--navy-950);}
-.art-frame h1, .art-frame h2, .art-frame h3, .art-frame h4{font-family:var(--font-heading); color:var(--ink-100); font-weight:600; letter-spacing:0.01em;}
-.art-frame a{color:var(--gold-400); text-decoration:none;}
-.art-frame a:hover{text-decoration:underline;}
-.art-frame .eyebrow{
-  font-family:var(--font-body); text-transform:uppercase; letter-spacing:0.28em;
-  font-size:0.72rem; color:var(--gold-500); font-weight:500; margin-bottom:14px; display:block;
-}
-/* Progress bar */
-.art-frame .progress-bar{position:fixed; top:0; left:0; height:3px; background:linear-gradient(90deg,var(--gold-600),var(--gold-400)); z-index:9999; width:0%; transition:width 0.1s ease-out;}
-/* Nav */
-.art-frame nav{
-  position:fixed; top:0; left:0; right:0; z-index:900;
-  background:rgba(5,9,20,0.86); backdrop-filter:blur(10px);
-  border-bottom:1px solid rgba(212,175,97,0.15);
-  padding:16px 40px; display:flex; align-items:center; justify-content:space-between;
-}
-.art-frame .nav-brand{font-family:var(--font-heading); font-size:1.25rem; color:var(--ink-100); letter-spacing:0.04em; font-weight:600;}
-.art-frame .nav-brand span{color:var(--gold-500);}
-.art-frame .nav-links{display:flex; gap:28px; flex-wrap:wrap;}
-.art-frame .nav-links a{font-size:0.78rem; text-transform:uppercase; letter-spacing:0.12em; color:var(--ink-500); font-weight:500;}
-.art-frame .nav-links a:hover{color:var(--gold-400); text-decoration:none;}
-.art-frame .nav-toggle{display:none; color:var(--ink-100); font-size:1.4rem; cursor:pointer; background:none; border:none;}
-@media(max-width:980px){
-  .art-frame .nav-links{position:fixed; top:64px; left:0; right:0; background:var(--navy-900); flex-direction:column; padding:24px 32px; gap:16px; max-height:0; overflow:hidden; transition:max-height 0.3s ease; border-bottom:1px solid rgba(212,175,97,0.15);}
-  .art-frame .nav-links.open{max-height:520px;}
-  .art-frame .nav-toggle{display:block;}
-}
-/* Hero */
-.art-frame .hero{
-  min-height:100vh; display:flex; flex-direction:column; justify-content:center;
-  padding:160px 40px 100px; position:relative;
-  background:
-    radial-gradient(ellipse 900px 500px at 15% 10%, rgba(212,175,97,0.10), transparent 60%),
-    radial-gradient(ellipse 700px 600px at 85% 90%, rgba(34,51,92,0.55), transparent 60%),
-    var(--navy-950);
-}
-.art-frame .hero::before{
-  content:""; position:absolute; inset:0; opacity:0.5; pointer-events:none;
-  background-image:
-    repeating-linear-gradient(90deg, transparent, transparent 79px, rgba(212,175,97,0.035) 80px),
-    repeating-linear-gradient(0deg, transparent, transparent 79px, rgba(212,175,97,0.035) 80px);
-}
-.art-frame .hero-inner{max-width:var(--maxw); margin:0 auto; width:100%; position:relative; z-index:2;}
-.art-frame .hero-meta{display:flex; gap:14px; align-items:center; margin-bottom:28px; flex-wrap:wrap;}
-.art-frame .pill{
-  border:1px solid rgba(212,175,97,0.35); color:var(--gold-400); font-size:0.72rem;
-  text-transform:uppercase; letter-spacing:0.14em; padding:6px 14px; border-radius:100px; font-weight:500;
-}
-.art-frame h1.hero-title{
-  font-size:clamp(2.6rem, 6vw, 5.1rem); line-height:1.03; font-weight:600; max-width:15ch;
-  margin-bottom:30px;
-}
-.art-frame h1.hero-title em{font-style:italic; color:var(--gold-400); font-weight:500;}
-.art-frame .hero-sub{font-size:1.2rem; color:var(--ink-300); max-width:62ch; font-weight:300; margin-bottom:44px;}
-.art-frame .hero-stats{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:rgba(212,175,97,0.15); border:1px solid rgba(212,175,97,0.15); max-width:920px;}
-.art-frame .hero-stat{background:var(--navy-950); padding:22px 20px;}
-.art-frame .hero-stat .num{font-family:var(--font-heading); font-size:2.1rem; color:var(--gold-400); font-weight:700; line-height:1;}
-.art-frame .hero-stat .lbl{font-size:0.72rem; color:var(--ink-500); margin-top:8px; text-transform:uppercase; letter-spacing:0.06em; line-height:1.4;}
-@media(max-width:760px){ .art-frame .hero-stats{grid-template-columns:repeat(2,1fr);} }
-/* Sections */
-.art-frame section{padding:120px 40px; position:relative; border-top:1px solid rgba(212,175,97,0.08);}
-.art-frame .section-inner{max-width:var(--maxw); margin:0 auto;}
-.art-frame .section-head{max-width:760px; margin-bottom:60px;}
-.art-frame .section-head h2{font-size:clamp(1.9rem,4vw,3rem); font-weight:600; line-height:1.12;}
-.art-frame .section-head p.lead{font-size:1.08rem; color:var(--ink-300); margin-top:18px; max-width:65ch;}
-.art-frame .reveal{opacity:0; transform:translateY(28px); transition:opacity 0.8s ease, transform 0.8s ease;}
-.art-frame .reveal.visible{opacity:1; transform:translateY(0);}
-/* Confidence badge */
-.art-frame .badge{
-  display:inline-flex; align-items:center; gap:6px; font-size:0.68rem; text-transform:uppercase; letter-spacing:0.08em;
-  padding:4px 10px; border-radius:100px; font-weight:600; white-space:nowrap;
-}
-.art-frame .badge.high{background:rgba(95,174,130,0.14); color:var(--green-conf); border:1px solid rgba(95,174,130,0.4);}
-.art-frame .badge.med{background:rgba(212,162,76,0.14); color:var(--amber-conf); border:1px solid rgba(212,162,76,0.4);}
-.art-frame .badge-dot{width:6px; height:6px; border-radius:50%; background:currentColor;}
-/* Findings grid */
-.art-frame .findings-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:24px;}
-@media(max-width:820px){.art-frame .findings-grid{grid-template-columns:1fr;}}
-.art-frame .card{
-  background:linear-gradient(180deg, var(--navy-800), var(--navy-900));
-  border:1px solid rgba(212,175,97,0.14); border-radius:6px; padding:32px; position:relative;
-}
-.art-frame .card .tag{font-size:0.7rem; text-transform:uppercase; letter-spacing:0.12em; color:var(--gold-500); font-weight:600; margin-bottom:12px; display:block;}
-.art-frame .card h3{font-size:1.35rem; margin-bottom:12px; font-weight:600;}
-.art-frame .card p{font-size:0.95rem; color:var(--ink-300);}
-.art-frame .card .src{margin-top:18px; padding-top:16px; border-top:1px solid rgba(212,175,97,0.1); font-size:0.76rem; color:var(--ink-500);}
-.art-frame .card .src a{color:var(--ink-500); border-bottom:1px dotted var(--ink-500);}
-.art-frame .card .src a:hover{color:var(--gold-400); border-color:var(--gold-400);}
-.art-frame .card-top-row{display:flex; justify-content:space-between; align-items:flex-start; gap:12px; margin-bottom:10px;}
-/* Stats block */
-.art-frame .stat-strip{display:grid; grid-template-columns:repeat(3,1fr); gap:24px;}
-@media(max-width:820px){.art-frame .stat-strip{grid-template-columns:1fr;}}
-.art-frame .stat-card{border:1px solid rgba(212,175,97,0.15); background:var(--navy-900); padding:28px; border-radius:6px;}
-.art-frame .stat-card .figure{font-family:var(--font-heading); color:var(--gold-400); font-size:2.6rem; font-weight:700; line-height:1;}
-.art-frame .stat-card .desc{margin-top:10px; font-size:0.9rem; color:var(--ink-300);}
-.art-frame .stat-card .fn{margin-top:14px; font-size:0.74rem; color:var(--ink-500);}
-/* Chart containers */
-.art-frame .chart-box{background:var(--navy-900); border:1px solid rgba(212,175,97,0.15); border-radius:6px; padding:32px; margin-top:36px;}
-.art-frame .chart-box h4{font-size:1.1rem; margin-bottom:4px;}
-.art-frame .chart-box .fn{font-size:0.76rem; color:var(--ink-500); margin-top:14px;}
-.art-frame canvas{max-height:360px;}
-/* Quotes */
-.art-frame .quote-block{
-  border-left:3px solid var(--gold-500); padding:8px 0 8px 30px; margin:30px 0;
-}
-.art-frame .quote-block p.qtext{font-family:var(--font-heading); font-style:italic; font-size:1.35rem; color:var(--ink-100); line-height:1.5;}
-.art-frame .quote-block .attrib{margin-top:14px; font-size:0.82rem; color:var(--gold-400); text-transform:uppercase; letter-spacing:0.06em; font-style:normal; font-family:var(--font-body);}
-.art-frame .quote-grid{display:grid; grid-template-columns:1fr 1fr; gap:36px;}
-@media(max-width:820px){.art-frame .quote-grid{grid-template-columns:1fr;}}
-/* Trends timeline */
-.art-frame .trend-row{display:grid; grid-template-columns:120px 1fr; gap:28px; padding:28px 0; border-bottom:1px solid rgba(212,175,97,0.1);}
-.art-frame .trend-row:last-child{border-bottom:none;}
-.art-frame .trend-row .horizon{font-family:var(--font-heading); color:var(--gold-400); font-size:1.1rem; font-weight:600;}
-.art-frame .trend-row h3{font-size:1.25rem; margin-bottom:8px;}
-@media(max-width:640px){.art-frame .trend-row{grid-template-columns:1fr; gap:10px;}}
-/* Debate */
-.art-frame .debate-card{background:var(--navy-800); border:1px solid rgba(212,175,97,0.15); border-radius:6px; padding:34px; margin-bottom:26px;}
-.art-frame .debate-card h3{font-size:1.3rem; margin-bottom:14px;}
-.art-frame .pos-neg{display:grid; grid-template-columns:1fr 1fr; gap:24px; margin:20px 0;}
-@media(max-width:700px){.art-frame .pos-neg{grid-template-columns:1fr;}}
-.art-frame .pos-neg .col-favor, .art-frame .pos-neg .col-contra{background:var(--navy-900); border-radius:5px; padding:20px;}
-.art-frame .pos-neg .col-favor .h, .art-frame .pos-neg .col-contra .h{font-size:0.72rem; text-transform:uppercase; letter-spacing:0.1em; font-weight:600; margin-bottom:10px;}
-.art-frame .pos-neg .col-favor .h{color:var(--green-conf);}
-.art-frame .pos-neg .col-contra .h{color:var(--red-conf);}
-.art-frame .editorial-box{
-  background:linear-gradient(135deg, rgba(212,175,97,0.09), rgba(212,175,97,0.02));
-  border:1px solid rgba(212,175,97,0.35); border-radius:5px; padding:22px 26px; margin-top:8px;
-}
-.art-frame .editorial-box .h{color:var(--gold-400); font-size:0.72rem; text-transform:uppercase; letter-spacing:0.12em; font-weight:600; margin-bottom:10px;}
-/* Country grid */
-.art-frame .country-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
-@media(max-width:980px){.art-frame .country-grid{grid-template-columns:repeat(2,1fr);}}
-@media(max-width:640px){.art-frame .country-grid{grid-template-columns:1fr;}}
-.art-frame .country-card{background:var(--navy-900); border:1px solid rgba(212,175,97,0.14); border-radius:6px; padding:26px; display:flex; flex-direction:column; gap:12px;}
-.art-frame .country-card .flag-row{display:flex; justify-content:space-between; align-items:center;}
-.art-frame .country-card h3{font-size:1.3rem;}
-.art-frame .country-card .maturity{font-size:0.68rem; text-transform:uppercase; letter-spacing:0.08em; padding:4px 10px; border-radius:100px; font-weight:600;}
-.art-frame .m-lead{background:rgba(95,174,130,0.14); color:var(--green-conf); border:1px solid rgba(95,174,130,0.4);}
-.art-frame .m-accel{background:rgba(212,162,76,0.14); color:var(--amber-conf); border:1px solid rgba(212,162,76,0.4);}
-.art-frame .m-early{background:rgba(196,104,90,0.14); color:var(--red-conf); border:1px solid rgba(196,104,90,0.4);}
-.art-frame .country-card ul{list-style:none; font-size:0.87rem; color:var(--ink-300);}
-.art-frame .country-card ul li{padding-left:16px; position:relative; margin-bottom:8px;}
-.art-frame .country-card ul li::before{content:"—"; position:absolute; left:0; color:var(--gold-500);}
-/* C-suite imperatives */
-.art-frame .role-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); gap:22px;}
-.art-frame .role-card{background:var(--navy-800); border-left:3px solid var(--gold-500); border-radius:4px; padding:26px;}
-.art-frame .role-card .role-tag{font-size:0.7rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--gold-400); font-weight:700; margin-bottom:14px;}
-.art-frame .role-card ul{list-style:none; font-size:0.9rem;}
-.art-frame .role-card ul li{margin-bottom:11px; padding-left:18px; position:relative;}
-.art-frame .role-card ul li::before{content:"›"; position:absolute; left:0; color:var(--gold-500); font-weight:700;}
-/* Roadmap */
-.art-frame .roadmap{position:relative; margin-top:40px;}
-.art-frame .roadmap-line{position:absolute; left:24px; top:0; bottom:0; width:1px; background:rgba(212,175,97,0.3);}
-.art-frame .phase{position:relative; padding-left:70px; margin-bottom:52px;}
-.art-frame .phase:last-child{margin-bottom:0;}
-.art-frame .phase-dot{position:absolute; left:14px; top:2px; width:22px; height:22px; border-radius:50%; background:var(--navy-950); border:2px solid var(--gold-500); display:flex; align-items:center; justify-content:center; font-size:0.65rem; color:var(--gold-400); font-weight:700;}
-.art-frame .phase .months{font-size:0.75rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--gold-500); font-weight:600; margin-bottom:6px;}
-.art-frame .phase h3{font-size:1.4rem; margin-bottom:10px;}
-.art-frame .phase ul{list-style:none; font-size:0.92rem; color:var(--ink-300); columns:2; column-gap:32px;}
-@media(max-width:700px){.art-frame .phase ul{columns:1;}}
-.art-frame .phase ul li{margin-bottom:8px; padding-left:16px; position:relative; break-inside:avoid;}
-.art-frame .phase ul li::before{content:"·"; position:absolute; left:0; color:var(--gold-500); font-weight:900;}
-/* Footer */
-.art-frame footer{padding:70px 40px 50px; border-top:1px solid rgba(212,175,97,0.12); background:var(--navy-900);}
-.art-frame footer .section-inner{display:flex; flex-direction:column; gap:26px;}
-.art-frame .footnotes{font-size:0.8rem; color:var(--ink-500); line-height:1.9;}
-.art-frame .footnotes a{color:var(--ink-500); border-bottom:1px dotted var(--ink-500);}
-.art-frame .footnotes a:hover{color:var(--gold-400); border-color:var(--gold-400);}
-.art-frame .footer-brand{font-family:var(--font-heading); font-size:1.3rem; color:var(--ink-100);}
-.art-frame .footer-brand span{color:var(--gold-500);}
-.art-frame .footer-tag{font-size:0.78rem; color:var(--ink-500); max-width:60ch;}
-.art-frame hr.rule{border:none; border-top:1px solid rgba(212,175,97,0.12); margin:20px 0;}
-.art-frame .two-col{display:grid; grid-template-columns:1.1fr 0.9fr; gap:48px; align-items:start;}
-@media(max-width:900px){.art-frame .two-col{grid-template-columns:1fr;}}
-
-  </style>
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}  
   </style></head><body>
 <!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}  </style><style id="art-scoped-css">
   /* ── SCOPED + RETHEMED ARTICLE CSS (Radar de Resiliencia) ── */
@@ -3292,6 +3064,544 @@
 .art-frame footer b{font-family:var(--font-heading);color:var(--gold-2);letter-spacing:.18em;font-weight:600;font-size:14px}
 
   </style>
+  <style id="art-scoped-css-cx-video-ia">
+  /* ── SCOPED + RETHEMED ARTICLE CSS: cx-video-ia ── */
+  
+.art-frame{
+  --navy-950:#DEE9F5;
+  --navy-900:#EDF3F9;
+  --navy-800:#FFFFFF;
+  --navy-700:#DEE9F5;
+  --line:rgba(9,27,56,.14);
+  --ink:#091B38;
+  --ink-2:#1A3252;
+  --ink-3:#4A5A72;
+  --gold-1:#00AFC9;
+  --gold-2:#0C2B5C;
+  --gold-3:#C87A18;
+  --teal:#00C0DC;
+  --amber:#C87A18;
+  --red:#B3433A;
+  --f-display: var(--font-heading);
+  --f-body: var(--font-body);
+  --f-mono: var(--font-body);
+  color-scheme: light;
+}
+
+
+/* Alias block: this article's token names (gold-4/5/6, ink-100/300/500,
+   *-conf) don't match the integrator's RETHEME_ROOT vocabulary
+   (gold-1/2/3, ink/ink-2/ink-3). Using `html{}` instead of a second
+   `:root{}` so the integrator's single :root-strip regex only removes
+   the block above, not this one — scope_css() still maps a bare `html`
+   selector to `.art-frame` same as :root does. */
+.art-frame{
+  --gold-400:#00AFC9;
+  --gold-500:#00AFC9;
+  --gold-600:#0C2B5C;
+  --ink-100:#091B38;
+  --ink-300:#1A3252;
+  --ink-500:#4A5A72;
+  --green-conf:#1F8A4C;
+  --amber-conf:#C87A18;
+  --red-conf:#B3433A;
+}
+.art-frame *{box-sizing:border-box; margin:0; padding:0;}
+.art-frame{scroll-behavior:smooth;}
+.art-frame{
+  background:var(--navy-950);
+  color:var(--ink-300);
+  font-family:var(--font-body);
+  font-weight:300;
+  line-height:1.65;
+  overflow-x:hidden;
+}
+.art-frame ::selection{background:var(--gold-500); color:var(--navy-950);}
+.art-frame h1, .art-frame h2, .art-frame h3, .art-frame h4{font-family:var(--font-heading); color:var(--ink-100); font-weight:600; letter-spacing:0.01em;}
+.art-frame a{color:var(--gold-400); text-decoration:none;}
+.art-frame a:hover{text-decoration:underline;}
+.art-frame .eyebrow{
+  font-family:var(--font-body); text-transform:uppercase; letter-spacing:0.28em;
+  font-size:0.72rem; color:var(--gold-500); font-weight:500; margin-bottom:14px; display:block;
+}
+/* Progress bar */
+.art-frame .progress-bar{position:fixed; top:0; left:0; height:3px; background:linear-gradient(90deg,var(--gold-600),var(--gold-400)); z-index:9999; width:0%; transition:width 0.1s ease-out;}
+/* Nav */
+.art-frame nav{
+  position:fixed; top:0; left:0; right:0; z-index:900;
+  background:rgba(5,9,20,0.86); backdrop-filter:blur(10px);
+  border-bottom:1px solid rgba(212,175,97,0.15);
+  padding:16px 40px; display:flex; align-items:center; justify-content:space-between;
+}
+.art-frame .nav-brand{font-family:var(--font-heading); font-size:1.25rem; color:var(--ink-100); letter-spacing:0.04em; font-weight:600;}
+.art-frame .nav-brand span{color:var(--gold-500);}
+.art-frame .nav-links{display:flex; gap:28px; flex-wrap:wrap;}
+.art-frame .nav-links a{font-size:0.78rem; text-transform:uppercase; letter-spacing:0.12em; color:var(--ink-500); font-weight:500;}
+.art-frame .nav-links a:hover{color:var(--gold-400); text-decoration:none;}
+.art-frame .nav-toggle{display:none; color:var(--ink-100); font-size:1.4rem; cursor:pointer; background:none; border:none;}
+@media(max-width:980px){
+  .art-frame .nav-links{position:fixed; top:64px; left:0; right:0; background:var(--navy-900); flex-direction:column; padding:24px 32px; gap:16px; max-height:0; overflow:hidden; transition:max-height 0.3s ease; border-bottom:1px solid rgba(212,175,97,0.15);}
+  .art-frame .nav-links.open{max-height:520px;}
+  .art-frame .nav-toggle{display:block;}
+}
+/* Hero */
+.art-frame .hero{
+  min-height:100vh; display:flex; flex-direction:column; justify-content:center;
+  padding:160px 40px 100px; position:relative;
+  background:
+    radial-gradient(ellipse 900px 500px at 15% 10%, rgba(212,175,97,0.10), transparent 60%),
+    radial-gradient(ellipse 700px 600px at 85% 90%, rgba(34,51,92,0.55), transparent 60%),
+    var(--navy-950);
+}
+.art-frame .hero::before{
+  content:""; position:absolute; inset:0; opacity:0.5; pointer-events:none;
+  background-image:
+    repeating-linear-gradient(90deg, transparent, transparent 79px, rgba(212,175,97,0.035) 80px),
+    repeating-linear-gradient(0deg, transparent, transparent 79px, rgba(212,175,97,0.035) 80px);
+}
+.art-frame .hero-inner{max-width:var(--maxw); margin:0 auto; width:100%; position:relative; z-index:2;}
+.art-frame .hero-meta{display:flex; gap:14px; align-items:center; margin-bottom:28px; flex-wrap:wrap;}
+.art-frame .pill{
+  border:1px solid rgba(212,175,97,0.35); color:var(--gold-400); font-size:0.72rem;
+  text-transform:uppercase; letter-spacing:0.14em; padding:6px 14px; border-radius:100px; font-weight:500;
+}
+.art-frame h1.hero-title{
+  font-size:clamp(2.6rem, 6vw, 5.1rem); line-height:1.03; font-weight:600; max-width:15ch;
+  margin-bottom:30px;
+}
+.art-frame h1.hero-title em{font-style:italic; color:var(--gold-400); font-weight:500;}
+.art-frame .hero-sub{font-size:1.2rem; color:var(--ink-300); max-width:62ch; font-weight:300; margin-bottom:44px;}
+.art-frame .hero-stats{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:rgba(212,175,97,0.15); border:1px solid rgba(212,175,97,0.15); max-width:920px;}
+.art-frame .hero-stat{background:var(--navy-950); padding:22px 20px;}
+.art-frame .hero-stat .num{font-family:var(--font-heading); font-size:2.1rem; color:var(--gold-400); font-weight:700; line-height:1;}
+.art-frame .hero-stat .lbl{font-size:0.72rem; color:var(--ink-500); margin-top:8px; text-transform:uppercase; letter-spacing:0.06em; line-height:1.4;}
+@media(max-width:760px){ .art-frame .hero-stats{grid-template-columns:repeat(2,1fr);} }
+/* Sections */
+.art-frame section{padding:120px 40px; position:relative; border-top:1px solid rgba(212,175,97,0.08);}
+.art-frame .section-inner{max-width:var(--maxw); margin:0 auto;}
+.art-frame .section-head{max-width:760px; margin-bottom:60px;}
+.art-frame .section-head h2{font-size:clamp(1.9rem,4vw,3rem); font-weight:600; line-height:1.12;}
+.art-frame .section-head p.lead{font-size:1.08rem; color:var(--ink-300); margin-top:18px; max-width:65ch;}
+.art-frame .reveal{opacity:0; transform:translateY(28px); transition:opacity 0.8s ease, transform 0.8s ease;}
+.art-frame .reveal.visible{opacity:1; transform:translateY(0);}
+/* Confidence badge */
+.art-frame .badge{
+  display:inline-flex; align-items:center; gap:6px; font-size:0.68rem; text-transform:uppercase; letter-spacing:0.08em;
+  padding:4px 10px; border-radius:100px; font-weight:600; white-space:nowrap;
+}
+.art-frame .badge.high{background:rgba(95,174,130,0.14); color:var(--green-conf); border:1px solid rgba(95,174,130,0.4);}
+.art-frame .badge.med{background:rgba(212,162,76,0.14); color:var(--amber-conf); border:1px solid rgba(212,162,76,0.4);}
+.art-frame .badge-dot{width:6px; height:6px; border-radius:50%; background:currentColor;}
+/* Findings grid */
+.art-frame .findings-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:24px;}
+@media(max-width:820px){.art-frame .findings-grid{grid-template-columns:1fr;}}
+.art-frame .card{
+  background:linear-gradient(180deg, var(--navy-800), var(--navy-900));
+  border:1px solid rgba(212,175,97,0.14); border-radius:6px; padding:32px; position:relative;
+}
+.art-frame .card .tag{font-size:0.7rem; text-transform:uppercase; letter-spacing:0.12em; color:var(--gold-500); font-weight:600; margin-bottom:12px; display:block;}
+.art-frame .card h3{font-size:1.35rem; margin-bottom:12px; font-weight:600;}
+.art-frame .card p{font-size:0.95rem; color:var(--ink-300);}
+.art-frame .card .src{margin-top:18px; padding-top:16px; border-top:1px solid rgba(212,175,97,0.1); font-size:0.76rem; color:var(--ink-500);}
+.art-frame .card .src a{color:var(--ink-500); border-bottom:1px dotted var(--ink-500);}
+.art-frame .card .src a:hover{color:var(--gold-400); border-color:var(--gold-400);}
+.art-frame .card-top-row{display:flex; justify-content:space-between; align-items:flex-start; gap:12px; margin-bottom:10px;}
+/* Stats block */
+.art-frame .stat-strip{display:grid; grid-template-columns:repeat(3,1fr); gap:24px;}
+@media(max-width:820px){.art-frame .stat-strip{grid-template-columns:1fr;}}
+.art-frame .stat-card{border:1px solid rgba(212,175,97,0.15); background:var(--navy-900); padding:28px; border-radius:6px;}
+.art-frame .stat-card .figure{font-family:var(--font-heading); color:var(--gold-400); font-size:2.6rem; font-weight:700; line-height:1;}
+.art-frame .stat-card .desc{margin-top:10px; font-size:0.9rem; color:var(--ink-300);}
+.art-frame .stat-card .fn{margin-top:14px; font-size:0.74rem; color:var(--ink-500);}
+/* Chart containers */
+.art-frame .chart-box{background:var(--navy-900); border:1px solid rgba(212,175,97,0.15); border-radius:6px; padding:32px; margin-top:36px;}
+.art-frame .chart-box h4{font-size:1.1rem; margin-bottom:4px;}
+.art-frame .chart-box .fn{font-size:0.76rem; color:var(--ink-500); margin-top:14px;}
+.art-frame canvas{max-height:360px;}
+/* Quotes */
+.art-frame .quote-block{
+  border-left:3px solid var(--gold-500); padding:8px 0 8px 30px; margin:30px 0;
+}
+.art-frame .quote-block p.qtext{font-family:var(--font-heading); font-style:italic; font-size:1.35rem; color:var(--ink-100); line-height:1.5;}
+.art-frame .quote-block .attrib{margin-top:14px; font-size:0.82rem; color:var(--gold-400); text-transform:uppercase; letter-spacing:0.06em; font-style:normal; font-family:var(--font-body);}
+.art-frame .quote-grid{display:grid; grid-template-columns:1fr 1fr; gap:36px;}
+@media(max-width:820px){.art-frame .quote-grid{grid-template-columns:1fr;}}
+/* Trends timeline */
+.art-frame .trend-row{display:grid; grid-template-columns:120px 1fr; gap:28px; padding:28px 0; border-bottom:1px solid rgba(212,175,97,0.1);}
+.art-frame .trend-row:last-child{border-bottom:none;}
+.art-frame .trend-row .horizon{font-family:var(--font-heading); color:var(--gold-400); font-size:1.1rem; font-weight:600;}
+.art-frame .trend-row h3{font-size:1.25rem; margin-bottom:8px;}
+@media(max-width:640px){.art-frame .trend-row{grid-template-columns:1fr; gap:10px;}}
+/* Debate */
+.art-frame .debate-card{background:var(--navy-800); border:1px solid rgba(212,175,97,0.15); border-radius:6px; padding:34px; margin-bottom:26px;}
+.art-frame .debate-card h3{font-size:1.3rem; margin-bottom:14px;}
+.art-frame .pos-neg{display:grid; grid-template-columns:1fr 1fr; gap:24px; margin:20px 0;}
+@media(max-width:700px){.art-frame .pos-neg{grid-template-columns:1fr;}}
+.art-frame .pos-neg .col-favor, .art-frame .pos-neg .col-contra{background:var(--navy-900); border-radius:5px; padding:20px;}
+.art-frame .pos-neg .col-favor .h, .art-frame .pos-neg .col-contra .h{font-size:0.72rem; text-transform:uppercase; letter-spacing:0.1em; font-weight:600; margin-bottom:10px;}
+.art-frame .pos-neg .col-favor .h{color:var(--green-conf);}
+.art-frame .pos-neg .col-contra .h{color:var(--red-conf);}
+.art-frame .editorial-box{
+  background:linear-gradient(135deg, rgba(212,175,97,0.09), rgba(212,175,97,0.02));
+  border:1px solid rgba(212,175,97,0.35); border-radius:5px; padding:22px 26px; margin-top:8px;
+}
+.art-frame .editorial-box .h{color:var(--gold-400); font-size:0.72rem; text-transform:uppercase; letter-spacing:0.12em; font-weight:600; margin-bottom:10px;}
+/* Country grid */
+.art-frame .country-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
+@media(max-width:980px){.art-frame .country-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:640px){.art-frame .country-grid{grid-template-columns:1fr;}}
+.art-frame .country-card{background:var(--navy-900); border:1px solid rgba(212,175,97,0.14); border-radius:6px; padding:26px; display:flex; flex-direction:column; gap:12px;}
+.art-frame .country-card .flag-row{display:flex; justify-content:space-between; align-items:center;}
+.art-frame .country-card h3{font-size:1.3rem;}
+.art-frame .country-card .maturity{font-size:0.68rem; text-transform:uppercase; letter-spacing:0.08em; padding:4px 10px; border-radius:100px; font-weight:600;}
+.art-frame .m-lead{background:rgba(95,174,130,0.14); color:var(--green-conf); border:1px solid rgba(95,174,130,0.4);}
+.art-frame .m-accel{background:rgba(212,162,76,0.14); color:var(--amber-conf); border:1px solid rgba(212,162,76,0.4);}
+.art-frame .m-early{background:rgba(196,104,90,0.14); color:var(--red-conf); border:1px solid rgba(196,104,90,0.4);}
+.art-frame .country-card ul{list-style:none; font-size:0.87rem; color:var(--ink-300);}
+.art-frame .country-card ul li{padding-left:16px; position:relative; margin-bottom:8px;}
+.art-frame .country-card ul li::before{content:"—"; position:absolute; left:0; color:var(--gold-500);}
+/* C-suite imperatives */
+.art-frame .role-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); gap:22px;}
+.art-frame .role-card{background:var(--navy-800); border-left:3px solid var(--gold-500); border-radius:4px; padding:26px;}
+.art-frame .role-card .role-tag{font-size:0.7rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--gold-400); font-weight:700; margin-bottom:14px;}
+.art-frame .role-card ul{list-style:none; font-size:0.9rem;}
+.art-frame .role-card ul li{margin-bottom:11px; padding-left:18px; position:relative;}
+.art-frame .role-card ul li::before{content:"›"; position:absolute; left:0; color:var(--gold-500); font-weight:700;}
+/* Roadmap */
+.art-frame .roadmap{position:relative; margin-top:40px;}
+.art-frame .roadmap-line{position:absolute; left:24px; top:0; bottom:0; width:1px; background:rgba(212,175,97,0.3);}
+.art-frame .phase{position:relative; padding-left:70px; margin-bottom:52px;}
+.art-frame .phase:last-child{margin-bottom:0;}
+.art-frame .phase-dot{position:absolute; left:14px; top:2px; width:22px; height:22px; border-radius:50%; background:var(--navy-950); border:2px solid var(--gold-500); display:flex; align-items:center; justify-content:center; font-size:0.65rem; color:var(--gold-400); font-weight:700;}
+.art-frame .phase .months{font-size:0.75rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--gold-500); font-weight:600; margin-bottom:6px;}
+.art-frame .phase h3{font-size:1.4rem; margin-bottom:10px;}
+.art-frame .phase ul{list-style:none; font-size:0.92rem; color:var(--ink-300); columns:2; column-gap:32px;}
+@media(max-width:700px){.art-frame .phase ul{columns:1;}}
+.art-frame .phase ul li{margin-bottom:8px; padding-left:16px; position:relative; break-inside:avoid;}
+.art-frame .phase ul li::before{content:"·"; position:absolute; left:0; color:var(--gold-500); font-weight:900;}
+/* Footer */
+.art-frame footer{padding:70px 40px 50px; border-top:1px solid rgba(212,175,97,0.12); background:var(--navy-900);}
+.art-frame footer .section-inner{display:flex; flex-direction:column; gap:26px;}
+.art-frame .footnotes{font-size:0.8rem; color:var(--ink-500); line-height:1.9;}
+.art-frame .footnotes a{color:var(--ink-500); border-bottom:1px dotted var(--ink-500);}
+.art-frame .footnotes a:hover{color:var(--gold-400); border-color:var(--gold-400);}
+.art-frame .footer-brand{font-family:var(--font-heading); font-size:1.3rem; color:var(--ink-100);}
+.art-frame .footer-brand span{color:var(--gold-500);}
+.art-frame .footer-tag{font-size:0.78rem; color:var(--ink-500); max-width:60ch;}
+.art-frame hr.rule{border:none; border-top:1px solid rgba(212,175,97,0.12); margin:20px 0;}
+.art-frame .two-col{display:grid; grid-template-columns:1.1fr 0.9fr; gap:48px; align-items:start;}
+@media(max-width:900px){.art-frame .two-col{grid-template-columns:1fr;}}
+
+  </style>
+    <style id="art-scoped-css-cx-growth-2027">
+  /* ── SCOPED + RETHEMED ARTICLE CSS: cx-growth-2027 ── */
+  
+.art-frame{
+  --navy-950:#DEE9F5;
+  --navy-900:#EDF3F9;
+  --navy-800:#FFFFFF;
+  --navy-700:#DEE9F5;
+  --line:rgba(9,27,56,.14);
+  --ink:#091B38;
+  --ink-2:#1A3252;
+  --ink-3:#4A5A72;
+  --gold-1:#00AFC9;
+  --gold-2:#0C2B5C;
+  --gold-3:#C87A18;
+  --teal:#00C0DC;
+  --amber:#C87A18;
+  --red:#B3433A;
+  --f-display: var(--font-heading);
+  --f-body: var(--font-body);
+  --f-mono: var(--font-body);
+  color-scheme: light;
+}
+
+/* Layout: informe de lectura larga — índice fijo a la izquierda (escritorio), columna editorial de ~72ch, bloques de evidencia por principio. Marca NEXUM: navy profundo + oro. */
+
+/* Alias block: this article's token vocabulary (--bg/--bg-2/--panel/--fg/
+   --muted/--faint/--gold/--gold-2/--gold-3/--warn/--crit/--badge-*, plus
+   --display/--body/--mono holding literal font stacks) doesn't match the
+   integrator's RETHEME_ROOT vocabulary (--navy-900/--ink/--gold-1 etc, and
+   --f-display/--f-body/--f-mono as the only font aliases it defines).
+   Using `html{}` instead of a second `:root{}` so the integrator's single
+   :root-strip regex only removes the block above, not this one — scope_css()
+   still maps a bare `html` selector to `.art-frame` same as :root does. */
+.art-frame{
+  --bg:#EDF3F9;
+  --bg-2:#DEE9F5;
+  --panel:#FFFFFF;
+  --line:rgba(9,27,56,.14);
+  --line-soft:rgba(9,27,56,.08);
+  --fg:#091B38;
+  --muted:#1A3252;
+  --faint:#4A5A72;
+  --gold:#00AFC9;
+  --gold-2:#0C2B5C;
+  --gold-3:#C87A18;
+  --teal:#00C0DC;
+  --warn:#C87A18;
+  --crit:#B3433A;
+  --badge-hi-bg:rgba(0,192,220,.14);
+  --badge-hi-fg:#00AFC9;
+  --badge-md-bg:rgba(200,122,24,.14);
+  --badge-md-fg:#C87A18;
+  --display:var(--font-heading);
+  --body:var(--font-body);
+  --mono:var(--font-body);
+}
+
+.art-frame *{box-sizing:border-box}
+.art-frame{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){.art-frame{scroll-behavior:auto}.art-frame *{transition:none!important;animation:none!important}}
+.art-frame{background:var(--bg);color:var(--fg);font-family:var(--body);font-weight:400;font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+.art-frame a{color:var(--gold);text-decoration-color:var(--gold-3);text-underline-offset:3px}
+.art-frame a:hover{color:var(--fg)}
+.art-frame a:focus-visible, .art-frame button:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:2px}
+.art-frame h1, .art-frame h2, .art-frame h3{font-family:var(--display);font-weight:600;text-wrap:balance;line-height:1.12;margin:0}
+.art-frame p{margin:0}
+.art-frame .num{font-variant-numeric:tabular-nums lining-nums}
+
+.art-frame #progress{position:fixed;top:0;left:0;height:2px;width:0;background:linear-gradient(90deg,var(--gold-3),var(--gold));z-index:50}
+
+/* Masthead */
+.art-frame .mast{border-bottom:1px solid var(--line);padding-inline:clamp(16px,4vw,48px);padding-block:14px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.art-frame .mast b{color:var(--gold);font-weight:500}
+
+/* Hero */
+.art-frame .hero{padding-inline:clamp(16px,4vw,48px);padding-block:clamp(40px,7vw,88px) clamp(32px,5vw,56px);border-bottom:1px solid var(--line);background:radial-gradient(1200px 400px at 85% -10%,rgba(232,200,116,.07),transparent 60%),var(--bg)}
+.art-frame .hero-inner{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:clamp(28px,5vw,64px);align-items:end}
+.art-frame .eyebrow{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-2);font-weight:500}
+.art-frame .hero h1{font-size:clamp(40px,6.4vw,84px);margin-top:14px;letter-spacing:-.01em}
+.art-frame .hero h1 em{font-style:italic;color:var(--gold);font-weight:500}
+.art-frame .hero .dek{margin-top:20px;font-size:clamp(17px,1.6vw,20px);color:var(--muted);max-width:56ch;font-weight:300}
+.art-frame .hero .dek strong{color:var(--fg);font-weight:500}
+.art-frame .meta-row{margin-top:26px;display:flex;flex-wrap:wrap;gap:8px 22px;font-size:13px;color:var(--faint)}
+.art-frame .meta-row span b{color:var(--muted);font-weight:500}
+.art-frame .thesis{border-left:1px solid var(--gold-3);padding-left:22px}
+.art-frame .thesis .big{font-family:var(--display);font-size:clamp(64px,8vw,104px);line-height:.9;color:var(--gold);font-weight:600}
+.art-frame .thesis p{margin-top:10px;color:var(--muted);font-size:15px;max-width:38ch}
+.art-frame .thesis p strong{color:var(--fg);font-weight:500}
+.art-frame .thesis .src{margin-top:10px;font-size:12px;color:var(--faint)}
+
+/* Equation strip */
+.art-frame .equation{max-width:1180px;margin:clamp(32px,4vw,48px) auto 0;display:flex;flex-wrap:wrap;border:1px solid var(--line);background:var(--bg-2)}
+.art-frame .eq{flex:1 1 150px;padding:16px 18px;border-right:1px solid var(--line);min-width:0;position:relative}
+.art-frame .eq:last-child{border-right:0}
+.art-frame .eq .k{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-2)}
+.art-frame .eq .v{font-family:var(--display);font-size:22px;margin-top:4px}
+.art-frame .eq .d{font-size:12.5px;color:var(--muted);margin-top:4px;line-height:1.45}
+.art-frame .eq:not(:last-child)::after{content:"→";position:absolute;right:-9px;top:50%;transform:translateY(-50%);background:var(--bg-2);color:var(--gold);font-size:14px;padding:2px 0;z-index:1}
+
+/* Shell */
+.art-frame .shell{max-width:1180px;margin:0 auto;padding-inline:clamp(16px,4vw,48px);display:grid;grid-template-columns:220px minmax(0,1fr);gap:56px}
+.art-frame nav.toc{position:sticky;top:env(safe-area-inset-top,0px);align-self:start;padding-block:40px;max-height:100vh;overflow:auto}
+.art-frame nav.toc .t{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);margin-bottom:12px}
+.art-frame nav.toc ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
+.art-frame nav.toc a{display:flex;gap:10px;padding:6px 0;color:var(--muted);text-decoration:none;font-size:13.5px;line-height:1.35;border-left:1px solid var(--line);padding-left:12px}
+.art-frame nav.toc a .n{color:var(--faint);font-variant-numeric:tabular-nums;width:18px;flex:0 0 18px}
+.art-frame nav.toc a.on{color:var(--gold);border-left-color:var(--gold)}
+.art-frame nav.toc a:hover{color:var(--fg)}
+.art-frame main{min-width:0;padding-block:24px 80px}
+
+.art-frame section.s{padding-block:clamp(40px,5vw,64px);border-bottom:1px solid var(--line-soft);scroll-margin-top:12px}
+.art-frame .s-head{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap}
+.art-frame .s-num{font-family:var(--display);font-size:20px;color:var(--gold-2);font-variant-numeric:tabular-nums}
+.art-frame .s-head h2{font-size:clamp(30px,3.6vw,44px)}
+.art-frame .lede{margin-top:14px;max-width:68ch;color:var(--muted);font-size:17px;font-weight:300}
+.art-frame .lede strong{color:var(--fg);font-weight:500}
+.art-frame .prose{max-width:70ch}
+.art-frame .prose p+p{margin-top:14px}
+
+/* Badges */
+.art-frame .evb{display:inline-flex;align-items:center;gap:5px;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;padding:2px 8px;border-radius:999px;white-space:nowrap;vertical-align:middle}
+.art-frame .evb::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.art-frame .evb.hi{background:var(--badge-hi-bg);color:var(--badge-hi-fg)}
+.art-frame .evb.md{background:var(--badge-md-bg);color:var(--badge-md-fg)}
+.art-frame .src-chip{font-size:12px;color:var(--faint)}
+.art-frame .src-chip a{color:var(--muted)}
+
+/* Executive summary */
+.art-frame .exec{margin-top:28px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.art-frame .exec div{background:var(--bg);padding:20px 22px;min-width:0}
+.art-frame .exec .k{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-2)}
+.art-frame .exec p{margin-top:8px;font-size:15px;color:var(--muted)}
+.art-frame .exec p strong{color:var(--fg);font-weight:500}
+
+/* Findings */
+.art-frame .findings{margin-top:28px;display:flex;flex-direction:column}
+.art-frame .finding{display:grid;grid-template-columns:120px minmax(0,1fr);gap:24px;padding:22px 0;border-top:1px solid var(--line-soft)}
+.art-frame .finding:last-child{border-bottom:1px solid var(--line-soft)}
+.art-frame .finding .fig{font-family:var(--display);font-size:46px;line-height:1;color:var(--gold);font-weight:600}
+.art-frame .finding .fig small{display:block;font-family:var(--body);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-top:8px;font-weight:500}
+.art-frame .finding h3{font-size:23px}
+.art-frame .finding p{margin-top:6px;color:var(--muted);font-size:15px}
+.art-frame .finding .foot{margin-top:10px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+
+/* Principles */
+.art-frame .pgrid{margin-top:28px;display:flex;flex-direction:column;gap:18px}
+.art-frame .p{border:1px solid var(--line);background:var(--panel);display:grid;grid-template-columns:86px minmax(0,1fr)}
+.art-frame .p .pn{border-right:1px solid var(--line);display:flex;flex-direction:column;align-items:center;padding-top:20px;gap:8px}
+.art-frame .p .pn span{font-family:var(--display);font-size:40px;color:var(--gold);line-height:1;font-weight:600}
+.art-frame .p .pn i{font-style:normal;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);writing-mode:vertical-rl;transform:rotate(180deg)}
+.art-frame .p .pb{padding:20px 24px 22px;min-width:0}
+.art-frame .p h3{font-size:25px}
+.art-frame .p .shift{margin-top:4px;font-size:13px;color:var(--gold-2);letter-spacing:.02em}
+.art-frame .p .why{margin-top:12px;font-size:15px;color:var(--muted);max-width:72ch}
+.art-frame .p .why strong{color:var(--fg);font-weight:500}
+.art-frame .ev{margin-top:14px;padding:12px 14px;background:var(--bg-2);border:1px solid var(--line-soft);font-size:14px}
+.art-frame .ev .lbl{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--faint);margin-bottom:4px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.art-frame .ev p{color:var(--fg)}
+.art-frame .ev p + p{margin-top:6px}
+.art-frame .sectors{margin-top:14px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.art-frame .sectors div{min-width:0;font-size:13.5px;color:var(--muted);border-top:1px solid var(--line);padding-top:8px}
+.art-frame .sectors b{display:block;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-2);font-weight:600;margin-bottom:3px}
+.art-frame .kpi{margin-top:12px;font-size:13px;color:var(--faint)}
+.art-frame .kpi code{font-family:var(--mono);font-size:12px;color:var(--teal);background:transparent}
+
+/* Data table */
+.art-frame .tbl-wrap{margin-top:24px;overflow-x:auto;border:1px solid var(--line)}
+.art-frame table{border-collapse:collapse;width:100%;min-width:720px;font-size:14px}
+.art-frame th, .art-frame td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--line-soft);vertical-align:top}
+.art-frame th{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);font-weight:600;background:var(--bg-2)}
+.art-frame td.v{font-family:var(--display);font-size:22px;color:var(--gold);white-space:nowrap;font-weight:600}
+.art-frame td .s2{font-size:12px;color:var(--faint);display:block;margin-top:2px}
+.art-frame tr:last-child td{border-bottom:0}
+
+/* Charts */
+.art-frame .charts{margin-top:28px;display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:20px}
+.art-frame .chart{border:1px solid var(--line);padding:20px 22px;background:var(--bg-2);min-width:0}
+.art-frame .chart h3{font-size:21px}
+.art-frame .chart .cap{font-size:12.5px;color:var(--faint);margin-top:4px}
+.art-frame .legend{display:flex;gap:16px;margin-top:12px;font-size:12px;color:var(--muted)}
+.art-frame .legend span{display:inline-flex;align-items:center;gap:6px}
+.art-frame .legend i{width:10px;height:10px;display:inline-block}
+.art-frame .bars{margin-top:14px;display:flex;flex-direction:column;gap:14px}
+.art-frame .bar-row .lab{font-size:13px;color:var(--muted);margin-bottom:5px}
+.art-frame .track{position:relative;height:10px;background:var(--line-soft);margin-top:3px}
+.art-frame .fill{position:absolute;left:0;top:0;bottom:0}
+.art-frame .fill.la{background:var(--gold)}
+.art-frame .fill.gl{background:var(--faint)}
+.art-frame .val{position:absolute;top:-3px;font-size:11.5px;color:var(--fg);padding-left:6px;font-variant-numeric:tabular-nums;line-height:16px}
+.art-frame .axis{display:flex;justify-content:space-between;font-size:10.5px;color:var(--faint);margin-top:6px;font-variant-numeric:tabular-nums}
+.art-frame .duo{margin-top:22px;display:flex;align-items:flex-end;gap:28px;height:190px;border-bottom:1px solid var(--line);padding-inline:6px}
+.art-frame .col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:6px}
+.art-frame .col .bv{font-family:var(--display);font-size:30px;font-weight:600}
+.art-frame .col .bx{width:100%;max-width:70px}
+.art-frame .col-lab{display:flex;gap:28px;padding-inline:6px;margin-top:8px}
+.art-frame .col-lab div{flex:1;text-align:center;font-size:12px;color:var(--muted)}
+
+/* Quotes */
+.art-frame .quotes{margin-top:28px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.art-frame .q{border-top:1px solid var(--gold-3);padding-top:16px;min-width:0}
+.art-frame .q blockquote{margin:0;font-family:var(--display);font-size:22px;line-height:1.3;font-style:italic;color:var(--fg)}
+.art-frame .q .who{margin-top:10px;font-size:13px;color:var(--gold-2);font-weight:500}
+.art-frame .q .ctx{margin-top:6px;font-size:13.5px;color:var(--muted)}
+.art-frame .note{margin-top:18px;font-size:12.5px;color:var(--faint);max-width:70ch}
+
+/* Timeline */
+.art-frame .tl{margin-top:28px;display:flex;flex-direction:column}
+.art-frame .tl-item{display:grid;grid-template-columns:96px minmax(0,1fr);gap:22px;padding:18px 0;border-top:1px solid var(--line-soft)}
+.art-frame .tl-item .yr{font-family:var(--display);font-size:30px;color:var(--gold);font-weight:600;line-height:1}
+.art-frame .tl-item h3{font-size:21px}
+.art-frame .tl-item p{margin-top:5px;font-size:14.5px;color:var(--muted)}
+.art-frame .tl-item .foot{margin-top:8px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+
+/* Debates */
+.art-frame .debates{margin-top:28px;display:flex;flex-direction:column;gap:16px}
+.art-frame .debate{border:1px solid var(--line);min-width:0}
+.art-frame .debate .dq{padding:14px 20px;background:var(--bg-2);font-family:var(--display);font-size:22px;border-bottom:1px solid var(--line)}
+.art-frame .debate .sides{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+.art-frame .debate .sides div{padding:14px 20px;font-size:14px;color:var(--muted);min-width:0}
+.art-frame .debate .sides div:first-child{border-right:1px solid var(--line-soft)}
+.art-frame .debate .sides b{display:block;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);margin-bottom:4px}
+.art-frame .debate .stance{padding:14px 20px;border-top:1px solid var(--line);font-size:14.5px;color:var(--fg)}
+.art-frame .debate .stance b{color:var(--gold);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;margin-right:8px}
+
+/* Matrix */
+.art-frame .mx td, .art-frame .mx th{text-align:center}
+.art-frame .mx td:first-child, .art-frame .mx th:first-child{text-align:left}
+.art-frame .lvlrow{display:inline-flex;gap:3px}
+.art-frame .lvlrow i{width:9px;height:9px;border:1px solid var(--gold-3);display:inline-block}
+.art-frame .lvlrow i.on{background:var(--gold);border-color:var(--gold)}
+.art-frame .mx td.ctry{font-family:var(--display);font-size:19px;color:var(--fg);white-space:nowrap}
+.art-frame .mx td.note2{font-size:12.5px;color:var(--muted);text-align:left;min-width:240px}
+
+/* Sector blocks */
+.art-frame .inst{margin-top:28px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.art-frame .inst > div{border:1px solid var(--line);padding:20px;min-width:0;background:var(--panel)}
+.art-frame .inst h3{font-size:25px}
+.art-frame .inst .tag{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-2)}
+.art-frame .inst ul{margin:12px 0 0;padding-left:18px;font-size:14px;color:var(--muted);display:flex;flex-direction:column;gap:8px}
+.art-frame .inst li strong{color:var(--fg);font-weight:500}
+.art-frame .inst .risk{margin-top:14px;padding-top:12px;border-top:1px solid var(--line-soft);font-size:13px;color:var(--muted)}
+.art-frame .inst .risk b{color:var(--crit);font-weight:600;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;display:block;margin-bottom:3px}
+
+/* Roadmap */
+.art-frame .road{margin-top:28px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border:1px solid var(--line)}
+.art-frame .ph{padding:20px 18px;border-right:1px solid var(--line);min-width:0}
+.art-frame .ph:last-child{border-right:0}
+.art-frame .ph .w{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-2)}
+.art-frame .ph h3{font-size:23px;margin-top:6px}
+.art-frame .ph ul{margin:12px 0 0;padding-left:16px;font-size:13.5px;color:var(--muted);display:flex;flex-direction:column;gap:6px}
+.art-frame .ph .gate{margin-top:14px;font-size:12.5px;color:var(--fg);border-top:1px dashed var(--line);padding-top:10px}
+.art-frame .ph .gate b{color:var(--teal);font-weight:600}
+
+/* Roles */
+.art-frame .roles{margin-top:28px;display:flex;flex-direction:column}
+.art-frame .role{display:grid;grid-template-columns:110px minmax(0,1fr);gap:22px;padding:16px 0;border-top:1px solid var(--line-soft)}
+.art-frame .role .r{font-family:var(--display);font-size:26px;color:var(--gold);font-weight:600}
+.art-frame .role p{font-size:14.5px;color:var(--muted)}
+.art-frame .role p strong{color:var(--fg);font-weight:500}
+
+/* Scorecard */
+.art-frame .score{margin-top:24px;overflow-x:auto;border:1px solid var(--line)}
+.art-frame .score table{min-width:760px}
+.art-frame .score td:first-child{font-family:var(--display);font-size:18px;color:var(--fg);white-space:nowrap}
+.art-frame .score code{font-family:var(--mono);font-size:12px;color:var(--teal)}
+
+/* Bibliography */
+.art-frame .bib{margin-top:24px;padding-left:0;list-style:none;counter-reset:b;display:flex;flex-direction:column}
+.art-frame .bib li{counter-increment:b;display:grid;grid-template-columns:34px minmax(0,1fr);gap:10px;padding:10px 0;border-top:1px solid var(--line-soft);font-size:14px;color:var(--muted)}
+.art-frame .bib li::before{content:counter(b,decimal-leading-zero);font-family:var(--display);color:var(--gold-2);font-size:17px}
+.art-frame .bib a{word-break:break-word}
+.art-frame .bib .d{color:var(--faint);font-size:12.5px}
+
+.art-frame footer{border-top:1px solid var(--line);padding-inline:clamp(16px,4vw,48px);padding-block:28px 40px;color:var(--faint);font-size:12.5px}
+.art-frame footer .in{max-width:1180px;margin:0 auto;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.art-frame footer b{font-family:var(--display);font-size:20px;color:var(--gold);font-weight:600}
+
+/* Responsive */
+@media (max-width:1000px){
+  .art-frame .shell{grid-template-columns:minmax(0,1fr);gap:0}
+  .art-frame nav.toc{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);padding-block:10px;border-bottom:1px solid var(--line);max-height:none;margin-inline:calc(-1 * clamp(16px,4vw,48px));padding-inline:clamp(16px,4vw,48px)}
+  .art-frame nav.toc .t{display:none}
+  .art-frame nav.toc ol{flex-direction:row;overflow-x:auto;gap:4px;scrollbar-width:none}
+  .art-frame nav.toc a{border-left:0;border-bottom:1px solid transparent;white-space:nowrap;padding:6px 8px}
+  .art-frame nav.toc a.on{border-bottom-color:var(--gold)}
+  .art-frame .road{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .art-frame .ph:nth-child(2){border-right:0}
+  .art-frame .ph:nth-child(-n+2){border-bottom:1px solid var(--line)}
+  .art-frame .inst{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:760px){
+  .art-frame .hero-inner{grid-template-columns:minmax(0,1fr)}
+  .art-frame .exec, .art-frame .quotes, .art-frame .charts, .art-frame .sectors, .art-frame .debate .sides{grid-template-columns:minmax(0,1fr)}
+  .art-frame .debate .sides div:first-child{border-right:0;border-bottom:1px solid var(--line-soft)}
+  .art-frame .finding, .art-frame .tl-item, .art-frame .role{grid-template-columns:minmax(0,1fr);gap:8px}
+  .art-frame .p{grid-template-columns:minmax(0,1fr)}
+  .art-frame .p .pn{flex-direction:row;border-right:0;border-bottom:1px solid var(--line);padding:14px 20px}
+  .art-frame .p .pn i{writing-mode:horizontal-tb;transform:none}
+  .art-frame .road{grid-template-columns:minmax(0,1fr)}
+  .art-frame .ph{border-right:0;border-bottom:1px solid var(--line)}
+  .art-frame .ph:last-child{border-bottom:0}
+  .art-frame .eq:not(:last-child)::after{display:none}
+  .art-frame .eq{border-right:0;border-bottom:1px solid var(--line);flex-basis:100%}
+  .art-frame .eq:last-child{border-bottom:0}
+}
+
+  </style>
+  
   
   
 </head>
@@ -4074,6 +4384,20 @@
           </h3>
           <p class="blog-item-excerpt">
             La humanización con video impulsada por inteligencia artificial redefine cómo bancos, cooperativas y aseguradoras de América Latina construyen cercanía a escala — y abre, al mismo tiempo, el frente de riesgo más delicado del sector: la identidad sintética.
+          </p>
+          <span class="blog-cta" aria-hidden="true">Leer Perspectiva <span class="arr">→</span></span>
+        </article>
+
+                <article class="blog-item" onclick="nexumOpenArticle('cx-growth-2027')" style="cursor:pointer" role="button" tabindex="0" aria-label="Leer: La experiencia del cliente ya no es un programa. Es un sistema de creación de valor.">
+          <div class="blog-meta">
+            <span class="blog-cat">Customer Experience</span>
+            <span class="blog-date">7 de octubre de 2026</span>
+          </div>
+          <h3 class="blog-item-title">
+            La experiencia del cliente ya no es un programa. Es un sistema de creación de valor.
+          </h3>
+          <p class="blog-item-excerpt">
+            Análisis de la nueva economía de la experiencia a través de los10 Principios del CX Growth 2027+, con evidencia de abril a octubre de 2026 e implicaciones para bancos, cooperativas y aseguradoras de América Latina.
           </p>
           <span class="blog-cta" aria-hidden="true">Leer Perspectiva <span class="arr">→</span></span>
         </article>
@@ -6127,6 +6451,583 @@
 </div>
 <hr class="rule"/>
 <p class="footnotes">© 2026 NEXUM LATAM. Informe de investigación editorial para uso interno de suscriptores C-suite. Todas las cifras se presentan con su fuente y fecha de publicación; los enlaces dirigen a los artículos originales para verificación independiente.</p>
+</div>
+</footer>
+
+
+      </div>
+            <div id="cx-growth-2027" class="art-frame" hidden>
+        <div class="air-panel-title">
+          <h3>La experiencia del cliente ya no es un programa. Es un <em>sistema de creación de valor.</em></h3>
+          <p>Análisis de la nueva economía de la experiencia a través de los <strong>10 Principios del CX Growth 2027+</strong>, con evidencia de abril a octubre de 2026 e implicaciones para bancos, cooperativas y aseguradoras de América Latina.</p>
+        </div>
+        <div class="meta">
+<span><b>Edición:</b> 7 de octubre de 2026</span>
+<span><b>Audiencia</b> · Junta Directiva y C-suite</span>
+<span><b>Ventana de evidencia</b> · abr–oct 2026</span>
+<span><b>Fuentes</b> · 24 verificadas</span>
+</div>
+
+
+
+
+
+
+
+
+<div class="shell">
+
+<main>
+<!-- 00 RESUMEN -->
+<section class="s" id="cx-growth-2027-resumen">
+<div class="s-head"><span class="s-num">00</span><h2>Resumen ejecutivo</h2></div>
+<p class="lede">Entre abril y octubre de 2026 la evidencia converge en una conclusión incómoda: <strong>la inversión en IA para atención crece mucho más rápido que su capacidad de crear valor.</strong> El gasto en IA de los líderes de servicio subió 38% mientras sus presupuestos totales crecieron 2%. Al mismo tiempo, los clientes acuden tres veces más a asistentes de IA de terceros que a los chatbots de las propias empresas.</p>
+<div class="exec">
+<div><div class="k">Qué cambió</div><p>La calidad de experiencia en EE. UU. subió por <strong>primera vez desde 2021</strong>, liderada por la dimensión emocional. La mejora vino de ejecutar bien lo básico, no de transformaciones espectaculares.</p></div>
+<div><div class="k">Qué está fallando</div><p>La IA de servicio diseñada para <strong>desviar contactos</strong> en lugar de resolverlos. El cliente usa la IA para ejecutar tareas; la mayoría de los chatbots corporativos solo responde preguntas.</p></div>
+<div><div class="k">Qué significa para LATAM</div><p>La región llega <strong>con ventaja de canal</strong> (mensajería, IA agéntica, optimismo del consumidor) y <strong>con déficit de preparación técnica</strong>: 54% de sus líderes de CX la señala como principal obstáculo frente a 44% global.</p></div>
+<div><div class="k">Postura NEXUM</div><p>El CX 2027+ se gobierna como un <strong>sistema de P&amp;L</strong>: cada journey crítico con dueño, reloj, business case y métrica de resolución verificada. Sin eso, la IA solo automatiza la fricción existente.</p></div>
+</div>
+<aside class="thesis">
+<div class="big num">87%</div>
+<p>de los clientes exige una salida a un humano cuando la empresa usa IA generativa. <strong>La IA que bloquea destruye valor; la IA que resuelve y escala con contexto lo crea.</strong></p>
+<div class="src">Gartner, encuesta a 3.566 clientes, feb–mar 2026 · publicada 4 ago 2026 <span class="evb hi">Alta</span></div>
+</aside>
+<div aria-label="Ecuación de crecimiento CX" class="equation">
+<div class="eq"><div class="k">Cliente</div><div class="v">Necesidad</div><div class="d">Contexto, emoción, expectativa</div></div>
+<div class="eq"><div class="k">Experiencia</div><div class="v">Fricción</div><div class="d">Esfuerzo, continuidad, resolución</div></div>
+<div class="eq"><div class="k">Inteligencia</div><div class="v">Datos + IA</div><div class="d">Automatización con personas</div></div>
+<div class="eq"><div class="k">Valor</div><div class="v">Retención</div><div class="d">Conversión, confianza</div></div>
+<div class="eq"><div class="k">Impacto</div><div class="v">P&amp;L</div><div class="d">Más ingreso, menor costo de servir</div></div>
+</div>
+</section>
+<!-- 01 HALLAZGOS -->
+<section class="s" id="cx-growth-2027-hallazgos">
+<div class="s-head"><span class="s-num">01</span><h2>Hallazgos clave de los últimos seis meses</h2></div>
+<p class="lede">Seis señales, todas publicadas entre abril y octubre de 2026, que redefinen cómo debe operar la experiencia del cliente en servicios financieros.</p>
+<div class="findings">
+<article class="finding">
+<div class="fig num">3×<small>terceros vs. propio</small></div>
+<div>
+<h3>El cliente empieza fuera de sus canales</h3>
+<p>Los clientes tienen aproximadamente tres veces más probabilidad de usar herramientas de IA de terceros que los chatbots de la empresa para resolver un problema. El uso de esas herramientas casi se duplicó en un año; el de chatbots corporativos no se movió desde 2022.</p>
+<div class="foot"><span class="evb hi">Alta</span><span class="src-chip">Gartner, n=3.566, 8 jul 2026 · <a href="https://www.gartner.com/en/newsroom/press-releases/2026-07-08-gartner-survey-finds-customers-are-three-times-more-likely-to-use-third-party-genai-than-company-provided-chatbots-for-customer-service" rel="noopener" target="_blank">fuente</a></span></div>
+</div>
+</article>
+<article class="finding">
+<div class="fig num">58%<small>usa IA para actuar</small></div>
+<div>
+<h3>El cliente quiere ejecución, no respuestas</h3>
+<p>58% de quienes usan IA generativa ya la usó para completar una tarea en su nombre; en B2B llega a 74%. La mitad dice que sus interacciones son más fáciles con IA, pero 87% considera esencial poder llegar a un humano.</p>
+<div class="foot"><span class="evb hi">Alta</span><span class="src-chip">Gartner, 4 ago 2026 · <a href="https://www.gartner.com/en/newsroom/press-releases/2026-08-04-gartner-survey-finds-87-percent-of-customers-say-companies-using-genai-for-customer-service-must-provide-access-to-a-human-agent0" rel="noopener" target="_blank">fuente</a></span></div>
+</div>
+</article>
+<article class="finding">
+<div class="fig num">+38%<small>gasto en IA</small></div>
+<div>
+<h3>El dinero se mueve de personas a tecnología</h3>
+<p>El gasto en IA de los líderes de servicio creció 38% mientras el presupuesto total del área creció 2%. En dos años esperan que los chatbots de IA generativa sean el canal más valioso, por delante del chat en vivo y de los voicebots.</p>
+<div class="foot"><span class="evb hi">Alta</span><span class="src-chip">Gartner, n=199, 26 ago 2026 · <a href="https://www.gartner.com/en/newsroom/press-releases/2026-08-26-gartner-survey-finds-ai-spending-by-customer-service-leaders-has-surged-by-38-percent-despite-overall-service-and-support-function-budgets-rising-by-just-2-percent" rel="noopener" target="_blank">fuente</a></span></div>
+</div>
+</article>
+<article class="finding">
+<div class="fig num">26%<small>marcas que mejoran</small></div>
+<div>
+<h3>La calidad CX revierte cuatro años de caída</h3>
+<p>En el CX Index 2026 de Forrester, 26% de 225 marcas de EE. UU. mejoró significativamente y solo 7% empeoró, una inversión casi exacta de 2025. La emoción tuvo la mayor ganancia (+1,4 pp). En Australia, India y Singapur, 19% cayó: el avance no es global.</p>
+<div class="foot"><span class="evb hi">Alta</span><span class="src-chip">Forrester, jun 2026 · <a href="https://www.forrester.com/blogs/emotion-leads-cx-quality-rebound-in-the-us/" rel="noopener" target="_blank">fuente</a></span></div>
+</div>
+</article>
+<article class="finding">
+<div class="fig num">92%<small>líderes CX LATAM</small></div>
+<div>
+<h3>LATAM apuesta más fuerte por la IA agéntica</h3>
+<p>92% de los líderes de CX de la región cree que la IA agéntica orquestará cada vez más la experiencia (86% global). La mitad ya usa agentes virtuales agénticos o más autónomos, frente a 41% global.</p>
+<div class="foot"><span class="evb hi">Alta</span><span class="src-chip">Genesys State of CX 2026, 23 jul 2026 · <a href="https://www.genesys.com/es-mx/blog/post/2026-state-of-customer-experience-report-latin-americas-accelerated-path-to-agentic-cx" rel="noopener" target="_blank">fuente</a></span></div>
+</div>
+</article>
+<article class="finding">
+<div class="fig num">644<small>/1.000 seguros auto</small></div>
+<div>
+<h3>En seguros, el problema ya no es el precio</h3>
+<p>La satisfacción en seguros de auto quedó estancada en 644 pese a primas más estables. Una experiencia fluida entre canales es ahora el factor de mayor impacto; 21% de los clientes debió cambiar de canal para una sola consulta y renueva menos.</p>
+<div class="foot"><span class="evb hi">Alta</span><span class="src-chip">J.D. Power, n=52.216, 9 jun 2026 · <a href="https://www.consumeraffairs.com/news/ai-is-giving-consumers-more-leverage-with-car-insurance-companies-061126.html" rel="noopener" target="_blank">fuente</a></span></div>
+</div>
+</article>
+</div>
+</section>
+<!-- 02 PRINCIPIOS -->
+<section class="s" id="cx-growth-2027-principios">
+<div class="s-head"><span class="s-num">02</span><h2>Los 10 Principios a la luz de la evidencia</h2></div>
+<p class="lede">Cada principio se contrasta con datos recientes, se traduce a decisiones para banca, cooperativas y seguros, y se ancla en un indicador del <strong>CX Growth Scorecard</strong>.</p>
+<div class="pgrid">
+<article class="p">
+<div class="pn"><span>01</span><i>Comprender</i></div>
+<div class="pb">
+<h3>Empieza con el cliente</h3>
+<div class="shift">De la tecnología al problema real del cliente</div>
+<p class="why">El cliente ya no avisa cuando algo falla: <strong>solo tres de cada diez dan retroalimentación directa</strong>. Y cada vez más empieza su búsqueda de ayuda en un asistente externo. Escuchar exige leer conversaciones, comportamiento y señales indirectas, no esperar encuestas.</p>
+<div class="ev"><div class="lbl">Evidencia <span class="evb hi">Alta</span></div>
+<p>Solo 3 de cada 10 clientes da feedback directo; 47% de las malas experiencias termina en menor gasto. <span class="src-chip">Qualtrics XM, 20.000 consumidores, 14 países, oct 2025</span></p>
+<p>El uso de IA de terceros para resolver temas de servicio casi se duplicó en un año. <span class="src-chip">Gartner, jul 2026</span></p>
+</div>
+<div class="sectors">
+<div><b>Bancos</b>Analítica sobre 100% de conversaciones de voz, chat y WhatsApp para detectar necesidades no expresadas.</div>
+<div><b>Cooperativas</b>Convertir la cercanía con el socio en dato: registro estructurado de motivos de visita a agencia.</div>
+<div><b>Seguros</b>Escuchar el siniestro: es el momento de mayor carga emocional y menor sentimiento positivo.</div>
+</div>
+<div class="kpi">Indicador: <code>% journeys críticos con voz del cliente instrumentada</code></div>
+</div>
+</article>
+<article class="p">
+<div class="pn"><span>02</span><i>Diseñar</i></div>
+<div class="pb">
+<h3>Diseña desde afuera hacia adentro</h3>
+<div class="shift">De procesos a experiencias</div>
+<p class="why">Forrester encontró en 2026 que el crecimiento se rompe cuando marca, experiencia de cliente y experiencia del empleado tiran en direcciones distintas. <strong>Un journey rediseñado desde el organigrama reproduce los silos del organigrama.</strong></p>
+<div class="ev"><div class="lbl">Evidencia <span class="evb hi">Alta</span></div>
+<p>Las marcas que avanzan alinean BX, CX y EX como un solo sistema; en la banca de EE. UU. las ganancias de 2026 vinieron de ejecutar mejor lo básico. <span class="src-chip">Forrester Total Experience Score, 8 y 15 jun 2026</span></p>
+</div>
+<div class="sectors">
+<div><b>Bancos</b>Rediseñar onboarding, disputas y crédito desde el paso del cliente, no desde el sistema central.</div>
+<div><b>Cooperativas</b>Mapear el journey del socio de mayor edad y del socio digital como dos diseños, no uno.</div>
+<div><b>Seguros</b>Diseñar el siniestro de punta a punta incluyendo taller, perito y pago.</div>
+</div>
+<div class="kpi">Indicador: <code>Experience Debt Index por journey</code></div>
+</div>
+</article>
+<article class="p">
+<div class="pn"><span>03</span><i>Resolver</i></div>
+<div class="pb">
+<h3>Mide resolución, no solo conversación</h3>
+<div class="shift">De actividad a resultado</div>
+<p class="why">La industria reporta "casos resueltos por IA" con definiciones incompatibles: contestar no es resolver. <strong>La métrica que importa es si el problema quedó cerrado sin que el cliente vuelva.</strong></p>
+<div class="ev"><div class="lbl">Evidencia <span class="evb md">Media</span></div>
+<p>Los equipos de servicio estiman que la IA resolvía 30% de los casos en 2025 y proyectan 50% en 2027. Es una autoevaluación, no una tasa auditada. <span class="src-chip">Salesforce State of Service, 7.ª ed.</span></p>
+<p>Desde el lado del cliente, solo 24% dijo que su última interacción con IA quedó resuelta por la IA sola. <span class="src-chip">Ada / NewtonX, 2.000 consumidores, mar 2026 (citado por terceros)</span></p>
+</div>
+<div class="sectors">
+<div><b>Bancos</b>Reemplazar AHT y tasa de contención por resolución verificada y recontacto a 7 días.</div>
+<div><b>Cooperativas</b>Medir resolución en la primera visita a agencia, no solo cantidad de atenciones.</div>
+<div><b>Seguros</b>Medir tiempo a liquidación del siniestro como métrica de experiencia.</div>
+</div>
+<div class="kpi">Indicador: <code>Resolución verificada = casos cerrados sin recontacto 7d / casos totales</code></div>
+</div>
+</article>
+<article class="p">
+<div class="pn"><span>04</span><i>Simplificar</i></div>
+<div class="pb">
+<h3>Elimina esfuerzo, no solo automatices</h3>
+<div class="shift">De automatización a fricción cero</div>
+<p class="why">Automatizar un paso innecesario lo vuelve más rápido, pero sigue siendo innecesario. <strong>El cambio de canal es hoy el principal destructor de satisfacción</strong> en seguros de auto, por encima del precio.</p>
+<div class="ev"><div class="lbl">Evidencia <span class="evb hi">Alta</span></div>
+<p>Una experiencia fluida entre canales es el factor de mayor impacto en satisfacción; 21% tuvo que cambiar de canal para una sola consulta, con menor intención de renovar. <span class="src-chip">J.D. Power, jun 2026</span></p>
+<p>Gartner advierte no usar la IA como paso obligatorio para todo problema. <span class="src-chip">Gartner, ago 2026</span></p>
+</div>
+<div class="sectors">
+<div><b>Bancos</b>Eliminar pasos antes de automatizarlos: cada formulario de disputa auditado por necesidad real.</div>
+<div><b>Cooperativas</b>Banca completa en el celular sin obligar al socio a cerrar trámites en agencia.</div>
+<div><b>Seguros</b>Resolver la consulta en el canal donde empezó, sin derivar a teléfono.</div>
+</div>
+<div class="kpi">Indicador: <code>Customer Effort Score · tasa de cambio de canal por consulta</code></div>
+</div>
+</article>
+<article class="p">
+<div class="pn"><span>05</span><i>Continuidad</i></div>
+<div class="pb">
+<h3>Nunca hagas que el cliente repita su historia</h3>
+<div class="shift">De canales aislados a continuidad</div>
+<p class="why">La memoria entre interacciones pasó de ventaja a requisito. <strong>México ya transfiere contexto entre agentes virtuales y humanos por encima del promedio mundial</strong>, lo que prueba que la región puede liderar en este principio.</p>
+<div class="ev"><div class="lbl">Evidencia <span class="evb hi">Alta</span> <span class="evb md">Media</span></div>
+<p>61% de las organizaciones LATAM transfiere contexto automáticamente; en México 58% lo hace entre agentes virtuales y humanos vs. 52% global. Solo 41% ofrece experiencias altamente personalizadas. <span class="src-chip">Genesys State of CX 2026, jul 2026</span></p>
+<p>85% de los líderes de CX ve la IA con memoria como esencial para personalizar. <span class="src-chip">Zendesk CX Trends 2026, dic 2025 · Media</span></p>
+</div>
+<div class="sectors">
+<div><b>Bancos</b>Un expediente de interacción único que viaja con el cliente entre app, WhatsApp, voz y sucursal.</div>
+<div><b>Cooperativas</b>Plataforma compartida de contexto en federaciones para que cada cooperativa no lo construya sola.</div>
+<div><b>Seguros</b>El agente, el perito y el call center ven la misma historia del siniestro.</div>
+</div>
+<div class="kpi">Indicador: <code>Context Loss = transferencias sin contexto / transferencias totales</code></div>
+</div>
+</article>
+<article class="p">
+<div class="pn"><span>06</span><i>Contexto</i></div>
+<div class="pb">
+<h3>La IA debe entender contexto, no solo intención</h3>
+<div class="shift">De chatbot a agente inteligente</div>
+<p class="why">El cliente espera que la IA reserve, gestione, envíe documentos o escale; los chatbots corporativos siguen diseñados para preguntas frecuentes. <strong>La brecha es de diseño, no de tecnología.</strong> Y en 2026 la emoción fue la dimensión que más mejoró en la calidad CX.</p>
+<div class="ev"><div class="lbl">Evidencia <span class="evb hi">Alta</span></div>
+<p>LATAM: 50% usa agentes virtuales agénticos (41% global), 91% usa apps de mensajería en atención (69% global). <span class="src-chip">Genesys, jul 2026</span></p>
+<p>Gartner identifica la gestión de identidad y acceso del cliente (CIAM) como plataforma clave: un agente que actúa necesita saber quién es el cliente. <span class="src-chip">Gartner, ago 2026</span></p>
+</div>
+<div class="sectors">
+<div><b>Bancos</b>Agentes con acceso gobernado a datos transaccionales y permisos de acción delimitados.</div>
+<div><b>Cooperativas</b>Agente en WhatsApp para consultas de saldo, crédito y pagos, con autenticación fuerte.</div>
+<div><b>Seguros</b>Agente que detecta urgencia en un aviso de siniestro y prioriza.</div>
+</div>
+<div class="kpi">Indicador: <code>AI Resolution Rate · AI Error Rate</code></div>
+</div>
+</article>
+<article class="p">
+<div class="pn"><span>07</span><i>Escalar</i></div>
+<div class="pb">
+<h3>La escalación humana debe ser inteligente</h3>
+<div class="shift">De transferencia a respaldo humano</div>
+<p class="why">El factor que más convence a quien rechaza la IA es poder pasar a un humano. <strong>Las empresas que recortaron personal por IA ya planean recontratar.</strong> El modelo ganador es híbrido: la IA prepara, el humano resuelve lo complejo con todo el contexto.</p>
+<div class="ev"><div class="lbl">Evidencia <span class="evb hi">Alta</span> <span class="evb md">Media</span></div>
+<p>87% exige opción humana cuando hay IA generativa. <span class="src-chip">Gartner, ago 2026 · Alta</span></p>
+<p>Solo 20% de los líderes de servicio redujo personal por IA; Gartner proyecta que la mitad de quienes lo hicieron recontratará funciones similares para 2027. <span class="src-chip">Gartner, 2 feb 2026 · encuesta Alta, predicción Media</span></p>
+</div>
+<div class="sectors">
+<div><b>Bancos</b>Reglas de escalación por riesgo, emoción y valor del cliente, no por número de intentos fallidos.</div>
+<div><b>Cooperativas</b>El asesor de agencia como respaldo humano del canal digital.</div>
+<div><b>Seguros</b>Escalación inmediata en siniestros graves o con lesionados.</div>
+</div>
+<div class="kpi">Indicador: <code>Handoff Quality = escalaciones con contexto completo y resolución en primer humano</code></div>
+</div>
+</article>
+<article class="p">
+<div class="pn"><span>08</span><i>Cumplir</i></div>
+<div class="pb">
+<h3>Toda promesa debe tener dueño y reloj</h3>
+<div class="shift">De SLA interno a compromiso con el cliente</div>
+<p class="why">En México los reclamos ante el regulador se concentran en cargos y transferencias no reconocidas, justo donde la promesa de "lo revisamos" no tiene dueño visible. <strong>La transparencia sobre decisiones automatizadas es la nueva frontera de la confianza.</strong></p>
+<div class="ev"><div class="lbl">Evidencia <span class="evb md">Media</span></div>
+<p>95% de los consumidores quiere saber por qué la IA tomó una decisión; solo 37% de las organizaciones lo explica. <span class="src-chip">Zendesk CX Trends 2026, dic 2025</span></p>
+<p>En Baja California, 31,9% de los reclamos del primer trimestre de 2026 se relacionó con posible fraude. <span class="src-chip">Condusef vía Zeta Tijuana, may 2026 · dato estatal</span></p>
+</div>
+<div class="sectors">
+<div><b>Bancos</b>Cada disputa con fecha comprometida visible para el cliente y alerta antes del vencimiento.</div>
+<div><b>Cooperativas</b>Plazos de aprobación de crédito comunicados y monitoreados por socio.</div>
+<div><b>Seguros</b>Estado del siniestro en tiempo real con responsable nombrado.</div>
+</div>
+<div class="kpi">Indicador: <code>Promise Kept Rate = compromisos cumplidos en plazo / compromisos emitidos</code></div>
+</div>
+</article>
+<article class="p">
+<div class="pn"><span>09</span><i>Cuantificar</i></div>
+<div class="pb">
+<h3>Cada journey crítico necesita un business case</h3>
+<div class="shift">De CX subjetivo a economía de experiencia</div>
+<p class="why">La IA en LATAM ya mejora productividad, pero pocas instituciones convierten esa mejora en impacto financiero medible. <strong>Sin business case por journey, el CX compite por presupuesto con argumentos blandos y pierde.</strong></p>
+<div class="ev"><div class="lbl">Evidencia <span class="evb hi">Alta</span> <span class="evb md">Media</span></div>
+<p>96% de las organizaciones LATAM reporta mejoras de productividad con IA; solo 56% logra impactos financieros significativos y medibles. <span class="src-chip">FICO, 2026 · Media</span></p>
+<p>43% de los líderes CX LATAM señala demostrar el ROI de la IA como desafío. <span class="src-chip">Genesys, jul 2026 · Alta</span></p>
+</div>
+<div class="sectors">
+<div><b>Bancos</b>Costo de fricción por journey: llamadas evitables, abandono de onboarding, churn atribuible.</div>
+<div><b>Cooperativas</b>Valor del socio retenido frente al costo de digitalizar el journey.</div>
+<div><b>Seguros</b>Valor de renovación ligado a la experiencia de siniestro.</div>
+</div>
+<div class="kpi">Indicador: <code>CX Value = Δ retención × CLV + Δ costo de servir</code></div>
+</div>
+</article>
+<article class="p">
+<div class="pn"><span>10</span><i>Crecer</i></div>
+<div class="pb">
+<h3>La experiencia debe estar conectada al negocio</h3>
+<div class="shift">De métrica CX a crecimiento</div>
+<p class="why">McKinsey advierte que los agentes de IA de los propios clientes pueden erosionar la inercia que sostiene los márgenes bancarios. <strong>Cuando un agente compara por el cliente, la experiencia es lo único que retiene.</strong></p>
+<div class="ev"><div class="lbl">Evidencia <span class="evb hi">Alta</span> <span class="evb md">Media</span></div>
+<p>J.D. Power describe un mercado de seguros que pasó de crisis de precios a desafío de experiencia; 32% de quienes cotizan ya usa IA para comparar. <span class="src-chip">J.D. Power, jun 2026 · Alta</span></p>
+<p>McKinsey estimó que el uso de agentes de IA por los clientes podría reducir hasta USD 170.000 millones las utilidades de la banca global. <span class="src-chip">McKinsey Global Banking Annual Review, oct 2025 · Media (proyección)</span></p>
+</div>
+<div class="sectors">
+<div><b>Bancos</b>Indicadores CX en el tablero del CEO junto a NIM y costo/ingreso.</div>
+<div><b>Cooperativas</b>Experiencia del socio como argumento de permanencia frente a fintechs.</div>
+<div><b>Seguros</b>Renovación y cross-sell como resultado esperado del rediseño del siniestro.</div>
+</div>
+<div class="kpi">Indicador: <code>Ingreso en riesgo por fricción · crecimiento de share of wallet</code></div>
+</div>
+</article>
+</div>
+</section>
+<!-- 03 DATOS -->
+<section class="s" id="cx-growth-2027-datos">
+<div class="s-head"><span class="s-num">03</span><h2>Datos y estadísticas</h2></div>
+<p class="lede">Solo cifras con metodología publicada. <strong>Alta</strong>: encuesta con muestra y fecha declaradas, nivel de confianza ≥95%. <strong>Media</strong>: proveedor sin metodología completa, proyección o dato regional parcial.</p>
+<div class="charts">
+<div class="chart">
+<h3>LATAM llega adelantada en adopción, rezagada en preparación</h3>
+<div class="cap">% de líderes de CX y consumidores · Genesys State of CX 2026</div>
+<div class="legend"><span><i style="background:var(--gold)"></i>LATAM</span><span><i style="background:var(--faint)"></i>Global</span></div>
+<div class="bars" id="cx-growth-2027-bars">
+<div class="bar-row"><div class="lab">Consumidores: la IA mejorará el servicio</div><div class="track"><div class="fill la" style="width:86%"></div><span class="val" style="left:86%">86%</span></div><div class="track"><div class="fill gl" style="width:76%"></div><span class="val" style="left:76%;color:var(--muted)">76%</span></div></div>
+<div class="bar-row"><div class="lab">Organizaciones que usan apps de mensajería</div><div class="track"><div class="fill la" style="width:91%"></div><span class="val" style="left:91%">91%</span></div><div class="track"><div class="fill gl" style="width:69%"></div><span class="val" style="left:69%;color:var(--muted)">69%</span></div></div>
+<div class="bar-row"><div class="lab">Líderes: la IA agéntica orquestará la CX</div><div class="track"><div class="fill la" style="width:92%"></div><span class="val" style="left:92%">92%</span></div><div class="track"><div class="fill gl" style="width:86%"></div><span class="val" style="left:86%;color:var(--muted)">86%</span></div></div>
+<div class="bar-row"><div class="lab">Usan agentes virtuales agénticos</div><div class="track"><div class="fill la" style="width:50%"></div><span class="val" style="left:50%">50%</span></div><div class="track"><div class="fill gl" style="width:41%"></div><span class="val" style="left:41%;color:var(--muted)">41%</span></div></div>
+<div class="bar-row"><div class="lab">Reto: preparación técnica para escalar IA</div><div class="track"><div class="fill la" style="width:54%"></div><span class="val" style="left:54%">54%</span></div><div class="track"><div class="fill gl" style="width:44%"></div><span class="val" style="left:44%;color:var(--muted)">44%</span></div></div>
+<div class="bar-row"><div class="lab">Despliegue responsable como prioridad</div><div class="track"><div class="fill la" style="width:38%"></div><span class="val" style="left:38%">38%</span></div><div class="track"><div class="fill gl" style="width:26%"></div><span class="val" style="left:26%;color:var(--muted)">26%</span></div></div>
+</div>
+<div class="axis"><span>0</span><span>25</span><span>50</span><span>75</span><span>100%</span></div>
+</div>
+<div class="chart">
+<h3>El dinero va a la IA</h3>
+<div class="cap">Crecimiento anual · servicio y soporte · Gartner, ago 2026</div>
+<div class="duo">
+<div class="col"><div class="bv num" style="color:var(--gold)">+38%</div><div class="bx" style="height:76%;background:var(--gold)"></div></div>
+<div class="col"><div class="bv num" style="color:var(--muted)">+2%</div><div class="bx" style="height:4%;background:var(--faint)"></div></div>
+</div>
+<div class="col-lab"><div>Gasto en IA</div><div>Presupuesto total del área</div></div>
+</div>
+</div>
+<div class="tbl-wrap">
+<table>
+<thead><tr><th>Cifra</th><th>Qué mide</th><th>Fuente y fecha</th><th>Confianza</th></tr></thead>
+<tbody>
+<tr><td class="v num">87%</td><td>Clientes que consideran esencial la opción de hablar con un humano cuando hay IA generativa</td><td>Gartner, n=3.566, 4 ago 2026</td><td><span class="evb hi">Alta</span></td></tr>
+<tr><td class="v num">3×</td><td>Probabilidad de usar IA de terceros vs. chatbot propio en servicio</td><td>Gartner, 8 jul 2026</td><td><span class="evb hi">Alta</span></td></tr>
+<tr><td class="v num">58%</td><td>Usuarios de IA generativa que la usaron para completar una tarea en su nombre (74% en B2B)</td><td>Gartner, 4 ago 2026</td><td><span class="evb hi">Alta</span></td></tr>
+<tr><td class="v num">+38% / +2%</td><td>Crecimiento del gasto en IA vs. presupuesto total de servicio</td><td>Gartner, n=199, 26 ago 2026</td><td><span class="evb hi">Alta</span><span class="s2">margen ±7 pp por tamaño de muestra</span></td></tr>
+<tr><td class="v num">20%</td><td>Líderes de servicio que redujeron personal por IA</td><td>Gartner, n=321, oct 2025 · publicado 2 feb 2026</td><td><span class="evb hi">Alta</span></td></tr>
+<tr><td class="v num">26% / 7%</td><td>Marcas de EE. UU. que mejoraron / empeoraron en CX Index (225 marcas)</td><td>Forrester CX Index, jun 2026</td><td><span class="evb hi">Alta</span></td></tr>
+<tr><td class="v num">+1,4 pp</td><td>Mejora de la dimensión emocional, la mayor de las tres</td><td>Forrester, jun 2026</td><td><span class="evb hi">Alta</span></td></tr>
+<tr><td class="v num">644</td><td>Satisfacción seguros de auto EE. UU. (escala 1.000), sin cambio interanual</td><td>J.D. Power, n=52.216, 9 jun 2026</td><td><span class="evb hi">Alta</span></td></tr>
+<tr><td class="v num">21%</td><td>Asegurados que cambiaron de canal para una sola consulta</td><td>J.D. Power, jun 2026</td><td><span class="evb hi">Alta</span></td></tr>
+<tr><td class="v num">32% / 33%</td><td>Compradores de seguro que usan IA / que la encontraron poco útil</td><td>J.D. Power, jun 2026</td><td><span class="evb hi">Alta</span></td></tr>
+<tr><td class="v num">54% vs 44%</td><td>Líderes CX que citan preparación técnica como reto (LATAM vs. global)</td><td>Genesys, 23 jul 2026</td><td><span class="evb hi">Alta</span></td></tr>
+<tr><td class="v num">86% vs 76%</td><td>Consumidores que creen que la IA mejorará el servicio (LATAM vs. global)</td><td>Genesys, 23 jul 2026</td><td><span class="evb hi">Alta</span></td></tr>
+<tr><td class="v num">~1 de 5</td><td>Consumidores que no obtuvieron beneficio de la IA en servicio, casi 4× la tasa de otros usos</td><td>Qualtrics XM, 20.000 consumidores, oct 2025</td><td><span class="evb hi">Alta</span><span class="s2">fuera de ventana; se usa como línea base</span></td></tr>
+<tr><td class="v num">47%</td><td>Malas experiencias que derivan en menor gasto</td><td>Qualtrics XM, oct 2025</td><td><span class="evb hi">Alta</span></td></tr>
+<tr><td class="v num">30% → 50%</td><td>Casos resueltos por IA, 2025 vs. proyección 2027 (autorreportado)</td><td>Salesforce State of Service</td><td><span class="evb md">Media</span></td></tr>
+<tr><td class="v num">96% / 56%</td><td>Organizaciones LATAM con mejoras de productividad por IA / con impacto financiero medible</td><td>FICO, 2026</td><td><span class="evb md">Media</span></td></tr>
+<tr><td class="v num">128 M</td><td>Consentimientos activos en Open Finance Brasil</td><td>Sensedia / Let's Money, 2026</td><td><span class="evb md">Media</span></td></tr>
+<tr><td class="v num">79%</td><td>Consumidores LATAM dispuestos a cambiar de banco por mejor experiencia</td><td>Estudio SBS citado por Apex America</td><td><span class="evb md">Media</span><span class="s2">fecha de campo no publicada</span></td></tr>
+</tbody>
+</table>
+</div>
+<p class="note">Brecha declarada: no se encontraron datos nacionales comparables y recientes sobre reclamos o satisfacción en Colombia, Chile, Perú y Argentina dentro de la ventana. Los datos de Condusef disponibles son estatales; no se extrapolan a nivel nacional.</p>
+</section>
+<!-- 04 VOCES -->
+<section class="s" id="cx-growth-2027-voces">
+<div class="s-head"><span class="s-num">04</span><h2>Voces expertas</h2></div>
+<p class="lede">Citas breves traducidas al español; el resto, en paráfrasis. Cada voz está vinculada a su fuente en la bibliografía.</p>
+<div class="quotes">
+<div class="q">
+<blockquote>«Los líderes de servicio no deben usar la IA generativa como primer paso obligatorio.»</blockquote>
+<div class="who">Eric Keller · Sr Director Analyst, Gartner</div>
+<p class="ctx">Recomienda que la IA recoja información y entienda la intención, pero intente resolver solo con alta confianza y con un camino claro a un humano.</p>
+</div>
+<div class="q">
+<blockquote>«El entusiasmo por sí solo no hace de una tecnología la solución correcta.»</blockquote>
+<div class="who">Kim Hedlin · Director Analyst, Gartner</div>
+<p class="ctx">Observa que el presupuesto se desplaza de personas a tecnología y que el desafío es probar valor de negocio medible.</p>
+</div>
+<div class="q">
+<blockquote>«La IA aún no es lo bastante madura para reemplazar pericia, empatía y juicio humano.»</blockquote>
+<div class="who">Emily Potosky · Senior Director Research, Gartner</div>
+<p class="ctx">Sostiene que depender solo de la IA hoy es prematuro y puede tener consecuencias no previstas.</p>
+</div>
+<div class="q">
+<blockquote>«El mercado pasó de una crisis de precios a un desafío de experiencia.»</blockquote>
+<div class="who">Stephen Crewdson · Managing Director, J.D. Power</div>
+<p class="ctx">Explica que la falta de continuidad entre canales frena la satisfacción aunque las primas se estabilicen.</p>
+</div>
+<div class="q">
+<blockquote>«Las organizaciones pasan de casos aislados a ecosistemas conectados de agentes de IA.»</blockquote>
+<div class="who">Daniel O'Sullivan · Sr Director Analyst, Gartner</div>
+<p class="ctx">Las tecnologías de mayor valor serán las que permitan construir, desplegar y gobernar agentes con seguridad y a escala.</p>
+</div>
+<div class="q">
+<blockquote>«La experiencia ya no es solo parte del negocio, sino el negocio en sí mismo.»</blockquote>
+<div class="who">David Benadof · VP Holding, Apex America</div>
+<p class="ctx">Señala que los sistemas heredados de la banca latinoamericana limitan las estrategias centradas en el cliente.</p>
+</div>
+</div>
+<p class="note">Kathy Ross (Gartner) agrega que la realidad de los despidos atribuidos a IA es más compleja de lo que sugieren los titulares, y que muchos recortes respondieron a la economía más que a la automatización.</p>
+</section>
+<!-- 05 TENDENCIAS -->
+<section class="s" id="cx-growth-2027-tendencias">
+<div class="s-head"><span class="s-num">05</span><h2>Tendencias emergentes y predicciones</h2></div>
+<p class="lede">Cinco movimientos que definirán la agenda de experiencia de 2027 a 2029.</p>
+<div class="tl">
+<div class="tl-item"><div class="yr num">2026</div><div><h3>El cliente llega con su propio agente</h3><p>Los asistentes de IA de terceros se convierten en la puerta de entrada al servicio. La institución deja de controlar el inicio del journey y debe ganar en el momento de transaccionar, autenticar y resolver.</p><div class="foot"><span class="evb hi">Alta</span><span class="src-chip">Gartner, jul 2026</span></div></div></div>
+<div class="tl-item"><div class="yr num">2026</div><div><h3>De chatbot a journey agéntico orquestado</h3><p>Gartner recomienda abandonar el chatbot independiente y construir journeys habilitados por IA en digital y voz. Las plataformas de construcción de agentes sin código, CPaaS e identidad del cliente ganan peso.</p><div class="foot"><span class="evb hi">Alta</span><span class="src-chip">Gartner, jul y ago 2026</span></div></div></div>
+<div class="tl-item"><div class="yr num">2027</div><div><h3>Recontratación con otro nombre</h3><p>La mitad de las empresas que recortaron personal atribuyéndolo a la IA recontratará funciones similares bajo nuevos títulos: gestores de conocimiento, supervisores de agentes, especialistas en casos complejos.</p><div class="foot"><span class="evb md">Media</span><span class="src-chip">Predicción Gartner, feb 2026</span></div></div></div>
+<div class="tl-item"><div class="yr num">2027</div><div><h3>Experiencia sobre rieles abiertos</h3><p>Brasil muestra el camino: consentimiento único en Open Finance, portabilidad de crédito y Pix por aproximación reducen la fricción de cambiar de institución. La lealtad pasa a depender de la experiencia, no del costo de salida.</p><div class="foot"><span class="evb md">Media</span><span class="src-chip">BCB vía Let's Money, jun 2026</span></div></div></div>
+<div class="tl-item"><div class="yr num">2029</div><div><h3>Resolución autónoma de lo rutinario</h3><p>Gartner proyecta que la IA agéntica resolverá de forma autónoma 80% de los problemas comunes de servicio. El diferencial competitivo se desplaza hacia lo no rutinario: lo emocional, lo complejo, lo de alto riesgo.</p><div class="foot"><span class="evb md">Media</span><span class="src-chip">Predicción Gartner, mar 2025</span></div></div></div>
+</div>
+</section>
+<!-- 06 DEBATES -->
+<section class="s" id="cx-growth-2027-debates">
+<div class="s-head"><span class="s-num">06</span><h2>Debates y puntos controvertidos</h2></div>
+<p class="lede">NEXUM LATAM toma posición. La neutralidad en estos temas desplaza la decisión, no la evita.</p>
+<div class="debates">
+<div class="debate">
+<div class="dq">¿La IA reemplaza al agente humano?</div>
+<div class="sides">
+<div><b>A favor</b>La IA ya resuelve una proporción creciente de casos y libera costo; la presión ejecutiva por implementar es casi universal.</div>
+<div><b>En contra</b>Solo 20% redujo personal por IA, 87% de los clientes exige humano y Gartner anticipa recontrataciones.</div>
+</div>
+<div class="stance"><b>Postura NEXUM</b>La IA reemplaza tareas, no la relación. En servicios financieros, el humano es el respaldo de confianza que permite automatizar el resto.</div>
+</div>
+<div class="debate">
+<div class="dq">¿Contención o resolución como métrica principal?</div>
+<div class="sides">
+<div><b>Contención</b>Es fácil de medir y se traduce directo en ahorro de costo por contacto.</div>
+<div><b>Resolución</b>Una baja tasa de escalación puede significar que el cliente no logra salir del bot. "Resuelto" significa cosas distintas según el proveedor.</div>
+</div>
+<div class="stance"><b>Postura NEXUM</b>Contención sin resolución verificada es fricción diferida. Los contratos con proveedores deben pagar por resolución, no por conversación.</div>
+</div>
+<div class="debate">
+<div class="dq">¿Invertir en el chatbot propio o en los asistentes de terceros?</div>
+<div class="sides">
+<div><b>Canal propio</b>Controla datos, marca y cumplimiento regulatorio.</div>
+<div><b>Ecosistema externo</b>El cliente ya está ahí; el chatbot propio no ganó uso desde 2022.</div>
+</div>
+<div class="stance"><b>Postura NEXUM</b>Ambos, con roles distintos. El asistente externo informa; la institución debe ser la mejor en lo que solo ella puede hacer: autenticar, transaccionar y resolver con datos de cuenta.</div>
+</div>
+<div class="debate">
+<div class="dq">¿El optimismo latinoamericano es ventaja o riesgo?</div>
+<div class="sides">
+<div><b>Ventaja</b>Mayor apertura del consumidor y adopción conversacional permiten escalar más rápido.</div>
+<div><b>Riesgo</b>La preparación técnica y la presión por adoptar son mayores que el promedio global; el fraude domina los reclamos.</div>
+</div>
+<div class="stance"><b>Postura NEXUM</b>Es una ventana con fecha de vencimiento. Una mala experiencia con IA en un mercado optimista consume confianza que tardará años en reconstruirse.</div>
+</div>
+</div>
+</section>
+<!-- 07 MATRIZ -->
+<section class="s" id="cx-growth-2027-matriz">
+<div class="s-head"><span class="s-num">07</span><h2>Matriz de madurez CX + IA · LATAM</h2></div>
+<p class="lede">Evaluación editorial de NEXUM LATAM, no medición certificada. Escala de 1 a 5 por dimensión, construida con la evidencia disponible y juicio experto.</p>
+<div class="tbl-wrap">
+<table class="mx">
+<thead><tr><th>País</th><th>Rieles abiertos</th><th>Adopción conversacional</th><th>Continuidad de contexto</th><th>Presión regulatoria CX</th><th>Lectura</th></tr></thead>
+<tbody id="cx-growth-2027-mxbody">
+<tr><td class="ctry">Brasil</td><td><span aria-label="5 de 5" class="lvlrow"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></td><td><span aria-label="4 de 5" class="lvlrow"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i></span></td><td><span aria-label="3 de 5" class="lvlrow"><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i></span></td><td><span aria-label="4 de 5" class="lvlrow"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i></span></td><td class="note2">Rieles más avanzados del mundo: Open Finance, Pix, consentimiento único. La experiencia es ya el único freno a la portabilidad.</td></tr>
+<tr><td class="ctry">México</td><td><span aria-label="3 de 5" class="lvlrow"><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i></span></td><td><span aria-label="4 de 5" class="lvlrow"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i></span></td><td><span aria-label="4 de 5" class="lvlrow"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i></span></td><td><span aria-label="4 de 5" class="lvlrow"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i></span></td><td class="note2">Supera la media global en transferencia de contexto; reclamos dominados por fraude y cargos no reconocidos.</td></tr>
+<tr><td class="ctry">Colombia*</td><td><span aria-label="3 de 5" class="lvlrow"><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i></span></td><td><span aria-label="3 de 5" class="lvlrow"><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i></span></td><td><span aria-label="3 de 5" class="lvlrow"><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i></span></td><td><span aria-label="3 de 5" class="lvlrow"><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i></span></td><td class="note2">Open Finance en implementación; sin datos CX recientes comparables.</td></tr>
+<tr><td class="ctry">Chile*</td><td><span aria-label="3 de 5" class="lvlrow"><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i></span></td><td><span aria-label="3 de 5" class="lvlrow"><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i></span></td><td><span aria-label="3 de 5" class="lvlrow"><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i></span></td><td><span aria-label="3 de 5" class="lvlrow"><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i></span></td><td class="note2">Marco Fintec avanzando; brecha de evidencia pública reciente sobre resolución.</td></tr>
+<tr><td class="ctry">Perú*</td><td><span aria-label="2 de 5" class="lvlrow"><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i><i class=""></i></span></td><td><span aria-label="3 de 5" class="lvlrow"><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i></span></td><td><span aria-label="2 de 5" class="lvlrow"><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i><i class=""></i></span></td><td><span aria-label="3 de 5" class="lvlrow"><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i></span></td><td class="note2">Cajas y cooperativas ante el salto a banca completa en el celular.</td></tr>
+<tr><td class="ctry">Argentina*</td><td><span aria-label="2 de 5" class="lvlrow"><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i><i class=""></i></span></td><td><span aria-label="3 de 5" class="lvlrow"><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i></span></td><td><span aria-label="2 de 5" class="lvlrow"><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i><i class=""></i></span></td><td><span aria-label="2 de 5" class="lvlrow"><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i><i class=""></i></span></td><td class="note2">Alta adopción digital; volatilidad macro desplaza la agenda CX.</td></tr>
+</tbody>
+</table>
+</div>
+<p class="note">Colombia, Chile, Perú y Argentina se califican con menor certeza por falta de datos comparables recientes; se señalan con asterisco.</p>
+</section>
+<!-- 08 SECTOR -->
+<section class="s" id="cx-growth-2027-sector">
+<div class="s-head"><span class="s-num">08</span><h2>Cómo deben evolucionar las instituciones</h2></div>
+<p class="lede">Tres modelos de negocio, tres puntos de partida distintos. El principio rector es el mismo: <strong>pasar de gestionar interacciones a gestionar resultados para el cliente.</strong></p>
+<div class="inst">
+<div>
+<div class="tag">Bancos</div>
+<h3>De banco con app a banco que resuelve</h3>
+<ul>
+<li><strong>Torre de control CX</strong> que une journeys, fricción e ingreso en riesgo en una sola vista.</li>
+<li><strong>Agentes de IA con permisos delimitados</strong> para disputas, bloqueos y reprogramaciones, con CIAM fuerte.</li>
+<li><strong>Gestión de promesas</strong> en reclamos por fraude y cargos no reconocidos.</li>
+<li><strong>Preparación para clientes-agente</strong>: APIs y flujos que un asistente externo pueda usar con consentimiento.</li>
+</ul>
+<div class="risk"><b>Riesgo principal</b>Quedar en "pilot purgatory": muchos pilotos de IA, ninguno escalado a un journey completo.</div>
+</div>
+<div>
+<div class="tag">Cooperativas</div>
+<h3>De cercanía física a cercanía inteligente</h3>
+<ul>
+<li><strong>Plataformas compartidas</strong> por federación para contexto, IA y canales, evitando que cada cooperativa invierta sola.</li>
+<li><strong>WhatsApp como canal principal</strong> con autenticación y transacciones, no solo información.</li>
+<li><strong>Doble diseño</strong>: socio digital y socio tradicional, con el asesor como respaldo humano.</li>
+<li><strong>Segmentos prioritarios</strong>: en Perú, 66% de socios o deudores son mujeres, muchas emprendedoras.</li>
+</ul>
+<div class="risk"><b>Riesgo principal</b>Perder su único activo diferencial, la confianza, por una experiencia digital torpe frente a fintechs.</div>
+</div>
+<div>
+<div class="tag">Seguros</div>
+<h3>Del precio a la continuidad</h3>
+<ul>
+<li><strong>El siniestro como momento de verdad</strong>: rediseño de punta a punta con estado visible y responsable nombrado.</li>
+<li><strong>IA que explica la póliza</strong>: solo 58% entiende plenamente su cobertura de auto.</li>
+<li><strong>Un canal, una resolución</strong>: eliminar el cambio forzado de canal.</li>
+<li><strong>IA asistiendo, no decidiendo sola</strong>: 47% acepta IA en autoservicio; la resistencia total subió a 26% en Europa.</li>
+</ul>
+<div class="risk"><b>Riesgo principal</b>Que el cliente compare con IA y cambie de aseguradora antes de la renovación.</div>
+</div>
+</div>
+</section>
+<!-- 09 RUTA -->
+<section class="s" id="cx-growth-2027-ruta">
+<div class="s-head"><span class="s-num">09</span><h2>Hoja de ruta estratégica · 0–48 meses</h2></div>
+<p class="lede">Cuatro fases con compuertas de valor. No se avanza a la siguiente sin evidencia de resultado en la anterior.</p>
+<div class="road">
+<div class="ph"><div class="w">0–6 meses</div><h3>Diagnóstico</h3><ul><li>Medir CX actual y Experience Debt por journey</li><li>Identificar las 5 fricciones de mayor costo</li><li>Inventario de IA en atención y su resolución real</li><li>Línea base del Scorecard</li></ul><div class="gate"><b>Compuerta</b> · costo de fricción cuantificado y aprobado por CFO</div></div>
+<div class="ph"><div class="w">6–12 meses</div><h3>Diseño</h3><ul><li>Rediseño outside-in de 3 journeys críticos</li><li>Reglas de escalación inteligente</li><li>Expediente único de contexto</li><li>Business case por journey</li></ul><div class="gate"><b>Compuerta</b> · mejora de resolución verificada en piloto</div></div>
+<div class="ph"><div class="w">12–24 meses</div><h3>Implementación</h3><ul><li>Agentes de IA en journeys rediseñados</li><li>Omnicanalidad con continuidad</li><li>Promise Management operativo</li><li>Gobierno de IA en atención</li></ul><div class="gate"><b>Compuerta</b> · impacto en retención y costo de servir</div></div>
+<div class="ph"><div class="w">24–48 meses</div><h3>Escala</h3><ul><li>CX Control Tower con ingreso en riesgo</li><li>Personalización con memoria</li><li>Preparación para clientes-agente</li><li>CX en el tablero de la Junta</li></ul><div class="gate"><b>Compuerta</b> · CX reportado como línea de crecimiento</div></div>
+</div>
+</section>
+<!-- 10 ROLES -->
+<section class="s" id="cx-growth-2027-roles">
+<div class="s-head"><span class="s-num">10</span><h2>Imperativos ejecutivos por rol</h2></div>
+<div class="roles">
+<div class="role"><div class="r">CEO</div><p><strong>Nombrar un dueño del valor de la experiencia</strong> con autoridad transversal y exigir que cada iniciativa de IA en atención declare qué journey mejora y cuánto vale.</p></div>
+<div class="role"><div class="r">CFO</div><p><strong>Financiar journeys, no herramientas.</strong> Con el gasto en IA creciendo 19 veces más rápido que el presupuesto del área, cada peso debe tener métrica de resolución y retención.</p></div>
+<div class="role"><div class="r">CIO / CTO</div><p><strong>Construir la capa de contexto y orquestación</strong> que conecta canales, núcleo bancario y agentes. Sin ella, cada nuevo canal agrega fricción.</p></div>
+<div class="role"><div class="r">CDO</div><p><strong>Unificar la voz del cliente</strong>: conversaciones, comportamiento y reclamos en un mismo modelo de datos para detectar fricción antes de la encuesta.</p></div>
+<div class="role"><div class="r">CISO</div><p><strong>Gobernar la identidad del cliente y de los agentes.</strong> Un agente que actúa en nombre del cliente es una superficie de fraude nueva.</p></div>
+<div class="role"><div class="r">CCO / Legal</div><p><strong>Garantizar explicabilidad y salida humana</strong> en decisiones automatizadas sobre reclamos, crédito y siniestros, antes de que el regulador lo exija.</p></div>
+<div class="role"><div class="r">COO / CX</div><p><strong>Cambiar el contrato con los proveedores</strong>: pagar por resolución verificada y medir promesas cumplidas, no conversaciones atendidas.</p></div>
+</div>
+</section>
+<!-- 11 SCORECARD -->
+<section class="s" id="cx-growth-2027-scorecard">
+<div class="s-head"><span class="s-num">11</span><h2>CX Growth Scorecard</h2></div>
+<p class="lede">Diez indicadores, uno por principio, para llevar la experiencia a la conversación de la Junta.</p>
+<div class="score">
+<table>
+<thead><tr><th>Indicador</th><th>Principio</th><th>Definición operativa</th><th>Dueño sugerido</th></tr></thead>
+<tbody>
+<tr><td>Resolución</td><td>03</td><td><code>casos cerrados sin recontacto en 7 días / casos totales</code></td><td>COO</td></tr>
+<tr><td>Esfuerzo</td><td>04</td><td><code>Customer Effort Score + cambios de canal por consulta</code></td><td>Dueño de journey</td></tr>
+<tr><td>Velocidad</td><td>04</td><td><code>tiempo desde primer contacto hasta resolución</code></td><td>COO</td></tr>
+<tr><td>Continuidad</td><td>05</td><td><code>transferencias sin contexto / transferencias totales</code></td><td>CIO</td></tr>
+<tr><td>Emoción</td><td>06</td><td><code>sentimiento al cierre vs. al inicio de la interacción</code></td><td>CX</td></tr>
+<tr><td>Confianza</td><td>08</td><td><code>promesas cumplidas en plazo / promesas emitidas</code></td><td>CCO</td></tr>
+<tr><td>IA</td><td>06</td><td><code>resolución autónoma verificada y tasa de error de IA</code></td><td>CDO</td></tr>
+<tr><td>Humano</td><td>07</td><td><code>escalaciones resueltas por el primer humano con contexto completo</code></td><td>COO</td></tr>
+<tr><td>Crecimiento</td><td>10</td><td><code>conversión y cross-sell atribuibles a journeys rediseñados</code></td><td>CBO</td></tr>
+<tr><td>Economía</td><td>09</td><td><code>Δ retención × CLV + Δ costo de servir</code></td><td>CFO</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- 12 FUENTES -->
+<section class="s" id="cx-growth-2027-fuentes">
+<div class="s-head"><span class="s-num">12</span><h2>Bibliografía verificada</h2></div>
+<ol class="bib">
+<li><div><a href="https://www.gartner.com/en/newsroom/press-releases/2026-08-04-gartner-survey-finds-87-percent-of-customers-say-companies-using-genai-for-customer-service-must-provide-access-to-a-human-agent0" rel="noopener" target="_blank">Gartner Survey Finds 87% of Customers Say Companies Using GenAI for Customer Service Must Provide Access to a Human Agent</a> <span class="d">· Gartner · 4 ago 2026</span></div></li>
+<li><div><a href="https://www.gartner.com/en/newsroom/press-releases/2026-07-08-gartner-survey-finds-customers-are-three-times-more-likely-to-use-third-party-genai-than-company-provided-chatbots-for-customer-service" rel="noopener" target="_blank">Customers Are 3x More Likely to Use Third-Party GenAI Than Company-Provided Chatbots</a> <span class="d">· Gartner · 8 jul 2026</span></div></li>
+<li><div><a href="https://www.gartner.com/en/newsroom/press-releases/2026-08-26-gartner-survey-finds-ai-spending-by-customer-service-leaders-has-surged-by-38-percent-despite-overall-service-and-support-function-budgets-rising-by-just-2-percent" rel="noopener" target="_blank">AI Spending by Customer Service Leaders Has Surged by 38%</a> <span class="d">· Gartner · 26 ago 2026</span></div></li>
+<li><div><a href="https://www.gartner.com/en/newsroom/press-releases/2026-02-03-gartner-predicts-half-of-companies-that-cut-customer-service-staff-due-to-ai-will-rehire-by-2027" rel="noopener" target="_blank">Half of Companies That Cut Customer Service Staff Due to AI Will Rehire by 2027</a> <span class="d">· Gartner · 2 feb 2026</span></div></li>
+<li><div><a href="https://www.ictbusiness.biz/analysis/customer-service-leaders-are-under-pressure-to-implement-ai-in-2026" rel="noopener" target="_blank">Customer Service Leaders Are Under Pressure to Implement AI in 2026</a> <span class="d">· ICT Business sobre Gartner · 2026</span></div></li>
+<li><div><a href="https://cxtoday.com/contact-center/agentic-ai-gartner-predicts-80-of-customer-problems-solved-without-human-help-by-2029" rel="noopener" target="_blank">Gartner Predicts Agentic AI Will Solve 80% of Customer Problems by 2029</a> <span class="d">· CX Today · mar 2025</span></div></li>
+<li><div><a href="https://www.forrester.com/blogs/emotion-leads-cx-quality-rebound-in-the-us/" rel="noopener" target="_blank">Emotion Leads CX Quality Rebound In The US</a> <span class="d">· Forrester · jun 2026</span></div></li>
+<li><div><a href="https://www.forrester.com/blogs/have-we-turned-the-corner-on-cx-quality/" rel="noopener" target="_blank">Have We Turned The Corner On CX Quality?</a> <span class="d">· Forrester · jun 2026</span></div></li>
+<li><div><a href="https://www.forrester.com/blogs/total-experience-score-2026-growth-breaks-when-experiences-fragment/" rel="noopener" target="_blank">Total Experience Score, 2026: Growth Breaks When Experiences Fragment</a> <span class="d">· Forrester · 8 jun 2026</span></div></li>
+<li><div><a href="https://www.genesys.com/es-mx/blog/post/2026-state-of-customer-experience-report-latin-americas-accelerated-path-to-agentic-cx" rel="noopener" target="_blank">Estado de la Experiencia del Cliente 2026: el camino acelerado de América Latina</a> <span class="d">· Genesys · 23 jul 2026</span></div></li>
+<li><div><a href="https://dplnews.com/america-latina-ia-experiencia-del-cliente-genesys/" rel="noopener" target="_blank">América Latina acelera adopción de IA en experiencia del cliente</a> <span class="d">· DPL News · jul 2026</span></div></li>
+<li><div><a href="https://www.consumeraffairs.com/news/ai-is-giving-consumers-more-leverage-with-car-insurance-companies-061126.html" rel="noopener" target="_blank">AI is giving consumers more leverage with car insurance companies (J.D. Power 2026 U.S. Auto Insurance Study)</a> <span class="d">· ConsumerAffairs · 11 jun 2026</span></div></li>
+<li><div><a href="https://www.collisionrepairmag.com/news/auto-insurance/article/15828959/jd-power-jd-power-study-ai-tools-reshape-auto-insurance-shopping" rel="noopener" target="_blank">JD Power study finds AI use increases</a> <span class="d">· Collision Repair · jun 2026</span></div></li>
+<li><div><a href="https://www.deloitte.com/us/en/insights/industry/financial-services/property-and-casualty-insurance-claims-process-and-ai.html" rel="noopener" target="_blank">P&amp;C insurance claims process and AI</a> <span class="d">· Deloitte Insights · 2026</span></div></li>
+<li><div><a href="https://www.guidewire.com/about/press-center/european-insurance-consumer-survey" rel="noopener" target="_blank">European Insurance Consumer Survey 2026</a> <span class="d">· Guidewire · 2026</span></div></li>
+<li><div><a href="https://www.qualtrics.com/ebooks-guides/customer-experience-trends/" rel="noopener" target="_blank">2026 Consumer Experience Trends Report</a> <span class="d">· Qualtrics XM Institute · oct 2025</span></div></li>
+<li><div><a href="https://www.zendesk.com/sg/blog/zendesk-insights/trends/the-future-of-cx-is-contextual-ai-is-the-new-standard/" rel="noopener" target="_blank">The future of CX is contextual (Zendesk CX Trends 2026)</a> <span class="d">· Zendesk · dic 2025</span></div></li>
+<li><div><a href="https://www.salesforce.com/eu/resources/research-reports/state-of-service/" rel="noopener" target="_blank">State of Service, 7th Edition</a> <span class="d">· Salesforce · 2025–2026</span></div></li>
+<li><div><a href="https://www.getmacha.com/blog/ai-customer-service-resolution-rate-statistics" rel="noopener" target="_blank">AI Resolution Rate Statistics 2026 (cita Ada / NewtonX)</a> <span class="d">· Macha · 2026</span></div></li>
+<li><div><a href="https://www.bankingexchange.com/news-feed/item/10560-mckinsey-reports-banks-are-poised-to-gain-most-from-agentic-ai?Itemid=613" rel="noopener" target="_blank">McKinsey Reports Banks are Poised to Gain Most from Agentic AI</a> <span class="d">· Banking Exchange · 2026</span></div></li>
+<li><div><a href="https://oecd.ai/en/incidents/2025-10-23-f172" rel="noopener" target="_blank">McKinsey: Agentic AI Could Cut Global Bank Profits by $170 Billion</a> <span class="d">· OECD.AI · oct 2025</span></div></li>
+<li><div><a href="https://dplnews.com/?p=309113" rel="noopener" target="_blank">Más del 70% de las entidades financieras en América Latina ya invierten en IA (FICO)</a> <span class="d">· DPL News · 2026</span></div></li>
+<li><div><a href="https://www.letsmoney.com.br/noticias/bc-saldo-limite-pix-aproximacao/" rel="noopener" target="_blank">BC: saldo e limite no Pix por aproximação</a> <span class="d">· Let's Money · jun 2026</span> · <a href="https://amdjus.com.br/brasil-se-destaca-globalmente-128-milhoes-de-consentimentos-ativos-no-open-finance/" rel="noopener" target="_blank">128 milhões de consentimentos no Open Finance</a></div></li>
+<li><div><a href="https://zetatijuana.com/2026/05/bajan-21-6-reclamaciones-ante-condusef-en-baja-california/" rel="noopener" target="_blank">Bajan 21,6% reclamaciones ante Condusef en Baja California</a> <span class="d">· Zeta Tijuana · may 2026</span> · <a href="https://mercado.com.ar/informes-especiales/la-experiencia-del-cliente-impulsa-cambios-competitivos-en-bancos-y-fintechs-de-america-latina" rel="noopener" target="_blank">Apex America / SBS</a> · <a href="https://www.revistaeconomia.com/topaz-cajas-y-cooperativas-peruanas-enfrentan-su-proximo-gran-desafio-llevar-la-banca-completa-al-celular/" rel="noopener" target="_blank">FENACREP Perú</a></div></li>
+</ol>
+</section>
+</main>
+</div>
+<footer>
+<div class="in">
+<div><b>NEXUM LATAM Advisory</b><br/>Transformando la complejidad en valor</div>
+<div>Informe editorial basado en fuentes públicas. La matriz de madurez es una evaluación de NEXUM, no una medición certificada.</div>
 </div>
 </footer>
 
