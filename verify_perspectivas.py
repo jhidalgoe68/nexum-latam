@@ -8,20 +8,34 @@ integrate_article.py, a hand edit, or a CSS tweak. It catches the two
 classes of defect that have actually shipped to this site before:
 
   1. STATIC CSS AUDIT (no browser) — every article's CSS is scoped under
-     `.art-frame` so it can't leak into the main site, but nothing stops
-     two DIFFERENT articles from both defining the same bare class
-     (`.art-frame .thesis{...}`, `.art-frame .b{...}`, ...) for their own,
-     unrelated components. Because these all share one `.art-frame`
-     prefix, same-specificity properties resolve by DOCUMENT ORDER, not
-     by which article "owns" the name — so article A's rule can silently
-     win a property inside article B's component. This has happened for
-     real: `.b` (badges) and `.lvl`/`.f` (maturity dots) were caught and
-     renamed in an earlier integration; `.thesis`/`.thesis-grid` was
-     found still colliding across four articles by this very script.
-     This pass extracts every `.art-frame .<class>{...}` rule from every
-     `art-scoped-css*` block, groups by class name, and flags any class
-     declared in more than one block where the declared property sets
-     differ (a strong signal one article's rule is clobbering another's).
+     `.art-frame` so it can't leak into the main site, but for a long time
+     nothing stopped two DIFFERENT articles from both defining the same
+     bare class (`.art-frame .thesis{...}`, `.art-frame .b{...}`, ...) for
+     their own, unrelated components. Because they all shared one
+     `.art-frame` prefix, same-specificity properties resolved by
+     DOCUMENT ORDER, not by which article "owns" the name — so article A's
+     rule could silently win a property inside article B's component.
+     This happened for real, repeatedly: `.b` (badges) and `.lvl`/`.f`
+     (maturity dots) were caught and renamed in one integration; a
+     `.reveal` override and a `.shell` grid bug broke two more articles
+     in a later pass; a static audit then found 43 more colliding bare
+     classes across the six articles, one of which (`.finding`/
+     `.findings`) was live-breaking "Sostenibilidad y Creación de Valor"'s
+     layout (a 120px grid column meant for a DIFFERENT article's
+     component was leaking into this one, crushing its findings cards).
+
+     Rather than keep renaming classes one collision at a time, every
+     scoped block's selectors were migrated from `.art-frame .X` to
+     `.art-frame#<that-article's-root-id> .X` — an ID selector has higher
+     specificity than a two-class one, so each article's own rules now
+     ALWAYS win inside its own panel regardless of source order, and the
+     whole class of bug is closed structurally rather than patched
+     instance by instance. This pass enforces that invariant going
+     forward: it flags any `.art-frame .X{...}` rule in a scoped block
+     that is missing its `#<root-id>` anchor (a regression — e.g. a
+     future integration run on an un-migrated copy of the script, or a
+     hand-added rule that forgot the id), and any rule whose `#id` doesn't
+     match the block it lives in (a copy-paste mistake).
 
   2. RUNTIME AUDIT (Playwright, headless) — for every article, at three
      breakpoints (desktop/tablet/mobile):
@@ -53,8 +67,20 @@ import sys
 
 
 # ════════════════════════════════════════════════════════════════
-# Part 1 — static CSS collision audit
+# Part 1 — static CSS scoping audit
 # ════════════════════════════════════════════════════════════════
+
+# style-block-id -> that article's own .art-frame root element id.
+# Every selector inside a block should be anchored to its own entry here.
+BLOCK_TO_ROOT = {
+    "art-scoped-css": "art-resiliencia",
+    "art-scoped-css-art-nuevos-modelos-negocio": "art-nuevos-modelos-negocio",
+    "art-scoped-css-art-eficiencia-cognitiva": "art-eficiencia-cognitiva",
+    "art-scoped-css-art-sostenibilidad-valor": "art-sostenibilidad-valor",
+    "art-scoped-css-cx-video-ia": "cx-video-ia",
+    "art-scoped-css-cx-growth-2027": "cx-growth-2027",
+}
+
 
 def extract_scoped_blocks(html: str):
     """Returns [(block_id, css_text), ...] for every art-scoped-css* block."""
@@ -64,63 +90,57 @@ def extract_scoped_blocks(html: str):
     return blocks
 
 
-def extract_bare_class_rules(css_text: str):
-    """
-    Returns {class_name: {prop_name: raw_value, ...}} for every single-class
-    `.art-frame .X{...}` rule (ignores compound/descendant selectors like
-    `.art-frame .card .n` or `.art-frame .card:hover` — those are already
-    namespaced by their parent and much less likely to collide).
-    """
-    out = {}
-    for m in re.finditer(r'\.art-frame \.([a-zA-Z0-9_-]+)\s*\{([^}]*)\}', css_text):
-        cls, body = m.group(1), m.group(2)
-        props = {}
-        for decl in body.split(';'):
-            decl = decl.strip()
-            if not decl or ':' not in decl:
-                continue
-            prop, _, val = decl.partition(':')
-            props[prop.strip()] = val.strip()
-        out.setdefault(cls, {})
-        # last declaration in this one rule wins for same-block duplicates
-        out[cls].update(props)
-    return out
-
-
 def audit_css_collisions(html: str):
+    """
+    Every selector in a scoped block should read `.art-frame#<root-id> ...`.
+    Flags:
+      - "unanchored": a `.art-frame` selector with no `#id` at all (the old,
+        collision-prone form -- a regression if it reappears).
+      - "wrong-anchor": a `.art-frame#X` selector where X isn't this block's
+        own root id (points at a DIFFERENT article -- almost certainly a
+        copy-paste mistake, and won't match anything in this block's own
+        markup).
+    """
     blocks = extract_scoped_blocks(html)
-    # class_name -> {block_id: {prop: val}}
-    by_class = {}
-    for block_id, css_text in blocks:
-        rules = extract_bare_class_rules(css_text)
-        for cls, props in rules.items():
-            by_class.setdefault(cls, {})[block_id] = props
-
     findings = []
-    for cls, per_block in by_class.items():
-        if len(per_block) < 2:
-            continue
-        # Compare property sets pairwise. Flag if:
-        #  - the SAME property has a different value across blocks, or
-        #  - one block declares a property another doesn't (a "leak" risk:
-        #    whichever block is NOT last in source order will silently
-        #    inherit the other's value for that property).
-        block_ids = list(per_block.keys())
-        all_props = set()
-        for p in per_block.values():
-            all_props |= set(p.keys())
-        diffs = {}
-        for prop in sorted(all_props):
-            values = {b: per_block[b].get(prop) for b in block_ids}
-            distinct = set(values.values())
-            if len(distinct) > 1:
-                diffs[prop] = values
-        if diffs:
+
+    for block_id, css_text in blocks:
+        expected_root = BLOCK_TO_ROOT.get(block_id)
+        if not expected_root:
             findings.append({
-                "class": cls,
-                "blocks": block_ids,
-                "conflicting_properties": diffs,
+                "block": block_id,
+                "issue": "unknown block id -- add it to BLOCK_TO_ROOT so it can be audited",
             })
+            continue
+
+        # Every occurrence of the literal token `.art-frame`, anchored or not.
+        unanchored = []
+        wrong_anchor = {}
+        for m in re.finditer(r'\.art-frame(#([a-zA-Z0-9_-]+))?\b', css_text):
+            anchor = m.group(2)
+            # Grab a short snippet for context (up to the next '{' or 80 chars).
+            snippet_end = css_text.find('{', m.end())
+            snippet = css_text[m.start():snippet_end if 0 <= snippet_end - m.start() <= 120 else m.start() + 60].strip()
+            if anchor is None:
+                unanchored.append(snippet)
+            elif anchor != expected_root:
+                wrong_anchor.setdefault(anchor, []).append(snippet)
+
+        if unanchored:
+            findings.append({
+                "block": block_id,
+                "issue": f"{len(unanchored)} selector(s) missing '#{expected_root}' anchor "
+                         f"(unscoped -- vulnerable to cross-article collisions again)",
+                "examples": unanchored[:8],
+            })
+        if wrong_anchor:
+            findings.append({
+                "block": block_id,
+                "issue": f"selector(s) anchored to a DIFFERENT article's id than this block's own "
+                         f"('{expected_root}') -- likely copy-paste mistake, will match nothing here",
+                "examples": {k: v[:5] for k, v in wrong_anchor.items()},
+            })
+
     return findings
 
 
@@ -253,18 +273,16 @@ def main():
     html = open(args.html, encoding="utf-8").read()
 
     print("=" * 70)
-    print("STATIC CSS COLLISION AUDIT")
+    print("STATIC CSS SCOPING AUDIT")
     print("=" * 70)
     css_findings = audit_css_collisions(html)
     if not css_findings:
-        print("No bare-class collisions with conflicting properties found.")
+        print("Every scoped selector is correctly anchored to its own article's #id.")
     else:
         for f in css_findings:
-            print(f"\n.{f['class']}  — declared in {len(f['blocks'])} article blocks: {f['blocks']}")
-            for prop, values in f["conflicting_properties"].items():
-                print(f"    {prop}:")
-                for block, val in values.items():
-                    print(f"        {block}: {val!r}")
+            print(f"\n[{f['block']}] {f['issue']}")
+            if "examples" in f:
+                print("   ", json.dumps(f["examples"], ensure_ascii=False)[:500])
 
     runtime_result = {}
     if not args.skip_runtime:

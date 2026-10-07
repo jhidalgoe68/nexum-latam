@@ -182,7 +182,7 @@ MOBILE_TOC_BLOCK = '''@media (max-width:980px){
 }'''
 
 
-def retheme_css(raw_css: str) -> str:
+def retheme_css(raw_css: str, art_id: str) -> str:
     css = raw_css
     css = re.sub(r':root\s*\{[^}]*\}', '', css, count=1)
     css = css.replace(MOBILE_TOC_BLOCK, '')  # TOC is dropped; nav is auto-built
@@ -208,7 +208,19 @@ def retheme_css(raw_css: str) -> str:
     css = css.replace('rgba(232,200,116,.4)', 'rgba(0,175,201,.4)')    # .b.ed    (old --gold-1)
 
     full_css = RETHEME_ROOT + css
-    return scope_css(full_css, '.art-frame')
+    # Scope to THIS article's own .art-frame#<id>, not just the bare
+    # .art-frame class. Every article's root panel shares the same
+    # .art-frame class, so a bare `.art-frame .thesis{...}` selector can
+    # collide with another article's own, unrelated `.thesis` component --
+    # same specificity, so whichever is LAST in document order silently
+    # wins inside EVERY article, not just its own. This shipped real bugs
+    # more than once (.b, .lvl/.f, .reveal, .shell, and a .finding/
+    # .findings collision that broke "Sostenibilidad y Creación de Valor"'s
+    # layout). Anchoring to this article's own id gives its rules an ID
+    # selector's specificity, which always outranks a plain class
+    # selector -- so they can never again be clobbered by another
+    # article's same-named class, regardless of integration order.
+    return scope_css(full_css, f'.art-frame#{art_id}')
 
 
 MANUAL_OVERRIDES = '''
@@ -324,7 +336,7 @@ def parse_article(article_path, art_id):
 
     p.rest_content = rest_content
     p.meta_html = str(meta_el) if meta_el else ''
-    p.scoped_css = retheme_css(real_style_text)
+    p.scoped_css = retheme_css(real_style_text, art_id)
     p.art_id = art_id
 
     # Sanity: the article should have at least one section[id] for the
