@@ -59,7 +59,7 @@
 @media (max-width:820px){.art-frame .thesis-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.art-frame .kpi:nth-child(2){border-right:0}.art-frame .kpi:nth-child(-n+2){border-bottom:1px solid var(--line)}}
 
 /* Shell */
-.art-frame .shell{max-width:1180px;margin:0 auto;padding-inline:20px;padding-block:28px 80px;display:grid;grid-template-columns:220px minmax(0,1fr);gap:56px}
+.art-frame .shell{max-width:1180px;margin:0 auto;padding-inline:20px;padding-block:28px 80px;display:grid;grid-template-columns:minmax(0,1fr);gap:0}
 .art-frame .toc{position:sticky;top:calc(env(safe-area-inset-top,0px) + 24px);align-self:start;font-size:13.5px}
 .art-frame .toc h2{font-family:var(--font-body);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-2);font-weight:500;margin:0 0 14px}
 .art-frame .toc ol{list-style:none;margin:0;padding:0;display:grid;gap:2px;counter-reset:t}
@@ -3182,8 +3182,13 @@
 .art-frame .section-head{max-width:760px; margin-bottom:60px;}
 .art-frame .section-head h2{font-size:clamp(1.9rem,4vw,3rem); font-weight:600; line-height:1.12;}
 .art-frame .section-head p.lead{font-size:1.08rem; color:var(--ink-300); margin-top:18px; max-width:65ch;}
-.art-frame .reveal{opacity:0; transform:translateY(28px); transition:opacity 0.8s ease, transform 0.8s ease;}
-.art-frame .reveal.visible{opacity:1; transform:translateY(0);}
+/* .reveal intentionally not redefined here: the site's own shared
+   .reveal / .reveal.in rule (which the global IntersectionObserver
+   drives) already handles this. A local opacity:0 override with no
+   .in-conditional previously existed here (carried over from this
+   article's original, now-stripped, self-contained reveal script)
+   and permanently hid every .reveal-classed element in this article,
+   since it won this tie by source order regardless of the "in" class. */
 /* Confidence badge */
 .art-frame .badge{
   display:inline-flex; align-items:center; gap:6px; font-size:0.68rem; text-transform:uppercase; letter-spacing:0.08em;
@@ -3394,7 +3399,7 @@
 .art-frame .eq:not(:last-child)::after{content:"→";position:absolute;right:-9px;top:50%;transform:translateY(-50%);background:var(--bg-2);color:var(--gold);font-size:14px;padding:2px 0;z-index:1}
 
 /* Shell */
-.art-frame .shell{max-width:1180px;margin:0 auto;padding-inline:clamp(16px,4vw,48px);display:grid;grid-template-columns:220px minmax(0,1fr);gap:56px}
+.art-frame .shell{max-width:1180px;margin:0 auto;padding-inline:clamp(16px,4vw,48px);display:grid;grid-template-columns:minmax(0,1fr);gap:0}
 .art-frame nav.toc{position:sticky;top:env(safe-area-inset-top,0px);align-self:start;padding-block:40px;max-height:100vh;overflow:auto}
 .art-frame nav.toc .t{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);margin-bottom:12px}
 .art-frame nav.toc ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
