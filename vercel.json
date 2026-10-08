@@ -1,8 +1,14 @@
 {
-"version": 2,
-"routes": [
-{ "handle": "filesystem" },
-{ "src": "/api/(.*)", "dest": "/api/$1" },
-{ "src": "/(.*)", "dest": "/" }
-]
+  "version": 2,
+  "routes": [
+    { "src": "/index.html", "headers": { "X-Robots-Tag": "noindex" }, "continue": true },
+    { "src": "/", "has": [{ "type": "cookie", "key": "nx_lang", "value": "en" }], "status": 307, "headers": { "Location": "/en/", "Vary": "Cookie, Accept-Language", "Cache-Control": "no-store" } },
+    { "src": "/", "has": [{ "type": "cookie", "key": "nx_lang", "value": "es" }], "status": 307, "headers": { "Location": "/es/", "Vary": "Cookie, Accept-Language", "Cache-Control": "no-store" } },
+    { "src": "/", "has": [{ "type": "header", "key": "accept-language", "value": "^\\s*en" }], "status": 307, "headers": { "Location": "/en/", "Vary": "Cookie, Accept-Language", "Cache-Control": "no-store" } },
+    { "src": "/", "status": 307, "headers": { "Location": "/es/", "Vary": "Cookie, Accept-Language", "Cache-Control": "no-store" } },
+    { "src": "/(es|en)", "status": 308, "headers": { "Location": "/$1/" } },
+    { "handle": "filesystem" },
+    { "src": "/api/(.*)", "dest": "/api/$1" },
+    { "src": "/(.*)", "dest": "/" }
+  ]
 }
