@@ -1,0 +1,13 @@
+{
+  "name": "nexum-latam",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "nexbot:kb": "node nexumtest/tools/build-knowledge.mjs",
+    "nexbot:dev": "node nexumtest/tools/dev-server.mjs",
+    "test": "node --test nexumtest/tests/*.test.mjs"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.133.0"
+  }
+}

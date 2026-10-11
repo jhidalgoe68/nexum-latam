@@ -1,0 +1,1238 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Nexumtestbank</title>
+<meta name="description" content="Nexumtestbank: banco ficticio de demostración. Cuentas, créditos, tarjetas, ahorro, inversiones, seguros, Pymes y Empresas.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=Onest:wght@400;500;600&display=swap">
+<style>
+/* Layout: navy command band (header + hero) over a cool cream body; content in a 1240px wrap; cyan is the single accent, amber marks sustainability/bonus. Tokens mirror the NEXUM LATAM design system. */
+:root{
+  --bg:#EDF3F9; --bg-2:#DEE9F5; --panel:#FFFFFF; --ink:#091B38; --ink-mid:#0C2B5C; --muted:#1A3252; --faint:#4A5A72;
+  --accent:#00AFC9; --accent-strong:#007F93; --accent-soft:rgba(0,192,220,.13); --amber:#C87A18; --amber-soft:rgba(200,122,24,.13);
+  --good:#1F8A4C; --crit:#B3433A; --line:rgba(9,27,56,.12); --line-soft:rgba(9,27,56,.07);
+  --band:#091B38; --band-2:#0C2B5C; --band-fg:#EDF3F9; --band-muted:#A9BCD4; --band-line:rgba(255,255,255,.14); --band-accent:#45D0EC;
+  --shadow:0 1px 2px rgba(9,27,56,.06),0 8px 24px rgba(9,27,56,.06);
+  --font-heading:'Bricolage Grotesque',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --font-body:'Onest',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --h1:clamp(2.3rem,5vw,4.4rem); --h2:clamp(1.7rem,3vw,2.6rem); --h3:clamp(1.12rem,1.7vw,1.35rem); --sm:.8125rem; --xs:.72rem;
+  --wrap:1240px; --gutter:clamp(16px,4vw,56px); --pad:clamp(3.5rem,7vw,6.5rem); --r:10px;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#07142A; --bg-2:#0A1C38; --panel:#0E2347; --ink:#EDF3F9; --ink-mid:#DEE9F5; --muted:#C3D2E4; --faint:#90A4BE;
+  --accent:#45D0EC; --accent-strong:#7FE0F3; --accent-soft:rgba(69,208,236,.14); --amber:#E8A04A; --amber-soft:rgba(232,160,74,.15);
+  --good:#4CC384; --crit:#E07A70; --line:rgba(237,243,249,.13); --line-soft:rgba(237,243,249,.07);
+  --band:#040D1E; --band-2:#0A1C38; --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.25); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#07142A; --bg-2:#0A1C38; --panel:#0E2347; --ink:#EDF3F9; --ink-mid:#DEE9F5; --muted:#C3D2E4; --faint:#90A4BE;
+  --accent:#45D0EC; --accent-strong:#7FE0F3; --accent-soft:rgba(69,208,236,.14); --amber:#E8A04A; --amber-soft:rgba(232,160,74,.15);
+  --good:#4CC384; --crit:#E07A70; --line:rgba(237,243,249,.13); --line-soft:rgba(237,243,249,.07);
+  --band:#040D1E; --band-2:#0A1C38; --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.25); color-scheme:dark}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth;scroll-padding-top:132px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3,h4{font-family:var(--font-heading);line-height:1.08;letter-spacing:-.02em;margin:0;text-wrap:balance;color:var(--ink)}
+h2{font-size:var(--h2);font-weight:700} h3{font-size:var(--h3);font-weight:600}
+p{margin:0}
+a{color:var(--accent-strong)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding-inline:var(--gutter)}
+.eyebrow{font-size:var(--xs);text-transform:uppercase;letter-spacing:.14em;font-weight:600;color:var(--accent-strong)}
+.lede{color:var(--muted);max-width:62ch;font-size:1.05rem}
+.section{padding-block:var(--pad)}
+.section-head{display:grid;gap:.9rem;margin-bottom:2.4rem;max-width:760px}
+.tnum{font-variant-numeric:tabular-nums}
+.skip{position:absolute;left:-999px;top:8px;background:var(--panel);color:var(--ink);padding:.6rem 1rem;z-index:100;border-radius:6px}
+.skip:focus{left:16px}
+button{font:inherit;cursor:pointer}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;padding:.78rem 1.25rem;border-radius:999px;font-weight:600;font-size:.95rem;border:1.5px solid transparent;text-decoration:none;transition:transform .2s var(--ease),background .2s,border-color .2s;white-space:nowrap}
+.btn:hover{transform:translateY(-1px)}
+.btn-primary{background:var(--accent);color:#04121F}
+.btn-primary:hover{background:var(--band-accent)}
+.btn-ghost{border-color:var(--line);color:var(--ink);background:transparent}
+.btn-ghost:hover{border-color:var(--accent)}
+.btn-band{border-color:var(--band-line);color:var(--band-fg);background:transparent}
+.btn-band:hover{border-color:var(--band-accent)}
+.btn-sm{padding:.5rem .9rem;font-size:.85rem}
+.chip{display:inline-flex;align-items:center;gap:.35rem;font-size:var(--xs);font-weight:600;letter-spacing:.04em;padding:.22rem .6rem;border-radius:999px;background:var(--accent-soft);color:var(--accent-strong)}
+.chip.amber{background:var(--amber-soft);color:var(--amber)}
+.chip.plain{background:var(--line-soft);color:var(--faint)}
+
+/* Demo banner */
+.demo{background:var(--amber);color:#1B1104;font-size:var(--sm);font-weight:500}
+.demo .wrap{display:flex;gap:.6rem;align-items:center;justify-content:center;padding-block:.45rem;text-align:center}
+
+/* Header */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:var(--band);color:var(--band-fg);border-bottom:1px solid var(--band-line)}
+.util{border-bottom:1px solid var(--band-line);font-size:var(--sm)}
+.util .wrap{display:flex;align-items:center;gap:1rem;justify-content:space-between;padding-block:.35rem}
+.segs{display:flex;gap:.2rem}
+.segs button{background:none;border:0;color:var(--band-muted);padding:.35rem .75rem;border-radius:6px;font-weight:500;font-size:var(--sm)}
+.segs button[aria-pressed="true"]{color:var(--band-fg);background:rgba(255,255,255,.08)}
+.util-links{display:flex;gap:1.1rem;align-items:center;color:var(--band-muted)}
+.util-links a{color:var(--band-muted);text-decoration:none}
+.util-links a:hover{color:var(--band-fg)}
+.theme-btn{background:none;border:1px solid var(--band-line);color:var(--band-fg);border-radius:999px;padding:.2rem .65rem;font-size:var(--xs)}
+.mainbar .wrap{display:flex;align-items:center;gap:1.4rem;padding-block:.8rem}
+.logo{display:flex;align-items:center;gap:.6rem;color:var(--band-fg);text-decoration:none;flex-shrink:0}
+.logo-mark{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--band-accent),#0C6FA0);display:grid;place-items:center;font-family:var(--font-heading);font-weight:700;color:#04121F;font-size:1.05rem}
+.logo-text{font-family:var(--font-heading);font-weight:700;font-size:1.22rem;letter-spacing:-.02em;line-height:1}
+.logo-text small{display:block;font-family:var(--font-body);font-weight:500;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--band-muted);margin-top:.25rem}
+.nav{display:flex;gap:.15rem;flex:1}
+.nav > button{background:none;border:0;color:var(--band-fg);padding:.55rem .8rem;border-radius:8px;font-weight:500;font-size:.93rem;display:flex;align-items:center;gap:.3rem;white-space:nowrap}
+.nav > button:hover,.nav > button[aria-expanded="true"]{background:rgba(255,255,255,.08)}
+.nav > button svg{width:12px;height:12px;transition:transform .2s}
+.nav > button[aria-expanded="true"] svg{transform:rotate(180deg)}
+.searchbox{position:relative;flex:0 1 280px}
+.searchbox input{width:100%;background:rgba(255,255,255,.07);border:1px solid var(--band-line);color:var(--band-fg);border-radius:999px;padding:.6rem 2.4rem .6rem 1rem;font:inherit;font-size:.9rem}
+.searchbox input::placeholder{color:var(--band-muted)}
+.searchbox kbd{position:absolute;right:.75rem;top:50%;transform:translateY(-50%);font-size:.7rem;color:var(--band-muted);border:1px solid var(--band-line);border-radius:4px;padding:0 .35rem}
+.results{position:absolute;top:calc(100% + 8px);right:0;width:min(420px,calc(100vw - 32px));background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);max-height:60vh;overflow:auto;z-index:60}
+.results a,.results button{display:block;width:100%;text-align:left;padding:.7rem 1rem;border:0;background:none;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line-soft)}
+.results a:hover,.results button:hover,.results .act{background:var(--accent-soft)}
+.results small{display:block;color:var(--faint);font-size:var(--xs)}
+.login-btn{flex-shrink:0}
+.menu-toggle{display:none;background:none;border:1px solid var(--band-line);color:var(--band-fg);border-radius:8px;padding:.45rem .6rem}
+
+/* Mega menu */
+.mega{position:absolute;left:0;right:0;top:100%;background:var(--band-2);border-bottom:1px solid var(--band-line);box-shadow:0 20px 40px rgba(0,0,0,.25)}
+.mega .wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1.6rem 2rem;padding-block:1.8rem 2.2rem}
+.mega h4{font-family:var(--font-body);font-size:var(--xs);text-transform:uppercase;letter-spacing:.14em;color:var(--band-accent);margin-bottom:.7rem;font-weight:600}
+.mega ul{list-style:none;margin:0;padding:0;display:grid;gap:.35rem}
+.mega a{color:var(--band-fg);text-decoration:none;font-size:.92rem}
+.mega a:hover{color:var(--band-accent)}
+.mega .mega-feature{background:rgba(255,255,255,.05);border:1px solid var(--band-line);border-radius:var(--r);padding:1rem}
+.mega .mega-feature p{color:var(--band-muted);font-size:var(--sm);margin:.4rem 0 .8rem}
+
+/* Hero */
+.hero{background:radial-gradient(1100px 500px at 85% -10%,rgba(0,192,220,.22),transparent 60%),linear-gradient(180deg,var(--band) 0%,var(--band-2) 100%);color:var(--band-fg);overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:clamp(2rem,5vw,4.5rem);padding-block:clamp(3rem,7vw,5.5rem) clamp(2.5rem,5vw,4rem);align-items:center}
+.hero h1{color:var(--band-fg);font-size:var(--h1);font-weight:700;letter-spacing:-.035em}
+.hero h1 em{font-style:normal;color:var(--band-accent)}
+.hero .lede{color:var(--band-muted);margin-top:1.1rem}
+.intent{margin-top:1.8rem;display:flex;gap:.5rem;background:rgba(255,255,255,.06);border:1px solid var(--band-line);border-radius:14px;padding:.4rem}
+.intent input{flex:1;min-width:0;background:none;border:0;color:var(--band-fg);font:inherit;padding:.6rem .8rem;font-size:1rem}
+.intent input::placeholder{color:var(--band-muted)}
+.intent input:focus{outline:none}
+.intent:focus-within{border-color:var(--band-accent)}
+.chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem}
+.chips button{background:rgba(255,255,255,.06);border:1px solid var(--band-line);color:var(--band-fg);border-radius:999px;padding:.42rem .85rem;font-size:.86rem}
+.chips button:hover{border-color:var(--band-accent);color:var(--band-accent)}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.8rem}
+.proof{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2.4rem;border-top:1px solid var(--band-line);padding-top:1.4rem}
+.proof b{display:block;font-family:var(--font-heading);font-size:1.7rem;color:var(--band-fg);line-height:1;font-weight:700}
+.proof span{font-size:var(--sm);color:var(--band-muted)}
+/* Hero card: account opening ticket */
+.ticket{background:var(--panel);color:var(--ink);border-radius:16px;padding:1.5rem;box-shadow:0 30px 60px rgba(0,0,0,.35);position:relative}
+.ticket-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem}
+.ticket h3{font-size:1.15rem}
+.steps{list-style:none;padding:0;margin:0;display:grid;gap:.75rem}
+.steps li{display:grid;grid-template-columns:30px 1fr;gap:.75rem;align-items:start}
+.steps .n{width:30px;height:30px;border-radius:50%;background:var(--accent-soft);color:var(--accent-strong);display:grid;place-items:center;font-weight:700;font-size:.85rem}
+.steps strong{display:block;font-size:.95rem}
+.steps small{color:var(--faint);font-size:var(--sm)}
+.ticket-foot{margin-top:1.2rem;padding-top:1rem;border-top:1px dashed var(--line);display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}
+.ticket-foot small{color:var(--faint);font-size:var(--sm)}
+
+/* Campaign strip */
+.campaigns{background:var(--bg-2);border-bottom:1px solid var(--line)}
+.camp-wrap{display:flex;align-items:center;gap:1rem;padding-block:.9rem}
+.camp-track{flex:1;min-width:0;position:relative;min-height:2.6rem}
+.camp{display:flex;gap:.9rem;align-items:center;flex-wrap:wrap}
+.camp p{font-weight:500;font-size:.95rem}
+.camp small{color:var(--faint);font-size:var(--sm)}
+.camp-ctrl{display:flex;gap:.35rem}
+.camp-ctrl button{width:32px;height:32px;border-radius:50%;border:1px solid var(--line);background:var(--panel);color:var(--ink)}
+
+/* Product overview cards */
+.pgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1rem}
+.pcard{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:1.4rem;display:flex;flex-direction:column;gap:1rem;min-width:0}
+.pcard .ic{width:42px;height:42px;border-radius:10px;background:var(--accent-soft);display:grid;place-items:center;color:var(--accent-strong)}
+.pcard .ic svg{width:22px;height:22px}
+.pcard ul{list-style:none;padding:0;margin:0;display:grid;gap:.45rem;font-size:.92rem;color:var(--muted)}
+.pcard li{display:flex;gap:.5rem}
+.pcard li::before{content:"";flex:0 0 6px;height:6px;margin-top:.55rem;border-radius:50%;background:var(--accent)}
+.pcard .acts{margin-top:auto;display:flex;gap:.5rem;flex-wrap:wrap}
+.rate{display:flex;align-items:baseline;gap:.4rem;padding:.7rem .85rem;background:var(--bg);border-radius:8px}
+.rate b{font-family:var(--font-heading);font-size:1.5rem;font-weight:700;color:var(--ink)}
+.rate small{font-size:var(--xs);color:var(--faint)}
+
+/* Catalog */
+.tabs{display:flex;gap:.3rem;flex-wrap:wrap;border-bottom:1px solid var(--line);margin-bottom:1.6rem}
+.tabs button{background:none;border:0;border-bottom:2px solid transparent;padding:.7rem 1rem;color:var(--faint);font-weight:600;font-size:.95rem;margin-bottom:-1px}
+.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent)}
+.tabs button .count{font-weight:500;color:var(--faint);font-size:var(--xs);margin-left:.3rem}
+.filters{display:flex;gap:.45rem;flex-wrap:wrap;margin-bottom:1.3rem}
+.filters button{border:1px solid var(--line);background:var(--panel);color:var(--muted);border-radius:999px;padding:.38rem .85rem;font-size:.85rem}
+.filters button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem}
+.item{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:1.2rem;display:flex;flex-direction:column;gap:.7rem;min-width:0}
+.item header{display:flex;justify-content:space-between;align-items:start;gap:.6rem}
+.item h4{font-family:var(--font-heading);font-size:1.05rem;font-weight:600;line-height:1.2}
+.item p{color:var(--muted);font-size:.9rem}
+.item dl{display:grid;grid-template-columns:auto 1fr;gap:.25rem .8rem;margin:0;font-size:.85rem}
+.item dt{color:var(--faint)}
+.item dd{margin:0;font-weight:600;text-align:right}
+.item .acts{margin-top:auto;display:flex;gap:.5rem;flex-wrap:wrap;padding-top:.3rem}
+.cardart{height:92px;border-radius:9px;padding:.7rem .8rem;display:flex;flex-direction:column;justify-content:space-between;color:#fff;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;font-weight:600}
+.cardart .chipline{display:flex;justify-content:space-between;align-items:center}
+.cardart i{width:26px;height:19px;border-radius:4px;background:linear-gradient(135deg,#E8D9A8,#B89A52);display:block}
+.tier-clasica{background:linear-gradient(135deg,#2A4A6A,#1A3252)}
+.tier-oro{background:linear-gradient(135deg,#B8862E,#7A5414)}
+.tier-platino{background:linear-gradient(135deg,#8A9AAE,#4A5A72)}
+.tier-signature{background:linear-gradient(135deg,#0C6FA0,#0C2B5C)}
+.tier-black{background:linear-gradient(135deg,#1E2633,#05080F)}
+.tier-infinita{background:linear-gradient(135deg,#0C2B5C,#00879C)}
+.tier-empresa{background:linear-gradient(135deg,#3A2F5C,#1A1438)}
+.tier-debito{background:linear-gradient(135deg,#00AFC9,#0C6FA0)}
+
+/* Loyalty table */
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:.9rem;min-width:640px}
+th,td{text-align:left;padding:.8rem 1rem;border-bottom:1px solid var(--line-soft);vertical-align:top}
+th{font-size:var(--xs);text-transform:uppercase;letter-spacing:.1em;color:var(--faint);font-weight:600;background:var(--bg)}
+tr:last-child td{border-bottom:0}
+td b{font-weight:600}
+
+/* Simulators */
+.sim{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:1.4rem;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:clamp(1.2rem,3vw,2rem)}
+.sim-form{display:grid;gap:1.1rem;align-content:start;min-width:0}
+.field{display:grid;gap:.4rem}
+.field label{font-size:var(--sm);font-weight:600;color:var(--muted);display:flex;justify-content:space-between;gap:1rem}
+.field output{font-family:var(--font-heading);color:var(--ink);font-weight:600}
+input[type=range]{width:100%;margin:0;accent-color:var(--accent)}
+select,.field input[type=number],.field input[type=text]{font:inherit;padding:.6rem .75rem;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);width:100%}
+.seg{display:inline-flex;justify-self:start;border:1px solid var(--line);border-radius:999px;padding:.2rem;max-width:100%;flex-wrap:wrap}
+.seg button{border:0;background:none;padding:.4rem .9rem;border-radius:999px;font-size:.86rem;color:var(--muted);font-weight:500}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.sim-out{display:grid;gap:1rem;align-content:start;min-width:0}
+.kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.7rem}
+.kpi{background:var(--bg);border-radius:10px;padding:.85rem}
+.kpi small{display:block;font-size:var(--xs);color:var(--faint);text-transform:uppercase;letter-spacing:.08em}
+.kpi b{font-family:var(--font-heading);font-size:1.4rem;font-weight:700;display:block;margin-top:.2rem}
+.kpi.main{background:var(--accent-soft)}
+.amort{max-height:260px;overflow:auto;border:1px solid var(--line-soft);border-radius:10px}
+.amort table{min-width:420px;font-size:.84rem}
+.amort th{position:sticky;top:0}
+.amort td{text-align:right}
+.amort td:first-child,.amort th:first-child{text-align:left}
+.note{font-size:var(--xs);color:var(--faint)}
+.simtabs{margin-bottom:1rem}
+.bar52{display:grid;grid-template-columns:repeat(52,1fr);gap:2px;align-items:end;height:90px}
+.bar52 span{background:var(--accent);border-radius:2px 2px 0 0;opacity:.85}
+.bar52 span.past{background:var(--ink-mid);opacity:.35}
+
+/* Benefits */
+.benefits{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border-top:1px solid var(--line)}
+.benefit{padding:1.6rem 1.4rem 1.6rem 0;border-right:1px solid var(--line);display:grid;gap:.6rem;align-content:start}
+.benefit + .benefit{padding-left:1.4rem}
+.benefit:last-child{border-right:0}
+.benefit .big{font-family:var(--font-heading);font-weight:700;font-size:2.4rem;line-height:1;color:var(--accent-strong)}
+.benefit.green .big{color:var(--amber)}
+.benefit p{color:var(--muted);font-size:.93rem}
+
+/* Channels matrix */
+.matrix td,.matrix th{text-align:center}
+.matrix td:first-child,.matrix th:first-child{text-align:left;font-weight:500}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--accent)}
+.dot.no{background:transparent;border:1.5px solid var(--line)}
+.chgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem;margin-top:1.6rem}
+.ch{border:1px solid var(--line);border-radius:12px;padding:1.1rem;background:var(--panel);display:grid;gap:.4rem}
+.ch h4{font-family:var(--font-heading);font-size:1rem;font-weight:600}
+.ch p{font-size:.88rem;color:var(--muted)}
+.ch .meta{font-size:var(--xs);color:var(--accent-strong);font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+
+/* Business band */
+.biz{background:var(--band);color:var(--band-fg)}
+.biz h2,.biz h3,.biz h4{color:var(--band-fg)}
+.biz .lede{color:var(--band-muted)}
+.biz .eyebrow{color:var(--band-accent)}
+.bizgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.2rem}
+.bizcol{border:1px solid var(--band-line);border-radius:16px;padding:1.6rem;background:rgba(255,255,255,.03);display:grid;gap:1.1rem;align-content:start;min-width:0}
+.bizcol ul{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.9rem 1.2rem}
+.bizcol li b{display:block;font-weight:600;font-size:.94rem}
+.bizcol li span{color:var(--band-muted);font-size:var(--sm)}
+.bizcol .tagrow{display:flex;gap:.4rem;flex-wrap:wrap}
+.bizcol .chip{background:rgba(69,208,236,.14);color:var(--band-accent)}
+.docs{display:flex;flex-wrap:wrap;gap:.5rem}
+.docs span{font-size:var(--xs);border:1px dashed var(--band-line);border-radius:6px;padding:.3rem .55rem;color:var(--band-muted)}
+
+/* FAQ */
+.faqbar{display:flex;gap:.8rem;flex-wrap:wrap;align-items:center;margin-bottom:1.2rem}
+.faqbar input{flex:1 1 260px;min-width:0;font:inherit;padding:.7rem 1rem;border:1px solid var(--line);border-radius:999px;background:var(--panel);color:var(--ink)}
+.faqlist{display:grid;gap:.5rem}
+.qa{background:var(--panel);border:1px solid var(--line);border-radius:12px}
+.qa summary{list-style:none;cursor:pointer;padding:1rem 1.2rem;display:flex;justify-content:space-between;gap:1rem;font-weight:600;align-items:center}
+.qa summary::-webkit-details-marker{display:none}
+.qa summary::after{content:"+";font-family:var(--font-heading);font-size:1.4rem;color:var(--accent-strong);line-height:1;flex-shrink:0}
+.qa[open] summary::after{content:"–"}
+.qa .ans{padding:0 1.2rem 1.1rem;color:var(--muted);display:grid;gap:.6rem}
+.qa .ans .meta{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center}
+.faq-empty{padding:1.5rem;text-align:center;color:var(--faint);border:1px dashed var(--line);border-radius:12px}
+
+/* Chat section */
+.chatsec{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:2rem;align-items:start}
+.chatbox{background:var(--panel);border:1px solid var(--line);border-radius:18px;display:flex;flex-direction:column;height:560px;box-shadow:var(--shadow);min-width:0}
+.chathead{display:flex;align-items:center;gap:.7rem;padding:1rem 1.2rem;border-bottom:1px solid var(--line)}
+.avatar{width:36px;height:36px;border-radius:50%;background:var(--band);color:var(--band-accent);display:grid;place-items:center;font-family:var(--font-heading);font-weight:700;font-size:.9rem;flex-shrink:0}
+.chathead b{display:block;font-size:.95rem}
+.chathead small{color:var(--good);font-size:var(--xs);font-weight:600}
+.chatlog{flex:1;overflow:auto;padding:1.1rem;display:flex;flex-direction:column;gap:.8rem}
+.msg{max-width:88%;padding:.75rem .95rem;border-radius:14px;font-size:.93rem;line-height:1.5;overflow-wrap:anywhere}
+.msg.bot{background:var(--bg);border-top-left-radius:4px;align-self:flex-start}
+.msg.user{background:var(--ink);color:var(--bg);border-top-right-radius:4px;align-self:flex-end}
+.msg .src{display:block;margin-top:.5rem;font-size:var(--xs);color:var(--faint)}
+.msg .acts{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.6rem}
+.msg .acts button,.msg .acts a{border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:999px;padding:.32rem .7rem;font-size:.8rem;text-decoration:none}
+.msg .acts button:hover,.msg .acts a:hover{border-color:var(--accent)}
+.msg.alert{background:rgba(179,67,58,.1);border:1px solid rgba(179,67,58,.35)}
+.chatsugg{display:flex;gap:.4rem;flex-wrap:wrap;padding:0 1.1rem .7rem}
+.chatsugg button{border:1px solid var(--line);background:none;color:var(--muted);border-radius:999px;padding:.32rem .7rem;font-size:.8rem}
+.chatform{display:flex;gap:.5rem;padding:.8rem;border-top:1px solid var(--line)}
+.chatform input{flex:1;min-width:0;font:inherit;border:1px solid var(--line);border-radius:999px;padding:.65rem 1rem;background:var(--bg);color:var(--ink)}
+.chatnote{font-size:var(--xs);color:var(--faint);padding:0 1.1rem .8rem}
+.chathead .who{flex:1;min-width:0}
+.chathead small.basic{color:var(--amber)}
+.chattools{display:flex;align-items:center;gap:.35rem}
+.langsw{display:flex;border:1px solid var(--line);border-radius:999px;padding:2px}
+.langsw button{border:0;background:none;color:var(--faint);font-size:.72rem;font-weight:700;padding:.22rem .5rem;border-radius:999px;letter-spacing:.04em}
+.langsw button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.iconbtn{width:30px;height:30px;border-radius:50%;border:1px solid var(--line);background:none;color:var(--muted);display:grid;place-items:center}
+.iconbtn:hover,.langsw button:hover{border-color:var(--accent);color:var(--ink)}
+.iconbtn svg{width:15px;height:15px}
+.msg .md p+p,.msg .md p+ul,.msg .md ul+p,.msg .md p+ol,.msg .md ol+p{margin-top:.5rem}
+.msg .md ul,.msg .md ol{padding-left:1.15rem;display:grid;gap:.2rem}
+.msg .md code{font-size:.85em;background:var(--line-soft);padding:0 .25rem;border-radius:4px}
+.msg.pending{min-width:64px}
+.typing{display:inline-flex;gap:4px;align-items:center;height:1.2em}
+.typing i{width:6px;height:6px;border-radius:50%;background:var(--faint);animation:nbdot 1s infinite ease-in-out}
+.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
+@keyframes nbdot{0%,80%,100%{opacity:.3;transform:translateY(0)}40%{opacity:1;transform:translateY(-3px)}}
+.caret{display:inline-block;width:.45em;height:1em;background:var(--accent);vertical-align:-.15em;margin-left:2px;animation:nbblink 1s steps(2) infinite}
+@keyframes nbblink{50%{opacity:0}}
+.toolnote{color:var(--faint);font-style:italic}
+.simcard{margin-top:.7rem;display:grid;gap:.5rem}
+.simcard .kpis{gap:.4rem}
+.simcard .kpi{background:var(--panel);padding:.55rem .6rem}
+.simcard .kpi b{font-size:1rem}
+.simcard .kpi small{font-size:.62rem;letter-spacing:.04em}
+.simcard .btn{justify-self:start}
+.chatslot{height:560px;border:1px dashed var(--line);border-radius:18px;display:grid;place-content:center;justify-items:center;gap:.8rem;color:var(--faint);text-align:center;padding:1rem}
+.chatbox.docked{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));width:min(410px,calc(100vw - 32px));height:min(640px,calc(100dvh - 32px));z-index:60;box-shadow:0 24px 60px rgba(4,13,30,.35)}
+.capab{display:grid;gap:1rem;margin-top:1.6rem}
+.capab div{display:grid;grid-template-columns:28px 1fr;gap:.8rem}
+.capab .k{font-family:var(--font-heading);font-weight:700;color:var(--accent-strong)}
+.capab p{color:var(--muted);font-size:.93rem}
+.fab{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:40;background:var(--band);color:var(--band-fg);border:1px solid var(--band-line);border-radius:999px;padding:.75rem 1.1rem;display:flex;gap:.55rem;align-items:center;box-shadow:0 12px 30px rgba(0,0,0,.3);font-weight:600}
+.fab .avatar{width:26px;height:26px;font-size:.7rem;background:var(--band-accent);color:#04121F}
+
+/* Trust */
+.trust{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1rem}
+.tcard{border:1px solid var(--line);border-radius:12px;padding:1.2rem;background:var(--panel);display:grid;gap:.5rem;align-content:start}
+.tcard h4{font-family:var(--font-heading);font-size:1rem;font-weight:600}
+.tcard p{font-size:.88rem;color:var(--muted)}
+.secnotice{display:flex;gap:1rem;align-items:center;background:var(--accent-soft);border-radius:12px;padding:1rem 1.2rem;margin-top:1.2rem;flex-wrap:wrap}
+.secnotice p{flex:1 1 300px;font-size:.93rem}
+
+/* About */
+.about{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:2.4rem}
+.subs{display:grid;gap:.8rem}
+.sub{border-left:2px solid var(--accent);padding:.2rem 0 .2rem 1rem}
+.sub b{display:block}
+.sub span{color:var(--muted);font-size:.9rem}
+.pillars{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem;margin-top:1.4rem}
+.pillars div{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:.9rem}
+.pillars b{display:block;font-family:var(--font-heading);font-weight:600}
+.pillars span{font-size:var(--sm);color:var(--muted)}
+
+/* Footer */
+footer{background:var(--band);color:var(--band-muted);font-size:.9rem}
+.fgrid{display:grid;grid-template-columns:1.3fr repeat(5,minmax(0,1fr));gap:2rem;padding-block:3.5rem 2.5rem}
+footer h4{font-family:var(--font-body);font-size:var(--xs);text-transform:uppercase;letter-spacing:.14em;color:var(--band-fg);margin-bottom:.8rem;font-weight:600}
+footer ul{list-style:none;padding:0;margin:0;display:grid;gap:.4rem}
+footer a{color:var(--band-muted);text-decoration:none}
+footer a:hover{color:var(--band-accent)}
+.fbottom{border-top:1px solid var(--band-line);padding-block:1.3rem;display:flex;flex-wrap:wrap;gap:.8rem 1.6rem;justify-content:space-between;font-size:var(--sm)}
+.copybtn{background:none;border:1px solid var(--band-line);color:var(--band-fg);border-radius:6px;padding:.15rem .5rem;font-size:var(--xs);margin-left:.4rem}
+
+/* Modal */
+.modal{position:fixed;inset:0;background:rgba(4,13,30,.6);display:grid;place-items:center;z-index:80;padding:16px}
+.modal-card{background:var(--panel);color:var(--ink);border-radius:16px;max-width:460px;width:100%;padding:1.6rem;display:grid;gap:1rem;box-shadow:var(--shadow)}
+.modal-card .row{display:flex;gap:.6rem;flex-wrap:wrap;justify-content:flex-end}
+.modal-card ul{margin:0;padding-left:1.1rem;color:var(--muted);display:grid;gap:.3rem}
+.toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:.65rem 1.1rem;border-radius:999px;font-size:.9rem;z-index:90}
+
+/* Responsive */
+@media (max-width:1080px){
+  .nav{display:none}
+  .nav.open{display:flex;flex-direction:column;position:absolute;left:0;right:0;top:100%;background:var(--band-2);padding:1rem var(--gutter);border-bottom:1px solid var(--band-line)}
+  .menu-toggle{display:block}
+  .searchbox{flex:1 1 auto}
+  .pgrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .benefits{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .benefit{border-right:0;border-bottom:1px solid var(--line);padding-left:0!important}
+  .trust{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .fgrid{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media (max-width:820px){
+  .hero .wrap,.sim,.chatsec,.about,.bizgrid{grid-template-columns:minmax(0,1fr)}
+  .util-links .hide-sm{display:none}
+  .searchbox kbd{display:none}
+  .login-btn .lbl{display:none}
+}
+@media (max-width:560px){
+  .pgrid,.benefits,.trust,.pillars{grid-template-columns:minmax(0,1fr)}
+  .kpis{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .kpis .kpi.main{grid-column:1/-1}
+  .bizcol ul{grid-template-columns:minmax(0,1fr)}
+  .fgrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .proof{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .proof b{font-size:1.3rem}
+  .mainbar .wrap{gap:.6rem;flex-wrap:wrap}
+  .searchbox{order:5;flex-basis:100%}
+  .util .segs button{padding:.3rem .5rem}
+  .fab .lbl{display:none}
+  .chatbox{height:520px}
+  .chatslot{height:520px}
+  .chatbox.docked{right:0;bottom:0;width:100vw;height:100dvh;border-radius:0}
+}
+</style>
+</head>
+<body>
+
+<a class="skip" href="#main">Saltar al contenido</a>
+
+<div class="demo" role="note"><div class="wrap"><span><b>Banco ficticio de demostración.</b> Nexumtestbank no es una entidad financiera real; productos, tasas, teléfonos y direcciones son ilustrativos.</span></div></div>
+
+<header class="top" id="top">
+  <div class="util">
+    <div class="wrap">
+      <div class="segs" role="group" aria-label="Segmento">
+        <button type="button" data-seg="personas" aria-pressed="true">Personas</button>
+        <button type="button" data-seg="pymes" aria-pressed="false">Pymes</button>
+        <button type="button" data-seg="empresas" aria-pressed="false">Empresas</button>
+      </div>
+      <div class="util-links">
+        <a href="#canales" class="hide-sm">Canales</a>
+        <a href="#faq" class="hide-sm">Ayuda</a>
+        <a href="#transparencia" class="hide-sm">Transparencia</a>
+        <span class="hide-sm tnum">Línea Nexum (01) 555 0100</span>
+        <button class="theme-btn" type="button" id="themeBtn" aria-label="Cambiar tema">Tema</button>
+      </div>
+    </div>
+  </div>
+  <div class="mainbar">
+    <div class="wrap">
+      <a class="logo" href="#top" aria-label="Nexumtestbank, inicio">
+        <span class="logo-mark" aria-hidden="true">N</span>
+        <span class="logo-text">Nexumtestbank<small>Grupo Financiero Regional</small></span>
+      </a>
+      <nav class="nav" id="nav" aria-label="Principal">
+        <button type="button" data-mega="productos" aria-expanded="false" aria-controls="mega">Productos <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button>
+        <button type="button" data-mega="ayuda" aria-expanded="false" aria-controls="mega">Ayuda y canales <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button>
+        <button type="button" data-mega="institucional" aria-expanded="false" aria-controls="mega">Quiénes somos <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button>
+      </nav>
+      <div class="searchbox">
+        <label for="q" class="skip" style="position:absolute;left:-999px">Buscar</label>
+        <input id="q" type="search" placeholder="Buscar productos, preguntas, canales…" autocomplete="off" aria-controls="results" aria-expanded="false">
+        <kbd aria-hidden="true">/</kbd>
+        <div class="results" id="results" role="listbox" hidden></div>
+      </div>
+      <button class="btn btn-primary btn-sm login-btn" type="button" id="loginBtn"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 7V5a3 3 0 016 0v2M4 7h8v7H4z" fill="none" stroke="currentColor" stroke-width="1.5"/></svg><span class="lbl">Nexum en línea</span></button>
+      <button class="menu-toggle" type="button" id="menuToggle" aria-expanded="false" aria-controls="nav" aria-label="Abrir menú"><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 6h14M3 10h14M3 14h14" stroke="currentColor" stroke-width="1.6"/></svg></button>
+    </div>
+  </div>
+  <div class="mega" id="mega" hidden></div>
+</header>
+
+<main id="main">
+
+<section class="hero" aria-labelledby="heroTitle">
+  <div class="wrap">
+    <div>
+      <p class="eyebrow" style="color:var(--band-accent)" id="heroEyebrow">Banca Personas</p>
+      <h1 id="heroTitle">¿Qué quieres <em>lograr</em> hoy?</h1>
+      <p class="lede" id="heroLede">Abre tu cuenta en minutos, financia tus metas y haz crecer tu dinero. Escribe lo que necesitas y te llevamos directo al producto o al asistente.</p>
+      <form class="intent" id="intentForm" role="search" aria-label="Pregunta al asistente">
+        <label for="intentInput" class="skip" style="position:absolute;left:-999px">¿Qué necesitas?</label>
+        <input id="intentInput" type="text" placeholder="Ej.: quiero comprar un auto" autocomplete="off">
+        <button class="btn btn-primary btn-sm" type="submit">Preguntar</button>
+      </form>
+      <div class="chips" id="heroChips" aria-label="Atajos"></div>
+      <div class="hero-ctas" id="heroCtas"></div>
+      <div class="proof" id="heroProof"></div>
+    </div>
+    <aside class="ticket" aria-labelledby="ticketTitle">
+      <div class="ticket-head">
+        <h3 id="ticketTitle">Cuenta Digital en 3 pasos</h3>
+        <span class="chip">Menos de 7 min</span>
+      </div>
+      <ol class="steps">
+        <li><span class="n">1</span><div><strong>Valida tu identidad</strong><small>Documento de identidad y una selfie desde tu celular.</small></div></li>
+        <li><span class="n">2</span><div><strong>Crea tu usuario</strong><small>Define tu clave y activa el acceso con huella o rostro.</small></div></li>
+        <li><span class="n">3</span><div><strong>Haz tu primer depósito</strong><small>Transferencia, cajero, agencia o un Punto Cercano.</small></div></li>
+      </ol>
+      <div class="ticket-foot">
+        <small>Requisitos: mayor de edad, documento vigente e internet.</small>
+        <button class="btn btn-primary btn-sm" type="button" data-demo="Apertura de Cuenta Digital">Abrir cuenta</button>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<div class="campaigns" aria-label="Campañas vigentes">
+  <div class="wrap camp-wrap">
+    <span class="chip amber">Campañas</span>
+    <div class="camp-track" id="campTrack" aria-live="polite"></div>
+    <div class="camp-ctrl">
+      <button type="button" id="campPrev" aria-label="Campaña anterior">‹</button>
+      <button type="button" id="campPause" aria-label="Pausar rotación">❚❚</button>
+      <button type="button" id="campNext" aria-label="Campaña siguiente">›</button>
+    </div>
+  </div>
+</div>
+
+<section class="section" id="productos" aria-labelledby="prodTitle">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Productos principales</p>
+      <h2 id="prodTitle">Todo lo que necesitas, en cuatro decisiones</h2>
+      <p class="lede">Cada tasa muestra su referencia y fecha. Las tasas reajustables cambian cada 3 meses según el mercado.</p>
+    </div>
+    <div class="pgrid" id="pgrid"></div>
+  </div>
+</section>
+
+<section class="section" id="catalogo" style="padding-top:0" aria-labelledby="catTitle">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Catálogo completo</p>
+      <h2 id="catTitle">Explora los productos de <span id="catSeg">Personas</span></h2>
+    </div>
+    <div class="tabs" role="tablist" id="catTabs" aria-label="Categorías"></div>
+    <div class="filters" id="catFilters" hidden></div>
+    <div class="cgrid" id="catGrid"></div>
+  </div>
+</section>
+
+<section class="section" id="recompensas" style="padding-top:0" aria-labelledby="loyTitle">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Programas de recompensa</p>
+      <h2 id="loyTitle">Cinco formas de que tus compras te devuelvan algo</h2>
+      <p class="lede">Ninguno acumula por avances de efectivo, gasolineras ni servicios públicos. Los puntos no caducan mientras uses tu tarjeta.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th scope="col">Programa</th><th scope="col">Acumulación</th><th scope="col">Bono de bienvenida</th><th scope="col">Canje</th><th scope="col">Tarjetas</th></tr></thead>
+        <tbody id="loyBody"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="simuladores" style="background:var(--bg-2)" aria-labelledby="simTitle">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Simuladores</p>
+      <h2 id="simTitle">Calcula antes de decidir</h2>
+      <p class="lede">Resultados referenciales con tasas de demostración. La cuota final depende de la evaluación de crédito.</p>
+    </div>
+    <div class="tabs simtabs" role="tablist" id="simTabs" aria-label="Simuladores"></div>
+    <div id="simPanel"></div>
+  </div>
+</section>
+
+<section class="section" id="beneficios" aria-labelledby="benTitle">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Por qué Nexumtestbank</p>
+      <h2 id="benTitle">Rapidez, recompensas, sostenibilidad y respaldo</h2>
+    </div>
+    <div class="benefits">
+      <div class="benefit"><span class="big tnum">7 min</span><h3>Rapidez</h3><p>Cuenta Digital sin filas. Crédito en línea acreditado al instante si lo completas antes de las 18h50 en día laborable.</p></div>
+      <div class="benefit"><span class="big">5</span><h3>Recompensas</h3><p>NexMillas, Puntos Mercado y tres programas de aerolíneas socias. Salas VIP en los aeropuertos principales con tarjetas Infinita y Signature.</p></div>
+      <div class="benefit green"><span class="big tnum">$1.000</span><h3>Sostenibilidad</h3><p>Bono para vivienda con certificación EDGE, LEED o BREEAM, $100 para autos eléctricos o híbridos y Líneas Verdes para empresas.</p></div>
+      <div class="benefit"><span class="big tnum">+1.300</span><h3>Respaldo</h3><p>Puntos para retirar efectivo, red de agencias, depósitos protegidos por el seguro de depósitos y un grupo financiero regional detrás.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="canales" style="padding-top:0" aria-labelledby="chTitle">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Canales</p>
+      <h2 id="chTitle">Qué puedes hacer y dónde</h2>
+      <p class="lede">Diez canales, una misma cuenta. Usa la tabla para encontrar el más cercano a lo que necesitas.</p>
+    </div>
+    <div class="tablewrap">
+      <table class="matrix">
+        <thead id="mxHead"></thead>
+        <tbody id="mxBody"></tbody>
+      </table>
+    </div>
+    <div class="chgrid" id="chGrid"></div>
+  </div>
+</section>
+
+<section class="section biz" id="negocios" aria-labelledby="bizTitle">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Pymes y Empresas</p>
+      <h2 id="bizTitle">Banca para quien hace crecer la economía</h2>
+      <p class="lede">Cuenta Pro Pyme 100% digital en menos de 15 minutos, tesorería empresarial y comercio exterior con asesoría especializada.</p>
+    </div>
+    <div class="bizgrid">
+      <div class="bizcol" id="pymes">
+        <div class="tagrow"><span class="chip">Pymes</span><span class="chip">Apertura sin costo</span></div>
+        <h3>Digitaliza y financia tu negocio</h3>
+        <ul>
+          <li><b>Cuenta Pro Pyme</b><span>Apertura digital en menos de 15 minutos, sin papeleo.</span></li>
+          <li><b>Tarjeta Pyme</b><span>Interés diferenciado y cupos para consumo y capital de trabajo, con NexMillas.</span></li>
+          <li><b>Líneas Verdes</b><span>Financiamiento para proyectos con impacto ambiental positivo.</span></li>
+          <li><b>Cobra con tarjetas</b><span>Acepta pagos con tarjeta desde tu celular.</span></li>
+          <li><b>Firma Digital</b><span>Firma tu pagaré sin ir a una agencia.</span></li>
+          <li><b>Guías</b><span>Cómo obtener firma electrónica y constituirte como sociedad simplificada.</span></li>
+        </ul>
+        <div style="display:flex;gap:.6rem;flex-wrap:wrap"><button class="btn btn-primary btn-sm" type="button" data-demo="Apertura Cuenta Pro Pyme">Abrir Cuenta Pro Pyme</button><button class="btn btn-band btn-sm" type="button" data-demo="Solicitud de llamada de un asesor Pyme">Quiero que me llamen</button></div>
+      </div>
+      <div class="bizcol" id="empresas">
+        <div class="tagrow"><span class="chip">Empresas</span><span class="chip">Ejecutivo asignado</span></div>
+        <h3>Cash Management y comercio exterior</h3>
+        <ul>
+          <li><b>Pagos</b><span>Roles de pago y proveedores en lote.</span></li>
+          <li><b>Cobros</b><span>Recaudaciones con conciliación.</span></li>
+          <li><b>Pagos al exterior y divisas</b><span>Transferencias internacionales y compra de divisas.</span></li>
+          <li><b>Integración SWIFT</b><span>Instrucciones de pago e información de cuenta automatizadas.</span></li>
+          <li><b>Aranceles y servicios</b><span>Pago de aranceles y depósitos temporales.</span></li>
+          <li><b>Mi Nómina Empresas</b><span>Paga sueldos y da beneficios a tus colaboradores.</span></li>
+        </ul>
+        <h4 style="font-size:var(--xs);text-transform:uppercase;letter-spacing:.14em;color:var(--band-accent)">Comercio exterior</h4>
+        <div class="tagrow" id="comexTags"></div>
+        <div class="docs" aria-label="Documentos disponibles"><span>Listado de bancos corresponsales</span><span>Formulario W-8BEN-E</span><span>Cuestionario Wolfsberg</span><span>Guía de instrumentos internacionales</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="faq" aria-labelledby="faqTitle">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Preguntas frecuentes</p>
+      <h2 id="faqTitle">Respuestas rápidas</h2>
+    </div>
+    <div class="faqbar">
+      <label for="faqQ" class="skip" style="position:absolute;left:-999px">Buscar en preguntas</label>
+      <input id="faqQ" type="search" placeholder="Busca una pregunta (ej.: tasa, retiro, blindado)">
+      <div class="filters" id="faqFilters" style="margin:0"></div>
+    </div>
+    <div class="faqlist" id="faqList"></div>
+  </div>
+</section>
+
+<section class="section" id="asistente" style="background:var(--bg-2)" aria-labelledby="botTitle">
+  <div class="wrap chatsec">
+    <div>
+      <p class="eyebrow">Asistente</p>
+      <h2 id="botTitle" style="margin-top:.9rem">Pregúntale a NexBot</h2>
+      <p class="lede" style="margin-top:.9rem">Asistente con IA entrenado con toda la información publicada en este sitio. Conversa en español o inglés, cita la fuente y te lleva a la acción. Si algo es urgente, te conecta con una persona.</p>
+      <div class="capab">
+        <div><span class="k">→</span><p><b>Encuentra el producto</b> que buscas aunque no sepas su nombre: “plata prestada”, “póliza”, “alcancía”.</p></div>
+        <div><span class="k">→</span><p><b>Recomienda tarjetas</b> según cómo viajas o dónde compras.</p></div>
+        <div><span class="k">→</span><p><b>Simula en la conversación</b> “¿cuánto pagaría por $10.000 a 24 meses?” y abre el simulador ya completado.</p></div>
+        <div><span class="k">→</span><p><b>Bilingüe:</b> pregunta en español o en inglés y te responde en tu idioma.</p></div>
+        <div><span class="k">!</span><p><b>Emergencias primero:</b> robo, fraude o bloqueo van directo a la Línea Nexum, sin preguntas previas.</p></div>
+      </div>
+    </div>
+    <div class="chatslot" id="chatSlot" hidden></div>
+    <div class="chatbox" aria-label="Chat con NexBot">
+      <div class="chathead"><span class="avatar" aria-hidden="true">NB</span><div class="who"><b>NexBot</b><small id="botStatus">● En línea · IA</small></div><div class="chattools"><div class="langsw" id="botLang" role="group" aria-label="Idioma / Language"><button type="button" data-l="es" aria-pressed="true">ES</button><button type="button" data-l="en" aria-pressed="false">EN</button></div><button type="button" class="iconbtn" id="botNew" aria-label="Nueva conversación" title="Nueva conversación"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13 8a5 5 0 1 1-1.5-3.5M13 2.5V5h-2.5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button><button type="button" class="iconbtn" id="botDock" aria-label="Abrir en ventana flotante" title="Abrir en ventana flotante"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 3h10v10H3zM8 8h5v5H8z" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button></div></div>
+      <div class="chatlog" id="chatlog" aria-live="polite"></div>
+      <div class="chatsugg" id="chatsugg"></div>
+      <form class="chatform" id="chatform">
+        <label for="chatIn" class="skip" style="position:absolute;left:-999px">Escribe tu pregunta</label>
+        <input id="chatIn" type="text" placeholder="Escribe tu pregunta…" autocomplete="off">
+        <button class="btn btn-primary btn-sm" type="submit" id="chatSend">Enviar</button>
+      </form>
+      <p class="chatnote">No compartas claves, PIN ni números de tarjeta. Información pública de demostración.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="transparencia" aria-labelledby="trTitle">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Confianza y transparencia</p>
+      <h2 id="trTitle">Tu dinero, protegido y a la vista</h2>
+    </div>
+    <div class="trust">
+      <div class="tcard"><span class="chip">Seguridad</span><h4>Seguridad en canales</h4><p>Consejos para usar App, web y cajeros con tranquilidad. Activa el acceso biométrico y las alertas.</p></div>
+      <div class="tcard"><span class="chip">Depósitos</span><h4>Seguro de depósitos</h4><p>Tus depósitos cuentan con la cobertura del seguro de depósitos del sistema financiero, hasta el límite legal.</p></div>
+      <div class="tcard"><span class="chip">Cumplimiento</span><h4>Prevención de lavado</h4><p>Políticas de conocimiento del cliente y debida diligencia alineadas a estándares internacionales.</p></div>
+      <div class="tcard"><span class="chip">Información</span><h4>Tasas, tarifas y estados</h4><p>Tasas activas y pasivas, tarifas, calificación de riesgo, estados financieros auditados y contratos.</p></div>
+    </div>
+    <div class="secnotice" role="note"><strong>Nexumtestbank nunca te pedirá claves, PIN ni códigos por teléfono, correo o mensajes.</strong><p>Si recibes una solicitud así, no respondas y repórtala a la Línea Nexum <span class="tnum">(01) 555 0100</span>.</p></div>
+  </div>
+</section>
+
+<section class="section" id="institucional" style="padding-top:0" aria-labelledby="abTitle">
+  <div class="wrap about">
+    <div>
+      <p class="eyebrow">Quiénes somos</p>
+      <h2 id="abTitle" style="margin-top:.9rem">Un banco centrado en el cliente, parte de un grupo regional</h2>
+      <p class="lede" style="margin-top:1rem">Nexumtestbank forma parte del Grupo Financiero Regional, con presencia en varios países. Nuestra estrategia combina innovación digital, sostenibilidad y servicio personalizado.</p>
+      <div class="pillars">
+        <div><b>Enfoque estratégico</b><span>Estrategia centrada en el cliente.</span></div>
+        <div><b>Enfoque comercial</b><span>Propuesta de valor por perfil de cliente.</span></div>
+        <div><b>Cultura</b><span>Identidad colectiva que trasciende en la vida de las personas.</span></div>
+        <div><b>Gobierno corporativo</b><span>Directorio, comités y políticas publicadas.</span></div>
+      </div>
+    </div>
+    <div>
+      <p class="eyebrow">Empresas del grupo</p>
+      <div class="subs" style="margin-top:1rem">
+        <div class="sub"><b>NexRecupera S.A.</b><span>Servicios auxiliares: administración del riesgo crediticio y recuperación de cartera en todas sus etapas.</span></div>
+        <div class="sub"><b>NexContacto S.A.</b><span>Contacto telefónico y mensajería: bienvenida, encuestas, campañas, cobranza preventiva y gestión de reclamos.</span></div>
+        <div class="sub"><b>PagoRed S.A.</b><span>Red de recaudación de cobros y pagos públicos, financieros y privados: agencias, ventanillas en comercios, agentes y switch transaccional.</span></div>
+      </div>
+      <p class="eyebrow" style="margin-top:2rem">Reconocimientos y noticias</p>
+      <p class="lede" style="margin-top:.6rem;font-size:.95rem">Reconocimientos institucionales, informes de sostenibilidad y noticias del banco se publican en la sección Institucional.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap fgrid">
+    <div>
+      <a class="logo" href="#top"><span class="logo-mark" aria-hidden="true">N</span><span class="logo-text">Nexumtestbank<small>Grupo Financiero Regional</small></span></a>
+      <p style="margin-top:1rem;max-width:30ch">Línea Nexum y WhatsApp: <span class="tnum" style="color:var(--band-fg)">(01) 555 0100</span><button class="copybtn" type="button" data-copy="(01) 555 0100">Copiar</button></p>
+    </div>
+    <div><h4>Personas</h4><ul><li><a href="#catalogo" data-cat="cuentas">Cuentas</a></li><li><a href="#catalogo" data-cat="creditos">Créditos</a></li><li><a href="#catalogo" data-cat="tarjetas">Tarjetas</a></li><li><a href="#catalogo" data-cat="ahorro">Ahorro Meta</a></li><li><a href="#catalogo" data-cat="inversiones">Inversiones</a></li><li><a href="#catalogo" data-cat="seguros">Seguros</a></li></ul></div>
+    <div><h4>Pymes y Empresas</h4><ul><li><a href="#pymes">Cuenta Pro Pyme</a></li><li><a href="#empresas">Cash Management</a></li><li><a href="#empresas">Comercio exterior</a></li><li><a href="#pymes">Líneas Verdes</a></li><li><a href="#empresas">Mi Nómina Empresas</a></li></ul></div>
+    <div><h4>Canales</h4><ul><li><a href="#canales">Agencias y cajeros</a></li><li><a href="#canales">App y web</a></li><li><a href="#canales">WhatsApp</a></li><li><a href="#canales">Punto Cercano</a></li><li><a href="#asistente">NexBot</a></li></ul></div>
+    <div><h4>Institucional</h4><ul><li><a href="#institucional">Quiénes somos</a></li><li><a href="#institucional">Empresas del grupo</a></li><li><a href="#institucional">Gobierno corporativo</a></li><li><a href="#beneficios">Sostenibilidad</a></li><li><a href="#institucional">Trabaja con nosotros</a></li></ul></div>
+    <div><h4>Transparencia</h4><ul><li><a href="#transparencia">Tasas y tarifas</a></li><li><a href="#transparencia">Calificación de riesgo</a></li><li><a href="#transparencia">Estados financieros</a></li><li><a href="#transparencia">Seguro de depósitos</a></li><li><a href="#transparencia">Contratos</a></li></ul></div>
+  </div>
+  <div class="wrap fbottom">
+    <span>© 2026 Nexumtestbank S.A. · Entidad ficticia de demostración · Av. Central 100, Torre Norte, Ciudad Capital</span>
+    <span>Supervisión referencial: Superintendencia de Bancos · Banco Central · Junta de Regulación Financiera</span>
+  </div>
+</footer>
+
+<button class="fab" type="button" id="fab" aria-controls="asistente"><span class="avatar" aria-hidden="true">NB</span><span class="lbl">Pregúntale a NexBot</span></button>
+<div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal-card"><h3 id="modalTitle"></h3><div id="modalBody"></div><div class="row"><button class="btn btn-ghost btn-sm" type="button" id="modalClose">Cerrar</button></div></div></div>
+<div class="toast" id="toast" hidden role="status"></div>
+
+<script>
+(function(){
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const ASOF='11/10/2026';
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const money=n=>'$'+n.toLocaleString('es-EC',{minimumFractionDigits:2,maximumFractionDigits:2});
+const money0=n=>'$'+Math.round(n).toLocaleString('es-EC');
+
+/* ---------- DATA (estructura derivada de la ingeniería inversa; marca ficticia) ---------- */
+const P=[
+// Cuentas
+{id:'cuenta-digital',seg:'personas',cat:'cuentas',n:'Cuenta Digital',d:'Cuenta de ahorros 100% digital. Ábrela en menos de 7 minutos solo con tu documento de identidad.',kv:[['Apertura','< 7 min'],['Servicios para pagar','+350'],['Promociones','+70'],['Retiro en cajero','hasta $500']],cta:'Abrir cuenta',k:'cuenta online ahorro abrir digital'},
+{id:'cuenta-hijos',seg:'personas',cat:'cuentas',n:'Cuenta para mis hijos',d:'Enseña a tus hijos a usar su primera tarjeta y a manejar su dinero.',kv:[['Titular','Padre o madre'],['Tarjeta','Débito para el menor']],cta:'Conocer más',k:'niños menores hijos'},
+{id:'cuenta-corriente',seg:'personas',cat:'cuentas',n:'Cuenta Corriente',d:'Accede a tu dinero con chequera, tarjeta de débito o canales digitales.',kv:[['Chequera','Sí'],['Tarjeta de débito','Sí']],cta:'Conocer más',k:'cheques chequera corriente'},
+{id:'cuenta-ahorros',seg:'personas',cat:'cuentas',n:'Cuenta de Ahorros',d:'Administra tu dinero en varios canales mientras ganas intereses.',kv:[['Interés','Tasa pasiva a la vista'],['Simulador','Disponible']],cta:'Conocer más',k:'ahorros interés'},
+// Ahorro
+{id:'ahorro-meta',seg:'personas',cat:'ahorro',n:'Ahorro Meta',d:'Ahorro programado flexible: define nombre, aporte y potenciadores. Retira cuando lo necesites.',kv:[['Apertura desde','$1'],['Tasa base desde','4,00%'],['Modo Blindado hasta','5,25%'],['Interés','diario, acreditado mensual']],cta:'Simular',sim:'ahorro',k:'ahorro programado alcancía flexible meta blindado redondeo reto 52 semanas'},
+// Créditos personas
+{id:'credito-en-linea',seg:'personas',cat:'creditos',n:'Crédito en línea',d:'Crédito de consumo 100% digital, sin garante, con acreditación inmediata.',kv:[['Monto máximo','$50.000'],['Tasa anual','15,60% reajustable'],['Garante','No requiere'],['Tabla','Francesa o alemana']],cta:'Simular',sim:'consumo',k:'préstamo plata prestada consumo crédito personal online'},
+{id:'credito-auto',seg:'personas',cat:'creditos',n:'Crédito Automotriz',d:'Financia tu vehículo nuevo o usado. No necesitas ser cliente.',kv:[['Plazo','hasta 84 meses'],['Entrada','desde 20%'],['Bono eléctrico/híbrido','$100'],['Tasa','preferencial con Mi Nómina']],cta:'Simular',sim:'auto',k:'auto carro vehículo automotriz coche'},
+{id:'credito-hipo',seg:'personas',cat:'creditos',n:'Crédito Hipotecario',d:'Vivienda nueva, en construcción o remodelación. Incluye seguros, impuestos y gastos legales.',kv:[['Tasa','desde 7,50%'],['Plazo','hasta 20 años'],['Financiamiento','hasta 80%'],['Contribución','0,5% del monto']],cta:'Simular',sim:'hipo',k:'casa vivienda hipoteca departamento'},
+{id:'hipo-verde',seg:'personas',cat:'creditos',n:'Hipotecario Vivienda Sostenible',d:'Para viviendas con certificación ambiental. Bono directo a tu financiamiento.',kv:[['Bono','$1.000'],['Certificaciones','EDGE, LEED, BREEAM']],cta:'Conocer más',green:1,k:'vivienda verde sostenible ecológica'},
+{id:'auto-verde',seg:'personas',cat:'creditos',n:'Automotriz Propósito Sostenible',d:'Financia tu auto híbrido o eléctrico con un beneficio directo a tu crédito.',kv:[['Bono','$100'],['Vehículos','Eléctricos o híbridos']],cta:'Conocer más',green:1,k:'eléctrico híbrido verde'},
+// Inversiones
+{id:'cdp-digital',seg:'personas',cat:'inversiones',n:'Depósito a Plazo Digital',d:'Invierte desde la App o la web con tasa preferencial. Renueva en minutos.',kv:[['Monto mínimo digital','$500'],['Monto mínimo en agencia','$1.000'],['Plazo','desde 30 días'],['Intereses','al vencimiento o anticipados']],cta:'Simular',sim:'cdp',k:'póliza plazo fijo inversión certificado invertir'},
+{id:'cdp-pre',seg:'personas',cat:'inversiones',n:'Depósito Precancelable',d:'Invierte y accede a tu dinero antes del plazo pactado si lo necesitas.',kv:[['Liquidez','Retiro anticipado'],['Garantía','Usable para crédito']],cta:'Conocer más',k:'precancelable liquidez'},
+// Seguros
+...[['vida','Vida Segura','Cobertura por fallecimiento y enfermedades terminales para proteger a tu familia.'],['viaje','Viaje Protegido','Asistencia y cobertura para que tu viaje sea solo experiencias.'],['hogar','Hogar Protegido','Planes contra robo y daños a tu vivienda y pertenencias.'],['desgravamen','Desgravamen Tarjeta','Cubre la deuda de tu tarjeta de crédito ante fallecimiento o incapacidad.'],['cuenta-prot','Cuenta Protegida','Protege tu tarjeta de débito de clonación, robo, hurto o pérdida.'],['tarjeta-prot','Tarjeta Protegida','Evita pagar consumos indebidos en tu tarjeta de crédito.'],['bolso','Bolso Protegido','Protege tus pertenencias, documentos y equipos.'],['ingreso','Ingreso Protegido','Respaldo económico con planes adaptados a tu realidad laboral.']].map(([id,n,d])=>({id:'seg-'+id,seg:'personas',cat:'seguros',n,d,kv:[['Contratación','Agencia, App o asesor']],cta:'Cotizar',k:'seguro '+n.toLowerCase()})),
+// Servicios
+...[['mi-nomina','Mi Nómina','Promociones exclusivas y tasas especiales en créditos por recibir tu sueldo con nosotros.','sueldo nómina rol de pagos'],['pago-servicios','Pago de servicios','Paga más de 350 servicios desde la App y la web.','pagar luz agua teléfono servicios'],['envio-express','Envío Express','Envía dinero a otros bancos en minutos.','transferir enviar dinero'],['pagos-sin-contacto','Pagos sin contacto','Paga con tu celular o reloj sin entregar tu tarjeta.','pagar celular reloj'],['plan-novios','Plan Novios','La forma práctica de recibir los regalos de tu boda.','boda novios regalo'],['cobra-celular','Cobra con tu celular','Vende con tarjetas de crédito y débito desde tu teléfono.','vender cobrar pos'],['bienes','Bienes y vehículos en venta','Bienes y vehículos que el banco pone a la venta.','remate bienes']].map(([id,n,d,k])=>({id,seg:'personas',cat:'servicios',n,d,kv:[],cta:'Conocer más',k})),
+// Pymes
+{id:'pro-pyme',seg:'pymes',cat:'cuentas',n:'Cuenta Pro Pyme',d:'Cuenta empresarial 100% digital, sin costo de apertura.',kv:[['Apertura','< 15 min'],['Costo','$0']],cta:'Abrir cuenta',k:'pyme negocio empresa cuenta'},
+{id:'lineas-verdes',seg:'pymes',cat:'creditos',n:'Líneas Verdes',d:'Financiamos proyectos que generan impacto positivo en el desarrollo sustentable.',kv:[['Enfoque','Eficiencia y energía limpia']],cta:'Conocer más',green:1,k:'verde sostenible pyme'},
+{id:'credito-pyme',seg:'pymes',cat:'creditos',n:'Créditos para tu empresa',d:'Alternativas de financiamiento según las necesidades de tu empresa.',kv:[['Destino','Capital de trabajo o activos']],cta:'Solicitar',k:'crédito pyme'},
+{id:'cobros-tarjeta',seg:'pymes',cat:'servicios',n:'Cobros con tarjetas',d:'Acepta pagos con tarjeta en tu negocio.',kv:[],cta:'Conocer más',k:'pos cobrar'},
+{id:'firma-digital',seg:'pymes',cat:'servicios',n:'Firma Digital',d:'Firma tu pagaré de forma digital.',kv:[],cta:'Conocer más',k:'firma electrónica'},
+{id:'inv-pyme',seg:'pymes',cat:'inversiones',n:'Inversiones Pyme',d:'Haz rendir los excedentes de tu negocio con depósitos a plazo.',kv:[['Plazo','desde 30 días']],cta:'Conocer más',k:'invertir pyme'},
+// Empresas
+{id:'cuenta-empresarial',seg:'empresas',cat:'cuentas',n:'Cuenta Empresarial',d:'Cuenta para empresas con apertura digital.',kv:[],cta:'Abrir cuenta',k:'empresa corporativa cuenta'},
+{id:'credito-empresas',seg:'empresas',cat:'creditos',n:'Crédito para empresas',d:'Financiamiento corporativo a la medida.',kv:[],cta:'Contactar ejecutivo',k:'crédito corporativo'},
+{id:'linea-cerrada',seg:'empresas',cat:'creditos',n:'Línea de Crédito Cerrada',d:'Línea con monto y plazo definidos para tu operación.',kv:[],cta:'Contactar ejecutivo',k:'línea crédito'},
+{id:'inv-empresas',seg:'empresas',cat:'inversiones',n:'Inversiones Empresas',d:'Instrumentos de inversión para la tesorería de tu empresa.',kv:[],cta:'Contactar ejecutivo',k:'inversión tesorería'},
+...[['cm-pagos','Pagos','Roles de pago y pago a proveedores.'],['cm-cobros','Cobros','Recaudaciones y conciliación.'],['cm-exterior','Pagos al exterior y divisas','Transferencias internacionales y compra de divisas.'],['cm-swift','Integración SWIFT','Procesamiento automático de instrucciones de pago.'],['cm-aranceles','Aranceles y servicios','Pago de aranceles y depósitos temporales.'],['cm-app','App Cash Management','Aprueba pagos y consulta saldos desde el móvil.'],['portal-prov','Portal de Proveedores','Tus proveedores consultan sus pagos en línea.'],['dep-virtuales','Depósitos Virtuales','Identifica automáticamente quién te depositó.'],['nomina-emp','Mi Nómina Empresas','Paga sueldos y da beneficios a tus colaboradores.']].map(([id,n,d])=>({id,seg:'empresas',cat:'cash',n,d,kv:[],cta:'Contactar ejecutivo',k:'cash management tesorería '+n.toLowerCase()})),
+...[['cc-import','Cartas de crédito de importación','Respaldo para compras internacionales.'],['cc-export','Cartas de crédito de exportación','Respaldo para tus ventas al exterior.'],['cc-standby','Cartas de crédito standby','Garantía de pago ante incumplimiento.'],['cc-dom','Cartas de crédito domésticas','Respaldo para compras locales.'],['avales','Avales','Respaldo para compras locales.'],['garantias','Garantías bancarias','Garantiza pagos oportunos.'],['cobranzas','Cobranzas documentarias','Cobro seguro de documentos de embarque.'],['gar-aduana','Garantías aduaneras','Garantías ante la autoridad aduanera.']].map(([id,n,d])=>({id,seg:'empresas',cat:'comex',n,d,kv:[],cta:'Contactar ejecutivo',k:'comercio exterior importación exportación '+n.toLowerCase()}))
+];
+// Tarjetas
+const C=[
+['Aerolínea Socia Infinita','Infinita','viajes','socia',['3 millas por $1 en la aerolínea socia','1,5 millas por $1 en otros consumos','Salas VIP nacionales'],'12.000 millas'],
+['Aerolínea Socia Platino','Platino','viajes','socia',['2,25 millas por $1 en la aerolínea','1,25 millas por $1 en otros consumos'],'6.000 millas'],
+['Aerolínea Socia Oro','Oro','viajes','socia',['1,5 millas por $1 en la aerolínea','1 milla por $1 en otros consumos'],'3.000 millas'],
+['Alianza Global Infinita','Infinita','viajes','alianza',['1 milla por $1','Salas VIP nacionales'],'15.000 millas'],
+['Alianza Global Platino','Platino','viajes','alianza',['1 milla por $1','Descuentos exclusivos'],'5.000 millas'],
+['Viajero Europa Infinita','Infinita','viajes','europa',['1 punto por $1','Salas VIP nacionales'],'15.000 puntos'],
+['Viajero Europa Platino','Platino','viajes','europa',['1 punto por $1','Cientos de destinos en 4 continentes'],'10.000 puntos'],
+['Nexum Black','Black','nexmillas',null,['Salas VIP internacionales','NexMillas por todas tus compras'],null],
+['Nexum Infinita','Infinita','nexmillas',null,['Salas VIP nacionales','NexMillas sin límite'],null],
+['Nexum Signature','Signature','nexmillas',null,['Salas VIP nacionales','NexMillas por todas tus compras'],null],
+['Nexum Platino','Platino','nexmillas',null,['Descuentos en comercios aliados','NexMillas por todas tus compras'],null],
+['Nexum Oro','Oro','nexmillas',null,['Compras nacionales, internacionales y en línea','NexMillas por todas tus compras'],null],
+['Mercado Black','Black','super',null,['Puntos Mercado por todos tus consumos','Salas VIP nacionales e internacionales'],null],
+['Mercado Platino','Platino','super',null,['Precio de afiliado en la cadena aliada','Puntos Mercado'],null],
+['Mercado Oro','Oro','super',null,['Precio de afiliado en la cadena aliada','Puntos Mercado'],null],
+['Mercado Clásica','Clásica','super',null,['Precio de afiliado en la cadena aliada','Puntos Mercado'],null],
+['Nexum Clásica','Clásica','otras',null,['Difiere consumos desde la App','Avances de efectivo'],null],
+['Nexum Pyme','Empresa','empresas',null,['Interés diferenciado para Pymes','Cupos para consumo y capital de trabajo'],null],
+['Nexum Corporativa','Empresa','empresas',null,['Control de gastos de la compañía','Seguros y asistencias mundiales'],null],
+['Tarjeta Regalo','Débito','otras',null,['Eliges el monto','Úsala en cualquier comercio afiliado'],null],
+['Nexum Débito','Débito','otras',null,['Compras nacionales e internacionales','Control de gastos en la App'],null]
+];
+const tierCls={'Clásica':'clasica','Oro':'oro','Platino':'platino','Signature':'signature','Black':'black','Infinita':'infinita','Empresa':'empresa','Débito':'debito'};
+const progName={socia:'Millas Aerolínea Socia',alianza:'Millas Alianza Global',europa:'Puntos Viajero Europa'};
+C.forEach(([n,tier,f,prog,ben,bono],i)=>{
+  const program=prog?progName[prog]:(f==='nexmillas'||n==='Nexum Pyme'?'NexMillas':f==='super'?'Puntos Mercado':'—');
+  P.push({id:'tc-'+i,seg:n==='Nexum Pyme'?'pymes':n==='Nexum Corporativa'?'empresas':'personas',cat:'tarjetas',filt:f,tier,n:'Tarjeta '+n,d:ben.join('. ')+'.',kv:[['Nivel',tier],['Programa',program]].concat(bono?[['Bienvenida',bono]]:[]),cta:tier==='Débito'?'Conocer más':'Solicitar',card:1,k:'tarjeta crédito '+program.toLowerCase()+' '+f});
+});
+const LOY=[
+['NexMillas','1 por $1 · supermercados 1 por $2','Sin monto mínimo','Viajes, paquetes, efectivo o donaciones','Nexum Oro a Black, Pyme'],
+['Puntos Mercado','Por cada consumo nacional e internacional','—','Productos en la cadena de supermercados aliada y su app','Mercado Clásica a Black'],
+['Millas Aerolínea Socia','1 / 1,25 / 1,5 por $1 según nivel','3.000 · 6.000 · 12.000 al facturar $600 · $800 · $2.000 en 3 meses','Vuelos en la aerolínea socia y +20 aerolíneas de su alianza','Aerolínea Socia Oro a Infinita'],
+['Millas Alianza Global','1 por $1','5.000 · 15.000 al facturar $1.000 · $2.000 en 3 meses','Vuelos en 26 aerolíneas de la alianza','Alianza Global Platino e Infinita'],
+['Puntos Viajero Europa','1 por $1','10.000 · 15.000 al facturar $1.000 · $1.500 en 3 meses','Vuelos, hoteles y alquiler de autos','Viajero Europa Platino e Infinita']
+];
+const FAQ=[
+['cuentas','¿Cómo hago mi primer depósito?','Recibe una transferencia desde cualquier banco, deposita en nuestros cajeros o agencias, o en cualquier Punto Cercano o agencia PagoRed.'],
+['cuentas','¿Necesito la tarjeta de débito para usar mi Cuenta Digital?','No. Puedes usar tu cuenta mientras la tarjeta llega a la dirección que registraste.'],
+['cuentas','¿Necesito el PIN de la tarjeta para entrar a la banca en línea?','No. Ingresas con el usuario y la clave que creaste. Con el PIN temporal puedes activar el acceso con huella o rostro.'],
+['cuentas','¿Cómo retiro dinero de mi Cuenta Digital?','Con tu tarjeta de débito en cajeros de la red interbancaria, o sin tarjeta en todos los cajeros Nexumtestbank.'],
+['cuentas','¿Puedo retirar más de $500 en un cajero?','Para montos mayores, genera un retiro sin libreta desde la App y acércate a una agencia.'],
+['creditos','¿Puedo pedir un crédito en línea si no soy cliente?','Sí. Durante la solicitud se crea tu Cuenta Digital.'],
+['creditos','¿Cuándo se acredita el crédito en línea?','Si completas la solicitud hasta las 18h50 de un día laborable, al instante. Si no, desde las 8h30 del siguiente día laborable.'],
+['creditos','¿La tasa del crédito en línea es fija?','No. Se reajusta cada 3 meses según las condiciones del mercado.'],
+['creditos','¿Qué documentos necesito si solicito el crédito en agencia?','Documento de identidad y un respaldo patrimonial. Si eres dependiente: certificado laboral y movimientos de 3 meses. Si eres independiente: registro tributario, declaraciones de IVA de 3 meses e impuesto a la renta del año anterior.'],
+['creditos','¿Puedo precancelar mi crédito hipotecario o automotriz?','Sí, puedes hacer abonos o precancelar en cualquier momento sin penalización.'],
+['creditos','¿Qué es la contribución del 0,5% en el hipotecario?','Es una contribución obligatoria equivalente al 0,5% del monto total del crédito.'],
+['creditos','¿El seguro vehicular y el rastreo son obligatorios?','Sí. El seguro se contrata por al menos un año y se renueva cada año. El rastreo tiene vigencia mínima de un año y puede financiarse.'],
+['creditos','¿Qué diferencia hay entre tabla francesa y alemana?','Francesa: cuota fija, con más interés al inicio. Alemana: abono a capital fijo, cuotas más altas al inicio que van bajando.'],
+['ahorro','¿Cómo gano interés en Ahorro Meta?','El interés se calcula a diario sobre tu saldo y se acredita el último día laborable del mes. Puedes abrirlo desde $1.'],
+['ahorro','¿Qué es el Modo Blindado?','Eliges un tiempo en el que tu dinero queda blindado y ganas una tasa mayor. Puedes desactivarlo ante una emergencia, pero pierdes la tasa máxima.'],
+['ahorro','¿Cómo funciona el redondeo de consumos?','Cada compra con débito se redondea al dólar siguiente y la diferencia va a tu Ahorro Meta. Ejemplo: compras $4,25 y ahorras $0,75.'],
+['ahorro','¿Cómo funciona el reto de 52 semanas?','Cada lunes se debita un monto creciente: $1 la semana 1 hasta $52 la semana 52. Al final ahorras $1.378.'],
+['inversiones','¿Desde cuánto puedo invertir en un depósito a plazo?','Desde $500 en canales digitales o $1.000 en agencias, a partir de 30 días.'],
+['inversiones','¿Puedo usar mi inversión como garantía?','Sí, puedes solicitar un crédito o una tarjeta usando tu depósito a plazo como garantía. También puedes endosarlo.'],
+['tarjetas','¿Qué consumos no acumulan millas o puntos?','Avances de efectivo, gasolineras y servicios públicos.'],
+['tarjetas','¿Caducan mis NexMillas?','No, mientras tengas transacciones en tu tarjeta de crédito.'],
+['canales','¿Qué puedo hacer por WhatsApp?','Contratar productos, reportar emergencias, solicitar certificados y consultar saldos y movimientos.'],
+['canales','¿Qué es un Punto Cercano?','Un corresponsal en tiendas, farmacias y bazares donde puedes depositar, retirar sin tarjeta, consultar saldos y pagar tarjetas.']
+];
+const CHANNELS=[
+['App y web','24/7','Transferencias, pago de servicios, retiros sin tarjeta, diferidos y avances.'],
+['WhatsApp','(01) 555 0100','Contratación, emergencias, certificados y saldos.'],
+['Línea Nexum','(01) 555 0100','Atención personalizada sobre tus productos.'],
+['Cajeros','24/7','Retiros con y sin tarjeta, saldos y avances de efectivo.'],
+['Cajeros multifunción','24/7','Depósitos en efectivo y cheque, pago de tarjetas.'],
+['Punto Cercano','Tiendas y farmacias','Depósitos, retiros sin tarjeta, saldos y pago de tarjetas.'],
+['Kioscos','En agencias','Certificados, desbloqueo de claves y videollamada con asesor.'],
+['Agencias','Horario comercial','Ventanilla y ejecutivos para abrir productos.'],
+['Oficina Digital','Supermercados y centros comerciales','Abre cuentas, inversiones y solicita créditos.'],
+['Business Center','Coworking','Espacio para tu negocio con asesoría especializada.']
+];
+const OPS=[['Transferir dinero',[1,0,0,0,0,0,0,1]],['Pagar servicios',[1,0,0,0,0,0,0,1]],['Retirar sin tarjeta',[1,0,1,1,1,0,0,1]],['Depositar efectivo',[0,0,0,1,1,0,0,1]],['Pagar tarjeta de crédito',[1,0,0,1,1,0,0,1]],['Pedir certificados',[1,1,0,0,0,1,0,1]],['Desbloquear clave',[0,1,0,0,0,1,1,1]],['Contratar productos',[1,1,0,0,0,0,1,1]]];
+const OPS_COLS=['App y web','WhatsApp','Cajero','Multifunción','Punto Cercano','Kiosco','Línea Nexum','Agencia'];
+const CAMPS=[['Regreso a clases: paga útiles a meses sin intereses con tu tarjeta.','Vigente hasta 30/11/2026'],['20% de reembolso en tu app de movilidad pagando con débito Nexum.','Vigente hasta 31/12/2026'],['10% de descuento en brunch dominical en hoteles aliados.','Todos los domingos hasta 29/11/2026'],['Activa tu tarjeta de crédito y participa por premios cada mes.','Registro en línea']];
+const SEGS={
+ personas:{eye:'Banca Personas',title:'¿Qué quieres <em>lograr</em> hoy?',lede:'Abre tu cuenta en minutos, financia tus metas y haz crecer tu dinero. Escribe lo que necesitas y te llevamos directo al producto o al asistente.',ph:'Ej.: quiero comprar un auto',
+   chips:['Abrir una cuenta','Pedir un crédito','Elegir tarjeta','Ahorrar e invertir','Proteger lo mío','Hablar con alguien'],
+   ctas:[['Abre tu Cuenta Digital','primary','demo:Apertura de Cuenta Digital'],['Simula tu crédito','band','sim:consumo'],['Compara tarjetas','band','cat:tarjetas']],
+   proof:[['+350','servicios para pagar'],['+1.300','puntos de efectivo'],['7 min','para abrir tu cuenta']]},
+ pymes:{eye:'Banca Pymes',title:'Tu negocio, <em>listo</em> para crecer',lede:'Abre tu Cuenta Pro Pyme sin papeleo, cobra con tarjetas y financia proyectos verdes.',ph:'Ej.: soy una sociedad simplificada, ¿puedo abrir cuenta?',
+   chips:['Abrir Cuenta Pro Pyme','Financiar mi negocio','Cobrar con tarjeta','Líneas Verdes','Firma electrónica','Hablar con un asesor'],
+   ctas:[['Abrir Cuenta Pro Pyme','primary','demo:Apertura Cuenta Pro Pyme'],['Ver productos Pyme','band','cat:cuentas'],['Quiero que me llamen','band','demo:Solicitud de llamada Pyme']],
+   proof:[['< 15 min','para abrir tu cuenta'],['$0','costo de apertura'],['100%','proceso digital']]},
+ empresas:{eye:'Banca Empresas',title:'Tesorería y comercio exterior <em>sin fricción</em>',lede:'Pagos, cobros, divisas y garantías internacionales en una sola plataforma con un ejecutivo asignado.',ph:'Ej.: necesito una carta de crédito de importación',
+   chips:['Cash Management','Comercio exterior','Pagar nómina','Financiamiento','Garantías','Hablar con un ejecutivo'],
+   ctas:[['Contactar a un ejecutivo','primary','demo:Contacto con ejecutivo de Empresas'],['Ver Cash Management','band','cat:cash'],['Ver comercio exterior','band','cat:comex']],
+   proof:[['6','servicios de cash'],['8','instrumentos de comex'],['1','plataforma y app']]}
+};
+const CATS={personas:[['cuentas','Cuentas'],['creditos','Créditos'],['tarjetas','Tarjetas'],['ahorro','Ahorro'],['inversiones','Inversiones'],['seguros','Seguros'],['servicios','Servicios']],
+ pymes:[['cuentas','Cuentas'],['creditos','Créditos'],['tarjetas','Tarjetas'],['inversiones','Inversiones'],['servicios','Servicios']],
+ empresas:[['cuentas','Cuentas'],['creditos','Créditos'],['cash','Cash Management'],['comex','Comercio exterior'],['inversiones','Inversiones'],['tarjetas','Tarjetas']]};
+const CARD_F=[['all','Todas'],['viajes','Viajes'],['super','Supermercados'],['nexmillas','NexMillas'],['empresas','Empresas'],['otras','Otras']];
+
+let seg='personas', cat='cuentas', cardF='all';
+try{const s=localStorage.getItem('ntb-seg'); if(s&&SEGS[s]) seg=s;}catch(e){}
+
+/* ---------- Toast & modal ---------- */
+function toast(t){const el=$('#toast');el.textContent=t;el.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(()=>el.hidden=true,2600)}
+let lastFocus=null;
+function modal(title,html){lastFocus=document.activeElement;$('#modalTitle').textContent=title;$('#modalBody').innerHTML=html;$('#modal').hidden=false;$('#modalClose').focus()}
+function closeModal(){$('#modal').hidden=true; if(lastFocus) lastFocus.focus()}
+$('#modalClose').onclick=closeModal;
+$('#modal').addEventListener('click',e=>{if(e.target.id==='modal')closeModal()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(!$('#modal').hidden)closeModal();closeMega();$('#results').hidden=true}});
+function demo(what){modal(what,`<p style="color:var(--muted)">Este es un sitio de demostración de un banco ficticio. En una implementación real, este paso abriría el flujo seguro de <b>${esc(what.toLowerCase())}</b> fuera de esta página.</p><ul><li>No se solicitan ni almacenan datos personales aquí.</li><li>Los montos y tasas mostrados son ilustrativos.</li></ul>`)}
+$('#loginBtn').onclick=()=>modal('Nexum en línea',`<p style="color:var(--muted)">Elige a dónde quieres ingresar. En este demo no hay acceso real ni se piden credenciales.</p><div style="display:grid;gap:.5rem;margin-top:.4rem"><button class="btn btn-ghost" type="button" data-demo="Banca Personas en línea">Banca Personas</button><button class="btn btn-ghost" type="button" data-demo="Banca Empresas en línea">Banca Empresas</button><button class="btn btn-ghost" type="button" data-demo="Cash Management">Cash Management</button></div>`);
+document.addEventListener('click',e=>{
+  const d=e.target.closest('[data-demo]'); if(d){e.preventDefault();demo(d.dataset.demo);return}
+  const a=e.target.closest('[data-act]'); if(a){e.preventDefault();act(a.dataset.act);return}
+  const c=e.target.closest('[data-cat]'); if(c){e.preventDefault();goCat(c.dataset.cat);return}
+  const cp=e.target.closest('[data-copy]'); if(cp){const t=cp.dataset.copy;(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>toast('Número copiado'),()=>toast(t));return}
+});
+function act(s){const [k,v]=s.split(':');
+  if(k==='demo')demo(v); else if(k==='sim'){openSim(v);$('#simuladores').scrollIntoView()} else if(k==='cat')goCat(v); else if(k==='bot'){openBot();ask(v)} else if(k==='go'){const el=document.getElementById(v); if(el) el.scrollIntoView()} else if(k==='simfill')simFill(v)}
+function goCat(c){const cats=CATS[seg].map(x=>x[0]); if(!cats.includes(c)){const s=Object.keys(CATS).find(k=>CATS[k].some(x=>x[0]===c)); if(s) setSeg(s)} cat=c; renderCatalog(); $('#catalogo').scrollIntoView(); closeMega()}
+
+/* ---------- Theme ---------- */
+$('#themeBtn').onclick=()=>{const r=document.documentElement;const cur=r.dataset.theme||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');r.dataset.theme=cur==='dark'?'light':'dark';toast(r.dataset.theme==='dark'?'Tema oscuro':'Tema claro')};
+
+/* ---------- Segment ---------- */
+function setSeg(s){seg=s;try{localStorage.setItem('ntb-seg',s)}catch(e){}
+  $$('.segs button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.seg===s));
+  if(!CATS[s].some(x=>x[0]===cat)) cat=CATS[s][0][0];
+  renderHero(); renderCatalog(); renderMega(currentMega,true)}
+$$('.segs button').forEach(b=>b.onclick=()=>setSeg(b.dataset.seg));
+
+function renderHero(){const h=SEGS[seg];
+  $('#heroEyebrow').textContent=h.eye; $('#heroTitle').innerHTML=h.title; $('#heroLede').textContent=h.lede; $('#intentInput').placeholder=h.ph;
+  $('#heroChips').innerHTML=h.chips.map(c=>`<button type="button" data-act="bot:${esc(c)}">${esc(c)}</button>`).join('');
+  $('#heroCtas').innerHTML=h.ctas.map(([t,k,a])=>`<button type="button" class="btn ${k==='primary'?'btn-primary':'btn-band'}" data-act="${a}">${t}</button>`).join('');
+  $('#heroProof').innerHTML=h.proof.map(([b,s])=>`<div><b class="tnum">${b}</b><span>${s}</span></div>`).join('')}
+$('#intentForm').onsubmit=e=>{e.preventDefault();const v=$('#intentInput').value.trim();if(!v)return;openBot();ask(v);$('#intentInput').value=''};
+
+/* ---------- Mega menu ---------- */
+let currentMega=null;
+const MEGA={
+ productos:()=>{const cols=CATS[seg].map(([c,l])=>{const items=P.filter(p=>p.seg===seg&&p.cat===c).slice(0,6);return `<div><h4>${l}</h4><ul>${items.map(p=>`<li><a href="#catalogo" data-cat="${c}">${esc(p.n)}</a></li>`).join('')}</ul></div>`}).join('');
+   return cols+`<div class="mega-feature"><b>Simuladores</b><p>Crédito, auto, vivienda, depósito a plazo y Ahorro Meta.</p><button class="btn btn-primary btn-sm" type="button" data-act="go:simuladores">Ir a simuladores</button></div>`},
+ ayuda:()=>`<div><h4>Canales</h4><ul>${CHANNELS.slice(0,6).map(c=>`<li><a href="#canales" data-act="go:canales">${c[0]}</a></li>`).join('')}</ul></div><div><h4>Ayuda</h4><ul><li><a href="#faq" data-act="go:faq">Preguntas frecuentes</a></li><li><a href="#asistente" data-act="go:asistente">NexBot</a></li><li><a href="#transparencia" data-act="go:transparencia">Seguridad en canales</a></li><li><a href="#faq" data-act="go:faq">Manuales de registro</a></li></ul></div><div><h4>Transparencia</h4><ul><li><a href="#transparencia" data-act="go:transparencia">Tasas y tarifas</a></li><li><a href="#transparencia" data-act="go:transparencia">Calificación de riesgo</a></li><li><a href="#transparencia" data-act="go:transparencia">Estados financieros</a></li><li><a href="#transparencia" data-act="go:transparencia">Seguro de depósitos</a></li></ul></div><div class="mega-feature"><b>¿Emergencia con tu tarjeta?</b><p>Bloquéala de inmediato por WhatsApp o en la Línea Nexum.</p><span class="tnum" style="font-family:var(--font-heading);font-size:1.3rem;color:var(--band-fg)">(01) 555 0100</span></div>`,
+ institucional:()=>`<div><h4>Nexumtestbank</h4><ul><li><a href="#institucional" data-act="go:institucional">Información institucional</a></li><li><a href="#institucional" data-act="go:institucional">Enfoque estratégico</a></li><li><a href="#institucional" data-act="go:institucional">Nuestra cultura</a></li><li><a href="#institucional" data-act="go:institucional">Reconocimientos</a></li></ul></div><div><h4>Grupo</h4><ul><li><a href="#institucional" data-act="go:institucional">Grupo Financiero Regional</a></li><li><a href="#institucional" data-act="go:institucional">Empresas del grupo</a></li><li><a href="#institucional" data-act="go:institucional">Gobierno corporativo</a></li></ul></div><div><h4>Más</h4><ul><li><a href="#beneficios" data-act="go:beneficios">Sostenibilidad</a></li><li><a href="#institucional" data-act="go:institucional">Noticias</a></li><li><a href="#institucional" data-act="go:institucional">Trabaja con nosotros</a></li></ul></div>`
+};
+function renderMega(k,keep){const m=$('#mega');if(!k||(currentMega===k&&!keep)){closeMega();return}
+  currentMega=k;m.innerHTML=`<div class="wrap">${MEGA[k]()}</div>`;m.hidden=false;
+  $$('.nav > button').forEach(b=>b.setAttribute('aria-expanded',b.dataset.mega===k))}
+function closeMega(){currentMega=null;$('#mega').hidden=true;$$('.nav > button').forEach(b=>b.setAttribute('aria-expanded','false'))}
+$$('.nav > button').forEach(b=>b.onclick=()=>renderMega(b.dataset.mega));
+$('#mega').addEventListener('click',e=>{if(e.target.closest('a,button')) setTimeout(closeMega,0)});
+document.addEventListener('click',e=>{if(!e.target.closest('.top'))closeMega()});
+$('#menuToggle').onclick=()=>{const n=$('#nav');const o=n.classList.toggle('open');$('#menuToggle').setAttribute('aria-expanded',o)};
+
+/* ---------- Campaign strip ---------- */
+let ci=0,cpause=matchMedia('(prefers-reduced-motion: reduce)').matches;
+function renderCamp(){const [t,v]=CAMPS[ci];$('#campTrack').innerHTML=`<div class="camp"><p>${t}</p><small>${v}</small></div>`;$('#campPause').textContent=cpause?'▶':'❚❚';$('#campPause').setAttribute('aria-label',cpause?'Reanudar rotación':'Pausar rotación')}
+$('#campPrev').onclick=()=>{ci=(ci+CAMPS.length-1)%CAMPS.length;renderCamp()};
+$('#campNext').onclick=()=>{ci=(ci+1)%CAMPS.length;renderCamp()};
+$('#campPause').onclick=()=>{cpause=!cpause;renderCamp()};
+setInterval(()=>{if(!cpause&&!document.hidden){ci=(ci+1)%CAMPS.length;renderCamp()}},6500);
+
+/* ---------- Product overview ---------- */
+const ICONS={cuentas:'<path d="M3 8h18v11H3zM3 8l9-5 9 5M7 12h4" fill="none" stroke="currentColor" stroke-width="1.6"/>',creditos:'<path d="M4 17l5-5 4 4 7-8M15 8h5v5" fill="none" stroke="currentColor" stroke-width="1.6"/>',tarjetas:'<path d="M3 6h18v12H3zM3 10h18M7 15h4" fill="none" stroke="currentColor" stroke-width="1.6"/>',inversiones:'<path d="M12 3v18M7 8c0-2 2-3 5-3s5 1 5 3-2 3-5 3-5 1-5 3 2 3 5 3 5-1 5-3" fill="none" stroke="currentColor" stroke-width="1.6"/>'};
+function renderOverview(){const O=[
+ ['cuentas','Cuentas','Tu cuenta, 100% digital',['Solo tu documento de identidad','3 pasos desde el celular','Débito con +70 promociones'],null,[['Abrir cuenta','primary','demo:Apertura de Cuenta Digital'],['Comparar','ghost','cat:cuentas']]],
+ ['creditos','Créditos','Financia tus metas',['En línea hasta $50.000','Automotriz hasta 84 meses','Hipotecario hasta 20 años'],['7,50%','tasa hipotecaria desde'],[['Simular','primary','sim:consumo'],['Ver créditos','ghost','cat:creditos']]],
+ ['tarjetas','Tarjetas','Una tarjeta para cada estilo',['21 tarjetas en 8 niveles','5 programas de millas y puntos','Salas VIP en aeropuertos'],null,[['Recomiéndame una','primary','bot:¿Qué tarjeta me recomiendan?'],['Ver tarjetas','ghost','cat:tarjetas']]],
+ ['inversiones','Ahorro e inversión','Haz crecer tu dinero',['Ahorro Meta desde $1','Depósito a plazo desde $500','Inversión usable como garantía'],['5,25%','Ahorro Meta Blindado hasta'],[['Simular','primary','sim:cdp'],['Invertir','ghost','cat:inversiones']]]];
+ $('#pgrid').innerHTML=O.map(([ic,eye,t,li,rate,ctas])=>`<article class="pcard"><div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true">${ICONS[ic]}</svg></div><div><p class="eyebrow">${eye}</p><h3 style="margin-top:.35rem">${t}</h3></div><ul>${li.map(x=>`<li>${x}</li>`).join('')}</ul>${rate?`<div class="rate"><b class="tnum">${rate[0]}</b><small>${rate[1]}<br>ref. tasas al ${ASOF}</small></div>`:''}<div class="acts">${ctas.map(([l,k,a])=>`<button type="button" class="btn btn-${k==='primary'?'primary':'ghost'} btn-sm" data-act="${a}">${l}</button>`).join('')}</div></article>`).join('')}
+
+/* ---------- Catalog ---------- */
+function cardArt(p){return `<div class="cardart tier-${tierCls[p.tier]||'clasica'}" aria-hidden="true"><div class="chipline"><i></i><span>${esc(p.tier)}</span></div><span>Nexumtestbank</span></div>`}
+function itemHTML(p){const primary=p.sim?`sim:${p.sim}`:p.card&&p.tier!=='Débito'?`demo:Solicitud de ${p.n}`:`demo:${p.cta} · ${p.n}`;
+ return `<article class="item">${p.card?cardArt(p):''}<header><h4>${esc(p.n)}</h4>${p.green?'<span class="chip amber">Verde</span>':''}</header><p>${esc(p.d)}</p>${p.kv.length?`<dl>${p.kv.map(([k,v])=>`<dt>${esc(k)}</dt><dd class="tnum">${esc(v)}</dd>`).join('')}</dl>`:''}<div class="acts"><button type="button" class="btn btn-primary btn-sm" data-act="${esc(primary)}">${esc(p.cta)}</button><button type="button" class="btn btn-ghost btn-sm" data-act="bot:${esc(p.n)}">Preguntar</button></div></article>`}
+function renderCatalog(){
+ $('#catSeg').textContent={personas:'Personas',pymes:'Pymes',empresas:'Empresas'}[seg];
+ $('#catTabs').innerHTML=CATS[seg].map(([c,l])=>{const n=P.filter(p=>p.seg===seg&&p.cat===c).length;return `<button type="button" role="tab" aria-selected="${c===cat}" data-tab="${c}">${l}<span class="count tnum">${n}</span></button>`}).join('');
+ $$('#catTabs button').forEach(b=>b.onclick=()=>{cat=b.dataset.tab;renderCatalog()});
+ let items=P.filter(p=>p.seg===seg&&p.cat===cat);
+ const showF=cat==='tarjetas'&&seg==='personas';$('#catFilters').hidden=!showF;
+ if(showF){$('#catFilters').innerHTML=CARD_F.map(([f,l])=>`<button type="button" aria-pressed="${f===cardF}" data-f="${f}">${l}</button>`).join('');
+   $$('#catFilters button').forEach(b=>b.onclick=()=>{cardF=b.dataset.f;renderCatalog()});
+   if(cardF!=='all') items=P.filter(p=>p.cat==='tarjetas'&&p.filt===cardF)}
+ $('#catGrid').innerHTML=items.map(itemHTML).join('')}
+
+/* ---------- Loyalty ---------- */
+$('#loyBody').innerHTML=LOY.map(r=>`<tr><td><b>${r[0]}</b></td><td class="tnum">${r[1]}</td><td class="tnum">${r[2]}</td><td>${r[3]}</td><td>${r[4]}</td></tr>`).join('');
+
+/* ---------- Simulators ---------- */
+const SIMS=[['consumo','Crédito en línea'],['auto','Automotriz'],['hipo','Hipotecario'],['cdp','Depósito a plazo'],['ahorro','Ahorro Meta']];
+let simCur='consumo';
+function openSim(k){simCur=k;renderSimTabs();renderSim()}
+function renderSimTabs(){$('#simTabs').innerHTML=SIMS.map(([k,l])=>`<button type="button" role="tab" aria-selected="${k===simCur}" data-s="${k}">${l}</button>`).join('');$$('#simTabs button').forEach(b=>b.onclick=()=>openSim(b.dataset.s))}
+function rangeField(id,label,min,max,step,val,fmt){return `<div class="field"><label for="${id}"><span>${label}</span><output id="${id}-o" class="tnum"></output></label><input type="range" id="${id}" min="${min}" max="${max}" step="${step}" value="${val}" data-fmt="${fmt}"></div>`}
+function fmtv(v,f){v=+v;return f==='m'?money0(v):f==='mo'?v+' meses':f==='y'?v+' años':f==='p'?v.toFixed(2).replace('.',',')+'%':f==='d'?v+' días':v}
+function amortTable(P0,rA,n,type){let bal=P0,rows=[],r=rA/12,tot=0;const fixed=P0*r/(1-Math.pow(1+r,-n));
+ for(let i=1;i<=n;i++){const int=bal*r;let cap,q;if(type==='fr'){q=fixed;cap=q-int}else{cap=P0/n;q=cap+int}bal=Math.max(0,bal-cap);tot+=q;rows.push([i,q,cap,int,bal])}
+ return {rows,tot,first:rows[0][1],last:rows[n-1][1]}}
+function credSim(cfg){const t=cfg.type||'fr';
+ $('#simPanel').innerHTML=`<div class="sim"><form class="sim-form" onsubmit="return false">${cfg.fields}<div class="field"><span style="font-size:var(--sm);font-weight:600;color:var(--muted)">Tipo de tabla</span><div class="seg" role="group" aria-label="Tipo de tabla"><button type="button" data-t="fr" aria-pressed="true">Francesa (cuota fija)</button><button type="button" data-t="al" aria-pressed="false">Alemana (decreciente)</button></div></div><p class="note">${cfg.note}</p></form><div class="sim-out"><div class="kpis" id="kp"></div><div class="amort"><table><thead><tr><th>Mes</th><th>Cuota</th><th>Capital</th><th>Interés</th><th>Saldo</th></tr></thead><tbody id="am"></tbody></table></div><div style="display:flex;gap:.5rem;flex-wrap:wrap"><button class="btn btn-primary btn-sm" type="button" data-demo="${cfg.apply}">${cfg.applyLbl}</button><button class="btn btn-ghost btn-sm" type="button" data-act="bot:${cfg.ask}">Tengo una duda</button></div></div></div>`;
+ let type='fr';
+ const calc=()=>{$$('#simPanel input[type=range]').forEach(i=>$('#'+i.id+'-o').textContent=fmtv(i.value,i.dataset.fmt));
+   const {P0,rate,n,extra}=cfg.read();const a=amortTable(P0,rate/100,n,type);
+   $('#kp').innerHTML=`<div class="kpi main"><small>${type==='fr'?'Cuota mensual':'Primera cuota'}</small><b class="tnum">${money(a.first)}</b></div><div class="kpi"><small>Monto a financiar</small><b class="tnum">${money0(P0)}</b></div><div class="kpi"><small>Total intereses</small><b class="tnum">${money0(a.tot-P0)}</b></div>${extra?extra(P0):''}`;
+   $('#am').innerHTML=a.rows.map(r=>`<tr><td class="tnum">${r[0]}</td>${r.slice(1).map(x=>`<td class="tnum">${money(x)}</td>`).join('')}</tr>`).join('')};
+ $$('#simPanel .seg button').forEach(b=>b.onclick=()=>{type=b.dataset.t;$$('#simPanel .seg button').forEach(x=>x.setAttribute('aria-pressed',x===b));calc()});
+ $$('#simPanel input').forEach(i=>i.oninput=calc);calc()}
+function renderSim(){
+ if(simCur==='consumo') credSim({fields:rangeField('s-m','Monto',1000,50000,500,12000,'m')+rangeField('s-n','Plazo',6,60,6,36,'mo')+rangeField('s-r','Tasa anual referencial',10,20,0.1,15.6,'p'),
+   note:'Tasa reajustable cada 3 meses. Incluye seguro de desgravamen. Si solicitas antes de las 18h50 en día laborable, se acredita al instante.',apply:'Solicitud de Crédito en línea',applyLbl:'Solicitar crédito',ask:'requisitos crédito en línea',
+   read:()=>({P0:+$('#s-m').value,n:+$('#s-n').value,rate:+$('#s-r').value})});
+ if(simCur==='auto') credSim({fields:rangeField('s-v','Precio del vehículo',8000,80000,500,25000,'m')+rangeField('s-e','Entrada',20,60,5,20,'p')+rangeField('s-n','Plazo',12,84,12,60,'mo')+rangeField('s-r','Tasa anual referencial',8,16,0.1,11.5,'p')+'<label style="display:flex;gap:.5rem;font-size:.9rem;align-items:center"><input type="checkbox" id="s-ev"> Es eléctrico o híbrido (bono $100)</label>',
+   note:'El seguro vehicular (mínimo 1 año) y el dispositivo de rastreo son obligatorios. Precancela sin penalidad. Tasa de demostración.',apply:'Solicitud de Crédito Automotriz',applyLbl:'Solicitar crédito',ask:'crédito automotriz',
+   read:()=>{const v=+$('#s-v').value,e=+$('#s-e').value;return {P0:Math.max(0,v*(1-e/100)-($('#s-ev').checked?100:0)),n:+$('#s-n').value,rate:+$('#s-r').value}}});
+ if(simCur==='hipo') credSim({fields:rangeField('s-v','Valor de la vivienda',40000,400000,5000,120000,'m')+rangeField('s-f','Porcentaje a financiar',30,80,5,70,'p')+rangeField('s-y','Plazo',5,20,1,20,'y')+rangeField('s-r','Tasa anual referencial',7.5,11,0.1,7.5,'p')+'<label style="display:flex;gap:.5rem;font-size:.9rem;align-items:center"><input type="checkbox" id="s-ev"> Vivienda con certificación EDGE, LEED o BREEAM (bono $1.000)</label>',
+   note:'Incluye seguros de desgravamen e incendio/terremoto, impuestos y gastos legales. Contribución obligatoria del 0,5% del monto.',apply:'Registro de interés en Crédito Hipotecario',applyLbl:'Deja tus datos',ask:'requisitos crédito hipotecario',
+   read:()=>{const v=+$('#s-v').value,f=+$('#s-f').value;return {P0:Math.max(0,v*f/100-($('#s-ev').checked?1000:0)),n:+$('#s-y').value*12,rate:+$('#s-r').value,extra:P0=>`<div class="kpi"><small>Contribución 0,5%</small><b class="tnum">${money0(P0*0.005)}</b></div>`}}});
+ if(simCur==='cdp'){$('#simPanel').innerHTML=`<div class="sim"><form class="sim-form" onsubmit="return false">${rangeField('s-m','Monto',500,100000,500,10000,'m')}${rangeField('s-d','Plazo',30,720,30,180,'d')}${rangeField('s-r','Tasa anual referencial',3,9,0.05,6.5,'p')}<div class="field"><span style="font-size:var(--sm);font-weight:600;color:var(--muted)">Pago de intereses</span><div class="seg" role="group" aria-label="Pago de intereses"><button type="button" data-t="v" aria-pressed="true">Al vencimiento</button><button type="button" data-t="a" aria-pressed="false">Anticipado</button></div></div><p class="note">Desde $500 en App y web, $1.000 en agencias. Base 360 días. Tasa de demostración; en agencias puede ser distinta.</p></form><div class="sim-out"><div class="kpis" id="kp"></div><p class="note">Tu depósito puede servir como garantía para un crédito o tarjeta y puede transferirse por endoso.</p><div style="display:flex;gap:.5rem;flex-wrap:wrap"><button class="btn btn-primary btn-sm" type="button" data-demo="Apertura de Depósito a Plazo Digital">Invertir ahora</button></div></div></div>`;
+  let t='v';const calc=()=>{$$('#simPanel input[type=range]').forEach(i=>$('#'+i.id+'-o').textContent=fmtv(i.value,i.dataset.fmt));const m=+$('#s-m').value,d=+$('#s-d').value,r=+$('#s-r').value/100;let int=m*r*d/360;if(t==='a')int=int/(1+r*d/360);
+   $('#kp').innerHTML=`<div class="kpi main"><small>Interés ${t==='v'?'al vencimiento':'anticipado'}</small><b class="tnum">${money(int)}</b></div><div class="kpi"><small>Recibes al final</small><b class="tnum">${money(t==='v'?m+int:m)}</b></div><div class="kpi"><small>Rendimiento</small><b class="tnum">${(int/m*100).toFixed(2).replace('.',',')}%</b></div>`};
+  $$('#simPanel .seg button').forEach(b=>b.onclick=()=>{t=b.dataset.t;$$('#simPanel .seg button').forEach(x=>x.setAttribute('aria-pressed',x===b));calc()});$$('#simPanel input').forEach(i=>i.oninput=calc);calc()}
+ if(simCur==='ahorro'){$('#simPanel').innerHTML=`<div class="sim"><form class="sim-form" onsubmit="return false"><div class="field"><label for="s-name"><span>Nombre de tu meta</span></label><input type="text" id="s-name" value="Viaje en familia" maxlength="40"></div>${rangeField('s-m','Aporte mensual automático',1,1000,1,100,'m')}${rangeField('s-n','Meses',3,36,1,12,'mo')}${rangeField('s-rd','Redondeo estimado al mes',0,60,1,12,'m')}<label style="display:flex;gap:.5rem;font-size:.9rem;align-items:center"><input type="checkbox" id="s-bl" checked> Activar Modo Blindado (hasta 5,25%)</label><label style="display:flex;gap:.5rem;font-size:.9rem;align-items:center"><input type="checkbox" id="s-52"> Sumar el reto de 52 semanas</label><p class="note">Tasa base 4,00% y Blindado 5,25% (demostración, sujetas a condiciones). Interés diario capitalizado mensual.</p></form><div class="sim-out"><div class="kpis" id="kp"></div><div><p class="note" style="margin-bottom:.4rem">Reto de 52 semanas: $1 la primera semana hasta $52 la última</p><div class="bar52" id="b52" aria-hidden="true"></div></div><div style="display:flex;gap:.5rem;flex-wrap:wrap"><button class="btn btn-primary btn-sm" type="button" data-demo="Apertura de Ahorro Meta">Abrir mi Ahorro Meta</button></div></div></div>`;
+  $('#b52').innerHTML=Array.from({length:52},(_,i)=>`<span style="height:${(i+1)/52*100}%"></span>`).join('');
+  const calc=()=>{$$('#simPanel input[type=range]').forEach(i=>$('#'+i.id+'-o').textContent=fmtv(i.value,i.dataset.fmt));const a=+$('#s-m').value+ +$('#s-rd').value,n=+$('#s-n').value,r=($('#s-bl').checked?5.25:4)/100/12;
+   const weeks=Math.min(52,Math.round(n*52/12)),w52=$('#s-52').checked?weeks*(weeks+1)/2:0;let bal=0,dep=0;for(let i=0;i<n;i++){const add=a+(w52/n);bal=(bal+add)*(1+r);dep+=add}
+   $$('#b52 span').forEach((s,i)=>s.classList.toggle('past',!$('#s-52').checked||i>=weeks));
+   $('#kp').innerHTML=`<div class="kpi main"><small>${esc($('#s-name').value||'Tu meta')}</small><b class="tnum">${money(bal)}</b></div><div class="kpi"><small>Tus aportes</small><b class="tnum">${money0(dep)}</b></div><div class="kpi"><small>Interés ganado</small><b class="tnum">${money(bal-dep)}</b></div>`};
+  $$('#simPanel input').forEach(i=>i.oninput=i.onchange=calc);calc()}
+}
+
+/* ---------- Channels ---------- */
+$('#mxHead').innerHTML=`<tr><th scope="col">Operación</th>${OPS_COLS.map(c=>`<th scope="col">${c}</th>`).join('')}</tr>`;
+$('#mxBody').innerHTML=OPS.map(([o,v])=>`<tr><th scope="row" style="background:none;text-transform:none;letter-spacing:0;font-size:.9rem;color:var(--ink);font-weight:500">${o}</th>${v.map(x=>`<td><span class="dot ${x?'':'no'}" role="img" aria-label="${x?'Disponible':'No disponible'}"></span></td>`).join('')}</tr>`).join('');
+$('#chGrid').innerHTML=CHANNELS.map(([n,m,d])=>`<div class="ch"><span class="meta tnum">${m}</span><h4>${n}</h4><p>${d}</p></div>`).join('');
+
+/* ---------- Comex tags ---------- */
+$('#comexTags').innerHTML=P.filter(p=>p.cat==='comex').map(p=>`<span class="chip">${esc(p.n)}</span>`).join('');
+
+/* ---------- FAQ ---------- */
+const FT=[['all','Todas'],['cuentas','Cuentas'],['creditos','Créditos'],['ahorro','Ahorro'],['inversiones','Inversiones'],['tarjetas','Tarjetas'],['canales','Canales']];
+let faqT='all';
+function norm(s){return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'')}
+function renderFaq(){const q=norm($('#faqQ').value.trim());
+ $('#faqFilters').innerHTML=FT.map(([k,l])=>`<button type="button" aria-pressed="${k===faqT}" data-ft="${k}">${l}</button>`).join('');
+ $$('#faqFilters button').forEach(b=>b.onclick=()=>{faqT=b.dataset.ft;renderFaq()});
+ const list=FAQ.filter(f=>(faqT==='all'||f[0]===faqT)&&(!q||norm(f[1]+' '+f[2]).includes(q)));
+ $('#faqList').innerHTML=list.length?list.map((f,i)=>`<details class="qa"${i===0&&!q?' open':''}><summary>${esc(f[1])}</summary><div class="ans"><p>${esc(f[2])}</p><div class="meta"><span class="chip plain">${FT.find(x=>x[0]===f[0])[1]}</span><span class="note">Verificado ${ASOF}</span></div></div></details>`).join('')
+  :`<div class="faq-empty">No encontramos esa pregunta. <button class="btn btn-ghost btn-sm" type="button" data-act="bot:${esc($('#faqQ').value)}">Pregúntale a NexBot</button></div>`}
+$('#faqQ').oninput=renderFaq;
+
+/* ---------- Search ---------- */
+function searchAll(q){q=norm(q);if(q.length<2)return[];const words=q.split(/\s+/).filter(w=>w.length>1);
+ const score=t=>{t=norm(t);return words.reduce((s,w)=>s+(t.includes(w)?1:0),0)};
+ const res=[];P.forEach(p=>{const s=score(p.n)*3+score(p.k||'')*2+score(p.d);if(s)res.push({s,type:'Producto',t:p.n,sub:p.d,act:p.sim?'sim:'+p.sim:'cat:'+p.cat,seg:p.seg})});
+ FAQ.forEach(f=>{const s=score(f[1])*2+score(f[2]);if(s)res.push({s,type:'Pregunta',t:f[1],sub:f[2],act:'bot:'+f[1]})});
+ CHANNELS.forEach(c=>{const s=score(c[0])*2+score(c[2]);if(s)res.push({s,type:'Canal',t:c[0],sub:c[2],act:'go:canales'})});
+ return res.sort((a,b)=>b.s-a.s).slice(0,8)}
+const qi=$('#q'),rs=$('#results');
+qi.oninput=()=>{const v=qi.value.trim();const r=searchAll(v);if(!v){rs.hidden=true;qi.setAttribute('aria-expanded','false');return}
+ rs.innerHTML=(r.map(x=>`<button type="button" role="option" data-act="${esc(x.act)}"><small>${x.type}${x.seg&&x.seg!=='personas'?' · '+x.seg:''}</small>${esc(x.t)}</button>`).join(''))+`<button type="button" role="option" data-act="bot:${esc(v)}"><small>Asistente</small>Preguntar a NexBot: “${esc(v)}”</button>`;
+ rs.hidden=false;qi.setAttribute('aria-expanded','true')};
+rs.addEventListener('click',()=>{rs.hidden=true;qi.value=''});
+document.addEventListener('keydown',e=>{if(e.key==='/'&&!/input|textarea|select/i.test(document.activeElement.tagName)){e.preventDefault();qi.focus()}});
+document.addEventListener('click',e=>{if(!e.target.closest('.searchbox'))rs.hidden=true});
+
+/* ---------- NexBot: motor local (respaldo sin conexión, recuperación sobre los datos del sitio) ---------- */
+const log=$('#chatlog');
+const SYN={prestamo:'credito',plata:'credito',financiamiento:'credito',poliza:'deposito',plazo:'deposito',cdp:'deposito',alcancia:'ahorro',carro:'auto',coche:'auto',vehiculo:'auto',casa:'hipotecario',vivienda:'hipotecario',departamento:'hipotecario',sueldo:'nomina',rol:'nomina',millas:'tarjeta',viajar:'viajes',viajo:'viajes'};
+function addMsg(html,who='bot',cls=''){const d=document.createElement('div');d.className=`msg ${who} ${cls}`;d.innerHTML=html;log.appendChild(d);log.scrollTop=log.scrollHeight}
+function acts(list){return `<div class="acts">${list.map(([l,a])=>`<button type="button" data-act="${esc(a)}">${l}</button>`).join('')}</div>`}
+function localReply(raw){let q=norm(raw);
+ if(/\b\d{13,19}\b/.test(raw.replace(/[\s-]/g,''))){addMsg('Por tu seguridad, no compartas números de tarjeta ni claves en este chat. Ya no lo tendré en cuenta.','bot','alert');return}
+ if(/(robaron|robo|perdi|fraude|bloque|clonad|no reconozco|hackea)/.test(q)){addMsg(`<b>Bloquea tu tarjeta ahora.</b> Escríbenos por WhatsApp o llama a la Línea Nexum: <span class="tnum"><b>(01) 555 0100</b></span>. Atención inmediata, sin pasos previos.<div class="acts"><button type="button" data-copy="(01) 555 0100">Copiar número</button><button type="button" data-act="go:canales">Ver canales</button></div><span class="src">Protocolo de emergencias · prioridad alta</span>`,'bot','alert');return}
+ if(/(hablar con|asesor|humano|persona|ejecutivo|alguien|llamen)/.test(q)){addMsg(`Te conecto con una persona. Línea Nexum y WhatsApp: <span class="tnum"><b>(01) 555 0100</b></span> (opción 5 para créditos). También puedes visitar una agencia o un Business Center.${acts([['Ver canales','go:canales'],['Agendar llamada','demo:Agendar llamada con un asesor']])}`);return}
+ if(/(recomiend|que tarjeta|cual tarjeta|tarjeta para)/.test(q)&&!/(aerolinea socia|alianza|europa|supermercado|general|black)/.test(q)){addMsg(`Para recomendarte bien, cuéntame cómo la usarías:${acts([['Viajo con la aerolínea socia','bot:tarjeta aerolínea socia'],['Viajo por la alianza global','bot:tarjeta alianza global'],['Viajo a Europa','bot:tarjeta europa'],['Compro en supermercado','bot:tarjeta supermercado'],['Uso general','bot:tarjeta uso general'],])}`);return}
+ if(/tarjeta/.test(q)&&/(aerolinea socia|alianza|europa|supermercado|general)/.test(q)){
+   const map=[['aerolinea socia','socia','Millas Aerolínea Socia: 1 / 1,25 / 1,5 millas por $1 según nivel y más en compras con la aerolínea. Bienvenida de 3.000 a 12.000 millas.'],['alianza','alianza','Millas Alianza Global: 1 milla por $1 y canje en 26 aerolíneas. Bienvenida de 5.000 o 15.000 millas.'],['europa','europa','Puntos Viajero Europa: 1 punto por $1, vuelos, hoteles y autos. Bienvenida de 10.000 o 15.000 puntos.'],['supermercado','super','Puntos Mercado: precio de afiliado en la cadena aliada y puntos por todos tus consumos.'],['general','nexmillas','NexMillas: 1 por $1 (supermercados 1 por $2), canje por viajes, efectivo o donaciones, sin monto mínimo.']];
+   const m=map.find(x=>q.includes(x[0]));const nm={socia:'socia',alianza:'alianza',europa:'europa'}[m[1]];const cards=P.filter(p=>p.cat==='tarjetas'&&(nm?norm(p.n).includes(nm):p.filt===m[1])).slice(0,4);
+   addMsg(`${m[2]}<br><br>Opciones: ${cards.map(c=>'<b>'+esc(c.n.replace('Tarjeta ',''))+'</b>').join(', ')}.${acts([['Ver estas tarjetas','cat:tarjetas'],['Solicitar','demo:Solicitud de tarjeta de crédito']])}<span class="src">Fuente: Programas de recompensa · verificado ${ASOF}</span>`);
+   cardF=nm?'viajes':m[1];return}
+ const words=q.split(/[^a-z0-9ñ]+/).filter(w=>w.length>2).map(w=>SYN[w]||w);
+ if(!words.length){addMsg('¿Me cuentas un poco más? Por ejemplo: “quiero abrir una cuenta” o “¿desde cuánto puedo invertir?”.');return}
+ const sc=t=>{t=norm(t).replace(/depositos? a plazo/g,'deposito');return words.reduce((s,w)=>s+(t.includes(w)?1:0),0)};
+ const fb=FAQ.map(f=>({f,s:sc(f[1])*2+sc(f[2])})).sort((a,b)=>b.s-a.s)[0];
+ const pb=P.map(p=>({p,s:sc(p.n)*3+sc(p.k||'')*2+sc(p.d)})).sort((a,b)=>b.s-a.s)[0];
+ if(/abrir/.test(q)&&/cuenta/.test(q)){addMsg(`Puedes abrir tu <b>Cuenta Digital</b> 100% en línea en menos de 7 minutos, solo con tu documento de identidad. Requisitos: ser mayor de edad, documento vigente e internet. ¿Es para ti, tus hijos o tu empresa?${acts([['Abrir Cuenta Digital','demo:Apertura de Cuenta Digital'],['Cuenta para mis hijos','cat:cuentas'],['Cuenta Pro Pyme','demo:Apertura Cuenta Pro Pyme']])}<span class="src">Fuente: Cuenta Digital · verificado ${ASOF}</span>`);return}
+ if(fb&&fb.s>=2&&(!pb||fb.s>=pb.s)){addMsg(`${esc(fb.f[2])}${acts([['Ver preguntas relacionadas','go:faq'],['Hablar con alguien','bot:hablar con un asesor']])}<span class="src">Fuente: Preguntas frecuentes · ${esc(fb.f[1])} · ${ASOF}</span>`);return}
+ if(pb&&pb.s>=2){const p=pb.p;addMsg(`<b>${esc(p.n)}</b>: ${esc(p.d)}${p.kv.length?'<br>'+p.kv.map(([k,v])=>`${esc(k)}: <b>${esc(v)}</b>`).join(' · '):''}${acts([[p.sim?'Simular':'Ver en el catálogo',p.sim?'sim:'+p.sim:'cat:'+p.cat],[p.cta,'demo:'+p.cta+' · '+p.n]])}<span class="src">Fuente: ficha de producto · verificado ${ASOF}</span>`);return}
+ if(fb&&fb.s>=1){addMsg(`${esc(fb.f[2])}<span class="src">Fuente: Preguntas frecuentes · ${ASOF}</span>`);return}
+ addMsg(`No tengo información publicada sobre eso. Para no darte un dato incorrecto, te sugiero hablar con un asesor o revisar Tasas y tarifas.${acts([['Hablar con alguien','bot:hablar con un asesor'],['Tasas y tarifas','go:transparencia']])}`)}
+
+/* ---------- NexBot IA (Claude vía /api/nexbot, con respaldo local) ---------- */
+const NB_API='/api/nexbot';
+const NB_TXT={
+ es:{ph:'Escribe tu pregunta…',send:'Enviar',stop:'Detener',note:'No compartas claves, PIN ni números de tarjeta. Información pública de demostración.',
+   on:'● En línea · IA',basic:'● Modo básico',typing:'NexBot está escribiendo…',newc:'Nueva conversación',dock:'Abrir en ventana flotante',undock:'Volver a la sección',
+   tools:{simulate_loan:'Calculando tu crédito…',simulate_term_deposit:'Calculando tu depósito…',simulate_savings_goal:'Calculando tu Ahorro Meta…',request_advisor_callback:'Registrando tu solicitud…'},
+   sugg:['Quiero abrir una cuenta','¿Qué tarjeta me recomiendan?','¿Cuánto pagaría por $10.000 a 24 meses?','¿Cómo funciona el reto de 52 semanas?'],
+   hello:'Hola, soy **NexBot**, el asistente con IA de Nexumtestbank. Puedo ayudarte a elegir una cuenta, simular un crédito, recomendarte una tarjeta o encontrar el canal correcto. ¿Qué necesitas?\n\n_También hablo inglés · I also speak English._',
+   err:{busy:'Estoy recibiendo muchas consultas. Te respondo con la información básica del sitio:',upstream:'Tuve un problema de conexión. Te respondo con la información básica del sitio:'},
+   slot:'NexBot está abierto en la ventana flotante.',bring:'Traer aquí',simopen:'Ver en el simulador',
+   k:{pay:'Cuota mensual',first:'Primera cuota',principal:'Monto a financiar',interest:'Total intereses',dint:'Interés',recv:'Recibes al final',yield:'Rendimiento',bal:'Saldo final',dep:'Tus aportes',earn:'Interés ganado'}},
+ en:{ph:'Type your question…',send:'Send',stop:'Stop',note:"Don't share passwords, PINs or card numbers. Public demo information.",
+   on:'● Online · AI',basic:'● Basic mode',typing:'NexBot is typing…',newc:'New conversation',dock:'Open in floating window',undock:'Back to section',
+   tools:{simulate_loan:'Calculating your loan…',simulate_term_deposit:'Calculating your deposit…',simulate_savings_goal:'Calculating your Ahorro Meta…',request_advisor_callback:'Registering your request…'},
+   sugg:['I want to open an account','Which card do you recommend?','How much would I pay for $10,000 over 24 months?','How does the 52-week challenge work?'],
+   hello:"Hi, I'm **NexBot**, Nexumtestbank's AI assistant. I can help you choose an account, simulate a loan, recommend a card or find the right channel. What do you need?\n\n_También hablo español._",
+   err:{busy:"I'm getting a lot of questions right now. Here's the basic answer from the site:",upstream:'I had a connection problem. Here is the basic answer from the site:'},
+   slot:'NexBot is open in the floating window.',bring:'Bring it here',simopen:'Open in simulator',
+   k:{pay:'Monthly payment',first:'First payment',principal:'Amount financed',interest:'Total interest',dint:'Interest',recv:'You receive',yield:'Yield',bal:'Final balance',dep:'Your deposits',earn:'Interest earned'}}
+};
+const NB_GO=['productos','recompensas','simuladores','beneficios','canales','negocios','faq','transparencia','institucional'];
+const NB_SIM=['consumo','auto','hipo','cdp','ahorro'];
+const NB_CAT=[...new Set(Object.values(CATS).flat().map(x=>x[0]))];
+const NB_PHONE='(01) 555 0100';
+let nbLang='es', nbMode='ai', nbBusy=false, nbAbort=null, nbHist=[];
+const nbSims={};
+try{const l=localStorage.getItem('ntb-bot-lang'); if(l==='en'||l==='es') nbLang=l;}catch(e){}
+const T=()=>NB_TXT[nbLang];
+
+/* Markdown seguro: se escapa todo y solo se reconstruyen negritas, cursivas, listas y párrafos. */
+function md(src){
+  const inline=s=>esc(s).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/(^|[\s(])[_*]([^_*\n]+?)[_*](?=[\s).,;:!?]|$)/g,'$1<i>$2</i>').replace(/`([^`]+)`/g,'<code>$1</code>');
+  const out=[];let list=null;
+  for(const raw of src.split('\n')){const line=raw.trim();
+    const m=line.match(/^(?:[-*•]|(\d+)[.)])\s+(.*)$/);
+    if(m){const t=m[1]?'ol':'ul';if(!list||list.t!==t){if(list)out.push(`</${list.t}>`);list={t};out.push(`<${t}>`)}out.push(`<li>${inline(m[2])}</li>`);continue}
+    if(list){out.push(`</${list.t}>`);list=null}
+    if(!line)continue;
+    if(/^#{1,4}\s/.test(line)){out.push(`<p><b>${inline(line.replace(/^#+\s/,''))}</b></p>`);continue}
+    out.push(`<p>${inline(line)}</p>`)}
+  if(list)out.push(`</${list.t}>`);
+  return out.join('');
+}
+
+/* Etiquetas de acción [[tipo:valor|Etiqueta]] → solo destinos de la lista blanca. */
+const TAG_RE=/\[\[(\w+):([^\]|]+?)(?:\|([^\]]+?))?\]\]/g;
+function parseReply(text){
+  const buttons=[];let src='';
+  const body=text.replace(TAG_RE,(m,type,val,label)=>{val=val.trim();label=(label||val).trim().slice(0,40);
+    if(type==='src'){src=val.slice(0,120);return ''}
+    if(type==='sim'&&NB_SIM.includes(val))buttons.push([label,'sim:'+val]);
+    else if(type==='cat'&&NB_CAT.includes(val))buttons.push([label,'cat:'+val]);
+    else if(type==='go'&&NB_GO.includes(val))buttons.push([label,'go:'+val]);
+    else if(type==='demo')buttons.push([label,'demo:'+val.replace(/:/g,' ').slice(0,80)]);
+    else if(type==='ask')buttons.push([label,'bot:'+val.replace(/:/g,' ').slice(0,200)]);
+    else if(type==='copy'&&val===NB_PHONE)buttons.push([label,'copy']);
+    return ''}).replace(/\[\[[^\]]*$/,'').trim(); // oculta etiquetas a medio transmitir
+  return {body,buttons:buttons.slice(0,4),src};
+}
+function renderBot(el,text,final){
+  const {body,buttons,src}=parseReply(text);
+  el.querySelector('.md').innerHTML=md(body)+(final?'':'<span class="caret" aria-hidden="true"></span>');
+  const a=el.querySelector('.acts-slot');
+  a.innerHTML=final&&buttons.length?`<div class="acts">${buttons.map(([l,x])=>x==='copy'?`<button type="button" data-copy="${NB_PHONE}">${esc(l)}</button>`:`<button type="button" data-act="${esc(x)}">${esc(l)}</button>`).join('')}</div>`:'';
+  el.querySelector('.src-slot').innerHTML=final&&src?`<span class="src">${nbLang==='en'?'Source':'Fuente'}: ${esc(src)}</span>`:'';
+}
+function botBubble(){const d=document.createElement('div');d.className='msg bot';d.innerHTML='<div class="md"></div><div class="sim-slot"></div><div class="acts-slot"></div><div class="src-slot"></div>';log.appendChild(d);return d}
+function scrollLog(){log.scrollTop=log.scrollHeight}
+
+/* Tarjeta de resultado de simulación, con botón que precarga el simulador de la página. */
+function simCard(r){
+  const id='s'+Date.now().toString(36)+Math.random().toString(36).slice(2,5);nbSims[id]=r;const k=T().k;let kp;
+  if(r.simulator==='cdp')kp=[[k.dint,money(r.interest),1],[k.recv,money(r.receive_at_maturity)],[k.yield,String(r.yield_pct).replace('.',',')+'%']];
+  else if(r.simulator==='ahorro')kp=[[k.bal,money(r.final_balance),1],[k.dep,money0(r.total_contributed)],[k.earn,money(r.interest_earned)]];
+  else kp=[[r.amortization==='francesa'?k.pay:k.first,money(r.first_payment),1],[k.principal,money0(r.principal)],[k.interest,money0(r.total_interest)]];
+  return `<div class="simcard"><div class="kpis">${kp.map(([l,v,m])=>`<div class="kpi${m?' main':''}"><small>${esc(l)}</small><b class="tnum">${v}</b></div>`).join('')}</div><button type="button" class="btn btn-ghost btn-sm" data-act="simfill:${id}">${esc(T().simopen)}</button></div>`;
+}
+function simFill(id){const r=nbSims[id];if(!r)return;openSim(r.simulator);$('#simuladores').scrollIntoView();
+  const set=(sel,v)=>{const el=$(sel);if(!el||v==null)return;if(el.type==='checkbox')el.checked=!!v;else el.value=v;el.dispatchEvent(new Event('input'));el.dispatchEvent(new Event('change'))};
+  const seg=t=>{const b=$(`#simPanel .seg button[data-t="${t}"]`);if(b)b.click()};
+  if(r.simulator==='consumo'){set('#s-m',r.principal);set('#s-n',r.term_months);set('#s-r',r.annual_rate_pct)}
+  if(r.simulator==='auto'){set('#s-v',r.vehicle_price);set('#s-e',r.down_payment_pct);set('#s-n',r.term_months);set('#s-r',r.annual_rate_pct);set('#s-ev',r.eco_bonus_applied>0)}
+  if(r.simulator==='hipo'){set('#s-v',r.property_value);set('#s-f',r.finance_pct);set('#s-y',r.term_years);set('#s-r',r.annual_rate_pct);set('#s-ev',r.eco_bonus_applied>0)}
+  if(r.simulator==='consumo'||r.simulator==='auto'||r.simulator==='hipo')seg(r.amortization==='alemana'?'al':'fr');
+  if(r.simulator==='cdp'){set('#s-m',r.amount);set('#s-d',r.days);set('#s-r',r.annual_rate_pct);seg(r.interest_payment==='anticipado'?'a':'v')}
+  if(r.simulator==='ahorro'){if(r.goal_name)set('#s-name',r.goal_name);set('#s-m',r.monthly_contribution);set('#s-n',r.months);set('#s-rd',r.roundup_monthly);set('#s-bl',r.blindado);set('#s-52',r.challenge_52_weeks)}
+}
+
+/* Idioma de la interfaz del chat */
+function applyLang(l){if(l)nbLang=l;try{localStorage.setItem('ntb-bot-lang',nbLang)}catch(e){}
+  const t=T();$('#chatIn').placeholder=t.ph;$('#chatSend').textContent=nbBusy?t.stop:t.send;$('.chatnote').textContent=t.note;
+  $('#botStatus').textContent=nbMode==='ai'?t.on:t.basic;$('#botStatus').classList.toggle('basic',nbMode!=='ai');
+  const dl=$('.chatbox').classList.contains('docked')?t.undock:t.dock;$('#botNew').title=t.newc;$('#botNew').setAttribute('aria-label',t.newc);$('#botDock').title=dl;$('#botDock').setAttribute('aria-label',dl);
+  $$('#botLang button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.l===nbLang));
+  $('#chatsugg').innerHTML=nbHist.length>2?'':t.sugg.map(s=>`<button type="button" data-act="bot:${esc(s)}">${esc(s)}</button>`).join('');
+  const slot=$('#chatSlot');if(slot)slot.innerHTML=`<p>${esc(t.slot)}</p><button class="btn btn-ghost btn-sm" type="button" id="botBring">${esc(t.bring)}</button>`;
+}
+$$('#botLang button').forEach(b=>b.onclick=()=>applyLang(b.dataset.l));
+
+/* Ventana flotante: el mismo chat se acopla a la esquina y conserva la conversación. */
+function dock(on){const box=$('.chatbox'),slot=$('#chatSlot');box.classList.toggle('docked',on);slot.hidden=!on;$('#fab').hidden=on;applyLang();
+  if(on)setTimeout(()=>$('#chatIn').focus({preventScroll:true}),50)}
+$('#botDock').onclick=()=>dock(!$('.chatbox').classList.contains('docked'));
+document.addEventListener('click',e=>{if(e.target.closest('#botBring')){dock(false);$('#asistente').scrollIntoView()}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&$('.chatbox').classList.contains('docked')&&$('#modal').hidden)dock(false)});
+function inView(el){const r=el.getBoundingClientRect();return r.top<innerHeight*.6&&r.bottom>innerHeight*.4}
+function openBot(){if($('.chatbox').classList.contains('docked')||inView($('#asistente'))){$('#chatIn').focus({preventScroll:true});return}dock(true)}
+$('#fab').onclick=openBot;
+
+/* Conversación */
+function save(){try{sessionStorage.setItem('ntb-bot-hist',JSON.stringify(nbHist.slice(-24)))}catch(e){}}
+function setBusy(b){nbBusy=b;$('#chatSend').textContent=b?T().stop:T().send;$('#chatSend').classList.toggle('btn-band',b);log.setAttribute('aria-busy',b)}
+function ask(text){text=String(text||'').trim();if(!text||nbBusy)return;
+  addMsg(esc(text),'user');$('#chatsugg').innerHTML='';
+  if(/\b(?:\d[ -]?){13,19}\b/.test(text)){addMsg(nbLang==='en'?"For your security, don't share card numbers or passwords in this chat. I'll disregard it.":'Por tu seguridad, no compartas números de tarjeta ni claves en este chat. Ya no lo tendré en cuenta.','bot','alert');text=text.replace(/\b(?:\d[ -]?){13,19}\b/g,'[número eliminado]')}
+  nbHist.push({role:'user',content:text});save();
+  if(nbMode!=='ai'){basicReply(text);return}
+  streamReply();
+}
+async function streamReply(){
+  const bubble=botBubble();bubble.classList.add('pending');
+  bubble.querySelector('.md').innerHTML=`<span class="typing" aria-label="${esc(T().typing)}"><i></i><i></i><i></i></span>`;scrollLog();
+  setBusy(true);nbAbort=new AbortController();
+  let text='',raf=0,failed=null;
+  const paint=()=>{raf=0;renderBot(bubble,text,false);scrollLog()};
+  try{
+    const r=await fetch(NB_API,{method:'POST',headers:{'Content-Type':'application/json'},signal:nbAbort.signal,
+      body:JSON.stringify({messages:nbHist,lang:nbLang,segment:seg})});
+    if(!r.ok||!(r.headers.get('content-type')||'').includes('text/event-stream'))throw Object.assign(new Error('http '+r.status),{code:r.status===429?'busy':'upstream',status:r.status});
+    const reader=r.body.getReader(),dec=new TextDecoder();let buf='';
+    for(;;){const {value,done}=await reader.read();if(done)break;buf+=dec.decode(value,{stream:true});
+      let i;while((i=buf.indexOf('\n\n'))>=0){const chunk=buf.slice(0,i);buf=buf.slice(i+2);
+        const ev=(chunk.match(/^event: (.+)$/m)||[])[1],data=JSON.parse((chunk.match(/^data: (.+)$/m)||[,'{}'])[1]);
+        if(ev==='meta'&&data.lang&&data.lang!==nbLang)applyLang(data.lang);
+        else if(ev==='delta'){bubble.classList.remove('pending');text+=data.text;if(!raf)raf=requestAnimationFrame(paint)}
+        else if(ev==='reset'){text='';bubble.querySelector('.sim-slot').innerHTML=''}
+        else if(ev==='tool'){const s=T().tools[data.name];if(s&&!text.trim())bubble.querySelector('.md').innerHTML=`<span class="toolnote">${esc(s)}</span>`}
+        else if(ev==='sim'){bubble.querySelector('.sim-slot').insertAdjacentHTML('beforeend',simCard(data))}
+        else if(ev==='error')throw Object.assign(new Error(data.code),{code:data.code});
+      }}
+    if(!text.trim())throw Object.assign(new Error('empty'),{code:'upstream'});
+  }catch(e){if(e.name!=='AbortError')failed=e}
+  cancelAnimationFrame(raf);setBusy(false);nbAbort=null;bubble.classList.remove('pending');
+  if(failed){bubble.remove();
+    if(failed.code==='not_configured'||failed.code==='bad_request'||failed.status===404||failed instanceof TypeError){nbMode='basic';applyLang();basicReply(nbHist[nbHist.length-1].content);return}
+    addMsg(esc(T().err[failed.code==='busy'?'busy':'upstream']),'bot');localReply(nbHist[nbHist.length-1].content);return}
+  if(!text.trim()){bubble.remove();nbHist.pop();save();return} // detenido antes de responder
+  renderBot(bubble,text,true);scrollLog();
+  nbHist.push({role:'assistant',content:text});save();
+}
+function basicReply(text){if(nbLang==='en'&&!basicReply.n){basicReply.n=1;addMsg("The AI assistant is offline right now, so I'll answer with the site's basic answers (in Spanish).",'bot')}localReply(text)}
+$('#chatform').onsubmit=e=>{e.preventDefault();if(nbBusy){nbAbort&&nbAbort.abort();return}const v=$('#chatIn').value.trim();$('#chatIn').value='';ask(v)};
+$('#botNew').onclick=()=>{if(nbAbort)nbAbort.abort();nbHist=[];save();log.innerHTML='';greet()};
+function greet(){const b=botBubble();renderBot(b,T().hello,true);applyLang()}
+
+/* Arranque: historial de la sesión + comprobación del servicio IA */
+try{nbHist=JSON.parse(sessionStorage.getItem('ntb-bot-hist')||'[]').filter(m=>m&&typeof m.content==='string')}catch(e){nbHist=[]}
+if(nbHist.length){greet();for(const m of nbHist){if(m.role==='user')addMsg(esc(m.content),'user');else renderBot(botBubble(),m.content,true)}scrollLog()}else greet();
+fetch(NB_API,{method:'GET'}).then(r=>r.ok?r.json():Promise.reject()).then(j=>{if(!j.configured)throw 0}).catch(()=>{nbMode='basic';applyLang()});
+
+/* ---------- Init ---------- */
+setSeg(seg); renderOverview(); renderCamp(); renderSimTabs(); renderSim(); renderFaq();
+if(/^#(pymes|empresas)$/.test(location.hash)) setSeg(location.hash.slice(1));
+})();
+</script>
+</body>
+</html>
