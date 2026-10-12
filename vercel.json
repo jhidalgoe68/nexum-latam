@@ -7,6 +7,8 @@
     { "src": "/", "has": [{ "type": "header", "key": "accept-language", "value": "^\\s*en" }], "status": 307, "headers": { "Location": "/en/", "Vary": "Cookie, Accept-Language", "Cache-Control": "no-store" } },
     { "src": "/", "status": 307, "headers": { "Location": "/es/", "Vary": "Cookie, Accept-Language", "Cache-Control": "no-store" } },
     { "src": "/(es|en)", "status": 308, "headers": { "Location": "/$1/" } },
+    { "src": "/nexumtest", "status": 308, "headers": { "Location": "/nexumtest/" } },
+    { "src": "/nexumtest/(.*)", "headers": { "X-Robots-Tag": "noindex" }, "continue": true },
     { "handle": "filesystem" },
     { "src": "/api/(.*)", "dest": "/api/$1" },
     { "src": "/(.*)", "dest": "/" }
