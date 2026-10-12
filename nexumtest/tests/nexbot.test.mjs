@@ -146,6 +146,17 @@ test('English questions are detected and passed as context', async () => {
   assert.match(requests[0].body.messages.at(-1).content[1].text, /detected_language=en/);
 });
 
+test('spoken messages are flagged so the reply is written for speech', async () => {
+  requests.length = 0;
+  script = [textTurn(['Claro. ¿Para ti o para tu empresa?'])];
+  await chat({ messages: [{ role: 'user', content: 'quiero abrir una cuenta' }], voice: true });
+  assert.match(requests[0].body.messages.at(-1).content[1].text, /input_mode=voice/);
+  assert.match(requests[0].body.system[0].text, /# Voice conversations/);
+  script = [textTurn(['ok'])];
+  await chat({ messages: [{ role: 'user', content: 'hola' }], voice: 'yes' });
+  assert.match(requests[1].body.messages.at(-1).content[1].text, /input_mode=text/);
+});
+
 test('emergencies are answered instantly without calling the model', async () => {
   requests.length = 0;
   const r = await chat({ messages: [{ role: 'user', content: 'me robaron la tarjeta!!' }] });
