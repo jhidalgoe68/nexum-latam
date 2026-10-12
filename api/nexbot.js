@@ -93,7 +93,7 @@ export default async function handler(req, res) {
   res.on('close', () => { if (!res.writableFinished) abort.abort(); });
 
   try {
-    await respond({ messages: body.messages, lang: body.lang, segment: body.segment, emit, signal: abort.signal });
+    await respond({ messages: body.messages, lang: body.lang, segment: body.segment, voice: body.voice === true, emit, signal: abort.signal });
   } catch (err) {
     if (!abort.signal.aborted) {
       const [code] = err instanceof BadRequest ? ['bad_request'] : errorCode(err);

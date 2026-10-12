@@ -164,10 +164,11 @@ function echoableContent(content) {
  * @param {Array<{role:string,content:string}>} p.messages  raw transcript from the browser
  * @param {'es'|'en'} [p.lang]     UI language hint
  * @param {string} [p.segment]     segment the visitor is browsing
+ * @param {boolean} [p.voice]      the visitor spoke this message and will hear the reply
  * @param {(event:string, data:object)=>void} p.emit
  * @param {AbortSignal} [p.signal]
  */
-export async function respond({ messages: raw, lang: uiLang, segment, emit, signal }) {
+export async function respond({ messages: raw, lang: uiLang, segment, voice, emit, signal }) {
   const { messages, flaggedSensitive } = sanitizeConversation(raw);
   const lastUser = messages[messages.length - 1].content;
   const lang = detectLanguage(lastUser, uiLang);
@@ -178,7 +179,7 @@ export async function respond({ messages: raw, lang: uiLang, segment, emit, sign
 
   // Page context goes in its own block *after* the visitor's words, so the cached prefix stays intact.
   const seg = ['personas', 'pymes', 'empresas'].includes(segment) ? segment : 'personas';
-  const context = `<page_context>ui_language=${uiLang === 'en' ? 'en' : 'es'}; detected_language=${lang}; segment=${seg}${flaggedSensitive ? '; note=the visitor tried to share a card number, PIN or code — it was removed; remind them never to share it' : ''}</page_context>`;
+  const context = `<page_context>ui_language=${uiLang === 'en' ? 'en' : 'es'}; detected_language=${lang}; segment=${seg}; input_mode=${voice === true ? 'voice' : 'text'}${flaggedSensitive ? '; note=the visitor tried to share a card number, PIN or code — it was removed; remind them never to share it' : ''}</page_context>`;
   const last = messages[messages.length - 1];
   const convo = [...messages.slice(0, -1), { role: 'user', content: [{ type: 'text', text: last.content }, { type: 'text', text: context }] }];
 
