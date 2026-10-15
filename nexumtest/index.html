@@ -995,7 +995,7 @@ document.addEventListener('click',e=>{
   const cp=e.target.closest('[data-copy]'); if(cp){const t=cp.dataset.copy;(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>toast('Número copiado'),()=>toast(t));return}
 });
 function act(s){const [k,v]=s.split(':');
-  if(k==='demo')demo(v); else if(k==='sim'){openSim(v);$('#simuladores').scrollIntoView()} else if(k==='cat')goCat(v); else if(k==='bot'){openBot();ask(v)} else if(k==='go'){const el=document.getElementById(v); if(el) el.scrollIntoView()} else if(k==='simfill')simFill(v)}
+  if(k==='demo')demo(v); else if(k==='sim'){openSim(v);$('#simuladores').scrollIntoView()} else if(k==='cat')goCat(v); else if(k==='bot'){openBot();ask(v)} else if(k==='go'){const el=document.getElementById(v); if(el) el.scrollIntoView()} else if(k==='simfill')simFill(v); else if(k==='mov')movShow(v)}
 function goCat(c){const cats=CATS[seg].map(x=>x[0]); if(!cats.includes(c)){const s=Object.keys(CATS).find(k=>CATS[k].some(x=>x[0]===c)); if(s) setSeg(s)} cat=c; renderCatalog(); $('#catalogo').scrollIntoView(); closeMega()}
 
 /* ---------- Theme ---------- */
@@ -1175,7 +1175,7 @@ const NB_API='/api/nexbot';
 const NB_TXT={
  es:{ph:'Escribe tu pregunta…',send:'Enviar',stop:'Detener',note:'No compartas claves, PIN ni números de tarjeta. Información pública de demostración.',
    on:'● En línea · IA',basic:'● Modo básico',typing:'NexBot está escribiendo…',newc:'Nueva conversación',dock:'Abrir en ventana flotante',undock:'Volver a la sección',
-   tools:{simulate_loan:'Calculando tu crédito…',simulate_term_deposit:'Calculando tu depósito…',simulate_savings_goal:'Calculando tu Ahorro Meta…',request_advisor_callback:'Registrando tu solicitud…'},
+   tools:{query_statement:'Revisando el estado de cuenta…',simulate_loan:'Calculando tu crédito…',simulate_term_deposit:'Calculando tu depósito…',simulate_savings_goal:'Calculando tu Ahorro Meta…',request_advisor_callback:'Registrando tu solicitud…'},
    sugg:['Quiero abrir una cuenta','¿Qué tarjeta me recomiendan?','¿Cuánto pagaría por $10.000 a 24 meses?','¿Cómo funciona el reto de 52 semanas?'],
    hello:'Hola, soy **NexBot**, el asistente con IA de Nexumtestbank. Puedo ayudarte a elegir una cuenta, simular un crédito, recomendarte una tarjeta o encontrar el canal correcto. ¿Qué necesitas?\n\n_También hablo inglés · I also speak English._',
    err:{busy:'Estoy recibiendo muchas consultas. Te respondo con la información básica del sitio:',upstream:'Tuve un problema de conexión. Te respondo con la información básica del sitio:'},
@@ -1184,7 +1184,7 @@ const NB_TXT={
    k:{pay:'Cuota mensual',first:'Primera cuota',principal:'Monto a financiar',interest:'Total intereses',dint:'Interés',recv:'Recibes al final',yield:'Rendimiento',bal:'Saldo final',dep:'Tus aportes',earn:'Interés ganado'}},
  en:{ph:'Type your question…',send:'Send',stop:'Stop',note:"Don't share passwords, PINs or card numbers. Public demo information.",
    on:'● Online · AI',basic:'● Basic mode',typing:'NexBot is typing…',newc:'New conversation',dock:'Open in floating window',undock:'Back to section',
-   tools:{simulate_loan:'Calculating your loan…',simulate_term_deposit:'Calculating your deposit…',simulate_savings_goal:'Calculating your Ahorro Meta…',request_advisor_callback:'Registering your request…'},
+   tools:{query_statement:'Reading the statement…',simulate_loan:'Calculating your loan…',simulate_term_deposit:'Calculating your deposit…',simulate_savings_goal:'Calculating your Ahorro Meta…',request_advisor_callback:'Registering your request…'},
    sugg:['I want to open an account','Which card do you recommend?','How much would I pay for $10,000 over 24 months?','How does the 52-week challenge work?'],
    hello:"Hi, I'm **NexBot**, Nexumtestbank's AI assistant. I can help you choose an account, simulate a loan, recommend a card or find the right channel. What do you need?\n\n_También hablo español._",
    err:{busy:"I'm getting a lot of questions right now. Here's the basic answer from the site:",upstream:'I had a connection problem. Here is the basic answer from the site:'},
@@ -1228,6 +1228,7 @@ function parseReply(text){
     else if(type==='demo')buttons.push([label,'demo:'+val.replace(/:/g,' ').slice(0,80)]);
     else if(type==='ask')buttons.push([label,'bot:'+val.replace(/:/g,' ').slice(0,200)]);
     else if(type==='copy'&&val===NB_PHONE)buttons.push([label,'copy']);
+    else if(type==='mov'&&$('#movimientos'))buttons.push([label,'mov:'+val.replace(/:/g,' ').slice(0,40)]);
     return ''}).replace(/\[\[[^\]]*$/,'').trim(); // oculta etiquetas a medio transmitir
   return {body,buttons:buttons.slice(0,4),src};
 }
@@ -1465,6 +1466,7 @@ function renderMov(){const q=norm($('#movQ').value.trim());
  $('#movBody').innerHTML=rows.length?html:`<tr><td colspan="4" style="text-align:center;color:var(--faint);padding:1.5rem">No hay movimientos que coincidan.</td></tr>`;
  $('#movFoot').innerHTML=rows.length?`<tr><td colspan="2">Neto de ${rows.length} movimientos mostrados</td><td class="num tnum">${crc(tl)}</td><td class="num tnum">${usd(td)}</td></tr>`:''}
 $('#movQ').oninput=renderMov;
+function movShow(q){movF='all';$('#movQ').value=q==='all'?'':q;renderMov();$('#movimientos').scrollIntoView()}
 $('#navMov').addEventListener('click',()=>{const n=$('#nav');n.classList.remove('open');$('#menuToggle').setAttribute('aria-expanded','false');closeMega()});
 
 /* ---------- Init ---------- */

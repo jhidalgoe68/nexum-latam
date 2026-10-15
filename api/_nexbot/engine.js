@@ -13,6 +13,7 @@ import Anthropic from '@anthropic-ai/sdk';
 import { KNOWLEDGE, KB_VERSION } from './knowledge.js';
 import { SYSTEM_PROMPT, TOOLS } from './prompt.js';
 import { simulateLoan, simulateDeposit, simulateSavings } from './simulators.js';
+import { queryStatement } from './statement.js';
 
 export const MODEL = process.env.NEXBOT_MODEL || 'claude-opus-5-5';
 const EFFORT = process.env.NEXBOT_EFFORT || 'low'; // chat: low keeps latency and cost down
@@ -116,6 +117,7 @@ export async function runTool(name, input) {
     case 'simulate_loan': return simulateLoan(input);
     case 'simulate_term_deposit': return simulateDeposit({ ...input, interest_payment: input?.interest_payment === 'anticipado' ? 'anticipado' : 'vencimiento' });
     case 'simulate_savings_goal': return simulateSavings(input);
+    case 'query_statement': return queryStatement(input);
     case 'request_advisor_callback': return requestCallback(input || {});
     default: return { ok: false, error: `Herramienta desconocida: ${name}` };
   }
