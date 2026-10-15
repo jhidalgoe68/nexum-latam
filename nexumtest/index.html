@@ -385,6 +385,42 @@ footer a:hover{color:var(--band-accent)}
 .modal-card ul{margin:0;padding-left:1.1rem;color:var(--muted);display:grid;gap:.3rem}
 .toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:.65rem 1.1rem;border-radius:999px;font-size:.9rem;z-index:90}
 
+/* Movimientos */
+.nav > a.navlink{color:var(--band-fg);text-decoration:none;padding:.55rem .8rem;border-radius:8px;font-weight:500;font-size:.93rem;display:flex;align-items:center;gap:.45rem;white-space:nowrap}
+.nav > a.navlink:hover{background:rgba(255,255,255,.08)}
+.nav > a.navlink .pill{font-size:.62rem;font-weight:600;letter-spacing:.06em;background:var(--band-accent);color:#04121F;border-radius:999px;padding:.08rem .45rem}
+.stmt-head{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:1.2rem;margin-bottom:1.2rem}
+.stmt-card{background:var(--band);color:var(--band-fg);border-radius:16px;padding:1.4rem 1.5rem;display:grid;gap:1.1rem;align-content:start}
+.stmt-card .top-row{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;align-items:start}
+.stmt-card small{color:var(--band-muted);font-size:var(--xs);text-transform:uppercase;letter-spacing:.1em;display:block}
+.stmt-card .pan{font-family:var(--font-heading);font-size:1.25rem;font-weight:600;letter-spacing:.04em}
+.stmt-card .holder{font-weight:500}
+.due{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem}
+.due div{border:1px solid var(--band-line);border-radius:10px;padding:.85rem}
+.due div.main{border-color:var(--band-accent);background:rgba(69,208,236,.08)}
+.due b{display:block;font-family:var(--font-heading);font-size:1.25rem;font-weight:700;margin-top:.25rem}
+.due span{display:block;color:var(--band-muted);font-size:var(--sm)}
+.stmt-kpis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.7rem;align-content:start}
+.stmt-kpis .kpi{background:var(--panel);border:1px solid var(--line)}
+.stmt-kpis .kpi span{display:block;font-size:var(--sm);color:var(--faint);margin-top:.1rem}
+.limit{grid-column:1/-1;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:.9rem 1rem;display:grid;gap:.5rem}
+.limit .bar{height:10px;border-radius:999px;background:var(--line-soft);overflow:hidden}
+.limit .bar i{display:block;height:100%;background:var(--accent);border-radius:999px}
+.limit .lrow{display:flex;justify-content:space-between;gap:1rem;font-size:var(--sm);color:var(--muted);flex-wrap:wrap}
+.mov-bar{display:flex;gap:.8rem;flex-wrap:wrap;align-items:center;margin:1.4rem 0 1rem}
+.mov-bar input{flex:1 1 220px;min-width:0;font:inherit;padding:.6rem 1rem;border:1px solid var(--line);border-radius:999px;background:var(--panel);color:var(--ink)}
+.mov-table{min-width:680px}
+.mov-table td.num,.mov-table th.num{text-align:right;white-space:nowrap}
+.mov-table td.neg{color:var(--good);font-weight:600}
+.mov-table tr.group td{background:var(--bg);font-weight:600;font-size:var(--sm);color:var(--muted)}
+.mov-table tr.note td{color:var(--faint);font-size:var(--sm)}
+.mov-table tfoot td{font-weight:700;border-top:1px solid var(--line);background:var(--bg)}
+.merchant{display:block;font-weight:500}
+.merchant small{display:block;color:var(--faint);font-size:var(--xs);font-weight:400}
+.mov-foot{display:flex;flex-wrap:wrap;gap:.6rem 1.4rem;margin-top:1rem;font-size:var(--sm);color:var(--faint)}
+@media (max-width:820px){.stmt-head{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:560px){.due{grid-template-columns:minmax(0,1fr)}}
+
 /* Responsive */
 @media (max-width:1080px){
   .nav{display:none}
@@ -454,6 +490,7 @@ footer a:hover{color:var(--band-accent)}
         <button type="button" data-mega="productos" aria-expanded="false" aria-controls="mega">Productos <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button>
         <button type="button" data-mega="ayuda" aria-expanded="false" aria-controls="mega">Ayuda y canales <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button>
         <button type="button" data-mega="institucional" aria-expanded="false" aria-controls="mega">Quiénes somos <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button>
+        <a class="navlink" href="#movimientos" id="navMov">Movimientos <span class="pill">Nuevo</span></a>
       </nav>
       <div class="searchbox">
         <label for="q" class="skip" style="position:absolute;left:-999px">Buscar</label>
@@ -723,6 +760,53 @@ footer a:hover{color:var(--band-accent)}
       <p class="eyebrow" style="margin-top:2rem">Reconocimientos y noticias</p>
       <p class="lede" style="margin-top:.6rem;font-size:.95rem">Reconocimientos institucionales, informes de sostenibilidad y noticias del banco se publican en la sección Institucional.</p>
     </div>
+  </div>
+</section>
+
+<section class="section" id="movimientos" style="background:var(--bg-2)" aria-labelledby="movTitle">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Movimientos · Tarjeta de crédito</p>
+      <h2 id="movTitle">Transacciones del período</h2>
+      <p class="lede">Estado de cuenta de ejemplo con datos ficticios. Fecha de corte <b class="tnum">27/09/2026</b>. Montos en moneda local (₡) y dólares (US$).</p>
+    </div>
+    <div class="stmt-head">
+      <div class="stmt-card">
+        <div class="top-row">
+          <div><small>Producto</small><span class="pan tnum">4000-12**-****-1027</span></div>
+          <div><small>Fecha de corte</small><span class="pan tnum">27/09/2026</span></div>
+        </div>
+        <div><small>Titular</small><span class="holder">VALERIA RÍOS MONTERO</span></div>
+        <div class="due">
+          <div class="main"><small>Pago contado · vence 12/10/2026</small><b class="tnum">₡580.518,07</b><span class="tnum">+ US$37,24</span></div>
+          <div><small>Pago mínimo · vence 12/10/2026</small><b class="tnum">₡24.962,00</b><span class="tnum">+ US$37,00</span></div>
+        </div>
+      </div>
+      <div class="stmt-kpis">
+        <div class="kpi main"><small>Saldo al corte</small><b class="tnum">₡588.363,27</b><span class="tnum">US$37,46</span></div>
+        <div class="kpi"><small>Intereses corrientes del mes</small><b class="tnum">₡7.845,20</b><span class="tnum">US$0,22</span></div>
+        <div class="kpi"><small>Tasa mensual de interés</small><b class="tnum">2,75%</b><span class="tnum">Dólares 2,25%</span></div>
+        <div class="kpi"><small>NexMillas del período</small><b class="tnum">5.240</b><span>acumuladas · 5.240 canjeables</span></div>
+        <div class="limit">
+          <div class="lrow"><b style="color:var(--ink)">Límite global US$12.000</b><span class="tnum">Disponible US$8.844,43</span></div>
+          <div class="bar" role="img" aria-label="26% del límite global utilizado"><i style="width:26.3%"></i></div>
+          <div class="lrow"><span class="tnum">Saldo global ₡1.486.300,00 · US$212,40</span><span class="tnum">Utilizado 26,3%</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="mov-bar">
+      <div class="filters" id="movFilters" style="margin:0" role="group" aria-label="Filtrar por tarjeta"></div>
+      <label for="movQ" style="position:absolute;left:-999px">Buscar comercio</label>
+      <input id="movQ" type="search" placeholder="Buscar comercio (ej.: supermercado, café)">
+    </div>
+    <div class="tablewrap">
+      <table class="mov-table">
+        <thead><tr><th scope="col">Fecha</th><th scope="col">Concepto</th><th scope="col" class="num">Local (₡)</th><th scope="col" class="num">Dólares (US$)</th></tr></thead>
+        <tbody id="movBody"></tbody>
+        <tfoot id="movFoot"></tfoot>
+      </table>
+    </div>
+    <div class="mov-foot"><span>Saldo anterior: <b class="tnum">₡254.310,40 · US$18,50</b></span><span>Reversión de intereses corrientes del período: <b class="tnum">₡-3.120,55 · US$-0,25</b></span><span>Cuadre: saldo anterior + movimientos − reversión = pago contado <b class="tnum">₡580.518,07</b></span></div>
   </div>
 </section>
 
@@ -1108,7 +1192,7 @@ const NB_TXT={
    slot:'NexBot is open in the floating window.',bring:'Bring it here',simopen:'Open in simulator',
    k:{pay:'Monthly payment',first:'First payment',principal:'Amount financed',interest:'Total interest',dint:'Interest',recv:'You receive',yield:'Yield',bal:'Final balance',dep:'Your deposits',earn:'Interest earned'}}
 };
-const NB_GO=['productos','recompensas','simuladores','beneficios','canales','negocios','faq','transparencia','institucional'];
+const NB_GO=['productos','recompensas','simuladores','beneficios','canales','negocios','faq','transparencia','institucional','movimientos'];
 const NB_SIM=['consumo','auto','hipo','cdp','ahorro'];
 const NB_CAT=[...new Set(Object.values(CATS).flat().map(x=>x[0]))];
 const NB_PHONE='(01) 555 0100';
@@ -1327,8 +1411,64 @@ try{nbHist=JSON.parse(sessionStorage.getItem('ntb-bot-hist')||'[]').filter(m=>m&
 if(nbHist.length){greet();for(const m of nbHist){if(m.role==='user')addMsg(esc(m.content),'user');else renderBot(botBubble(),m.content,true)}scrollLog()}else greet();
 fetch(NB_API,{method:'GET'}).then(r=>r.ok?r.json():Promise.reject()).then(j=>{if(!j.configured)throw 0}).catch(()=>{nbMode='basic';applyLang()});
 
+/* ---------- Movimientos ---------- */
+const MOV=[
+['1027','10/09/2026','SU PAGO RECIBIDO GRACIAS','',-254310.40,0.00],
+['1027','10/09/2026','SU PAGO RECIBIDO GRACIAS','',0.00,-18.50],
+['1027','18/09/2026','PAGO SERVICIO ELÉCTRICO','',55069.93,0.00],
+['3391','24/08/2026','SUPERMERCADO CENTRAL','Ciudad Capital',34000.00,0.00],
+['3391','27/08/2026','PARQUEO AVENIDA 2','Ciudad Capital',1600.00,0.00],
+['3391','28/08/2026','RESTAURANTE EL PORTAL','Valle Norte',49900.00,0.00],
+['3391','28/08/2026','MINISÚPER LA ESQUINA','Ciudad Capital',2400.00,0.00],
+['3391','03/09/2026','SUPERMERCADO CENTRAL','Ciudad Capital',61450.00,0.00],
+['3391','04/09/2026','CAFÉ AROMA','Ciudad Capital',1500.00,0.00],
+['3391','04/09/2026','TIENDA HOGAR Y MÁS','Ciudad Capital',3050.00,0.00],
+['3391','05/09/2026','MERCADO FRESCO','Valle Norte',24500.00,0.00],
+['3391','06/09/2026','PANADERÍA DOÑA ROSA','Valle Norte',7350.00,0.00],
+['3391','06/09/2026','LLANTAS Y SERVICIO RÁPIDO','Puerto Sur',5900.00,0.00],
+['3391','06/09/2026','KIOSCO EL PARQUE','Ciudad Capital',369.78,0.00],
+['3391','07/09/2026','TIENDA HOGAR Y MÁS','Ciudad Capital',6800.00,0.00],
+['3391','07/09/2026','FERRETERÍA LA LLAVE','Ciudad Capital',11050.00,0.00],
+['3391','09/09/2026','MERCADO FRESCO','Valle Norte',4050.00,0.00],
+['3391','09/09/2026','DELICATESSEN ROMA','Puerto Sur',3050.00,0.00],
+['3391','10/09/2026','MINISÚPER LA ESQUINA','Ciudad Capital',950.00,0.00],
+['3391','10/09/2026','HIPERMERCADO DEL VALLE','Valle Norte',48200.00,0.00],
+['3391','11/09/2026','MUNICIPALIDAD PAGO EN LÍNEA','Ciudad Capital',498.91,0.00],
+['3391','11/09/2026','CAFÉ AROMA','Ciudad Capital',4900.00,0.00],
+['3391','11/09/2026','CAFÉ AROMA','Ciudad Capital',7300.00,0.00],
+['3391','12/09/2026','MERCADO FRESCO','Valle Norte',3600.00,0.00],
+['3391','12/09/2026','SUSCRIPCIÓN STREAMING PLUS','',0.00,12.99],
+['3391','13/09/2026','CLUB DE COMPRAS MAYOR','Valle Norte',116850.00,0.00],
+['3391','13/09/2026','CAFÉ AROMA','Ciudad Capital',6450.00,0.00],
+['3391','15/09/2026','SUPERMERCADO CENTRAL','Ciudad Capital',56450.00,0.00],
+['3391','19/09/2026','CLUB DE COMPRAS MAYOR','Ciudad Capital',40050.00,0.00],
+['3391','19/09/2026','ALMACÉN LA ECONOMÍA','',2500.00,0.00],
+['3391','20/09/2026','MERCADO FRESCO','Valle Norte',13700.00,0.00],
+['3391','20/09/2026','BAZAR TODO A MANO','Valle Norte',7750.00,0.00],
+['3391','20/09/2026','TIENDA EN LÍNEA GLOBAL','',0.00,24.50],
+['3391','21/09/2026','CAFÉ AROMA','Ciudad Capital',1400.00,0.00],
+['3391','26/09/2026','CAFÉ AROMA','Ciudad Capital',1000.00,0.00]
+];
+const crc=n=>(n<0?'-':'')+'₡'+Math.abs(n).toLocaleString('de-DE',{minimumFractionDigits:2,maximumFractionDigits:2});
+const usd=n=>(n<0?'-':'')+'US$'+Math.abs(n).toLocaleString('de-DE',{minimumFractionDigits:2,maximumFractionDigits:2});
+let movF='all';
+function renderMov(){const q=norm($('#movQ').value.trim());
+ const F=[['all','Todas',MOV.length],['1027','··1027',MOV.filter(m=>m[0]==='1027').length],['3391','··3391 (adicional)',MOV.filter(m=>m[0]==='3391').length]];
+ $('#movFilters').innerHTML=F.map(([k,l,n])=>`<button type="button" aria-pressed="${k===movF}" data-mf="${k}">${l} <span class="tnum" style="opacity:.6">${n}</span></button>`).join('');
+ $$('#movFilters button').forEach(b=>b.onclick=()=>{movF=b.dataset.mf;renderMov()});
+ const rows=MOV.filter(m=>(movF==='all'||m[0]===movF)&&(!q||norm(m[2]+' '+m[3]).includes(q)));
+ let html='',cur=null,tl=0,td=0;
+ rows.forEach(m=>{if(m[0]!==cur){cur=m[0];html+=`<tr class="group"><td colspan="4">Tarjeta 4000-12**-****-${cur}${cur==='3391'?' · adicional':' · titular'}</td></tr>`}
+  tl+=m[4];td+=m[5];
+  const cl=v=>v<0?'num neg tnum':'num tnum';
+  html+=`<tr><td class="tnum">${m[1]}</td><td><span class="merchant">${esc(m[2])}${m[3]?`<small>${esc(m[3])}</small>`:''}</span></td><td class="${cl(m[4])}">${m[4]?crc(m[4]):'—'}</td><td class="${cl(m[5])}">${m[5]?usd(m[5]):'—'}</td></tr>`});
+ $('#movBody').innerHTML=rows.length?html:`<tr><td colspan="4" style="text-align:center;color:var(--faint);padding:1.5rem">No hay movimientos que coincidan.</td></tr>`;
+ $('#movFoot').innerHTML=rows.length?`<tr><td colspan="2">Neto de ${rows.length} movimientos mostrados</td><td class="num tnum">${crc(tl)}</td><td class="num tnum">${usd(td)}</td></tr>`:''}
+$('#movQ').oninput=renderMov;
+$('#navMov').addEventListener('click',()=>{const n=$('#nav');n.classList.remove('open');$('#menuToggle').setAttribute('aria-expanded','false');closeMega()});
+
 /* ---------- Init ---------- */
-setSeg(seg); renderOverview(); renderCamp(); renderSimTabs(); renderSim(); renderFaq();
+setSeg(seg); renderOverview(); renderCamp(); renderSimTabs(); renderSim(); renderFaq(); renderMov();
 if(/^#(pymes|empresas)$/.test(location.hash)) setSeg(location.hash.slice(1));
 })();
 </script>
