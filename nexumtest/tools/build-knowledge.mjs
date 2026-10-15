@@ -74,6 +74,10 @@ if (header) sections.push(['Encabezado', textOf(header[0])]);
 for (const m of html.matchAll(/<section([^>]*)>([\s\S]*?)<\/section>/g)) {
   const id = (m[1].match(/\bid="([^"]+)"/) || [, 'inicio'])[1];
   if (id === 'asistente') continue; // the bot's own widget copy is in the system prompt
+  if (id === 'movimientos') { // sample account statement: the bot must not read or discuss account data
+    sections.push(['#movimientos', 'Sección “Movimientos · Tarjeta de crédito”: ejemplo ilustrativo de un estado de cuenta con datos ficticios (saldo, pago contado y mínimo, límite, puntos y transacciones del período, con filtros por tarjeta y búsqueda por comercio). NexBot no tiene acceso a cuentas reales ni comenta los datos de ese ejemplo; para consultar saldos y movimientos reales: Nexum en línea, la App o WhatsApp (01) 555 0100.']);
+    continue;
+  }
   const t = textOf(m[2]);
   if (t) sections.push([`#${id}`, t]);
 }
