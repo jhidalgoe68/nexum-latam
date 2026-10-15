@@ -106,6 +106,22 @@ test('knowledge base is up to date with index.html and covers the page', async (
 });
 
 // ── End-to-end through the HTTP function ─────────────────────────────────
+test('statement tool totals match the page and the bot can read the sample statement', async () => {
+  const { queryStatement } = await import('../../api/_nexbot/statement.js');
+  const { KNOWLEDGE, STATEMENT } = await import('../../api/_nexbot/knowledge.js');
+  const html = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
+  const MOV = vm.runInNewContext(`${html.match(/const MOV=\[[\s\S]*?\n\];/)[0]};MOV`);
+  assert.equal(STATEMENT.length, MOV.length);
+  const all = queryStatement({ include_payments: true });
+  assert.equal(all.count, MOV.length);
+  assert.equal(all.total_crc, Math.round(MOV.reduce((s, m) => s + m[4], 0) * 100) / 100);
+  const purchases = queryStatement({});
+  assert.ok(purchases.count < all.count && purchases.total_crc > all.total_crc, 'payments excluded by default');
+  assert.equal(queryStatement({ card: '3391', include_payments: true }).count, MOV.filter(m => m[0] === '3391').length);
+  assert.ok(queryStatement({ group_by: 'category' }).groups.every(g => g.count > 0));
+  for (const s of ['VALERIA RÍOS MONTERO', 'Pago contado', 'SUPERMERCADO CENTRAL', 'Estado de cuenta de ejemplo']) assert.ok(KNOWLEDGE.includes(s), `falta: ${s}`);
+});
+
 test('health check reports configuration', async () => {
   const j = await (await fetch(base)).json();
   assert.equal(j.configured, true);
