@@ -79,6 +79,7 @@ BLOCK_TO_ROOT = {
     "art-scoped-css-art-sostenibilidad-valor": "art-sostenibilidad-valor",
     "art-scoped-css-cx-video-ia": "cx-video-ia",
     "art-scoped-css-cx-growth-2027": "cx-growth-2027",
+    "art-scoped-css-art-ecosistema-ia-moderna": "art-ecosistema-ia-moderna",
 }
 
 
