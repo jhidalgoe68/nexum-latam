@@ -7,41 +7,6 @@ modal, no separate page), adapted to the site's own design system.
 USAGE
   python3 integrate_article.py --html SITE.html --article ARTICLE.html \
       [--out OUT.html] [--category "Resiliencia Empresarial"] [--id my-slug]
-
-  --html      The current site file (index.html / a saved copy of the live
-              artifact). Required.
-  --article   The uploaded article export to integrate. Required.
-  --out       Where to write the result. Defaults to overwriting --html.
-  --category  Short label shown on the card's category chip (e.g.
-              "Resiliencia Empresarial"). Defaults to a guess from the
-              article's eyebrow/title; always sanity-check this.
-  --id        Slug used for the article's element id (art-<id>) and DOM
-              hooks. Auto-derived from the title if omitted. Must be
-              unique among articles already in the site.
-
-WHAT THIS DOES (see SKILL.md for the full rationale)
-  1. Parses the article: masthead (H1/dek/date), its own <style> block
-     (the one with dark-navy CSS custom properties), and its body content.
-  2. Retheme, not rewrite: remaps the article's CSS custom properties
-     (--navy-900, --ink, --gold-1, --f-body, ...) to the site's own design
-     tokens, so every bespoke component (KPI tiles, debate cards, tables,
-     maturity matrices, roadmaps, institution cards) re-themes for free.
-     Scopes all of it under `.art-frame` so it can never leak into the
-     main site, and fixes the handful of hardcoded `color:#fff` rules
-     that are invisible once the background goes from navy to cream.
-  3. Bootstraps the shared hub/panel/nav infrastructure the FIRST time
-     this runs on a given site file (adds #perspectivasHub, #artPanel,
-     #artBody, #artSticky/#artNav, and the buildArticleNav() JS that
-     auto-generates the sticky section nav from whichever article is
-     open). On every later run that infrastructure already exists, so the
-     script only APPENDS: one new .blog-item row + one new `.art-frame`
-     block + one new scoped <style>. Every article — first or fifth — is
-     the same row type; there is no featured/secondary distinction.
-  4. Never touches any other article already integrated. Verifies no
-     stray <body> tags, no duplicate ids, and the new article's id is
-     actually present before writing anything.
-
-This script does not publish or push anything — see SKILL.md Step 7-8.
 """
 
 import argparse
@@ -52,9 +17,7 @@ from bs4 import BeautifulSoup
 
 
 # ════════════════════════════════════════════════════════════════
-# 1. CSS scoper — state machine, prefixes every selector with
-#    `.art-frame`, recurses into @media/@supports, leaves
-#    @keyframes/@font-face verbatim. Used on EVERY article.
+# 1. CSS scoper
 # ════════════════════════════════════════════════════════════════
 
 def scope_css(css, prefix):
@@ -142,10 +105,7 @@ def scope_css(css, prefix):
 
 
 # ════════════════════════════════════════════════════════════════
-# 2. Retheme — remap this article template's custom properties to
-#    the site's own design tokens. This is the piece that makes a
-#    dark-navy "informe ejecutivo" export look native on the cream
-#    site without hand-rewriting any component.
+# 2. Retheme
 # ════════════════════════════════════════════════════════════════
 
 RETHEME_ROOT = '''
@@ -182,227 +142,44 @@ MOBILE_TOC_BLOCK = '''@media (max-width:980px){
 }'''
 
 
-def retheme_css(raw_css: str, art_id: str) -> str:
+def retheme_css(raw_css: str) -> str:
     css = raw_css
     css = re.sub(r':root\s*\{[^}]*\}', '', css, count=1)
-    css = css.replace(MOBILE_TOC_BLOCK, '')  # TOC is dropped; nav is auto-built
+    css = css.replace(MOBILE_TOC_BLOCK, '')
 
-    # Every hardcoded white text color was readable on this template's
-    # dark-navy background and is invisible on the site's cream one.
     css = re.sub(r'color:#fff\b', 'color:var(--ink)', css)
 
-    # Maturity/level badges (.l1-.l5): hardcoded dark chips -> light tinted
-    # pills matching the site's own tag/chip idiom. Harmless no-op if this
-    # particular article doesn't have a matrix (selectors just won't match).
     css = re.sub(r'\.l1\{[^}]*\}', '.l1{background:rgba(179,67,58,.12);color:#B3433A}', css)
     css = re.sub(r'\.l2\{[^}]*\}', '.l2{background:rgba(200,122,24,.14);color:#C87A18}', css)
     css = re.sub(r'\.l3\{[^}]*\}', '.l3{background:rgba(9,27,56,.08);color:#1A3252}', css)
     css = re.sub(r'\.l4\{[^}]*\}', '.l4{background:rgba(0,192,220,.14);color:#00AFC9}', css)
     css = re.sub(r'\.l5\{[^}]*\}', '.l5{background:rgba(31,138,76,.12);color:#1F8A4C}', css)
 
-    # Debate "stance" highlight wash + badge borders — hardcoded rgba
-    # literals tied to the OLD palette; update to match the new hues.
     css = css.replace('background:rgba(201,169,97,.06)', 'background:rgba(200,122,24,.07)')
-    css = css.replace('rgba(95,179,168,.45)', 'rgba(0,192,220,.45)')   # .b.alta  (old --teal)
-    css = css.replace('rgba(224,164,88,.45)', 'rgba(200,122,24,.45)')  # .b.media (old --amber)
-    css = css.replace('rgba(232,200,116,.4)', 'rgba(0,175,201,.4)')    # .b.ed    (old --gold-1)
+    css = css.replace('rgba(95,179,168,.45)', 'rgba(0,192,220,.45)')
+    css = css.replace('rgba(224,164,88,.45)', 'rgba(200,122,24,.45)')
+    css = css.replace('rgba(232,200,116,.4)', 'rgba(0,175,201,.4)')
+
+    # Fix any remaining hardcoded dark font references
+    css = re.sub(r"'Cormorant Garamond'[^;]*", 'var(--font-heading)', css)
+    css = re.sub(r"'DM Mono'[^;]*", 'var(--font-body)', css)
+    css = re.sub(r"'DM Sans'[^;]*", 'var(--font-body)', css)
+    css = re.sub(r"'Jost'[^;]*", 'var(--font-body)', css)
 
     full_css = RETHEME_ROOT + css
-    # Scope to THIS article's own .art-frame#<id>, not just the bare
-    # .art-frame class. Every article's root panel shares the same
-    # .art-frame class, so a bare `.art-frame .thesis{...}` selector can
-    # collide with another article's own, unrelated `.thesis` component --
-    # same specificity, so whichever is LAST in document order silently
-    # wins inside EVERY article, not just its own. This shipped real bugs
-    # more than once (.b, .lvl/.f, .reveal, .shell, and a .finding/
-    # .findings collision that broke "Sostenibilidad y Creación de Valor"'s
-    # layout). Anchoring to this article's own id gives its rules an ID
-    # selector's specificity, which always outranks a plain class
-    # selector -- so they can never again be clobbered by another
-    # article's same-named class, regardless of integration order.
-    return scope_css(full_css, f'.art-frame#{art_id}')
-
-
-MANUAL_OVERRIDES = '''
-  /* ── Native-integration overrides (not part of the article's own CSS) ── */
-  .art-frame .thesis{padding-inline:0;max-width:none;margin:0}
-  .art-frame .shell{padding-inline:0;max-width:none;margin:0;grid-template-columns:minmax(0,1fr);gap:0}
-  .art-frame section{scroll-margin-top:190px}
-  .art-frame footer{padding-inline:0}
-  .art-frame footer .in{max-width:none;margin:0}
-  .art-frame .meta{margin-top:0.75rem;padding-bottom:1.75rem;border-bottom:1px solid var(--line)}
-'''
+    return scope_css(full_css, '.art-frame')
 
 
 # ════════════════════════════════════════════════════════════════
-# 3. Parse one article export into its pieces
-# ════════════════════════════════════════════════════════════════
-
-def slugify(text, fallback='articulo'):
-    text = unicodedata.normalize('NFKD', text).encode('ascii', 'ignore').decode('ascii')
-    text = re.sub(r'[^a-zA-Z0-9]+', '-', text).strip('-').lower()
-    return text[:40] or fallback
-
-
-class ParsedArticle:
-    pass
-
-
-def parse_article(article_path, art_id):
-    with open(article_path, 'r', encoding='utf-8') as f:
-        article_html = f.read()
-
-    art = BeautifulSoup(article_html, 'html.parser')
-    body_el = art.find('body')
-    assert body_el, "No <body> found in the article file"
-
-    # The real stylesheet is the one that defines --navy-900. (The file may
-    # also carry a tiny artifact-wrapper reset <style> in <head> — ignore it.)
-    real_style_text = ''
-    for s in art.find_all('style'):
-        if s.string and '--navy-900' in s.string:
-            real_style_text = s.string
-            break
-    assert real_style_text, (
-        "Could not find the article's main <style> block (expected a "
-        "`--navy-900` custom property). This script targets the "
-        "'informe ejecutivo' template used so far — if the article's "
-        "structure is different, adapt the extraction step first."
-    )
-
-    mast = body_el.find('header', class_='mast')
-    h1_el = mast.find('h1') if mast else art.find('h1')
-    dek_el = mast.find(class_='dek') if mast else art.find(class_='dek')
-    meta_el = mast.find(class_='meta') if mast else None
-    title_tag = art.find('title')
-
-    p = ParsedArticle()
-    p.title = title_tag.get_text(strip=True) if title_tag else 'Artículo'
-    p.h1_text = h1_el.get_text(' ', strip=True) if h1_el else p.title
-    p.h1_html = h1_el.decode_contents() if h1_el else p.title
-    p.excerpt_text = dek_el.get_text(strip=True) if dek_el else ''
-    p.excerpt_html = dek_el.decode_contents() if dek_el else ''
-
-    p.date = ''
-    if meta_el:
-        first_span = meta_el.find('span')
-        if first_span:
-            label = first_span.find('b')
-            txt = first_span.get_text(' ', strip=True)
-            if label:
-                txt = txt.replace(label.get_text(strip=True), '', 1).strip()
-            if txt:
-                p.date = txt
-    if not p.date:
-        p.date = ''  # leave blank rather than guess
-
-    # Pull meta out before destroying mast so it survives for the panel header
-    if meta_el:
-        meta_el.extract()
-    if mast:
-        mast.decompose()
-
-    # Strip script/link/title tags, all <style> tags, the article's own
-    # progress bar and its own hand-authored TOC — all superseded by the
-    # site's shared nav component.
-    for tag in body_el(['script', 'link', 'title']):
-        tag.decompose()
-    for s in body_el.find_all('style'):
-        s.decompose()
-    prog = body_el.find(id='progress')
-    if prog:
-        prog.decompose()
-    prog2 = body_el.find(id='progressBar')
-    if prog2:
-        prog2.decompose()
-    toc_nav = body_el.find('nav', class_='toc')
-    if toc_nav:
-        toc_nav.decompose()
-
-    rest_content = body_el.decode_contents()
-    rest_content = re.sub(r'</?(?:body|html)[^>]*>', '', rest_content, flags=re.IGNORECASE)
-    assert rest_content.lower().count('<body') == 0, "stray <body> tag survived extraction"
-
-    # Namespace every internal id (and any #anchor referencing it) with this
-    # article's own id. Different articles built from the same "informe
-    # ejecutivo" template reuse the same generic section ids (resumen,
-    # hallazgos, datos, ...) — without this, a second article collides
-    # with the first one's ids document-wide.
-    local_ids = sorted(set(re.findall(r'\bid="([^"]+)"', rest_content)), key=len, reverse=True)
-    for old_id in local_ids:
-        new_id = f'{art_id}-{old_id}'
-        rest_content = re.sub(rf'\bid="{re.escape(old_id)}"', f'id="{new_id}"', rest_content)
-        rest_content = re.sub(rf'href="#{re.escape(old_id)}"', f'href="#{new_id}"', rest_content)
-
-    p.rest_content = rest_content
-    p.meta_html = str(meta_el) if meta_el else ''
-    p.scoped_css = retheme_css(real_style_text, art_id)
-    p.art_id = art_id
-
-    # Sanity: the article should have at least one section[id] for the
-    # nav to auto-build from.
-    section_ids = re.findall(r'<section[^>]*\bid="([^"]+)"', rest_content)
-    assert section_ids, (
-        "No <section id=\"...\"> elements found in the article body — "
-        "buildArticleNav() needs these to generate the sticky nav. If this "
-        "article doesn't use that convention, add ids to its top-level "
-        "<section> wrappers before running this script."
-    )
-    p.section_count = len(section_ids)
-
-    return p
-
-
-# ════════════════════════════════════════════════════════════════
-# 4. Card + frame markup
-# ════════════════════════════════════════════════════════════════
-
-def article_item_html(p, category, art_id):
-    """Every article — the first one and every one after it — renders as
-    one of these: a full-width, equal-weight row in the Perspectivas list.
-    There is no 'featured' vs 'secondary' variant; do not reintroduce one.
-    The whole <article> is the click/keyboard target (role=button,
-    tabindex, aria-label), so the CTA is a plain span, not a nested
-    button — nesting an interactive control inside another is an
-    accessibility anti-pattern and would also fight the card's own click
-    handler."""
-    return f'''        <article class="blog-item" onclick="nexumOpenArticle('{art_id}')" style="cursor:pointer" role="button" tabindex="0" aria-label="Leer: {p.h1_text}">
-          <div class="blog-meta">
-            <span class="blog-cat">{category}</span>
-            <span class="blog-date">{p.date}</span>
-          </div>
-          <h3 class="blog-item-title">
-            {p.h1_text}
-          </h3>
-          <p class="blog-item-excerpt">
-            {p.excerpt_text}
-          </p>
-          <span class="blog-cta" aria-hidden="true">Leer Perspectiva <span class="arr">→</span></span>
-        </article>'''
-
-
-def art_frame_html(p):
-    panel_header = f'''      <div id="{p.art_id}" class="art-frame" hidden>
-        <div class="air-panel-title">
-          <h3>{p.h1_html}</h3>
-          <p>{p.excerpt_html}</p>
-        </div>
-        {p.meta_html}
-{p.rest_content}
-      </div>'''
-    return panel_header
-
-
-# ════════════════════════════════════════════════════════════════
-# 5. Bootstrap (first article ever) — builds the hub/panel/nav shell
+# 3. Shared hub/nav infrastructure (injected once)
 # ════════════════════════════════════════════════════════════════
 
 SHARED_NAV_CSS = '''
-    /* ════════════════════════════════════════════════════════
+    /* ════════════════════════════════════════════════════════════
        ARTICLE NAVIGATION — shared component, reused by every
-       article opened from Perspectivas. Applied automatically by
-       buildArticleNav() to whichever .art-frame is open — do not
-       duplicate this per article.
+       article opened from Perspectivas. Do not duplicate this
+       per article; it is applied automatically by
+       buildArticleNav() to whichever .art-frame is open.
        ════════════════════════════════════════════════════════ */
     .art-sticky {
       position: sticky;
@@ -453,335 +230,460 @@ SHARED_NAV_CSS = '''
       color: var(--gold);
       transition: color 0.2s var(--ease);
     }
-    .art-nav-btn:hover { background: var(--gold); color: var(--ink); transform: translateY(-1px); }
+    .art-nav-btn:hover {
+      background: var(--gold);
+      color: var(--ink);
+      transform: translateY(-1px);
+    }
     .art-nav-btn:hover .num { color: var(--ink); }
-    .art-nav-btn.active { background: var(--gold); color: var(--ink); box-shadow: 0 4px 14px rgba(0,192,220,0.35); }
+    .art-nav-btn.active {
+      background: var(--gold);
+      color: var(--ink);
+      box-shadow: 0 4px 14px rgba(0,192,220,0.35);
+    }
     .art-nav-btn.active .num { color: var(--ink); }
-    .art-nav-btn:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
-    #artProgressTrack { height: 2px; background: var(--border); border-radius: 1px; margin-top: 0.9rem; overflow: hidden; }
-    #artProgressFill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--amber), var(--gold)); transition: width 0.1s linear; }
+    .art-nav-btn:focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 2px;
+    }
+    #artProgressTrack {
+      height: 2px;
+      background: var(--border);
+      border-radius: 1px;
+      margin-top: 0.9rem;
+      overflow: hidden;
+    }
+    #artProgressFill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--amber), var(--gold));
+      transition: width 0.1s linear;
+    }
     @media (max-width: 900px) {
       .art-sticky { top: 64px; padding: 0.85rem 0 0.75rem; }
       .art-nav { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
       .art-nav::-webkit-scrollbar { display: none; }
       .art-nav-btn { flex-shrink: 0; }
     }
-    #artPanel{scroll-margin-top:96px}
 '''
 
-SHARED_JS = '''
+SHARED_HUB_JS = r'''
+  <!-- ── Perspectivas hub/panel logic ── -->
   <script>
-  (function() {
-    var elHub   = document.getElementById('perspectivasHub');
-    var elPanel = document.getElementById('artPanel');
-    var elBack  = document.getElementById('artBack');
-    var elNav   = document.getElementById('artNav');
-    var elFill  = document.getElementById('artProgressFill');
-    var scrollBound = false;
-    var currentFrame = null;
+  (function(){
+    const hub   = document.getElementById('perspectivasHub');
+    const panel = document.getElementById('artPanel');
+    const body  = document.getElementById('artBody');
+    const sticky= document.getElementById('artSticky');
+    const nav   = document.getElementById('artNav');
+    const fill  = document.getElementById('artProgressFill');
+    if(!hub||!panel||!body||!sticky||!nav) return;
 
-    function pad2(n) { return (n < 10 ? '0' : '') + n; }
+    let activeFrame = null;
 
-    /* Shared, reusable: builds the sticky section nav for whichever
-       .art-frame is open, from its section[id] + .eyebrow elements.
-       Any future article that follows the same convention gets this
-       automatically — nothing to wire up per article. */
-    function buildArticleNav(frame) {
-      var sections = [].slice.call(frame.querySelectorAll('section[id]'));
-      var items = sections.map(function(s, i) {
-        var num = pad2(i);
-        var label = '';
-        var eyebrow = s.querySelector('.eyebrow');
-        if (eyebrow) {
-          var parts = eyebrow.textContent.split('\\u00b7').map(function(p) { return p.trim(); });
-          if (parts.length && /^\\d+$/.test(parts[0])) {
-            num = parts[0];
-            if (parts[1]) label = parts[1];
-          } else if (parts[0]) {
-            label = parts[0];
-          }
+    function buildArticleNav(frame){
+      nav.innerHTML = '';
+      const sections = frame.querySelectorAll('section[id]');
+      sections.forEach(function(sec,idx){
+        const ew = sec.querySelector('.eyebrow,.section-tag');
+        const label = ew ? ew.textContent.trim() : (sec.querySelector('h2')||{}).textContent||('§'+(idx+1));
+        const li  = document.createElement('li');
+        const btn = document.createElement('button');
+        btn.className = 'art-nav-btn';
+        const num = label.match(/^(\d+\s*[·\-]\s*)/);
+        if(num){
+          const sp = document.createElement('span');
+          sp.className = 'num';
+          sp.textContent = num[1].trim();
+          btn.appendChild(sp);
+          btn.appendChild(document.createTextNode(label.slice(num[0].length).trim()));
+        } else {
+          btn.textContent = label;
         }
-        if (!label) {
-          var h = s.querySelector('h2, h3');
-          label = h ? h.textContent.trim() : s.id;
-          if (label.length > 30) label = label.slice(0, 28) + '\\u2026';
-        }
-        return { id: s.id, num: num, label: label, el: s };
+        btn.addEventListener('click', function(){
+          sec.scrollIntoView({behavior:'smooth',block:'start'});
+        });
+        li.appendChild(btn);
+        nav.appendChild(li);
       });
-
-      elNav.innerHTML = items.map(function(it) {
-        return '<button type="button" class="art-nav-btn" data-target="' + it.id + '">' +
-                 '<span class="num">' + it.num + '</span>' + it.label +
-               '</button>';
-      }).join('');
-
-      return items;
     }
 
-    function artScrollHandler() {
-      if (!currentFrame || elPanel.hidden) return;
-      var rect = currentFrame.getBoundingClientRect();
-      var articleTop = window.scrollY + rect.top;
-      var total = currentFrame.scrollHeight - window.innerHeight;
-      var scrolled = window.scrollY - articleTop;
-      var pct = total > 0 ? Math.max(0, Math.min(100, (scrolled / total) * 100)) : 0;
-      if (elFill) elFill.style.width = pct + '%';
-
-      var btns = [].slice.call(elNav.querySelectorAll('.art-nav-btn'));
-      var y = window.scrollY + 200, cur = 0;
-      btns.forEach(function(btn, i) {
-        var target = document.getElementById(btn.dataset.target);
-        if (target) {
-          var tTop = window.scrollY + target.getBoundingClientRect().top;
-          if (tTop <= y) cur = i;
-        }
+    function updateProgress(){
+      if(!activeFrame) return;
+      const r = activeFrame.getBoundingClientRect();
+      const total = activeFrame.offsetHeight - window.innerHeight;
+      if(total <= 0){ fill.style.width='100%'; return; }
+      const pct = Math.min(100, Math.max(0, (-r.top / total)*100));
+      fill.style.width = pct + '%';
+      const sections = activeFrame.querySelectorAll('section[id]');
+      const btns = nav.querySelectorAll('.art-nav-btn');
+      sections.forEach(function(sec,i){
+        const sr = sec.getBoundingClientRect();
+        if(btns[i]) btns[i].classList.toggle('active', sr.top <= 200 && sr.bottom > 0);
       });
-      btns.forEach(function(btn, i) { btn.classList.toggle('active', i === cur); });
     }
 
-    elNav.addEventListener('click', function(e) {
-      var btn = e.target.closest('.art-nav-btn');
-      if (!btn) return;
-      var target = document.getElementById(btn.dataset.target);
-      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
+    window.addEventListener('scroll', updateProgress, {passive:true});
 
-    function nexumOpenArticle(id) {
-      var frame = document.getElementById(id);
-      if (!frame) return;
-
-      [].slice.call(document.querySelectorAll('#artBody .art-frame')).forEach(function(f) {
-        f.hidden = (f !== frame);
-      });
-      currentFrame = frame;
-
+    function openArticle(id){
+      document.querySelectorAll('.art-frame').forEach(function(f){ f.hidden=true; });
+      const frame = document.getElementById(id);
+      if(!frame) return;
+      frame.hidden = false;
+      activeFrame = frame;
+      hub.hidden   = true;
+      panel.hidden = false;
+      sticky.hidden= false;
       buildArticleNav(frame);
-
-      elHub.style.display = 'none';
-      elPanel.removeAttribute('hidden');
-      elPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-      if (!scrollBound) {
-        window.addEventListener('scroll', artScrollHandler, { passive: true });
-        scrollBound = true;
-      }
-      setTimeout(artScrollHandler, 50);
+      panel.scrollIntoView({behavior:'smooth',block:'start'});
+      updateProgress();
     }
 
-    function nexumCloseArticle() {
-      elPanel.setAttribute('hidden', '');
-      elHub.style.display = '';
-      var sec = document.getElementById('perspectivas');
-      if (sec) sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    function closeArticle(){
+      document.querySelectorAll('.art-frame').forEach(function(f){ f.hidden=true; });
+      activeFrame  = null;
+      panel.hidden = true;
+      sticky.hidden= true;
+      hub.hidden   = false;
+      fill.style.width='0%';
+      hub.scrollIntoView({behavior:'smooth',block:'start'});
     }
 
-    elBack.addEventListener('click', nexumCloseArticle);
-
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape' && !elPanel.hidden) nexumCloseArticle();
-      if ((e.key === 'Enter' || e.key === ' ') && e.target.closest('[onclick*="nexumOpenArticle"]')) {
+    document.querySelectorAll('[data-art]').forEach(function(btn){
+      btn.addEventListener('click', function(e){
         e.preventDefault();
-        e.target.closest('[onclick*="nexumOpenArticle"]').click();
-      }
+        openArticle(btn.dataset.art);
+      });
     });
 
-    window.nexumOpenArticle = nexumOpenArticle;
-    window.nexumCloseArticle = nexumCloseArticle;
+    const backBtn = document.getElementById('artBack');
+    if(backBtn) backBtn.addEventListener('click', closeArticle);
+
+    document.addEventListener('keydown', function(e){
+      if(e.key==='Escape' && activeFrame) closeArticle();
+    });
   })();
-  </script>'''
+  </script>
+'''
 
-
-def bootstrap_section5(page, p, category):
-    """First article ever added to this site file: build the whole
-    hub/panel/nav shell plus the one card + one .art-frame."""
-
-    section5_new = f'''  <section class="section" id="perspectivas" aria-label="Perspectivas">
-    <div class="wrap">
-      <div class="marker reveal">05 / Perspectivas</div>
-
-      <div class="blog-hdr">
-        <h2 class="blog-title reveal">
-          Ideas que<br>mueven <i>decisiones.</i>
-        </h2>
-        <p class="blog-intro reveal d1">
-          Reflexiones estratégicas sobre transformación, liderazgo y el valor de la complejidad bien gestionada. Sin tendencias pasajeras — solo perspectiva ejecutiva de largo plazo.
-        </p>
-      </div>
-
-      <div class="blog-list reveal d1" id="perspectivasHub">
-
-{article_item_html(p, category, p.art_id)}
-
-        <!-- Próximas perspectivas se agregan aquí automáticamente, cada una como .blog-item -->
-
-      </div><!-- /blog-list -->
-
-      <!-- ── ACTIVE ARTICLE PANEL (shared by every article) ── -->
-      <div class="air-panel" id="artPanel" hidden>
-        <button class="air-back" id="artBack" type="button">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Volver a Perspectivas
-        </button>
-
-        <!-- Shared article-navigation component (auto-built per open article) -->
-        <div class="art-sticky" id="artSticky">
-          <div class="art-nav-label">Contenido del artículo</div>
-          <nav class="art-nav" id="artNav" aria-label="Navegación del artículo"></nav>
-          <div id="artProgressTrack"><div id="artProgressFill"></div></div>
-        </div>
-
-        <div id="artBody">
-{art_frame_html(p)}
-        </div><!-- /artBody -->
-      </div>
-
-      <div class="blog-foot reveal d2">
-        <a href="#" class="btn btn-arrow">Ver todas las perspectivas <span class="arr">→</span></a>
-      </div>
-
+PANEL_SHELL = '''
+  <!-- ── Perspectivas article panel ── -->
+  <div id="artSticky" class="wrap art-sticky" hidden>
+    <p class="art-nav-label">Secciones del informe</p>
+    <ul class="art-nav" id="artNav" role="list"></ul>
+    <div id="artProgressTrack"><div id="artProgressFill"></div></div>
+  </div>
+  <div id="artPanel" hidden>
+    <div class="wrap" style="padding-block:1.25rem 0;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:1rem">
+      <button id="artBack" style="display:inline-flex;align-items:center;gap:0.5rem;font-family:var(--font-body);font-size:0.78rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-mid);background:none;border:1px solid var(--border);padding:0.5rem 1.1rem;cursor:pointer;">
+        &#8592; Perspectivas
+      </button>
     </div>
-  </section>'''
-
-    scoped_style_tag = f'''  <style id="art-scoped-css">
-  /* ── SCOPED + RETHEMED ARTICLE CSS: {p.art_id} ── */
-  {p.scoped_css}
-  {MANUAL_OVERRIDES}
-  </style>'''
-
-    style_end = page.find('</style>')
-    assert style_end != -1
-    page = page[:style_end] + SHARED_NAV_CSS + '\n  ' + scoped_style_tag + '\n  ' + page[style_end:]
-
-    sec5_start = page.find('  <section class="section" id="perspectivas"')
-    assert sec5_start != -1, "Section perspectivas not found in --html"
-    sec5_end = page.find('  <!-- ════', sec5_start + 100)
-    if sec5_end == -1:
-        sec5_end = page.find('\n\n  <section', sec5_start + 100)
-    assert sec5_end != -1, "Could not find end of Section 05"
-    page = page[:sec5_start] + section5_new + '\n\n\n' + page[sec5_end:]
-
-    body_close = page.find('</body>')
-    assert body_close != -1
-    page = page[:body_close] + '\n' + SHARED_JS + '\n\n' + page[body_close:]
-
-    return page
+    <div id="artBody">
+      <!-- art-frame blocks inserted here by the script -->
+    </div>
+  </div>
+'''
 
 
 # ════════════════════════════════════════════════════════════════
-# 6. Append (shell already exists) — add one card + one .art-frame
-#    + one scoped <style>, touching nothing else.
+# 4. Slug / id helpers
 # ════════════════════════════════════════════════════════════════
 
-def append_article(page, p, category):
-    assert f'id="{p.art_id}"' not in page, (
-        f"An element with id '{p.art_id}' already exists — pick a different "
-        f"--id, or this article may already be integrated."
+def slugify(text: str) -> str:
+    text = unicodedata.normalize('NFD', text)
+    text = ''.join(c for c in text if unicodedata.category(c) != 'Mn')
+    text = text.lower()
+    text = re.sub(r'[^a-z0-9]+', '-', text)
+    return text.strip('-')[:60]
+
+
+# ════════════════════════════════════════════════════════════════
+# 5. Article parser  — handles both header.mast and header.cover
+# ════════════════════════════════════════════════════════════════
+
+def parse_article(art_soup):
+    """
+    Returns (h1_html, dek_html, date_str, style_text, body_html, sections)
+    Handles:
+      - header.mast  (original template)
+      - header.cover (this article's variant)
+    """
+    # --- Style block ---
+    style_tag = art_soup.find('style')
+    style_text = style_tag.string or style_tag.get_text() if style_tag else ''
+
+    # --- Masthead: try .mast first, then .cover ---
+    mast = art_soup.find('header', class_='mast') or art_soup.find('header', class_='cover')
+
+    h1_tag = mast.find('h1') if mast else art_soup.find('h1')
+    h1_html = str(h1_tag) if h1_tag else '<h1>(sin título)</h1>'
+
+    # dek: .dek or p.lead (cover variant) or first <p> after h1
+    dek_html = ''
+    if mast:
+        dek_tag = (mast.find(class_='dek') or
+                   mast.find('p', class_='lead') or
+                   mast.find('p'))
+        if dek_tag:
+            dek_html = dek_tag.get_text(strip=True)
+
+    # date from .meta or spans inside .cover
+    date_str = ''
+    if mast:
+        meta = mast.find(class_='meta')
+        if meta:
+            date_str = meta.get_text(' ', strip=True)[:120]
+        else:
+            # cover variant: spans in the header
+            spans = mast.find_all('span')
+            if spans:
+                date_str = ' · '.join(s.get_text(strip=True) for s in spans if s.get_text(strip=True))[:120]
+
+    # Remove the masthead from the soup so it doesn't appear in body
+    if mast:
+        mast.decompose()
+
+    # Also remove nav, .toc, #progress, scripts
+    for tag in art_soup.find_all(['nav', 'script', 'footer']):
+        tag.decompose()
+    toc = art_soup.find(class_='toc')
+    if toc:
+        toc.decompose()
+    prog = art_soup.find(id='progress')
+    if prog:
+        prog.decompose()
+
+    # Collect sections
+    sections = [(s.get('id', ''), s) for s in art_soup.find_all('section', id=True)]
+
+    # Body HTML (everything remaining inside <body> or the soup root)
+    body_tag = art_soup.find('body') or art_soup
+    body_html = body_tag.decode_contents()
+
+    return h1_html, dek_html, date_str, style_text, body_html, sections
+
+
+# ════════════════════════════════════════════════════════════════
+# 6. Build the card row + art-frame block
+# ════════════════════════════════════════════════════════════════
+
+def build_card(art_id, h1_html, dek_html, date_str, category):
+    h1_text = BeautifulSoup(h1_html, 'html.parser').get_text(strip=True)
+    return f'''
+      <article class="blog-item" style="cursor:pointer;" data-art="{art_id}" tabindex="0" role="button" aria-label="Leer: {h1_text}">
+        <div class="blog-item-header">
+          <span class="blog-category">{category}</span>
+          <span class="blog-date">{date_str}</span>
+        </div>
+        <h3 class="blog-title">{h1_html}</h3>
+        <p class="blog-excerpt">{dek_html}</p>
+        <div class="blog-item-footer">
+          <button class="btn-read" data-art="{art_id}" tabindex="-1">Leer Perspectiva <span class="arr">&#8594;</span></button>
+        </div>
+      </article>'''
+
+
+def build_art_frame(art_id, scoped_css, body_html, h1_html, dek_html, date_str):
+    return f'''
+    <style id="art-scoped-css-{art_id}">
+  /* ── SCOPED + RETHEMED ARTICLE CSS: {art_id} ── */
+
+{scoped_css}
+
+.art-frame#{art_id} .fade{{opacity:1!important;transform:none!important}}
+  </style>
+    <div class="art-frame" id="{art_id}" hidden>
+{body_html}
+    </div>'''
+
+
+# ════════════════════════════════════════════════════════════════
+# 7. Main integration logic
+# ════════════════════════════════════════════════════════════════
+
+def integrate(site_html: str, article_html: str, category: str, art_id: str) -> str:
+    site = BeautifulSoup(site_html, 'html.parser')
+    art  = BeautifulSoup(article_html, 'html.parser')
+
+    # Parse article
+    h1_html, dek_html, date_str, style_text, body_html, sections = parse_article(art)
+
+    print(f"  H1: {BeautifulSoup(h1_html,'html.parser').get_text(strip=True)[:80]}")
+    print(f"  Dek: {dek_html[:80]}")
+    print(f"  Date: {date_str}")
+    print(f"  Sections: {len(sections)}")
+
+    # Namespace section ids
+    body_html_ns = body_html
+    for sec_id, _ in sections:
+        if sec_id:
+            body_html_ns = re.sub(
+                rf'\bid=(["\']){re.escape(sec_id)}\1',
+                f'id=\\1{art_id}-{sec_id}\\1',
+                body_html_ns
+            )
+            body_html_ns = re.sub(
+                rf'\bhref=(["\'])#{re.escape(sec_id)}\1',
+                f'href=\\1#{art_id}-{sec_id}\\1',
+                body_html_ns
+            )
+
+    # Retheme CSS
+    scoped_css = retheme_css(style_text)
+
+    # Native-integration overrides
+    scoped_css += f'''
+
+  /* ── Native-integration overrides (not part of the article's own CSS) ── */
+  /* .progress now handled by the shared #artSticky component */
+  .art-frame#{art_id} .thesis{{padding-inline:0;max-width:none;margin:0}}
+  .art-frame#{art_id} .shell{{padding-inline:0;max-width:none;margin:0;grid-template-columns:minmax(0,1fr);gap:0}}
+  /* .toc nav replaced by the shared, auto-generated #artNav component */
+  .art-frame#{art_id} section{{scroll-margin-top:190px}}
+  .art-frame#{art_id} footer{{padding-inline:0}}
+  .art-frame#{art_id} footer .in{{max-width:none;margin:0}}
+  .art-frame#{art_id} .meta{{margin-top:0.75rem;padding-bottom:1.75rem;border-bottom:1px solid var(--line)}}
+  #artPanel{{scroll-margin-top:96px}}
+  #artSticky{{scroll-margin-top:0}}
+  #perspectivasHub{{scroll-margin-top:96px}}
+'''
+
+    # Check if hub already exists (APPEND mode)
+    hub_exists = bool(site.find(id='perspectivasHub'))
+    panel_exists = bool(site.find(id='artPanel'))
+
+    if not hub_exists:
+        print("  → Bootstrap mode: injecting hub/panel/nav infrastructure")
+    else:
+        print("  → Append mode: hub already exists, adding card + frame")
+
+    # ── Inject shared nav CSS (once, into first <style> or <head>) ──
+    if not hub_exists:
+        head = site.find('head')
+        if head:
+            nav_style = BeautifulSoup(
+                f'<style id="art-shared-nav-css">{SHARED_NAV_CSS}</style>', 'html.parser'
+            ).find('style')
+            head.append(nav_style)
+
+    # ── Find the perspectivas section ──
+    # Try id="perspectivas" or id="05" or section containing "Perspectivas" heading
+    persp_section = (
+        site.find(id='perspectivas') or
+        site.find(id='05') or
+        site.find('section', id=lambda x: x and 'perspectiv' in x.lower())
     )
+    if not persp_section:
+        # Fallback: look for a section whose heading text contains "Perspectivas"
+        for sec in site.find_all('section'):
+            h = sec.find(['h2','h3','h4'])
+            if h and 'perspectiva' in h.get_text().lower():
+                persp_section = sec
+                break
 
-    # 1. New scoped <style>, appended right after the LAST existing
-    #    art-scoped-css block — NOT page.find('</style>'), which only ever
-    #    finds the FIRST </style> in the whole document. That bug was
-    #    found live in this file: the first </style> in the page is the
-    #    tiny reset style in the outer artifact-wrapper's <head>, so every
-    #    article appended this way lands at the very top of the document,
-    #    ahead of every earlier-bootstrapped article. Since CSS cascade
-    #    resolves same-specificity property conflicts by source order,
-    #    that silently let EARLIER articles' bare-class rules (.lede,
-    #    .eyebrow, .kpi, ...) win over a newly-appended article's own
-    #    styling for any property the new rule didn't also redeclare —
-    #    a real, confirmed bug (a lead paragraph rendered in the wrong
-    #    font, at the wrong size, in a near-invisible color inherited
-    #    from a different article entirely). Always insert after the
-    #    LAST art-scoped-css block so new articles truly append at the
-    #    end of the cascade, matching "append-only" in both DOM and CSS.
-    last_style_open = page.rfind('<style id="art-scoped-css')
-    assert last_style_open != -1, "No existing art-scoped-css style block found — is the shell bootstrapped?"
-    style_end = page.find('</style>', last_style_open)
-    assert style_end != -1
-    new_style_tag = f'''  <style id="art-scoped-css-{p.art_id}">
-  /* ── SCOPED + RETHEMED ARTICLE CSS: {p.art_id} ── */
-  {p.scoped_css}
-  </style>\n  '''
-    page = page[:style_end] + '</style>\n  ' + new_style_tag + page[style_end + len('</style>'):]
+    if not persp_section:
+        print("ERROR: Could not find Perspectivas section in site HTML", file=sys.stderr)
+        sys.exit(1)
 
-    # 2. New item into the shared .blog-list — every article is an equal
-    #    .blog-item row; there is no featured slot to protect.
-    list_marker = '<!-- Próximas perspectivas se agregan aquí automáticamente, cada una como .blog-item -->'
-    lm_idx = page.find(list_marker)
-    assert lm_idx != -1, "Could not find the .blog-list insertion marker — is the hub bootstrapped?"
-    page = (page[:lm_idx] + article_item_html(p, category, p.art_id) + '\n\n        '
-            + page[lm_idx:])
+    print(f"  Perspectivas section id: {persp_section.get('id','(no id)')}")
 
-    # 3. New .art-frame appended inside #artBody, just before its closing
-    #    comment marker
-    body_close_marker = '</div><!-- /artBody -->'
-    bc_idx = page.find(body_close_marker)
-    assert bc_idx != -1, "Could not find #artBody closing marker — is the shell bootstrapped?"
-    page = page[:bc_idx] + art_frame_html(p) + '\n      ' + page[bc_idx:]
+    # ── Find or create blog-list container ──
+    blog_list = persp_section.find(class_='blog-list')
+    if not blog_list:
+        blog_list = persp_section.find(class_='blog-grid')
+    if not blog_list:
+        # Create one before the first closing tag area
+        bl_tag = BeautifulSoup('<div class="blog-list"></div>', 'html.parser').find('div')
+        persp_section.append(bl_tag)
+        blog_list = persp_section.find(class_='blog-list')
 
-    return page
+    # ── Build and inject the card ──
+    card_html = build_card(art_id, h1_html, dek_html, date_str, category)
+    card_soup = BeautifulSoup(card_html, 'html.parser')
+    blog_list.append(card_soup)
+
+    # ── Bootstrap hub/panel shell if first article ──
+    if not hub_exists:
+        # Wrap existing blog-list in #perspectivasHub
+        hub_wrapper = BeautifulSoup(
+            '<div id="perspectivasHub"></div>', 'html.parser'
+        ).find('div')
+        blog_list.replace_with(hub_wrapper)
+        hub_wrapper.append(blog_list)
+
+        # Insert panel shell after the perspectivas section
+        panel_soup = BeautifulSoup(PANEL_SHELL, 'html.parser')
+        persp_section.insert_after(panel_soup)
+
+    # ── Inject art-frame block ──
+    art_frame_html = build_art_frame(art_id, scoped_css, body_html_ns, h1_html, dek_html, date_str)
+    art_frame_soup = BeautifulSoup(art_frame_html, 'html.parser')
+
+    art_body = site.find(id='artBody')
+    if art_body:
+        art_body.append(art_frame_soup)
+    else:
+        # fallback: append after panel
+        art_panel = site.find(id='artPanel')
+        if art_panel:
+            art_panel.append(art_frame_soup)
+
+    # ── Inject hub JS (once) ──
+    if not hub_exists:
+        js_soup = BeautifulSoup(SHARED_HUB_JS, 'html.parser')
+        body = site.find('body')
+        if body:
+            body.append(js_soup)
+
+    # ── Duplicate-id check ──
+    all_ids = [tag.get('id') for tag in site.find_all(id=True)]
+    dupes = [i for i in all_ids if all_ids.count(i) > 1 and i]
+    if dupes:
+        print(f"WARNING: Duplicate ids found: {set(dupes)}", file=sys.stderr)
+
+    # ── Verify new art-frame is present ──
+    if not site.find(id=art_id):
+        print(f"ERROR: {art_id} not found in output!", file=sys.stderr)
+        sys.exit(1)
+
+    return str(site)
 
 
 # ════════════════════════════════════════════════════════════════
-# 7. Main
+# 8. CLI
 # ════════════════════════════════════════════════════════════════
 
 def main():
-    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument('--html', required=True, help='Site file to modify')
-    ap.add_argument('--article', required=True, help='Article HTML export to integrate')
-    ap.add_argument('--out', default=None, help='Output path (default: overwrite --html)')
-    ap.add_argument('--category', default=None, help='Card category label, e.g. "Resiliencia Empresarial"')
-    ap.add_argument('--id', dest='art_id', default=None, help='Slug for this article (default: derived from title)')
-    args = ap.parse_args()
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--html',     required=True)
+    parser.add_argument('--article',  required=True)
+    parser.add_argument('--out',      default=None)
+    parser.add_argument('--category', default='Perspectiva')
+    parser.add_argument('--id',       default=None)
+    args = parser.parse_args()
 
-    with open(args.html, 'r', encoding='utf-8') as f:
-        page = f.read()
+    with open(args.html,    encoding='utf-8') as f: site_html    = f.read()
+    with open(args.article, encoding='utf-8') as f: article_html = f.read()
 
-    body_tags_before = len(re.findall(r'<body[^>]*>', page, re.IGNORECASE))
-
-    is_bootstrap = 'id="artBody"' not in page
-
-    # Need the title before we can default --id, so parse with a temp id first
-    temp = parse_article(args.article, 'art-temp')
-    art_id = args.art_id or ('art-' + slugify(temp.h1_text or temp.title))
-    p = parse_article(args.article, art_id)  # re-parse so p.art_id is final
-    category = args.category or 'Perspectiva Ejecutiva'
-
-    print(f"Article   : {p.title}")
-    print(f"H1        : {p.h1_text}")
-    print(f"Date      : {p.date!r}")
-    print(f"Sections  : {p.section_count}")
-    print(f"Art id    : {p.art_id}")
-    print(f"Category  : {category}")
-    print(f"Mode      : {'BOOTSTRAP (first article)' if is_bootstrap else 'APPEND (existing shell found)'}")
-
-    if is_bootstrap:
-        assert 'id="perspectivas"' in page, "Section 05 (#perspectivas) not found in --html"
-        page = bootstrap_section5(page, p, category)
+    # Derive id from title if not given
+    if not args.id:
+        soup = BeautifulSoup(article_html, 'html.parser')
+        h1 = soup.find('h1')
+        title_text = h1.get_text(strip=True) if h1 else 'articulo'
+        art_id = 'art-' + slugify(title_text)
     else:
-        page = append_article(page, p, category)
+        art_id = args.id if args.id.startswith('art-') else 'art-' + args.id
 
-    # ── Verify ──
-    body_tags = len(re.findall(r'<body[^>]*>', page, re.IGNORECASE))
-    assert body_tags == body_tags_before, (
-        f"<body> tag count changed ({body_tags_before} -> {body_tags}) — this insertion "
-        f"must not add or remove a stray <body> tag, whatever the file's starting count is."
-    )
-    assert page.count('<body') == page.lower().count('<body'), "case mismatch check"
-    assert f'id="{p.art_id}"' in page, "new article id missing from output"
-    assert 'nexum-art-modal' not in page, "a stale full-screen modal is still present — remove it first"
-    ids = re.findall(r'\bid="([^"]+)"', page)
-    dupes = {i for i in ids if ids.count(i) > 1}
-    assert not dupes, f"Duplicate element ids after insertion: {sorted(dupes)}"
+    print(f"Integrating article id={art_id} category='{args.category}'")
+
+    result = integrate(site_html, article_html, args.category, art_id)
 
     out_path = args.out or args.html
     with open(out_path, 'w', encoding='utf-8') as f:
-        f.write(page)
+        f.write(result)
 
-    print(f"\nOK — wrote {out_path} ({len(page.encode('utf-8')):,} bytes)")
-    print("Next: verify headlessly (open the card, check the panel, the nav, "
-          "and scroll-highlighting), then publish + push. See SKILL.md.")
+    print(f"Written to {out_path} ({len(result):,} bytes)")
 
 
 if __name__ == '__main__':
