@@ -4387,7 +4387,7 @@
 <span aria-hidden="true" class="blog-cta">Leer Perspectiva <span class="arr">→</span></span>
 </article>
 <!-- Próximas perspectivas se agregan aquí automáticamente, cada una como .blog-item -->
-<article aria-label="Leer: ¿Capacidades aisladas o unecosistemade inteligencia empresarial?" class="blog-item" data-art="art-ecosistema-ia-moderna" role="button" style="cursor:pointer;" tabindex="0">
+<article aria-label="Leer: ¿Capacidades aisladas o unecosistemade inteligencia empresarial?" class="blog-item" onclick="nexumOpenArticle('art-ecosistema-ia-moderna')" role="button" style="cursor:pointer;" tabindex="0">
 <div class="blog-item-header">
 <span class="blog-category">Ecosistema de IA</span>
 <span class="blog-date">Edición · 21 de octubre de 2026</span>
@@ -7016,9 +7016,7 @@
 <div class="art-frame" hidden="" id="art-ecosistema-ia-moderna">
 <title>El Ecosistema de la IA Moderna</title>
 <meta content="cover" name="claude:viewport-fit-sides"/>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&amp;family=Jost:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+
 <style>
 /* Layout: informe ejecutivo de una columna (max 1080px), navegación fija por secciones, bloques por rol de contenido; marca NEXUM navy + oro, una sola identidad oscura deliberada */
 :root{
@@ -8797,6 +8795,7 @@ footer .ct{font-size:.9rem;color:var(--ink-2);display:flex;flex-direction:column
         },
 {
   id: 'a8',
+  num: '08',
   title: '¿Su institución construye islas de IA o un ecosistema de inteligencia?',
   subtitle: 'Autoevaluación ejecutiva · 16 preguntas · 8 minutos',
   desc: '16 preguntas para juntas y comités ejecutivos de bancos, cooperativas y aseguradoras. Descubra si sus capacidades de IA comparten datos, objetivos y gobierno, o si operan como proyectos aislados.',
