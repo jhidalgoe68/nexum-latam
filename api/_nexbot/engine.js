@@ -13,10 +13,12 @@ import Anthropic from '@anthropic-ai/sdk';
 import { KNOWLEDGE, KB_VERSION } from './knowledge.js';
 import { SYSTEM_PROMPT, TOOLS } from './prompt.js';
 import { simulateLoan, simulateDeposit, simulateSavings } from './simulators.js';
-import { queryStatement } from './statement.js';
+import { queryStatement, analyzeStatement } from './statement.js';
 
 export const MODEL = process.env.NEXBOT_MODEL || 'claude-opus-5-5';
-const EFFORT = process.env.NEXBOT_EFFORT || 'low'; // chat: low keeps latency and cost down
+// Tried in order only when the key has no access to the model above (404 / permission error).
+export const MODEL_CHAIN = [MODEL, ...(process.env.NEXBOT_FALLBACK_MODELS ?? 'claude-sonnet-5-5').split(',').map(s => s.trim()).filter(m => m && m !== MODEL)];
+const EFFORT = process.env.NEXBOT_EFFORT || 'medium'; // medium: room for full statement analysis and recommendations
 const MAX_TOOL_ROUNDS = 4;
 
 export const LIMITS = { turns: 24, userChars: 1200, assistantChars: 4000, totalChars: 24000 };
@@ -118,6 +120,7 @@ export async function runTool(name, input) {
     case 'simulate_term_deposit': return simulateDeposit({ ...input, interest_payment: input?.interest_payment === 'anticipado' ? 'anticipado' : 'vencimiento' });
     case 'simulate_savings_goal': return simulateSavings(input);
     case 'query_statement': return queryStatement(input);
+    case 'analyze_statement': return analyzeStatement();
     case 'request_advisor_callback': return requestCallback(input || {});
     default: return { ok: false, error: `Herramienta desconocida: ${name}` };
   }
@@ -144,6 +147,41 @@ function validateToolInput(name, input) {
 }
 
 // ── 4. Agent loop ────────────────────────────────────────────────────────
+
+// ── Error classification (shared by the chat stream and the health check) ──
+/** Maps an Anthropic/SDK error to a stable code the page understands, plus a hint for the site owner. */
+export function classifyError(err) {
+  const msg = String(err?.error?.error?.message || err?.message || '');
+  if (err?.code === 'not_configured') return { code: 'not_configured', hint: 'Falta ANTHROPIC_API_KEY en las variables de entorno de este despliegue (Vercel → Settings → Environment Variables → Production) y volver a desplegar.' };
+  if (err?.status === 401) return { code: 'invalid_key', hint: 'La clave ANTHROPIC_API_KEY no es válida o fue revocada. Crea una nueva en console.anthropic.com y actualízala en Vercel.' };
+  if (/credit balance|billing|purchase credits|plans? & billing/i.test(msg)) return { code: 'billing', hint: 'La cuenta de Anthropic no tiene saldo. Agrega créditos en console.anthropic.com → Plans & Billing.' };
+  if (err?.status === 404 || (/model/i.test(msg) && /not.?found|does not exist|not available|access/i.test(msg))) return { code: 'model_unavailable', hint: 'La clave no tiene acceso al modelo configurado. Revisa NEXBOT_MODEL / NEXBOT_FALLBACK_MODELS.' };
+  if (err?.status === 403) return { code: 'forbidden', hint: 'La clave no tiene permiso para esta operación (revisa el workspace y los permisos de la clave).' };
+  if (err?.status === 429) return { code: 'busy', hint: 'Límite de uso alcanzado; se reintenta más tarde.' };
+  if (err?.status === 529 || err?.status >= 500) return { code: 'busy', hint: 'Servicio de Claude saturado o con error temporal.' };
+  if (err?.status === 400) return { code: 'upstream_bad_request', hint: msg.slice(0, 200) };
+  return { code: 'upstream', hint: msg.slice(0, 200) || 'Error de red hacia la API de Claude.' };
+}
+const isModelAccessError = err => ['model_unavailable', 'forbidden'].includes(classifyError(err).code);
+const isFallbackParamError = err => err?.status === 400 && /fallback|anthropic-beta|beta/i.test(String(err?.error?.error?.message || err?.message || ''));
+
+/** Real round-trip with a tiny request: tells the site owner exactly why the AI is (not) available. */
+export async function diagnose() {
+  let anthropic;
+  try { anthropic = getClient(); } catch (e) { return { ok: false, ...classifyError(e) }; }
+  const tried = [];
+  for (const model of MODEL_CHAIN) {
+    try {
+      const r = await anthropic.messages.create({ model, max_tokens: 256, output_config: { effort: 'low' }, messages: [{ role: 'user', content: 'Responde solo: ok' }] });
+      return { ok: true, model: r.model, tried };
+    } catch (e) {
+      const c = classifyError(e);
+      tried.push({ model, status: e?.status ?? null, ...c });
+      if (!isModelAccessError(e)) return { ok: false, ...c, status: e?.status ?? null, tried };
+    }
+  }
+  return { ok: false, ...tried.at(-1), tried };
+}
 
 let client;
 function getClient() {
@@ -186,14 +224,14 @@ export async function respond({ messages: raw, lang: uiLang, segment, voice, emi
   const convo = [...messages.slice(0, -1), { role: 'user', content: [{ type: 'text', text: last.content }, { type: 'text', text: context }] }];
 
   const anthropic = getClient();
-  let jsonRetries = 0;
+  let jsonRetries = 0, modelIdx = 0, useFallbacks = true;
 
   for (let round = 0; round <= MAX_TOOL_ROUNDS; round++) {
+    let streamed = false;
     const stream = anthropic.beta.messages.stream({
-      model: MODEL,
-      max_tokens: 8000, // hard cap per answer for a public endpoint; covers thinking + reply
-      betas: ['server-side-fallback-2026-07-01'],
-      fallbacks: 'default',
+      model: MODEL_CHAIN[modelIdx],
+      max_tokens: 12000, // hard cap per answer for a public endpoint; covers thinking + reply
+      ...(useFallbacks ? { betas: ['server-side-fallback-2026-07-01'], fallbacks: 'default' } : {}),
       thinking: { type: 'adaptive' },
       output_config: { effort: EFFORT },
       system: [
@@ -205,13 +243,19 @@ export async function respond({ messages: raw, lang: uiLang, segment, voice, emi
       messages: convo,
     }, { signal });
 
-    stream.on('text', text => emit('delta', { text }));
+    stream.on('text', text => { streamed = true; emit('delta', { text }); });
 
     let message;
     try {
       message = await stream.finalMessage();
     } catch (err) {
-      // Only an unparseable streamed tool input is retried; API errors propagate.
+      // Configuration problems are recovered before anything was shown: next model in the chain,
+      // or the same request without the optional server-side fallback beta.
+      if (err instanceof Anthropic.APIError && !streamed && !signal?.aborted) {
+        if (isModelAccessError(err) && modelIdx < MODEL_CHAIN.length - 1) { console.warn('[nexbot] model unavailable, trying', MODEL_CHAIN[modelIdx + 1]); modelIdx++; round--; continue; }
+        if (useFallbacks && isFallbackParamError(err)) { console.warn('[nexbot] retrying without server-side fallbacks'); useFallbacks = false; round--; continue; }
+      }
+      // Only an unparseable streamed tool input is retried; other API errors propagate.
       if (err instanceof Anthropic.APIError || signal?.aborted || ++jsonRetries > 1) throw err;
       emit('reset', {});
       round--; continue;

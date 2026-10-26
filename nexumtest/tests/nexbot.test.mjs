@@ -28,7 +28,9 @@ before(async () => {
   mock = http.createServer(async (req, res) => {
     let raw = ''; for await (const c of req) raw += c;
     requests.push({ headers: req.headers, body: JSON.parse(raw) });
-    res.writeHead(200, { 'Content-Type': 'text/event-stream' }).end(script.shift());
+    const next = script.shift();
+    if (next && typeof next === 'object') res.writeHead(next.status, { 'Content-Type': 'application/json' }).end(JSON.stringify(next.body));
+    else res.writeHead(200, { 'Content-Type': 'text/event-stream' }).end(next);
   });
   await new Promise(r => mock.listen(0, r));
   process.env.ANTHROPIC_BASE_URL = `http://127.0.0.1:${mock.address().port}`;
@@ -120,6 +122,66 @@ test('statement tool totals match the page and the bot can read the sample state
   assert.equal(queryStatement({ card: '3391', include_payments: true }).count, MOV.filter(m => m[0] === '3391').length);
   assert.ok(queryStatement({ group_by: 'category' }).groups.every(g => g.count > 0));
   for (const s of ['VALERIA RÍOS MONTERO', 'Pago contado', 'SUPERMERCADO CENTRAL', 'Estado de cuenta de ejemplo']) assert.ok(KNOWLEDGE.includes(s), `falta: ${s}`);
+});
+
+const apiError = (status, message, type = 'invalid_request_error') => ({ status, body: { type: 'error', error: { type, message } } });
+
+test('analyze_statement builds a complete, consistent financial profile', async () => {
+  const { analyzeStatement, minimumPaymentPlan } = await import('../../api/_nexbot/statement.js');
+  const a = analyzeStatement();
+  assert.equal(a.ok, true);
+  const shares = a.spending.by_category.reduce((s, c) => s + c.pct_of_crc_spend, 0);
+  assert.ok(Math.abs(shares - 100) < 0.1, `category shares add up to ${shares}`);
+  assert.equal(a.credit.utilization_pct, 26.3);
+  assert.equal(a.period.due_date, '12/10/2026');
+  assert.ok(a.minimum_payment_plan.months > 12 && a.minimum_payment_plan.total_interest > 0);
+  for (const code of ['minimum_payment_cost', 'credit_utilization', 'concentrated_category', 'paid_previous_in_full']) assert.ok(a.signals.some(x => x.code === code), code);
+  assert.equal(minimumPaymentPlan(1000, 0, 1).months, 1);
+});
+
+test('errors are classified with an actionable hint for the site owner', async () => {
+  const { classifyError } = await import('../../api/_nexbot/engine.js');
+  assert.equal(classifyError({ code: 'not_configured' }).code, 'not_configured');
+  assert.equal(classifyError({ status: 401, message: 'invalid x-api-key' }).code, 'invalid_key');
+  assert.equal(classifyError({ status: 400, error: { error: { message: 'Your credit balance is too low to access the Anthropic API.' } } }).code, 'billing');
+  assert.equal(classifyError({ status: 404, message: 'model: claude-x not found' }).code, 'model_unavailable');
+  assert.equal(classifyError({ status: 429 }).code, 'busy');
+});
+
+test('falls back to the next model when the key has no access to the first one', async () => {
+  requests.length = 0;
+  script = [apiError(404, 'model: claude-opus-5-5 not found', 'not_found_error'), textTurn(['Hola, ¿en qué te ayudo?'])];
+  const r = await chat({ messages: [{ role: 'user', content: 'hola' }] });
+  assert.equal(r.events.at(-1).event, 'done');
+  assert.deepEqual(requests.map(q => q.body.model), ['claude-opus-5-5', 'claude-sonnet-5-5']);
+});
+
+test('retries without the optional fallback beta if the account rejects it', async () => {
+  requests.length = 0;
+  script = [apiError(400, 'fallbacks: Extra inputs are not permitted'), textTurn(['ok'])];
+  const r = await chat({ messages: [{ role: 'user', content: 'hola' }] });
+  assert.equal(r.events.at(-1).event, 'done');
+  assert.equal(requests[1].body.fallbacks, undefined);
+  assert.doesNotMatch(requests[1].headers['anthropic-beta'] || '', /server-side-fallback/);
+});
+
+test('billing problems reach the page as a precise error code', async () => {
+  script = [apiError(400, 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing.')];
+  const r = await chat({ messages: [{ role: 'user', content: 'hola' }] });
+  assert.equal(r.events.at(-1).event, 'error');
+  assert.equal(r.events.at(-1).data.code, 'billing');
+});
+
+test('GET ?check=1 runs a real round-trip and reports the model', async () => {
+  script = [{ status: 200, body: { id: 'msg_x', type: 'message', role: 'assistant', model: 'claude-opus-5-5', content: [{ type: 'text', text: 'ok' }], stop_reason: 'end_turn', stop_sequence: null, usage: { input_tokens: 1, output_tokens: 1 } } }];
+  const j = await (await fetch(base + '?check=1')).json();
+  assert.equal(j.check.ok, true);
+  assert.equal(j.check.model, 'claude-opus-5-5');
+  script = [apiError(401, 'invalid x-api-key', 'authentication_error')];
+  const k = await (await fetch(base + '?check=1')).json();
+  assert.equal(k.check.ok, false);
+  assert.equal(k.check.code, 'invalid_key');
+  assert.match(k.check.hint, /console\.anthropic\.com/);
 });
 
 test('health check reports configuration', async () => {

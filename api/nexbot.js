@@ -14,15 +14,19 @@
  *   1. Vercel → this project → Settings → Environment Variables:
  *        ANTHROPIC_API_KEY        = <your Claude API key>      (required)
  *        NEXBOT_MODEL             = claude-opus-5-5            (optional)
- *        NEXBOT_EFFORT            = low | medium | high        (optional)
+ *        NEXBOT_EFFORT            = low | medium | high        (optional, default medium)
+ *        NEXBOT_FALLBACK_MODELS   = claude-sonnet-5-5          (optional: used if the key
+ *                                   has no access to NEXBOT_MODEL)
  *        NEXBOT_HANDOFF_WEBHOOK   = <n8n/Make webhook URL>     (optional:
  *                                   receives advisor-callback requests)
  *        NEXBOT_ALLOWED_ORIGINS   = extra comma-separated origins (optional)
  *   2. Redeploy. Until the key is set the page keeps working with its
  *      offline answer engine and shows "modo básico".
+ *   3. Verify: open /api/nexbot?check=1 — "check.ok": true means Claude
+ *      answers; otherwise "check.code" and "check.hint" say what to fix.
  * ─────────────────────────────────────────────────────────────────────────
  */
-import { respond, BadRequest, MODEL } from './_nexbot/engine.js';
+import { respond, BadRequest, MODEL, MODEL_CHAIN, classifyError, diagnose } from './_nexbot/engine.js';
 import { KB_VERSION } from './_nexbot/knowledge.js';
 
 export const config = { maxDuration: 60 };
@@ -47,17 +51,6 @@ function rateLimited(ip) {
   return list.length > MAX_REQ;
 }
 
-function errorCode(err) {
-  if (err?.code === 'not_configured') return ['not_configured', 503];
-  switch (err?.status) {
-    case 401: case 403: return ['not_configured', 503];
-    case 429: return ['busy', 429];
-    case 529: return ['busy', 503];
-    case 400: return ['bad_request', 400];
-    default: return ['upstream', 502];
-  }
-}
-
 export default async function handler(req, res) {
   const origin = req.headers.origin;
   if (origin && isAllowedOrigin(origin)) {
@@ -68,7 +61,17 @@ export default async function handler(req, res) {
   }
   if (req.method === 'OPTIONS') { res.status(204).end(); return; }
   if (req.method === 'GET') {
-    res.status(200).json({ ok: true, configured: !!(process.env.ANTHROPIC_API_KEY || process.env.ANTHROPIC_AUTH_TOKEN), model: MODEL, kb: KB_VERSION });
+    const configured = !!(process.env.ANTHROPIC_API_KEY || process.env.ANTHROPIC_AUTH_TOKEN);
+    const base = { ok: true, configured, model: MODEL, models: MODEL_CHAIN, kb: KB_VERSION, env: process.env.VERCEL_ENV || 'local' };
+    // /api/nexbot?check=1 → real tiny call to Claude: shows the exact reason when the bot falls back to "modo básico".
+    if (/[?&]check=1\b/.test(req.url || '')) {
+      const ip = String(req.headers['x-forwarded-for'] || req.socket?.remoteAddress || '').split(',')[0].trim();
+      if (rateLimited(ip)) { res.status(429).json({ ok: false, error: 'rate_limited' }); return; }
+      res.setHeader('Cache-Control', 'no-store');
+      res.status(200).json({ ...base, check: await diagnose() });
+      return;
+    }
+    res.status(200).json(base);
     return;
   }
   if (req.method !== 'POST') { res.status(405).json({ ok: false, error: 'method_not_allowed' }); return; }
@@ -96,9 +99,9 @@ export default async function handler(req, res) {
     await respond({ messages: body.messages, lang: body.lang, segment: body.segment, voice: body.voice === true, emit, signal: abort.signal });
   } catch (err) {
     if (!abort.signal.aborted) {
-      const [code] = err instanceof BadRequest ? ['bad_request'] : errorCode(err);
+      const { code, hint } = err instanceof BadRequest ? { code: 'bad_request', hint: err.message } : classifyError(err);
       console.error('[nexbot]', code, err?.status || '', err?.message);
-      emit('error', { code });
+      emit('error', { code, hint });
     }
   } finally {
     res.end();
