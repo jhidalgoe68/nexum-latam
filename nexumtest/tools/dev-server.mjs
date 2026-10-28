@@ -1,20 +1,23 @@
 #!/usr/bin/env node
 /**
- * Local preview of /nexumtest/ with the real /api/nexbot function.
- *   ANTHROPIC_API_KEY=sk-ant-... npm run nexbot:dev   →  http://localhost:3000/nexumtest/
+ * Local preview of /nexumtest/ and /nexumseguro/ with the real /api/nexbot and /api/nexseguro functions.
+ *   ANTHROPIC_API_KEY=sk-ant-... npm run nexbot:dev   →  http://localhost:3000/nexumtest/ · /nexumseguro/
  * Without a key the page runs in "modo básico" (offline answer engine).
  */
 import http from 'node:http';
 import { readFile, stat } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import handler from '../../api/nexbot.js';
+import nexbot from '../../api/nexbot.js';
+import nexseguro from '../../api/nexseguro.js';
+
+const API = { '/api/nexbot': nexbot, '/api/nexseguro': nexseguro };
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const PORT = +process.env.PORT || 3000;
 const TYPES = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json', '.svg': 'image/svg+xml', '.png': 'image/png', '.jpg': 'image/jpeg', '.webp': 'image/webp', '.mp4': 'video/mp4' };
 
-// Minimal shim of the Vercel Node helpers used by api/nexbot.js.
+// Minimal shim of the Vercel Node helpers used by the api/ functions.
 function vercelify(req, res, body) {
   req.body = body;
   res.status = code => { res.statusCode = code; return res; };
@@ -23,7 +26,8 @@ function vercelify(req, res, body) {
 
 http.createServer(async (req, res) => {
   const url = new URL(req.url, `http://${req.headers.host}`);
-  if (url.pathname === '/api/nexbot') {
+  const handler = API[url.pathname];
+  if (handler) {
     let raw = '';
     for await (const c of req) raw += c;
     let body = raw;
@@ -40,4 +44,4 @@ http.createServer(async (req, res) => {
   } catch {
     res.writeHead(404).end('Not found');
   }
-}).listen(PORT, () => console.log(`NexBot dev → http://localhost:${PORT}/nexumtest/  (IA: ${process.env.ANTHROPIC_API_KEY ? 'activada' : 'sin ANTHROPIC_API_KEY → modo básico'})`));
+}).listen(PORT, () => console.log(`NexBot dev → http://localhost:${PORT}/nexumtest/ · http://localhost:${PORT}/nexumseguro/  (IA: ${process.env.ANTHROPIC_API_KEY ? 'activada' : 'sin ANTHROPIC_API_KEY → modo básico'})`));
