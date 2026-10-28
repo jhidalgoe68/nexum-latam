@@ -14,11 +14,19 @@ export const PRODUCTS = ['salud', 'vida', 'viajes'];
 // ── Medical emergencies: instant answer, no model call ──────────────────
 const EMERGENCY = /(tengo una emergencia|es una emergencia|emergencia ahora|ambulancia|infarto|no respira|inconsciente|desmay|convulsi|sangrando|hemorragia|me accident|tuve un accidente|chocamos|i have an emergency|it'?s an emergency|ambulance|heart attack|not breathing|unconscious|fainted|seizure|bleeding|i had an accident|car crash)/i;
 
+// ── Explicit requests for live help ("Asistencia", video call, talk to an agent): instant answer with the video button ──
+// "asistencia en viajes" / "travel assistance" is the travel plan and goes to the model.
+const ASSIST = /(video ?llamada|videoasistencia|asistencia (por|en) video|video ?call|video assistance|(hablar|comunicarme|conversar) con (un|una|alguien|algún|algun) ?(agente|asesor|asesora|persona|humano|ejecutivo)?|(talk|speak) (to|with) (an? |someone|somebody) ?(agent|human|person|advisor)?|^\W*(quiero |necesito |solicito |pido )?(una )?asistencia\W*$|^\W*(i need |i want )?(some )?assistance\W*$)/i;
+const TRAVEL_PLAN = /asistencia en viaje|travel assistance/i;
+
 export function fastPath(lastUser, lang) {
-  if (!EMERGENCY.test(lastUser)) return null;
-  return lang === 'en'
-    ? `**If someone's life is at risk, call your country's emergency number now (911 or the local equivalent) or go to the nearest emergency room.**\n\nThen contact the NexumSeguro 24/7 assistance center with the number on your policy or insurance card: they coordinate care and payment with the hospital. At a network hospital, in most cases you don't pay up front.\n[[go:reclamos|See claim steps]]\n[[src:Reclamos · nexumseguro]]`
-    : `**Si hay riesgo para la vida, llame ya al número de emergencias de su país (911 o el equivalente local) o acuda a la sala de emergencias más cercana.**\n\nLuego comuníquese con la central de asistencia 24/7 de NexumSeguro con el número que figura en su póliza o tarjeta de asegurado: coordinamos la atención y el pago con el hospital. En un hospital de la red, en la mayoría de los casos no tiene que pagar por adelantado.\n[[go:reclamos|Ver pasos de reclamo]]\n[[src:Reclamos · nexumseguro]]`;
+  if (EMERGENCY.test(lastUser)) return lang === 'en'
+    ? `**If someone's life is at risk, call your country's emergency number now (911 or the local equivalent) or go to the nearest emergency room.**\n\nThen contact the NexumSeguro 24/7 assistance center with the number on your policy or insurance card: they coordinate care and payment with the hospital. At a network hospital, in most cases you don't pay up front. You can also talk to an agent by video with the **Assistance** button.\n[[video:asistencia|Assistance]]\n[[go:reclamos|See claim steps]]\n[[src:Reclamos · nexumseguro]]`
+    : `**Si hay riesgo para la vida, llame ya al número de emergencias de su país (911 o el equivalente local) o acuda a la sala de emergencias más cercana.**\n\nLuego comuníquese con la central de asistencia 24/7 de NexumSeguro con el número que figura en su póliza o tarjeta de asegurado: coordinamos la atención y el pago con el hospital. En un hospital de la red, en la mayoría de los casos no tiene que pagar por adelantado. También puede hablar por video con un agente con el botón **Asistencia**.\n[[video:asistencia|Asistencia]]\n[[go:reclamos|Ver pasos de reclamo]]\n[[src:Reclamos · nexumseguro]]`;
+  if (ASSIST.test(lastUser) && !TRAVEL_PLAN.test(lastUser)) return lang === 'en'
+    ? `Of course. A NexumSeguro agent can help you **by video** right now: tap **Assistance** to open the call in a new window and allow camera and microphone access when your browser asks.\n[[video:asistencia|Assistance]]\n[[quote:salud|Get a quote]]`
+    : `Con gusto. Un agente de NexumSeguro puede atenderle **por video**: toque **Asistencia** para abrir la llamada en una ventana nueva y permita el acceso a la cámara y al micrófono cuando su navegador lo pida.\n[[video:asistencia|Asistencia]]\n[[quote:salud|Cotizar]]`;
+  return null;
 }
 
 // ── Tools ────────────────────────────────────────────────────────────────
