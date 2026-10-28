@@ -184,6 +184,16 @@ test('GET ?check=1 runs a real round-trip and reports the model', async () => {
   assert.match(k.check.hint, /console\.anthropic\.com/);
 });
 
+test('assistance: prompt offers the Asistencia button and emergencies include it', async () => {
+  const { SYSTEM_PROMPT } = await import('../../api/_nexbot/prompt.js');
+  assert.match(SYSTEM_PROMPT, /\[\[assist:open\|Asistencia\]\]/);
+  assert.match(SYSTEM_PROMPT, /go:movimientos — scrolls to that section\./);
+  requests.length = 0;
+  const r = await chat({ messages: [{ role: 'user', content: 'me clonaron la tarjeta' }] });
+  assert.equal(requests.length, 0);
+  assert.match(r.text, /\[\[assist:open\|Asistencia\]\]/);
+});
+
 test('health check reports configuration', async () => {
   const j = await (await fetch(base)).json();
   assert.equal(j.configured, true);
