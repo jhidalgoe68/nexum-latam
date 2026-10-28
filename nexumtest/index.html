@@ -280,7 +280,17 @@ select,.field input[type=number],.field input[type=text]{font:inherit;padding:.6
 
 /* Chat section */
 .chatsec{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:2rem;align-items:start}
-.chatbox{background:var(--panel);border:1px solid var(--line);border-radius:18px;display:flex;flex-direction:column;height:560px;box-shadow:var(--shadow);min-width:0}
+.chatbox{background:var(--panel);border:1px solid var(--line);border-radius:18px;display:flex;flex-direction:column;height:560px;box-shadow:var(--shadow);min-width:0;position:relative}
+.assistpanel{position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;background:var(--panel);border-radius:inherit;overflow:hidden}
+.assistpanel[hidden]{display:none}
+.assisthead{display:flex;align-items:center;gap:.6rem;padding:.75rem 1rem;background:var(--band);color:var(--band-fg)}
+.assisthead b{flex:1;min-width:0;font-size:.95rem;display:flex;align-items:center;gap:.45rem}
+.assisthead b .live{width:8px;height:8px;border-radius:50%;background:#2ECC71;box-shadow:0 0 0 3px rgba(46,204,113,.25)}
+.assisthead a,.assisthead button{border:1px solid var(--band-line);background:none;color:var(--band-fg);border-radius:999px;padding:.3rem .7rem;font-size:.78rem;text-decoration:none;white-space:nowrap}
+.assisthead a:hover,.assisthead button:hover{border-color:var(--band-accent)}
+.assistframe{flex:1;width:100%;border:0;background:var(--bg)}
+.assistnote{font-size:var(--xs);color:var(--faint);padding:.45rem 1rem;border-top:1px solid var(--line)}
+@media (max-width:420px){.assisthead a .lbl{display:none}}
 .chathead{display:flex;align-items:center;gap:.7rem;padding:1rem 1.2rem;border-bottom:1px solid var(--line)}
 .avatar{width:36px;height:36px;border-radius:50%;background:var(--band);color:var(--band-accent);display:grid;place-items:center;font-family:var(--font-heading);font-weight:700;font-size:.9rem;flex-shrink:0}
 .chathead b{display:block;font-size:.95rem}
@@ -711,6 +721,11 @@ footer a:hover{color:var(--band-accent)}
     <div class="chatslot" id="chatSlot" hidden></div>
     <div class="chatbox" aria-label="Chat con NexBot">
       <div class="chathead"><span class="avatar" aria-hidden="true">NB</span><div class="who"><b>NexBot</b><small id="botStatus">● En línea · IA</small></div><div class="chattools"><div class="langsw" id="botLang" role="group" aria-label="Idioma / Language"><button type="button" data-l="es" aria-pressed="true">ES</button><button type="button" data-l="en" aria-pressed="false">EN</button></div><button type="button" class="iconbtn" id="botSpeak" aria-pressed="false" aria-label="Leer respuestas en voz alta" title="Leer respuestas en voz alta" hidden><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 6h3l4-3v10L5 10H2z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path class="wave" d="M11 5.5a3.5 3.5 0 0 1 0 5M12.8 3.6a6 6 0 0 1 0 8.8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button><button type="button" class="iconbtn" id="botNew" aria-label="Nueva conversación" title="Nueva conversación"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13 8a5 5 0 1 1-1.5-3.5M13 2.5V5h-2.5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button><button type="button" class="iconbtn" id="botDock" aria-label="Abrir en ventana flotante" title="Abrir en ventana flotante"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 3h10v10H3zM8 8h5v5H8z" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button></div></div>
+      <div class="assistpanel" id="assistPanel" hidden role="dialog" aria-labelledby="assistTitle">
+        <div class="assisthead"><b id="assistTitle"><span class="live" aria-hidden="true"></span><span class="t">Asistencia en vivo</span></b><a id="assistExt" href="#" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">↗</span> <span class="lbl">Abrir en otra pestaña</span></a><button type="button" id="assistClose">Cerrar</button></div>
+        <div id="assistSlot" style="flex:1;display:flex"></div>
+        <p class="assistnote" id="assistNote">Permite el micrófono y la cámara cuando el navegador lo pida. Si no carga, ábrelo en otra pestaña.</p>
+      </div>
       <div class="chatlog" id="chatlog" aria-live="polite"></div>
       <div class="chatsugg" id="chatsugg"></div>
       <form class="chatform" id="chatform">
@@ -1154,12 +1169,12 @@ function addMsg(html,who='bot',cls=''){const d=document.createElement('div');d.c
 /* Asistencia: canal de atención en vivo (llamada / videollamada con un agente). URL fija: el modelo no puede cambiarla. */
 const NB_ASSIST='https://webrtc.demo.us.ivrpowers.com/webclient?theme=nexum';
 const NB_ASSIST_RE=/\b(asistencia|agente|asesor(a|es)?|ejecutiv[oa]|hablar con (alguien|una persona|un humano|un agente)|persona real|humano|soporte|videollamada|llamada en vivo|atenci[oó]n en vivo|assistance|agent|human|live support|video call|talk to (someone|a person))\b/i;
-function assistLink(label='Asistencia'){return `<a class="assistbtn" href="${NB_ASSIST}" target="_blank" rel="noopener noreferrer" title="Abre la atención en vivo en una pestaña nueva"><svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 9V7.5a5 5 0 0 1 10 0V9M3 9h2v4H4a1 1 0 0 1-1-1zm10 0h-2v4h1a1 1 0 0 0 1-1zM11 13c0 1-1 1.5-3 1.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>${esc(label)}</a>`}
+function assistLink(label='Asistencia'){return `<a class="assistbtn" href="${NB_ASSIST}" target="_blank" rel="noopener noreferrer" data-assist title="Atención en vivo con un agente, dentro del chat"><svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 9V7.5a5 5 0 0 1 10 0V9M3 9h2v4H4a1 1 0 0 1-1-1zm10 0h-2v4h1a1 1 0 0 0 1-1zM11 13c0 1-1 1.5-3 1.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>${esc(label)}</a>`}
 function acts(list){return `<div class="acts">${list.map(([l,a])=>a==='assist'?assistLink(l):`<button type="button" data-act="${esc(a)}">${l}</button>`).join('')}</div>`}
 function localReply(raw){let q=norm(raw);
  if(/\b\d{13,19}\b/.test(raw.replace(/[\s-]/g,''))){addMsg('Por tu seguridad, no compartas números de tarjeta ni claves en este chat. Ya no lo tendré en cuenta.','bot','alert');return}
  if(/(robaron|robo|perdi|fraude|bloque|clon(ad|aron|aci[oó]n)|no reconozco|hackea)/.test(q)){addMsg(`<b>Bloquea tu tarjeta ahora.</b> Escríbenos por WhatsApp o llama a la Línea Nexum: <span class="tnum"><b>(01) 555 0100</b></span>. Atención inmediata, sin pasos previos.<div class="acts"><button type="button" data-copy="(01) 555 0100">Copiar número</button><button type="button" data-act="go:canales">Ver canales</button></div><span class="src">Protocolo de emergencias · prioridad alta</span>`,'bot','alert');return}
- if(/(asistencia|agente|soporte|videollamada|hablar con|asesor|humano|persona|ejecutivo|alguien|llamen)/.test(q)){addMsg(`Te conecto con una persona. Toca <b>Asistencia</b> para hablar con un agente en vivo, o usa la Línea Nexum y WhatsApp: <span class="tnum"><b>(01) 555 0100</b></span> (opción 5 para créditos). También puedes visitar una agencia o un Business Center.${acts([['Asistencia','assist'],['Ver canales','go:canales'],['Agendar llamada','demo:Agendar llamada con un asesor']])}`);return}
+ if(/(asistencia|agente|soporte|videollamada|hablar con|asesor|humano|persona|ejecutivo|alguien|llamen)/.test(q)){addMsg(`Te conecto con una persona. Toca <b>Asistencia</b> para hablar con un agente en vivo aquí mismo en el chat, o usa la Línea Nexum y WhatsApp: <span class="tnum"><b>(01) 555 0100</b></span> (opción 5 para créditos). También puedes visitar una agencia o un Business Center.${acts([['Asistencia','assist'],['Ver canales','go:canales'],['Agendar llamada','demo:Agendar llamada con un asesor']])}`);return}
  if(/(recomiend|que tarjeta|cual tarjeta|tarjeta para)/.test(q)&&!/(aerolinea socia|alianza|europa|supermercado|general|black)/.test(q)){addMsg(`Para recomendarte bien, cuéntame cómo la usarías:${acts([['Viajo con la aerolínea socia','bot:tarjeta aerolínea socia'],['Viajo por la alianza global','bot:tarjeta alianza global'],['Viajo a Europa','bot:tarjeta europa'],['Compro en supermercado','bot:tarjeta supermercado'],['Uso general','bot:tarjeta uso general'],])}`);return}
  if(/tarjeta/.test(q)&&/(aerolinea socia|alianza|europa|supermercado|general)/.test(q)){
    const map=[['aerolinea socia','socia','Millas Aerolínea Socia: 1 / 1,25 / 1,5 millas por $1 según nivel y más en compras con la aerolínea. Bienvenida de 3.000 a 12.000 millas.'],['alianza','alianza','Millas Alianza Global: 1 milla por $1 y canje en 26 aerolíneas. Bienvenida de 5.000 o 15.000 millas.'],['europa','europa','Puntos Viajero Europa: 1 punto por $1, vuelos, hoteles y autos. Bienvenida de 10.000 o 15.000 puntos.'],['supermercado','super','Puntos Mercado: precio de afiliado en la cadena aliada y puntos por todos tus consumos.'],['general','nexmillas','NexMillas: 1 por $1 (supermercados 1 por $2), canje por viajes, efectivo o donaciones, sin monto mínimo.']];
@@ -1187,6 +1202,7 @@ const NB_TXT={
    hello:'Hola, soy **NexBot**, el asistente con IA de Nexumtestbank. Puedo ayudarte a elegir una cuenta, simular un crédito, recomendarte una tarjeta o encontrar el canal correcto. ¿Qué necesitas?\n\n_También hablo inglés · I also speak English._',
    err:{busy:'Estoy recibiendo muchas consultas. Te respondo con la información básica del sitio:',upstream:'Tuve un problema de conexión. Te respondo con la información básica del sitio:'},
    mic:'Hablar con NexBot',micStop:'Dejar de escuchar',listening:'Escuchando… habla ahora',speak:'Leer respuestas en voz alta',say:'Escuchar',micDenied:'Permite el acceso al micrófono para hablar con NexBot.',micNone:'No te escuché. Toca el micrófono para intentarlo de nuevo.',
+   assistTitle:'Asistencia en vivo',assistExt:'Abrir en otra pestaña',assistClose:'Cerrar',assistNote:'Permite el micrófono y la cámara cuando el navegador lo pida. Si no carga, ábrelo en otra pestaña.',assistConfirm:'¿Cerrar la asistencia en vivo? Si hay una llamada en curso, se cortará.',
    slot:'NexBot está abierto en la ventana flotante.',bring:'Traer aquí',simopen:'Ver en el simulador',
    k:{pay:'Cuota mensual',first:'Primera cuota',principal:'Monto a financiar',interest:'Total intereses',dint:'Interés',recv:'Recibes al final',yield:'Rendimiento',bal:'Saldo final',dep:'Tus aportes',earn:'Interés ganado'}},
  en:{ph:'Type your question…',send:'Send',stop:'Stop',note:"Don't share passwords, PINs or card numbers. Public demo information.",
@@ -1196,6 +1212,7 @@ const NB_TXT={
    hello:"Hi, I'm **NexBot**, Nexumtestbank's AI assistant. I can help you choose an account, simulate a loan, recommend a card or find the right channel. What do you need?\n\n_También hablo español._",
    err:{busy:"I'm getting a lot of questions right now. Here's the basic answer from the site:",upstream:'I had a connection problem. Here is the basic answer from the site:'},
    mic:'Talk to NexBot',micStop:'Stop listening',listening:'Listening… speak now',speak:'Read replies aloud',say:'Listen',micDenied:'Allow microphone access to talk to NexBot.',micNone:"I didn't hear anything. Tap the microphone to try again.",
+   assistTitle:'Live assistance',assistExt:'Open in new tab',assistClose:'Close',assistNote:"Allow the microphone and camera when your browser asks. If it doesn't load, open it in a new tab.",assistConfirm:'Close live assistance? Any call in progress will end.',
    slot:'NexBot is open in the floating window.',bring:'Bring it here',simopen:'Open in simulator',
    k:{pay:'Monthly payment',first:'First payment',principal:'Amount financed',interest:'Total interest',dint:'Interest',recv:'You receive',yield:'Yield',bal:'Final balance',dep:'Your deposits',earn:'Interest earned'}}
 };
@@ -1282,12 +1299,24 @@ function applyLang(l){if(l)nbLang=l;try{localStorage.setItem('ntb-bot-lang',nbLa
   const dl=$('.chatbox').classList.contains('docked')?t.undock:t.dock;$('#botNew').title=t.newc;$('#botNew').setAttribute('aria-label',t.newc);$('#botDock').title=dl;$('#botDock').setAttribute('aria-label',dl);
   $$('#botLang button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.l===nbLang));
   renderMenu();
-  micUI();
+  micUI();assistLabels();
   const slot=$('#chatSlot');if(slot)slot.innerHTML=`<p>${esc(t.slot)}</p><button class="btn btn-ghost btn-sm" type="button" id="botBring">${esc(t.bring)}</button>`;
 }
 $$('#botLang button').forEach(b=>b.onclick=()=>applyLang(b.dataset.l));
 
 /* Ventana flotante: el mismo chat se acopla a la esquina y conserva la conversación. */
+/* Asistencia dentro del chat: el webclient se incrusta en un panel sobre la conversación (micrófono y cámara
+   delegados al iframe). Al cerrar se elimina el iframe, lo que termina la llamada. */
+function assistLabels(){const t=T();$('#assistTitle .t').textContent=t.assistTitle;$('#assistExt .lbl').textContent=t.assistExt;$('#assistExt').setAttribute('aria-label',t.assistExt);$('#assistExt').href=NB_ASSIST;$('#assistClose').textContent=t.assistClose;$('#assistNote').textContent=t.assistNote}
+function openAssist(){if(typeof voiceHalt==='function')voiceHalt();assistLabels();
+  if(innerWidth<=560&&!$('.chatbox').classList.contains('docked'))dock(true);
+  const slot=$('#assistSlot');
+  if(!slot.querySelector('iframe')){const f=document.createElement('iframe');f.className='assistframe';f.title=T().assistTitle;
+    f.allow='microphone; camera; autoplay; display-capture; fullscreen; clipboard-write';f.referrerPolicy='strict-origin-when-cross-origin';f.src=NB_ASSIST;slot.appendChild(f)}
+  $('#assistPanel').hidden=false;$('#assistClose').focus()}
+function closeAssist(){if(!confirm(T().assistConfirm))return;$('#assistSlot').innerHTML='';$('#assistPanel').hidden=true;$('#chatIn').focus({preventScroll:true})}
+document.addEventListener('click',e=>{const a=e.target.closest('[data-assist]');if(!a||e.ctrlKey||e.metaKey||e.shiftKey||e.button===1)return;e.preventDefault();e.stopPropagation();openAssist()},true);
+$('#assistClose').onclick=closeAssist;
 function dock(on){const box=$('.chatbox'),slot=$('#chatSlot');box.classList.toggle('docked',on);slot.hidden=!on;$('#fab').hidden=on;applyLang();
   if(on)setTimeout(()=>$('#chatIn').focus({preventScroll:true}),50)}
 $('#botDock').onclick=()=>dock(!$('.chatbox').classList.contains('docked'));
