@@ -296,6 +296,9 @@ select,.field input[type=number],.field input[type=text]{font:inherit;padding:.6
 .msg.alert{background:rgba(179,67,58,.1);border:1px solid rgba(179,67,58,.35)}
 .chatsugg{display:flex;gap:.4rem;flex-wrap:wrap;padding:0 1.1rem .7rem}
 .chatsugg button{border:1px solid var(--line);background:none;color:var(--muted);border-radius:999px;padding:.32rem .7rem;font-size:.8rem}
+.assistbtn{display:inline-flex;align-items:center;gap:.35rem;border:1px solid var(--accent-strong)!important;background:var(--accent-strong)!important;color:#fff!important;border-radius:999px;padding:.32rem .8rem;font-size:.8rem;font-weight:600;text-decoration:none}
+.assistbtn:hover{background:var(--ink)!important;border-color:var(--ink)!important}
+.assistbtn svg{flex-shrink:0}
 .chatform{display:flex;gap:.5rem;padding:.8rem;border-top:1px solid var(--line)}
 .chatform input{flex:1;min-width:0;font:inherit;border:1px solid var(--line);border-radius:999px;padding:.65rem 1rem;background:var(--bg);color:var(--ink)}
 .chatnote{font-size:var(--xs);color:var(--faint);padding:0 1.1rem .8rem}
@@ -1148,11 +1151,15 @@ document.addEventListener('click',e=>{if(!e.target.closest('.searchbox'))rs.hidd
 const log=$('#chatlog');
 const SYN={prestamo:'credito',plata:'credito',financiamiento:'credito',poliza:'deposito',plazo:'deposito',cdp:'deposito',alcancia:'ahorro',carro:'auto',coche:'auto',vehiculo:'auto',casa:'hipotecario',vivienda:'hipotecario',departamento:'hipotecario',sueldo:'nomina',rol:'nomina',millas:'tarjeta',viajar:'viajes',viajo:'viajes'};
 function addMsg(html,who='bot',cls=''){const d=document.createElement('div');d.className=`msg ${who} ${cls}`;d.innerHTML=html;log.appendChild(d);log.scrollTop=log.scrollHeight}
-function acts(list){return `<div class="acts">${list.map(([l,a])=>`<button type="button" data-act="${esc(a)}">${l}</button>`).join('')}</div>`}
+/* Asistencia: canal de atención en vivo (llamada / videollamada con un agente). URL fija: el modelo no puede cambiarla. */
+const NB_ASSIST='https://webrtc.demo.us.ivrpowers.com/webclient?theme=nexum';
+const NB_ASSIST_RE=/\b(asistencia|agente|asesor(a|es)?|ejecutiv[oa]|hablar con (alguien|una persona|un humano|un agente)|persona real|humano|soporte|videollamada|llamada en vivo|atenci[oó]n en vivo|assistance|agent|human|live support|video call|talk to (someone|a person))\b/i;
+function assistLink(label='Asistencia'){return `<a class="assistbtn" href="${NB_ASSIST}" target="_blank" rel="noopener noreferrer" title="Abre la atención en vivo en una pestaña nueva"><svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 9V7.5a5 5 0 0 1 10 0V9M3 9h2v4H4a1 1 0 0 1-1-1zm10 0h-2v4h1a1 1 0 0 0 1-1zM11 13c0 1-1 1.5-3 1.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>${esc(label)}</a>`}
+function acts(list){return `<div class="acts">${list.map(([l,a])=>a==='assist'?assistLink(l):`<button type="button" data-act="${esc(a)}">${l}</button>`).join('')}</div>`}
 function localReply(raw){let q=norm(raw);
  if(/\b\d{13,19}\b/.test(raw.replace(/[\s-]/g,''))){addMsg('Por tu seguridad, no compartas números de tarjeta ni claves en este chat. Ya no lo tendré en cuenta.','bot','alert');return}
- if(/(robaron|robo|perdi|fraude|bloque|clonad|no reconozco|hackea)/.test(q)){addMsg(`<b>Bloquea tu tarjeta ahora.</b> Escríbenos por WhatsApp o llama a la Línea Nexum: <span class="tnum"><b>(01) 555 0100</b></span>. Atención inmediata, sin pasos previos.<div class="acts"><button type="button" data-copy="(01) 555 0100">Copiar número</button><button type="button" data-act="go:canales">Ver canales</button></div><span class="src">Protocolo de emergencias · prioridad alta</span>`,'bot','alert');return}
- if(/(hablar con|asesor|humano|persona|ejecutivo|alguien|llamen)/.test(q)){addMsg(`Te conecto con una persona. Línea Nexum y WhatsApp: <span class="tnum"><b>(01) 555 0100</b></span> (opción 5 para créditos). También puedes visitar una agencia o un Business Center.${acts([['Ver canales','go:canales'],['Agendar llamada','demo:Agendar llamada con un asesor']])}`);return}
+ if(/(robaron|robo|perdi|fraude|bloque|clon(ad|aron|aci[oó]n)|no reconozco|hackea)/.test(q)){addMsg(`<b>Bloquea tu tarjeta ahora.</b> Escríbenos por WhatsApp o llama a la Línea Nexum: <span class="tnum"><b>(01) 555 0100</b></span>. Atención inmediata, sin pasos previos.<div class="acts"><button type="button" data-copy="(01) 555 0100">Copiar número</button><button type="button" data-act="go:canales">Ver canales</button></div><span class="src">Protocolo de emergencias · prioridad alta</span>`,'bot','alert');return}
+ if(/(asistencia|agente|soporte|videollamada|hablar con|asesor|humano|persona|ejecutivo|alguien|llamen)/.test(q)){addMsg(`Te conecto con una persona. Toca <b>Asistencia</b> para hablar con un agente en vivo, o usa la Línea Nexum y WhatsApp: <span class="tnum"><b>(01) 555 0100</b></span> (opción 5 para créditos). También puedes visitar una agencia o un Business Center.${acts([['Asistencia','assist'],['Ver canales','go:canales'],['Agendar llamada','demo:Agendar llamada con un asesor']])}`);return}
  if(/(recomiend|que tarjeta|cual tarjeta|tarjeta para)/.test(q)&&!/(aerolinea socia|alianza|europa|supermercado|general|black)/.test(q)){addMsg(`Para recomendarte bien, cuéntame cómo la usarías:${acts([['Viajo con la aerolínea socia','bot:tarjeta aerolínea socia'],['Viajo por la alianza global','bot:tarjeta alianza global'],['Viajo a Europa','bot:tarjeta europa'],['Compro en supermercado','bot:tarjeta supermercado'],['Uso general','bot:tarjeta uso general'],])}`);return}
  if(/tarjeta/.test(q)&&/(aerolinea socia|alianza|europa|supermercado|general)/.test(q)){
    const map=[['aerolinea socia','socia','Millas Aerolínea Socia: 1 / 1,25 / 1,5 millas por $1 según nivel y más en compras con la aerolínea. Bienvenida de 3.000 a 12.000 millas.'],['alianza','alianza','Millas Alianza Global: 1 milla por $1 y canje en 26 aerolíneas. Bienvenida de 5.000 o 15.000 millas.'],['europa','europa','Puntos Viajero Europa: 1 punto por $1, vuelos, hoteles y autos. Bienvenida de 10.000 o 15.000 puntos.'],['supermercado','super','Puntos Mercado: precio de afiliado en la cadena aliada y puntos por todos tus consumos.'],['general','nexmillas','NexMillas: 1 por $1 (supermercados 1 por $2), canje por viajes, efectivo o donaciones, sin monto mínimo.']];
@@ -1232,6 +1239,7 @@ function parseReply(text){
     else if(type==='demo')buttons.push([label,'demo:'+val.replace(/:/g,' ').slice(0,80)]);
     else if(type==='ask')buttons.push([label,'bot:'+val.replace(/:/g,' ').slice(0,200)]);
     else if(type==='copy'&&val===NB_PHONE)buttons.push([label,'copy']);
+    else if(type==='assist'&&!buttons.some(b=>b[1]==='assist'))buttons.unshift(['Asistencia','assist']);
     else if(type==='mov'&&$('#movimientos'))buttons.push([label,'mov:'+val.replace(/:/g,' ').slice(0,40)]);
     return ''}).replace(/\[\[[^\]]*$/,'').trim(); // oculta etiquetas a medio transmitir
   return {body,buttons:buttons.slice(0,4),src};
@@ -1240,7 +1248,7 @@ function renderBot(el,text,final){
   const {body,buttons,src}=parseReply(text);
   el.querySelector('.md').innerHTML=md(body)+(final?'':'<span class="caret" aria-hidden="true"></span>');
   const a=el.querySelector('.acts-slot');
-  a.innerHTML=final&&buttons.length?`<div class="acts">${buttons.map(([l,x])=>x==='copy'?`<button type="button" data-copy="${NB_PHONE}">${esc(l)}</button>`:`<button type="button" data-act="${esc(x)}">${esc(l)}</button>`).join('')}</div>`:'';
+  a.innerHTML=final&&buttons.length?`<div class="acts">${buttons.map(([l,x])=>x==='assist'?assistLink():x==='copy'?`<button type="button" data-copy="${NB_PHONE}">${esc(l)}</button>`:`<button type="button" data-act="${esc(x)}">${esc(l)}</button>`).join('')}</div>`:'';
   el.querySelector('.src-slot').innerHTML=(final&&src?`<span class="src">${nbLang==='en'?'Source':'Fuente'}: ${esc(src)}</span>`:'')+(final&&VOICE.tts?`<button type="button" class="saybtn"><svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 6h3l4-3v10L5 10H2z" fill="currentColor"/></svg>${esc(T().say)}</button>`:'');
 }
 function botBubble(){const d=document.createElement('div');d.className='msg bot';d.innerHTML='<div class="md"></div><div class="sim-slot"></div><div class="acts-slot"></div><div class="src-slot"></div>';log.appendChild(d);return d}
@@ -1266,12 +1274,14 @@ function simFill(id){const r=nbSims[id];if(!r)return;openSim(r.simulator);$('#si
 }
 
 /* Idioma de la interfaz del chat */
+/* Menú del chat: "Asistencia" siempre visible; las sugerencias solo al inicio de la conversación. */
+function renderMenu(){$('#chatsugg').innerHTML=assistLink()+(nbHist.length>2?'':T().sugg.map(s=>`<button type="button" data-act="bot:${esc(s)}">${esc(s)}</button>`).join(''))}
 function applyLang(l){if(l)nbLang=l;try{localStorage.setItem('ntb-bot-lang',nbLang)}catch(e){}
   const t=T();$('#chatIn').placeholder=t.ph;$('#chatSend').textContent=nbBusy?t.stop:t.send;$('.chatnote').textContent=t.note;
   $('#botStatus').textContent=nbMode==='ai'?t.on:t.basic;$('#botStatus').classList.toggle('basic',nbMode!=='ai');
   const dl=$('.chatbox').classList.contains('docked')?t.undock:t.dock;$('#botNew').title=t.newc;$('#botNew').setAttribute('aria-label',t.newc);$('#botDock').title=dl;$('#botDock').setAttribute('aria-label',dl);
   $$('#botLang button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.l===nbLang));
-  $('#chatsugg').innerHTML=nbHist.length>2?'':t.sugg.map(s=>`<button type="button" data-act="bot:${esc(s)}">${esc(s)}</button>`).join('');
+  renderMenu();
   micUI();
   const slot=$('#chatSlot');if(slot)slot.innerHTML=`<p>${esc(t.slot)}</p><button class="btn btn-ghost btn-sm" type="button" id="botBring">${esc(t.bring)}</button>`;
 }
@@ -1292,7 +1302,7 @@ function save(){try{sessionStorage.setItem('ntb-bot-hist',JSON.stringify(nbHist.
 function setBusy(b){nbBusy=b;$('#chatSend').textContent=b?T().stop:T().send;$('#chatSend').classList.toggle('btn-band',b);log.setAttribute('aria-busy',b)}
 function ask(text,opts={}){text=String(text||'').trim();if(!text||nbBusy)return;
   nbVoiceTurn=!!opts.voice;if(!nbVoiceTurn)voiceHalt();else ttsCancel();
-  addMsg(esc(text),'user');$('#chatsugg').innerHTML='';
+  addMsg(esc(text),'user');$('#chatsugg').innerHTML=assistLink(); // tras preguntar, el menú queda solo con Asistencia
   if(/\b(?:\d[ -]?){13,19}\b/.test(text)){addMsg(nbLang==='en'?"For your security, don't share card numbers or passwords in this chat. I'll disregard it.":'Por tu seguridad, no compartas números de tarjeta ni claves en este chat. Ya no lo tendré en cuenta.','bot','alert');text=text.replace(/\b(?:\d[ -]?){13,19}\b/g,'[número eliminado]')}
   nbHist.push({role:'user',content:text});save();
   if(nbMode!=='ai'){basicReply(text);speakLastBot();return}
@@ -1327,6 +1337,7 @@ async function streamReply(){
     if(NB_FATAL.includes(failed.code)||failed.status===404||failed instanceof TypeError){nbBasic(failed.code||'network',failed.hint);basicReply(nbHist[nbHist.length-1].content);if(speak)speakLastBot();return}
     addMsg(esc(T().err[failed.code==='busy'?'busy':'upstream']),'bot');localReply(nbHist[nbHist.length-1].content);if(speak)speakLastBot();return}
   if(!text.trim()){bubble.remove();nbHist.pop();save();if(tts)tts.reset();return} // detenido antes de responder
+  if(NB_ASSIST_RE.test(nbHist[nbHist.length-1].content)&&!/\[\[assist:/.test(text))text+='\n[[assist:open|Asistencia]]';
   renderBot(bubble,text,true);scrollLog();if(tts)tts.feed(text,true);
   nbHist.push({role:'assistant',content:text});save();
 }

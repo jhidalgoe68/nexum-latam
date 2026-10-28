@@ -71,7 +71,7 @@ export class BadRequest extends Error {}
 
 // ── 2. Deterministic fast paths ──────────────────────────────────────────
 
-const EMERGENCY = /(me robaron|robo|robada|robaron|perd[ií] mi tarjeta|fraude|clonad|no reconozco|hacke|stolen|lost my card|fraud|cloned|unauthori[sz]ed|hacked|block my card)/i;
+const EMERGENCY = /(me robaron|robo|robada|robaron|perd[ií] mi tarjeta|fraude|clon(ad|aron|aci[oó]n)|no reconozco|hacke|stolen|lost my card|fraud|cloned|unauthori[sz]ed|hacked|block my card)/i;
 
 export function detectLanguage(text, hint) {
   const t = ` ${String(text).toLowerCase()} `;
@@ -85,8 +85,8 @@ export function detectLanguage(text, hint) {
 export function fastPath(lastUser, lang) {
   if (!EMERGENCY.test(lastUser)) return null;
   return lang === 'en'
-    ? `**Block your card right now.** Message us on WhatsApp or call Línea Nexum at **(01) 555 0100** — immediate attention, no prior steps.\n\nNexumtestbank will never ask for your password, PIN or codes.\n[[copy:(01) 555 0100|Copy number]]\n[[go:canales|See channels]]\n[[src:Protocolo de emergencias · prioridad alta]]`
-    : `**Bloquea tu tarjeta ahora.** Escríbenos por WhatsApp o llama a la Línea Nexum: **(01) 555 0100**. Atención inmediata, sin pasos previos.\n\nNexumtestbank nunca te pedirá claves, PIN ni códigos.\n[[copy:(01) 555 0100|Copiar número]]\n[[go:canales|Ver canales]]\n[[src:Protocolo de emergencias · prioridad alta]]`;
+    ? `**Block your card right now.** Message us on WhatsApp or call Línea Nexum at **(01) 555 0100** — immediate attention, no prior steps.\n\nNexumtestbank will never ask for your password, PIN or codes.\n[[copy:(01) 555 0100|Copy number]]\n[[assist:open|Asistencia]]\n[[go:canales|See channels]]\n[[src:Protocolo de emergencias · prioridad alta]]`
+    : `**Bloquea tu tarjeta ahora.** Escríbenos por WhatsApp o llama a la Línea Nexum: **(01) 555 0100**. Atención inmediata, sin pasos previos.\n\nNexumtestbank nunca te pedirá claves, PIN ni códigos.\n[[copy:(01) 555 0100|Copiar número]]\n[[assist:open|Asistencia]]\n[[go:canales|Ver canales]]\n[[src:Protocolo de emergencias · prioridad alta]]`;
 }
 
 // ── 3. Tools ─────────────────────────────────────────────────────────────
