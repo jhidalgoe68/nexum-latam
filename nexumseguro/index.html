@@ -1,0 +1,656 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>NexumSeguro</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Seguros de salud, vida y asistencia en viajes con cobertura internacional y atención 24/7.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+/* Layout concept: a calm, left-aligned 1240px column; paper sections alternate with a deep-sea band.
+   Flow: Hero → Beneficios → Cómo funciona → Planes → Para quién → Por qué → Reclamos → Recursos → Cotizar → Footer. */
+:root{
+  --paper:#F7FAFB; --card:#FFFFFF; --tint:#EAF3F2; --tint-2:#D7E9E6;
+  --ink:#0B1F33; --ink-2:#22394F; --ink-3:#556A7E;
+  --sea:#0E8F7E; --sea-hi:#12A892; --sea-ink:#0A6F62; --sun:#E7A52B; --sun-ink:#9A6612;
+  --line:rgba(11,31,51,.13); --line-2:rgba(11,31,51,.07);
+  --band:#0B1F33; --band-2:#123049; --band-fg:#EEF5F4; --band-mute:#9FB4C3; --band-line:rgba(238,245,244,.14);
+  --btn-fg:#FFFFFF; --shadow:0 18px 40px -24px rgba(11,31,51,.35);
+  --f-display:'Bricolage Grotesque','Segoe UI',system-ui,sans-serif;
+  --f-body:'Figtree','Segoe UI',system-ui,sans-serif;
+  --wrap:1240px; --pad:clamp(4rem,9vw,7.5rem); --ease:cubic-bezier(.16,1,.3,1);
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#071521; --card:#0C1F2F; --tint:#0E2536; --tint-2:#143044;
+  --ink:#EEF5F4; --ink-2:#C9D8DF; --ink-3:#94A9B8;
+  --sea:#22C3AA; --sea-hi:#3DD6BE; --sea-ink:#3DD6BE; --sun:#F2B94A; --sun-ink:#F2B94A;
+  --line:rgba(238,245,244,.15); --line-2:rgba(238,245,244,.07);
+  --band:#030D16; --band-2:#0E2536; --band-fg:#EEF5F4; --band-mute:#94A9B8; --band-line:rgba(238,245,244,.12);
+  --btn-fg:#06141F; --shadow:0 18px 40px -24px rgba(0,0,0,.6); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#071521; --card:#0C1F2F; --tint:#0E2536; --tint-2:#143044;
+  --ink:#EEF5F4; --ink-2:#C9D8DF; --ink-3:#94A9B8;
+  --sea:#22C3AA; --sea-hi:#3DD6BE; --sea-ink:#3DD6BE; --sun:#F2B94A; --sun-ink:#F2B94A;
+  --line:rgba(238,245,244,.15); --line-2:rgba(238,245,244,.07);
+  --band:#030D16; --band-2:#0E2536; --band-fg:#EEF5F4; --band-mute:#94A9B8; --band-line:rgba(238,245,244,.12);
+  --btn-fg:#06141F; --shadow:0 18px 40px -24px rgba(0,0,0,.6); color-scheme:dark}
+
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:1.0625rem;line-height:1.6;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--band)}
+a{color:inherit}
+h1,h2,h3,h4{font-family:var(--f-display);font-weight:700;letter-spacing:-.02em;line-height:1.05;margin:0;text-wrap:balance}
+p{margin:0}
+.wrap{max-width:var(--wrap);margin-inline:auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+@media(min-width:720px){.wrap{padding-left:max(32px,env(safe-area-inset-left,0px));padding-right:max(32px,env(safe-area-inset-right,0px))}}
+.sec{padding-block:var(--pad)}
+.sec--tint{background:var(--tint)}
+.sec--band{background:var(--band);color:var(--band-fg)}
+.eyebrow{font-size:.78rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--sea-ink)}
+.sec--band .eyebrow{color:var(--sea-hi)}
+.lede{font-size:clamp(1.05rem,1.4vw,1.2rem);color:var(--ink-3);max-width:62ch}
+.sec--band .lede{color:var(--band-mute)}
+.h2{font-size:clamp(2rem,4.2vw,3.3rem)}
+.sec-head{display:grid;gap:1.1rem;margin-bottom:clamp(2.5rem,5vw,4rem);max-width:820px}
+:focus-visible{outline:2px solid var(--sea);outline-offset:3px;border-radius:4px}
+.ph{background:color-mix(in srgb,var(--sun) 18%,transparent);color:var(--sun-ink);border-radius:4px;padding:0 .25em;font-weight:600}
+.sec--band .ph{color:var(--sun)}
+
+.btn{display:inline-flex;align-items:center;gap:.55rem;font-family:var(--f-body);font-weight:700;font-size:1rem;text-decoration:none;border-radius:999px;padding:.95rem 1.6rem;transition:transform .35s var(--ease),background .25s,box-shadow .35s var(--ease);cursor:pointer;border:0;white-space:nowrap}
+.btn--primary{background:var(--sea);color:var(--btn-fg);box-shadow:var(--shadow)}
+.btn--primary:hover{transform:translateY(-2px);background:var(--sea-hi)}
+.btn--ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--line)}
+.btn--ghost:hover{box-shadow:inset 0 0 0 1.5px var(--ink)}
+.sec--band .btn--ghost,.cta .btn--ghost{color:var(--band-fg);box-shadow:inset 0 0 0 1.5px var(--band-line)}
+.btn .arr{transition:transform .35s var(--ease)}
+.btn:hover .arr{transform:translateX(4px)}
+.link{font-weight:700;text-decoration:none;color:var(--sea-ink);display:inline-flex;gap:.4rem;align-items:center}
+.link:hover{text-decoration:underline;text-underline-offset:4px}
+
+/* utility strip */
+.util{background:var(--band);color:var(--band-mute);font-size:.82rem}
+.util .wrap{display:flex;justify-content:space-between;align-items:center;gap:.6rem 1.2rem;padding-block:.5rem;flex-wrap:wrap}
+.util a{text-decoration:none;color:var(--band-fg)}
+.util a:hover{color:var(--sea-hi)}
+.util-links{display:flex;gap:1.1rem;flex-wrap:wrap;align-items:center}
+.util-links .em{color:var(--sun);font-weight:700}
+.country{display:flex;align-items:center;gap:.5rem}
+.country label{color:var(--band-mute)}
+.country select{font:inherit;color:var(--band-fg);background:var(--band-2);border:1px solid var(--band-line);border-radius:999px;padding:.2rem .7rem}
+.portal{display:flex;gap:.35rem;align-items:center}
+.portal a{padding:.15rem .55rem;border-radius:999px;border:1px solid var(--band-line)}
+
+/* header */
+.hdr{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:color-mix(in srgb,var(--paper) 90%,transparent);backdrop-filter:saturate(1.4) blur(14px);-webkit-backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid var(--line-2)}
+.hdr .wrap{display:flex;align-items:center;gap:1.4rem;min-height:72px}
+.brand{display:flex;align-items:center;gap:.6rem;text-decoration:none}
+.brand b{font-family:var(--f-display);font-size:1.3rem;letter-spacing:-.01em}
+.brand b span{color:var(--sea-ink)}
+.nav{display:flex;gap:1.5rem;margin-left:auto;font-size:.95rem;font-weight:600;white-space:nowrap}
+.nav a{text-decoration:none;color:var(--ink-2)}
+.nav a:hover{color:var(--sea-ink)}
+.lang{display:inline-flex;border-radius:999px;box-shadow:inset 0 0 0 1px var(--line);padding:3px}
+.lang button{all:unset;cursor:pointer;font-size:.75rem;font-weight:700;letter-spacing:.08em;padding:.3rem .6rem;border-radius:999px;color:var(--ink-3)}
+.lang button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.lang button:focus-visible{outline:2px solid var(--sea)}
+.hdr .btn{padding:.65rem 1.15rem;font-size:.92rem}
+.burger{all:unset;display:none;cursor:pointer;width:40px;height:40px;border-radius:10px;box-shadow:inset 0 0 0 1px var(--line);place-items:center}
+.burger span{display:block;width:18px;height:2px;background:var(--ink);box-shadow:0 6px 0 var(--ink),0 -6px 0 var(--ink)}
+.mnav{display:grid;padding-block:.5rem 1.25rem;border-top:1px solid var(--line-2)}
+.mnav a{text-decoration:none;padding:.7rem 0;font-weight:600;border-bottom:1px solid var(--line-2)}
+@media(max-width:1140px){.nav,.hdr .btn--primary{display:none}.burger{display:grid}.hdr .lang{margin-left:auto}}
+@media(max-width:700px){.portal{display:none}}
+
+/* hero */
+.hero{padding-block:clamp(3.5rem,8vw,6.5rem) clamp(3rem,7vw,5.5rem);position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;inset:auto -25% -70% 35%;height:130%;background:radial-gradient(closest-side,color-mix(in srgb,var(--sea) 15%,transparent),transparent);pointer-events:none}
+.hero .wrap{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.9fr);gap:clamp(2.5rem,5vw,5rem);align-items:center}
+@media(max-width:980px){.hero .wrap{grid-template-columns:1fr}}
+.spaced{font-family:var(--f-display);font-weight:600;font-size:clamp(.8rem,1.2vw,.95rem);letter-spacing:.55em;text-transform:uppercase;color:var(--sea-ink);display:flex;flex-wrap:wrap;gap:.2em .9em}
+.spaced i{font-style:normal;color:var(--sun)}
+.hero h1{font-size:clamp(2.6rem,6vw,5rem);font-weight:800;letter-spacing:-.035em;margin-top:1.4rem;line-height:.98}
+.hero h1 em{font-style:normal;color:var(--sea-ink)}
+.hero .lede{margin-top:1.6rem;font-size:clamp(1.1rem,1.6vw,1.28rem);color:var(--ink-2)}
+.hero-cta{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:2.2rem}
+.trustline{margin-top:2rem;display:flex;flex-wrap:wrap;gap:.4rem 1.4rem;font-size:.88rem;color:var(--ink-3)}
+.trustline span::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--sea);margin-right:.5rem;vertical-align:middle}
+@media(prefers-reduced-motion:no-preference){
+  .rise{animation:rise .9s var(--ease) both}
+  .d1{animation-delay:.05s}.d2{animation-delay:.15s}.d3{animation-delay:.25s}.d4{animation-delay:.35s}.d5{animation-delay:.45s}
+  @keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+}
+/* hero quote card */
+.quote-card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:1.6rem;box-shadow:var(--shadow);display:grid;gap:1.1rem;min-width:0}
+.quote-card h3{font-size:1.25rem}
+.quote-card p.s{font-size:.88rem;color:var(--ink-3)}
+.seg{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.5rem}
+.seg button{all:unset;cursor:pointer;text-align:center;padding:.8rem .4rem;border-radius:14px;border:1.5px solid var(--line);font-weight:700;font-size:.9rem;display:grid;gap:.3rem;justify-items:center;color:var(--ink-2);transition:border-color .2s,background .2s}
+.seg button svg{color:var(--sea-ink)}
+.seg button[aria-pressed="true"]{border-color:var(--sea);background:color-mix(in srgb,var(--sea) 9%,transparent);color:var(--ink)}
+.seg button:focus-visible{outline:2px solid var(--sea);outline-offset:2px}
+.fld{display:grid;gap:.35rem}
+.fld label{font-size:.8rem;font-weight:600;color:var(--ink-2)}
+.fld input,.fld select{font:inherit;font-size:.95rem;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:.7rem .85rem;width:100%;min-width:0}
+.row2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.7rem}
+.quote-card .btn{justify-content:center;width:100%}
+.note{font-size:.8rem;color:var(--ink-3);min-height:1.2em}
+.note.ok{color:var(--sea-ink);font-weight:600}
+
+/* trust strip */
+.strip{border-block:1px solid var(--line-2);background:var(--card)}
+.strip .wrap{display:flex;gap:.8rem 2.2rem;align-items:center;padding-block:1.2rem;flex-wrap:wrap}
+.strip b{font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);font-weight:700}
+.strip ul{display:flex;flex-wrap:wrap;gap:.5rem 1.8rem;list-style:none;margin:0;padding:0;font-family:var(--f-display);font-weight:600;font-size:1.02rem;color:var(--ink-2)}
+
+/* benefits */
+.ben{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--line)}
+.ben article{padding:2rem 1.8rem 2.2rem 0;border-bottom:1px solid var(--line);display:grid;gap:.7rem;align-content:start;min-width:0}
+.ben article:not(:nth-child(3n+1)){padding-left:1.8rem;border-left:1px solid var(--line)}
+.ic{width:44px;height:44px;border-radius:12px;background:var(--tint);display:grid;place-items:center;color:var(--sea-ink)}
+.ben h3{font-size:1.32rem;margin-top:.4rem}
+.ben p{color:var(--ink-3);font-size:.98rem}
+@media(max-width:900px){.ben{grid-template-columns:repeat(2,minmax(0,1fr))}.ben article:not(:nth-child(3n+1)){padding-left:0;border-left:0}.ben article:nth-child(even){padding-left:1.5rem;border-left:1px solid var(--line)}}
+@media(max-width:600px){.ben{grid-template-columns:1fr}.ben article,.ben article:nth-child(even){padding-left:0;border-left:0;padding-right:0}}
+
+/* how it works (foundation) */
+.found{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:clamp(2.5rem,5vw,5rem);align-items:start}
+@media(max-width:940px){.found{grid-template-columns:1fr}}
+.found-side{display:grid;gap:1.4rem;position:sticky;top:110px}
+@media(max-width:940px){.found-side{position:static}}
+.layers{display:grid;gap:.6rem;list-style:none;margin:0;padding:0}
+.layers li{display:grid;grid-template-columns:52px minmax(0,1fr);gap:1.1rem;padding:1.25rem 1.4rem;border-radius:16px;background:var(--band-2);border:1px solid var(--band-line);transition:transform .4s var(--ease),border-color .3s}
+.layers li:hover{transform:translateX(6px);border-color:var(--sea-hi)}
+.layers .ic{background:rgba(18,168,146,.14);color:var(--sea-hi)}
+.layers h3{font-size:1.18rem;color:var(--band-fg)}
+.layers p{font-size:.93rem;color:var(--band-mute);margin-top:.3rem}
+.big-q{font-family:var(--f-display);font-size:clamp(1.3rem,2vw,1.6rem);font-weight:600;line-height:1.3;color:var(--band-fg);border-left:3px solid var(--sun);padding-left:1.2rem;letter-spacing:-.01em}
+
+/* plans */
+.plans{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.25rem}
+@media(max-width:980px){.plans{grid-template-columns:1fr}}
+.plans article{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:clamp(1.5rem,3vw,2rem);display:grid;gap:1rem;align-content:start;transition:border-color .3s,transform .4s var(--ease);min-width:0}
+.plans article:hover{border-color:var(--sea);transform:translateY(-3px)}
+.plans .top{display:flex;justify-content:space-between;align-items:center}
+.plans .k{font-size:.75rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--sun-ink)}
+.plans h3{font-size:clamp(1.5rem,2.2vw,1.8rem)}
+.plans p{color:var(--ink-3)}
+.checks{list-style:none;margin:0;padding:0;display:grid;gap:.5rem;font-size:.95rem;color:var(--ink-2)}
+.checks li{display:grid;grid-template-columns:20px minmax(0,1fr);gap:.55rem}
+.checks li::before{content:"";width:18px;height:18px;margin-top:.2rem;border-radius:50%;background:color-mix(in srgb,var(--sea) 16%,transparent) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230E8F7E' stroke-width='3'%3E%3Cpath d='M6 12l4 4 8-8'/%3E%3C/svg%3E") center/12px no-repeat}
+.plans .acts{display:flex;gap:1rem;align-items:center;flex-wrap:wrap;padding-top:1rem;border-top:1px dashed var(--line)}
+.extra{margin-top:1.25rem;display:flex;gap:1rem 2rem;flex-wrap:wrap;align-items:center;padding:1.2rem 1.5rem;border-radius:18px;background:var(--tint);font-size:.95rem}
+.extra b{font-family:var(--f-display);font-size:1.1rem}
+
+/* personas */
+.per{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:20px;overflow:hidden}
+.per article{background:var(--card);padding:1.8rem 1.5rem;display:grid;gap:.75rem;align-content:start;min-width:0}
+.per .role{font-family:var(--f-display);font-weight:700;font-size:1.45rem;color:var(--sea-ink)}
+.per h3{font-size:1.05rem;font-family:var(--f-body);font-weight:600;letter-spacing:0;line-height:1.4}
+.per ul{margin:0;padding-left:1.1rem;color:var(--ink-3);font-size:.92rem;display:grid;gap:.35rem}
+.per .link{font-size:.92rem;margin-top:.3rem}
+@media(max-width:980px){.per{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.per{grid-template-columns:1fr}}
+
+/* why / proof */
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:2rem;border-top:1px solid var(--band-line);padding-top:2.5rem}
+.stats div{display:grid;gap:.5rem;align-content:start}
+.stats b{font-family:var(--f-display);font-size:clamp(2.6rem,5vw,4.2rem);font-weight:800;letter-spacing:-.04em;line-height:1;color:var(--band-fg)}
+.stats div>span{color:var(--band-mute);font-size:.95rem;max-width:24ch}
+.stats b .ph{font-size:.62em;letter-spacing:-.02em}
+@media(max-width:860px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.pillars{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin-top:3rem}
+.pillars article{border:1px solid var(--band-line);border-radius:16px;padding:1.4rem;display:grid;gap:.45rem;align-content:start}
+.pillars h3{font-size:1.12rem;color:var(--band-fg);font-family:var(--f-body);font-weight:700;letter-spacing:0}
+.pillars p{font-size:.92rem;color:var(--band-mute)}
+@media(max-width:860px){.pillars{grid-template-columns:1fr}}
+.testi{margin-top:3rem;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:1.5rem;align-items:end;padding-top:2.5rem;border-top:1px solid var(--band-line)}
+.testi blockquote{margin:0;font-family:var(--f-display);font-size:clamp(1.3rem,2.2vw,1.75rem);font-weight:600;line-height:1.3;max-width:42ch}
+.testi cite{display:block;font-style:normal;font-size:.9rem;color:var(--band-mute);margin-top:.8rem;font-family:var(--f-body)}
+@media(max-width:700px){.testi{grid-template-columns:1fr}}
+
+/* claims steps */
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1.25rem;list-style:none;margin:0;padding:0;counter-reset:s}
+.steps li{counter-increment:s;display:grid;gap:.6rem;align-content:start;padding-top:1.4rem;border-top:3px solid var(--sea);min-width:0}
+.steps li::before{content:counter(s,decimal-leading-zero);font-family:var(--f-display);font-weight:800;font-size:2.2rem;color:var(--sea-ink);line-height:1}
+.steps h3{font-size:1.18rem}
+.steps p{font-size:.95rem;color:var(--ink-3)}
+@media(max-width:900px){.steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){.steps{grid-template-columns:1fr}}
+.emerg{margin-top:2.5rem;display:flex;justify-content:space-between;gap:1rem 2rem;flex-wrap:wrap;align-items:center;padding:1.4rem 1.6rem;border-radius:18px;background:var(--card);border:1.5px solid color-mix(in srgb,var(--sun) 55%,transparent)}
+.emerg b{font-family:var(--f-display);font-size:1.2rem}
+.emerg .num{font-family:var(--f-display);font-size:1.4rem;font-weight:800;user-select:all}
+
+/* resources */
+.res{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.25rem}
+@media(max-width:900px){.res{grid-template-columns:1fr}}
+.res a{display:grid;gap:.7rem;align-content:start;text-decoration:none;padding:1.6rem;border-radius:20px;background:var(--card);border:1px solid var(--line);transition:border-color .3s,transform .4s var(--ease)}
+.res a:hover{border-color:var(--sea);transform:translateY(-3px)}
+.res .k{font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--sun-ink)}
+.res h3{font-size:1.25rem;font-family:var(--f-body);font-weight:700;letter-spacing:0;line-height:1.3}
+.res p{font-size:.93rem;color:var(--ink-3)}
+.res .go{color:var(--sea-ink);font-weight:700;font-size:.92rem}
+
+/* cta */
+.cta{background:linear-gradient(135deg,var(--band) 0%,var(--band-2) 100%);color:var(--band-fg)}
+.cta .wrap{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:3rem;align-items:end;padding-block:clamp(4rem,8vw,6.5rem)}
+@media(max-width:860px){.cta .wrap{grid-template-columns:1fr;align-items:start}}
+.cta h2{font-size:clamp(2.2rem,4.8vw,3.7rem);font-weight:800}
+.cta h2 em{font-style:normal;color:var(--sea-hi)}
+.cta .lede{margin-top:1.2rem;color:var(--band-mute)}
+.cta .eyebrow{color:var(--sea-hi)}
+.cta-btns{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:2rem}
+.contact{display:grid;gap:.9rem;font-size:.95rem;margin:0}
+.contact dt{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--band-mute)}
+.contact dd{margin:0;font-weight:600}
+
+/* footer */
+.foot{background:var(--band);color:var(--band-mute);font-size:.9rem}
+.foot .top{display:grid;grid-template-columns:minmax(0,1.4fr) repeat(4,minmax(0,1fr));gap:2rem;padding-block:4rem 3rem;border-bottom:1px solid var(--band-line)}
+@media(max-width:980px){.foot .top{grid-template-columns:repeat(2,minmax(0,1fr))}.foot .mission{grid-column:1/-1}}
+@media(max-width:480px){.foot .top{grid-template-columns:1fr}}
+.foot h4{font-family:var(--f-body);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--band-fg);font-weight:700;margin-bottom:1rem}
+.foot ul{list-style:none;margin:0;padding:0;display:grid;gap:.55rem}
+.foot a{text-decoration:none}
+.foot a:hover{color:var(--sea-hi)}
+.mission .brand b{color:var(--band-fg)}
+.mission .brand b span{color:var(--sea-hi)}
+.mission p{margin-top:1.1rem;font-family:var(--f-display);font-size:1.3rem;line-height:1.3;color:var(--band-fg);font-weight:600;max-width:30ch}
+.foot .bot{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;padding-block:1.5rem;font-size:.8rem}
+.foot .bot div{display:flex;gap:1.2rem;flex-wrap:wrap}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+</style>
+</head>
+<body>
+
+
+<!-- ═══ 0 · Barra de utilidades (patrón bmicos: país + portal + emergencias) ═══ -->
+<div class="util">
+  <div class="wrap">
+    <div class="country">
+      <label for="pais" data-t="u.country">País</label>
+      <select id="pais">
+        <option>Internacional</option><option>Costa Rica</option><option>Colombia</option><option>Ecuador</option><option>Guatemala</option><option>Panamá</option><option>República Dominicana</option>
+      </select>
+    </div>
+    <nav class="util-links" aria-label="Accesos rápidos">
+      <a href="#reclamos" class="em" data-t="u.emerg">Emergencias 24/7</a>
+      <a href="#reclamos" data-t="u.claims">Reclamos</a>
+      <a href="#recursos" data-t="u.net">Red médica</a>
+      <span class="portal"><span data-t="u.portal">Portal:</span><a href="#para-quien" data-t="u.p1">Clientes</a><a href="#para-quien" data-t="u.p2">Agentes</a><a href="#para-quien" data-t="u.p3">Empresas</a></span>
+    </nav>
+  </div>
+</div>
+
+<!-- ═══ 1 · Header ═══ -->
+<header class="hdr">
+  <div class="wrap">
+    <a class="brand" href="#inicio" aria-label="NexumSeguro">
+      <svg width="36" height="36" viewBox="0 0 36 36" aria-hidden="true"><rect width="36" height="36" rx="10" fill="var(--band)"/><path d="M18 7l9 3.4v6.8c0 5.6-3.8 9.4-9 10.8-5.2-1.4-9-5.2-9-10.8v-6.8z" fill="none" stroke="var(--sea-hi)" stroke-width="2.2"/><path d="M14 18.5l3 3 5.5-6" fill="none" stroke="var(--sun)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <b>Nexum<span>Seguro</span></b>
+    </a>
+    <nav class="nav" aria-label="Navegación principal">
+      <a href="#planes" data-t="n.plans">Planes</a>
+      <a href="#como-funciona" data-t="n.how">Cómo funciona</a>
+      <a href="#para-quien" data-t="n.who">Para quién</a>
+      <a href="#por-que" data-t="n.why">Por qué NexumSeguro</a>
+      <a href="#reclamos" data-t="u.claims">Reclamos</a>
+      <a href="#recursos" data-t="n.res">Recursos</a>
+    </nav>
+    <div class="lang" role="group" aria-label="Idioma / Language">
+      <button type="button" id="lang-es" data-lang="es" aria-pressed="true">ES</button>
+      <button type="button" id="lang-en" data-lang="en" aria-pressed="false">EN</button>
+    </div>
+    <a class="btn btn--primary" href="#cotizar" data-t="cta.quote">Cotizar mi plan</a>
+    <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="mnav"><span></span><b class="sr" data-t="n.menu">Menú</b></button>
+  </div>
+  <div class="wrap" id="mnav" hidden>
+    <nav class="mnav" aria-label="Menú móvil">
+      <a href="#planes" data-t="n.plans">Planes</a>
+      <a href="#como-funciona" data-t="n.how">Cómo funciona</a>
+      <a href="#para-quien" data-t="n.who">Para quién</a>
+      <a href="#por-que" data-t="n.why">Por qué NexumSeguro</a>
+      <a href="#reclamos" data-t="u.claims">Reclamos</a>
+      <a href="#recursos" data-t="n.res">Recursos</a>
+      <a href="#cotizar" data-t="cta.quote">Cotizar mi plan</a>
+    </nav>
+  </div>
+</header>
+
+<main id="inicio">
+<!-- ═══ 2 · Hero ═══ -->
+<section class="hero" aria-labelledby="hero-h">
+  <div class="wrap">
+    <div>
+      <p class="spaced rise d1" data-t="h.spaced"><span>Salud</span><i>·</i><span>Vida</span><i>·</i><span>Viajes</span></p>
+      <h1 id="hero-h" class="rise d2" data-t="h.h1">Protección que responde <em>cuando más importa.</em></h1>
+      <p class="lede rise d3" data-t="h.lede">Seguros de salud, vida y asistencia en viajes con cobertura internacional, atención 24/7 y un solo lugar para gestionar todo. Diseñe un plan integral para su familia en una sola compañía.</p>
+      <div class="hero-cta rise d4">
+        <a class="btn btn--primary" href="#cotizar"><span data-t="cta.quote">Cotizar mi plan</span> <span class="arr" aria-hidden="true">→</span></a>
+        <a class="btn btn--ghost" href="#planes" data-t="cta.plans">Ver planes</a>
+      </div>
+      <p class="trustline rise d5"><span data-t="t.1">Cobertura en todo el mundo</span><span data-t="t.2">Atención multilingüe 24/7</span><span data-t="t.3">Pólizas en dólares</span></p>
+    </div>
+
+    <form class="quote-card rise d4" id="qform" aria-labelledby="q-h" novalidate>
+      <div>
+        <h3 id="q-h" data-t="q.h">Cotice en un minuto</h3>
+        <p class="s" data-t="q.s">Elija qué quiere proteger y un asesor le enviará opciones.</p>
+      </div>
+      <div class="seg" role="group" aria-label="Tipo de seguro">
+        <button type="button" data-p="salud" aria-pressed="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-4.5-9-9.5C1.6 7.8 4 4.5 7.3 4.5c2 0 3.6 1.1 4.7 2.7 1.1-1.6 2.7-2.7 4.7-2.7 3.3 0 5.7 3.3 4.3 7-2 5-9 9.5-9 9.5z"/></svg><span data-t="q.o1">Salud</span></button>
+        <button type="button" data-p="vida" aria-pressed="false"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1z"/></svg><span data-t="q.o2">Vida</span></button>
+        <button type="button" data-p="viajes" aria-pressed="false"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 16l20-8-6 12-3-5z"/></svg><span data-t="q.o3">Viajes</span></button>
+      </div>
+      <div class="row2">
+        <div class="fld"><label for="q-age" data-t="q.age">Edad del titular</label><input id="q-age" type="number" min="0" max="99" value="42" inputmode="numeric"></div>
+        <div class="fld"><label for="q-who" data-t="q.who">Personas a cubrir</label>
+          <select id="q-who"><option data-t="q.w1">Solo yo</option><option data-t="q.w2" selected>Pareja</option><option data-t="q.w3">Familia</option></select></div>
+      </div>
+      <div class="fld"><label for="q-mail" data-t="q.mail">Correo electrónico</label><input id="q-mail" type="email" placeholder="nombre@correo.com" autocomplete="email"></div>
+      <button class="btn btn--primary" type="submit"><span data-t="q.btn">Recibir mi cotización</span> <span class="arr" aria-hidden="true">→</span></button>
+      <p class="note" id="q-note" aria-live="polite" data-t="q.note">Sin compromiso. Sus datos se usan solo para esta cotización.</p>
+    </form>
+  </div>
+</section>
+
+<!-- ═══ 2b · Franja de confianza ═══ -->
+<div class="strip" aria-label="Cobertura">
+  <div class="wrap">
+    <b data-t="s.k">Le acompañamos en</b>
+    <ul><li data-t="s.1">Hospitalización</li><li data-t="s.2">Maternidad</li><li data-t="s.3">Enfermedades graves</li><li data-t="s.4">Herencia y patrimonio</li><li data-t="s.5">Emergencias en el exterior</li><li data-t="s.6">Equipaje y vuelos</li></ul>
+  </div>
+</div>
+
+<!-- ═══ 3 · Beneficios ═══ -->
+<section class="sec" id="beneficios" aria-labelledby="ben-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow" data-t="b.eye">Su tranquilidad</span>
+      <h2 class="h2" id="ben-h" data-t="b.h">Con NexumSeguro, usted puede:</h2>
+    </div>
+    <div class="ben">
+      <article><div class="ic" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.2 3 14.8 0 18M12 3c-3 3.2-3 14.8 0 18"/></svg></div><h3 data-t="b1.h">Atenderse donde esté</h3><p data-t="b1.p">Su cobertura de salud viaja con usted y le da acceso a una red de hospitales y médicos en distintos países.</p></article>
+      <article><div class="ic" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/></svg></div><h3 data-t="b2.h">Proteger el futuro de su familia</h3><p data-t="b2.p">Un seguro de vida que respalda a quienes dependen de usted y cuida el patrimonio que construyó.</p></article>
+      <article><div class="ic" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><h3 data-t="b3.h">Recibir ayuda a cualquier hora</h3><p data-t="b3.p">Una persona real atiende su llamada las 24 horas, todos los días, en su idioma.</p></article>
+      <article><div class="ic" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></div><h3 data-t="b4.h">Gestionar todo en línea</h3><p data-t="b4.p">Consulte su póliza, presente reclamos y descargue documentos desde un solo portal.</p></article>
+      <article><div class="ic" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16M4 12h16M4 17h10"/></svg></div><h3 data-t="b5.h">Reunir su protección en un plan</h3><p data-t="b5.p">Salud, vida y viajes con una sola compañía, un solo asesor y una sola renovación.</p></article>
+      <article><div class="ic" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2v20M17 6.5c0-1.9-2.2-3-5-3s-5 1.1-5 3 2 2.7 5 3.5 5 1.6 5 3.5-2.2 3-5 3-5-1.1-5-3"/></svg></div><h3 data-t="b6.h">Proteger el valor de su dinero</h3><p data-t="b6.p">Pólizas en dólares que conservan su valor frente a cambios económicos y políticos locales.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 4 · Cómo funciona (fundamento) ═══ -->
+<section class="sec sec--band" id="como-funciona" aria-labelledby="how-h">
+  <div class="wrap found">
+    <div class="found-side">
+      <span class="eyebrow" data-t="hw.eye">Cómo funciona</span>
+      <h2 class="h2" id="how-h" data-t="hw.h">Todo lo que sostiene su protección.</h2>
+      <p class="lede" data-t="hw.lede">Una póliza vale lo que vale la organización detrás de ella. Estas son las cinco piezas que trabajan cuando usted nos necesita.</p>
+      <p class="big-q" data-t="hw.q">Estamos a su lado para proteger lo que más le importa, en todo momento y en todo lugar.</p>
+    </div>
+    <ul class="layers">
+      <li><div class="ic" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></div><div><h3 data-t="l1.h">Respaldo financiero</h3><p data-t="l1.p">Reservas y reaseguro con compañías internacionales para pagar cada reclamo, incluso los más grandes.</p></div></li>
+      <li><div class="ic" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-4.5-9-9.5C1.6 7.8 4 4.5 7.3 4.5c2 0 3.6 1.1 4.7 2.7 1.1-1.6 2.7-2.7 4.7-2.7 3.3 0 5.7 3.3 4.3 7-2 5-9 9.5-9 9.5z"/></svg></div><div><h3 data-t="l2.h">Red médica internacional</h3><p data-t="l2.p">Hospitales y especialistas seleccionados, con pago directo en los centros de la red.</p></div></li>
+      <li><div class="ic" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 14v-2a8 8 0 0116 0v2"/><rect x="3" y="14" width="4" height="6" rx="1.5"/><rect x="17" y="14" width="4" height="6" rx="1.5"/></svg></div><div><h3 data-t="l3.h">Central de asistencia 24/7</h3><p data-t="l3.p">Coordina emergencias, autorizaciones y traslados, con operadores que hablan su idioma.</p></div></li>
+      <li><div class="ic" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div><div><h3 data-t="l4.h">Portal digital</h3><p data-t="l4.p">Clientes, agentes y empresas gestionan pólizas, reclamos y pagos en un solo lugar.</p></div></li>
+      <li><div class="ic" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="8" cy="9" r="3"/><circle cx="16" cy="9" r="3"/><path d="M2 20c.8-3 3.2-5 6-5s5.2 2 6 5M14 15.2c.6-.1 1.3-.2 2-.2 2.8 0 5.2 2 6 5"/></svg></div><div><h3 data-t="l5.h">Asesores capacitados</h3><p data-t="l5.p">Agentes con formación continua que le ayudan a elegir y le acompañan en cada reclamo.</p></div></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══ 5 · Planes (portafolio) ═══ -->
+<section class="sec" id="planes" aria-labelledby="pl-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow" data-t="pl.eye">Planes</span>
+      <h2 class="h2" id="pl-h" data-t="pl.h">Tres formas de protegerse. Una sola compañía.</h2>
+      <p class="lede" data-t="pl.lede">Combínelas para diseñar un plan integral a la medida de su familia.</p>
+    </div>
+    <div class="plans">
+      <article>
+        <div class="top"><span class="k" data-t="p1.k">Seguro de salud</span><div class="ic" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-4.5-9-9.5C1.6 7.8 4 4.5 7.3 4.5c2 0 3.6 1.1 4.7 2.7 1.1-1.6 2.7-2.7 4.7-2.7 3.3 0 5.7 3.3 4.3 7-2 5-9 9.5-9 9.5z"/></svg></div></div>
+        <h3 data-t="p1.h">Salud internacional</h3>
+        <p data-t="p1.p">Cobertura mundial y beneficios médicos amplios para usted y su familia.</p>
+        <ul class="checks"><li data-t="p1.c1">Hospitalización y cirugía</li><li data-t="p1.c2">Consultas y medicamentos</li><li data-t="p1.c3">Maternidad y recién nacido</li><li data-t="p1.c4">Evacuación médica de emergencia</li></ul>
+        <div class="acts"><a class="btn btn--primary" href="#cotizar" data-t="cta.quote2">Cotizar</a><a class="link" href="#planes" data-t="cta.plans2">Ver planes →</a></div>
+      </article>
+      <article>
+        <div class="top"><span class="k" data-t="p2.k">Seguro de vida</span><div class="ic" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1z"/></svg></div></div>
+        <h3 data-t="p2.h">Vida y patrimonio</h3>
+        <p data-t="p2.p">La tranquilidad de saber que el futuro de su familia y su patrimonio están protegidos.</p>
+        <ul class="checks"><li data-t="p2.c1">Suma asegurada en dólares</li><li data-t="p2.c2">Planes temporales y permanentes</li><li data-t="p2.c3">Ahorro e inversión opcional</li><li data-t="p2.c4">Planificación de herencia</li></ul>
+        <div class="acts"><a class="btn btn--primary" href="#cotizar" data-t="cta.quote2">Cotizar</a><a class="link" href="#planes" data-t="cta.plans2">Ver planes →</a></div>
+      </article>
+      <article>
+        <div class="top"><span class="k" data-t="p3.k">Asistencia en viajes</span><div class="ic" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 16l20-8-6 12-3-5z"/></svg></div></div>
+        <h3 data-t="p3.h">Viaje protegido</h3>
+        <p data-t="p3.p">Viaje al exterior tranquilo, con una red mundial de asistencia a un llamado.</p>
+        <ul class="checks"><li data-t="p3.c1">Emergencias médicas en el exterior</li><li data-t="p3.c2">Pérdida o demora de equipaje</li><li data-t="p3.c3">Cancelación e interrupción de viaje</li><li data-t="p3.c4">Asistencia legal y de documentos</li></ul>
+        <div class="acts"><a class="btn btn--primary" href="#cotizar" data-t="cta.quote2">Cotizar</a><a class="link" href="#planes" data-t="cta.plans2">Ver planes →</a></div>
+      </article>
+    </div>
+    <div class="extra"><b data-t="ex.h">¿Es una empresa o una aseguradora?</b><span data-t="ex.p">Ofrecemos seguros colectivos para equipos y soluciones de reaseguro.</span><a class="link" href="#cotizar" data-t="ex.cta">Hablar con un especialista →</a></div>
+  </div>
+</section>
+
+<!-- ═══ 6 · Para quién (personas / portales) ═══ -->
+<section class="sec sec--tint" id="para-quien" aria-labelledby="who-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow" data-t="w.eye">Para quién</span>
+      <h2 class="h2" id="who-h" data-t="w.h">Una experiencia pensada para cada persona.</h2>
+    </div>
+    <div class="per">
+      <article><span class="role" data-t="w1.r">Familias</span><h3 data-t="w1.h">Quiero que mi familia esté cubierta, aquí y fuera del país.</h3><ul><li data-t="w1.a">Un plan integral de salud y vida</li><li data-t="w1.b">Pólizas, pagos y reclamos en línea</li><li data-t="w1.c">Asistencia 24/7 en su idioma</li></ul><a class="link" href="#cotizar" data-t="w1.l">Portal de clientes →</a></article>
+      <article><span class="role" data-t="w2.r">Viajeros</span><h3 data-t="w2.h">Necesito saber a quién llamar si algo pasa en el viaje.</h3><ul><li data-t="w2.a">Cobertura por viaje o anual</li><li data-t="w2.b">Atención médica en el exterior</li><li data-t="w2.c">Ayuda con equipaje y vuelos</li></ul><a class="link" href="#planes" data-t="w2.l">Ver asistencia en viajes →</a></article>
+      <article><span class="role" data-t="w3.r">Agentes</span><h3 data-t="w3.h">Quiero ofrecer productos sólidos y cerrar más rápido.</h3><ul><li data-t="w3.a">Cotizador y emisión digital</li><li data-t="w3.b">Seguimiento de cartera y comisiones</li><li data-t="w3.c">Formación continua en línea</li></ul><a class="link" href="#cotizar" data-t="w3.l">Portal de agentes →</a></article>
+      <article><span class="role" data-t="w4.r">Empresas</span><h3 data-t="w4.h">Busco beneficios que retengan a mi equipo.</h3><ul><li data-t="w4.a">Seguros colectivos de salud y vida</li><li data-t="w4.b">Administración centralizada</li><li data-t="w4.c">Reaseguro para aseguradoras</li></ul><a class="link" href="#cotizar" data-t="w4.l">Hablar con ventas corporativas →</a></article>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 7 · Por qué NexumSeguro (prueba) ═══ -->
+<section class="sec sec--band" id="por-que" aria-labelledby="why-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow" data-t="y.eye">Por qué NexumSeguro</span>
+      <h2 class="h2" id="why-h" data-t="y.h">Solidez para cumplir lo que promete una póliza.</h2>
+      <p class="lede" data-t="y.lede">Reemplace las cifras resaltadas con datos auditados antes de publicar.</p>
+    </div>
+    <div class="stats">
+      <div><b><span class="ph">[00]</span></b><span data-t="st.1">años de experiencia en el mercado asegurador</span></div>
+      <div><b><span class="ph">[00]</span></b><span data-t="st.2">países con subsidiarias u oficinas de servicio</span></div>
+      <div><b><span class="ph">[US$ 0M]</span></b><span data-t="st.3">en beneficios pagados a asegurados</span></div>
+      <div><b>24/7</b><span data-t="st.4">atención multilingüe, todos los días del año</span></div>
+    </div>
+    <div class="pillars">
+      <article><h3 data-t="pi.1h">Calificación independiente</h3><p data-t="pi.1p"><span class="ph">[Agencia · calificación]</span> sobre la fortaleza financiera de la compañía.</p></article>
+      <article><h3 data-t="pi.2h">Estabilidad en moneda fuerte</h3><p data-t="pi.2p">Pólizas en dólares que protegen su ahorro de la inflación y la devaluación local.</p></article>
+      <article><h3 data-t="pi.3h">Presencia regional</h3><p data-t="pi.3p">Subsidiarias y oficinas de servicio en América Latina y el Caribe, con equipos locales.</p></article>
+    </div>
+    <div class="testi">
+      <blockquote><span class="ph" data-t="te.q">[Testimonio real de un asegurado, con su autorización por escrito.]</span><cite data-t="te.c">Nombre, ciudad · tipo de póliza</cite></blockquote>
+      <a class="btn btn--ghost" href="#recursos" data-t="te.cta">Más historias</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 8 · Reclamos (proceso) ═══ -->
+<section class="sec" id="reclamos" aria-labelledby="cl-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow" data-t="c.eye">Reclamos</span>
+      <h2 class="h2" id="cl-h" data-t="c.h">Presentar un reclamo, en cuatro pasos.</h2>
+      <p class="lede" data-t="c.lede">Si usa un hospital de la red, en la mayoría de los casos no tiene que pagar por adelantado.</p>
+    </div>
+    <ol class="steps">
+      <li><h3 data-t="c1.h">Avísenos</h3><p data-t="c1.p">Llame a la central 24/7 o ingrese al portal antes de su tratamiento, si puede.</p></li>
+      <li><h3 data-t="c2.h">Reciba autorización</h3><p data-t="c2.p">Coordinamos con el hospital de la red y le confirmamos su cobertura.</p></li>
+      <li><h3 data-t="c3.h">Envíe sus documentos</h3><p data-t="c3.p">Si pagó usted, suba facturas e informes médicos desde el portal o la app.</p></li>
+      <li><h3 data-t="c4.h">Reciba su pago</h3><p data-t="c4.p">Le notificamos la resolución y transferimos el reembolso a su cuenta.</p></li>
+    </ol>
+    <div class="emerg">
+      <div><b data-t="em.h">¿Tiene una emergencia médica?</b><p data-t="em.p">Llame ahora. Coordinamos la atención y el pago con el hospital.</p></div>
+      <span class="num"><span class="ph">[+000 0000-0000]</span></span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 9 · Recursos ═══ -->
+<section class="sec sec--tint" id="recursos" aria-labelledby="rs-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow" data-t="r.eye">Recursos</span>
+      <h2 class="h2" id="rs-h" data-t="r.h">Respuestas claras antes de decidir.</h2>
+    </div>
+    <div class="res">
+      <a href="#recursos"><span class="k" data-t="r1.k">Herramienta</span><h3 data-t="r1.h">Buscador de la red médica</h3><p data-t="r1.p">Encuentre hospitales y especialistas por país, ciudad y especialidad.</p><span class="go" data-t="r.go1">Buscar →</span></a>
+      <a href="#recursos"><span class="k" data-t="r2.k">Guía</span><h3 data-t="r2.h">Qué cubre un seguro de viaje internacional</h3><p data-t="r2.p">Lo que conviene revisar antes de comprar: montos, exclusiones y asistencia.</p><span class="go" data-t="r.go2">Leer guía →</span></a>
+      <a href="#recursos"><span class="k" data-t="r3.k">Guía</span><h3 data-t="r3.h">Cómo elegir la suma asegurada de su seguro de vida</h3><p data-t="r3.p">Un método simple para calcular cuánto necesitaría su familia.</p><span class="go" data-t="r.go2">Leer guía →</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 10 · Cotizar (CTA final) ═══ -->
+<section class="cta" id="cotizar" aria-labelledby="cta-h">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow" data-t="f.eye">Cotizar</span>
+      <h2 id="cta-h" data-t="f.h">Su plan, listo en minutos. <em>Su tranquilidad, por años.</em></h2>
+      <p class="lede" data-t="f.lede">Un asesor revisa su caso, le explica cada cobertura y le envía opciones sin compromiso.</p>
+      <div class="cta-btns">
+        <a class="btn btn--primary" href="#inicio"><span data-t="cta.quote">Cotizar mi plan</span> <span class="arr" aria-hidden="true">→</span></a>
+        <a class="btn btn--ghost" href="#planes" data-t="cta.plans">Ver planes</a>
+      </div>
+    </div>
+    <dl class="contact">
+      <div><dt data-t="ct.1">Atención al cliente</dt><dd><span class="ph">[+000 0000-0000]</span></dd></div>
+      <div><dt>Email</dt><dd><span class="ph">[contacto@nexumseguro.com]</span></dd></div>
+      <div><dt data-t="ct.3">Horario de oficinas</dt><dd data-t="ct.3v">Lunes a viernes, 8:30 a 17:00</dd></div>
+      <div><dt data-t="ct.4">Casa matriz</dt><dd><span class="ph">[Dirección]</span></dd></div>
+    </dl>
+  </div>
+</section>
+</main>
+
+<!-- ═══ 11 · Footer (patrón bmicos: Nosotros / Portafolio / Recursos / Contacto) ═══ -->
+<footer class="foot">
+  <div class="wrap top">
+    <div class="mission">
+      <a class="brand" href="#inicio"><b>Nexum<span>Seguro</span></b></a>
+      <p data-t="ft.m">Protegemos lo que más importa a las familias de América Latina, estén donde estén.</p>
+    </div>
+    <div><h4 data-t="ft.h1">Nosotros</h4><ul><li><a href="#por-que" data-t="n.why">Por qué NexumSeguro</a></li><li><a href="#por-que" data-t="ft.a2">Calificaciones</a></li><li><a href="#por-que" data-t="ft.a3">Historia y liderazgo</a></li><li><a href="#por-que" data-t="ft.a4">Testimonios</a></li></ul></div>
+    <div><h4 data-t="ft.h2">Portafolio</h4><ul><li><a href="#planes" data-t="p1.k">Seguro de salud</a></li><li><a href="#planes" data-t="p2.k">Seguro de vida</a></li><li><a href="#planes" data-t="p3.k">Asistencia en viajes</a></li><li><a href="#planes" data-t="ft.b4">Colectivos y reaseguro</a></li></ul></div>
+    <div><h4 data-t="ft.h3">Recursos</h4><ul><li><a href="#recursos" data-t="u.net">Red médica</a></li><li><a href="#reclamos" data-t="u.claims">Reclamos</a></li><li><a href="#recursos" data-t="ft.c3">Blog y guías</a></li><li><a href="#para-quien" data-t="ft.c4">Portal de clientes</a></li></ul></div>
+    <div><h4 data-t="ft.h4">Contacto</h4><ul><li><a href="#reclamos" data-t="u.emerg">Emergencias 24/7</a></li><li><a href="#cotizar" data-t="ct.4">Casa matriz</a></li><li><a href="#cotizar" data-t="ft.d3">Oficinas por país</a></li><li><a href="#cotizar" data-t="cta.quote">Cotizar mi plan</a></li></ul></div>
+  </div>
+  <div class="wrap bot">
+    <span data-t="ft.copy">© 2026 NexumSeguro · Todos los derechos reservados</span>
+    <div><a href="#inicio" data-t="ft.t">Términos y condiciones</a><a href="#inicio" data-t="ft.p">Política de privacidad</a><a href="#inicio" data-t="ft.a">Accesibilidad</a></div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var EN={
+    "u.country":"Country","u.emerg":"24/7 emergencies","u.claims":"Claims","u.net":"Medical network","u.portal":"Portal:","u.p1":"Clients","u.p2":"Agents","u.p3":"Companies",
+    "n.plans":"Plans","n.how":"How it works","n.who":"Who it's for","n.why":"Why NexumSeguro","n.res":"Resources","n.menu":"Menu",
+    "cta.quote":"Get my quote","cta.plans":"See plans","cta.quote2":"Get a quote","cta.plans2":"See plans →",
+    "h.spaced":"<span>Health</span><i>·</i><span>Life</span><i>·</i><span>Travel</span>",
+    "h.h1":"Protection that shows up <em>when it matters most.</em>",
+    "h.lede":"Health, life and travel insurance with worldwide coverage, 24/7 care and one place to manage it all. Build a complete plan for your family with a single company.",
+    "t.1":"Worldwide coverage","t.2":"Multilingual 24/7 support","t.3":"Policies in US dollars",
+    "q.h":"Get a quote in one minute","q.s":"Choose what you want to protect and an advisor will send you options.","q.o1":"Health","q.o2":"Life","q.o3":"Travel",
+    "q.age":"Policyholder's age","q.who":"People to cover","q.w1":"Just me","q.w2":"Couple","q.w3":"Family","q.mail":"Email","q.btn":"Get my quote",
+    "q.note":"No commitment. Your data is used only for this quote.",
+    "s.k":"We stand by you in","s.1":"Hospital stays","s.2":"Maternity","s.3":"Critical illness","s.4":"Estate and legacy","s.5":"Emergencies abroad","s.6":"Baggage and flights",
+    "b.eye":"Your peace of mind","b.h":"With NexumSeguro, you can:",
+    "b1.h":"Get care wherever you are","b1.p":"Your health coverage travels with you and opens a network of hospitals and doctors across countries.",
+    "b2.h":"Protect your family's future","b2.p":"Life insurance that supports the people who depend on you and safeguards what you have built.",
+    "b3.h":"Get help at any hour","b3.p":"A real person answers your call 24 hours a day, every day, in your language.",
+    "b4.h":"Manage everything online","b4.p":"Check your policy, file claims and download documents from a single portal.",
+    "b5.h":"Bring your protection into one plan","b5.p":"Health, life and travel with one company, one advisor and one renewal.",
+    "b6.h":"Protect the value of your money","b6.p":"US-dollar policies that hold their value through local economic and political change.",
+    "hw.eye":"How it works","hw.h":"Everything that holds your protection up.","hw.lede":"A policy is only as good as the organization behind it. These are the five pieces at work when you need us.",
+    "hw.q":"We stand by you to protect what matters most to you, at every moment and everywhere.",
+    "l1.h":"Financial backing","l1.p":"Reserves and reinsurance with international carriers to pay every claim, even the largest.",
+    "l2.h":"International medical network","l2.p":"Selected hospitals and specialists, with direct billing at network facilities.",
+    "l3.h":"24/7 assistance center","l3.p":"Coordinates emergencies, authorizations and transfers, with operators who speak your language.",
+    "l4.h":"Digital portal","l4.p":"Clients, agents and companies manage policies, claims and payments in one place.",
+    "l5.h":"Trained advisors","l5.p":"Agents with ongoing training who help you choose and support you through every claim.",
+    "pl.eye":"Plans","pl.h":"Three ways to protect yourself. One company.","pl.lede":"Combine them to build a complete plan that fits your family.",
+    "p1.k":"Health insurance","p1.h":"International health","p1.p":"Worldwide coverage and broad medical benefits for you and your family.","p1.c1":"Hospitalization and surgery","p1.c2":"Doctor visits and medication","p1.c3":"Maternity and newborn care","p1.c4":"Emergency medical evacuation",
+    "p2.k":"Life insurance","p2.h":"Life and legacy","p2.p":"The peace of mind of knowing your family's future and your assets are protected.","p2.c1":"Sum insured in US dollars","p2.c2":"Term and permanent plans","p2.c3":"Optional savings and investment","p2.c4":"Estate planning",
+    "p3.k":"Travel assistance","p3.h":"Protected travel","p3.p":"Travel abroad with confidence, with a worldwide assistance network one call away.","p3.c1":"Medical emergencies abroad","p3.c2":"Lost or delayed baggage","p3.c3":"Trip cancellation and interruption","p3.c4":"Legal and document assistance",
+    "ex.h":"Are you a company or an insurer?","ex.p":"We offer group insurance for teams and reinsurance solutions.","ex.cta":"Talk to a specialist →",
+    "w.eye":"Who it's for","w.h":"An experience designed for each person.",
+    "w1.r":"Families","w1.h":"I want my family covered, at home and abroad.","w1.a":"A complete health and life plan","w1.b":"Policies, payments and claims online","w1.c":"24/7 help in your language","w1.l":"Client portal →",
+    "w2.r":"Travelers","w2.h":"I need to know who to call if something happens on the trip.","w2.a":"Per-trip or annual coverage","w2.b":"Medical care abroad","w2.c":"Help with baggage and flights","w2.l":"See travel assistance →",
+    "w3.r":"Agents","w3.h":"I want to offer solid products and close faster.","w3.a":"Digital quoting and issuance","w3.b":"Portfolio and commission tracking","w3.c":"Ongoing online training","w3.l":"Agent portal →",
+    "w4.r":"Companies","w4.h":"I want benefits that keep my team.","w4.a":"Group health and life insurance","w4.b":"Centralized administration","w4.c":"Reinsurance for insurers","w4.l":"Talk to corporate sales →",
+    "y.eye":"Why NexumSeguro","y.h":"The strength to keep a policy's promise.","y.lede":"Replace the highlighted figures with audited data before publishing.",
+    "st.1":"years of experience in insurance","st.2":"countries with subsidiaries or service offices","st.3":"in benefits paid to policyholders","st.4":"multilingual support, every day of the year",
+    "pi.1h":"Independent rating","pi.1p":"<span class=\"ph\">[Agency · rating]</span> on the company's financial strength.",
+    "pi.2h":"Hard-currency stability","pi.2p":"US-dollar policies that shield your savings from local inflation and devaluation.",
+    "pi.3h":"Regional presence","pi.3p":"Subsidiaries and service offices across Latin America and the Caribbean, with local teams.",
+    "te.q":"[A real policyholder testimonial, with written permission.]","te.c":"Name, city · policy type","te.cta":"More stories",
+    "c.eye":"Claims","c.h":"File a claim in four steps.","c.lede":"At a network hospital, in most cases you do not have to pay up front.",
+    "c1.h":"Let us know","c1.p":"Call the 24/7 center or log in to the portal before your treatment, if you can.",
+    "c2.h":"Get authorization","c2.p":"We coordinate with the network hospital and confirm your coverage.",
+    "c3.h":"Send your documents","c3.p":"If you paid yourself, upload invoices and medical reports from the portal or app.",
+    "c4.h":"Get paid","c4.p":"We notify you of the decision and transfer the reimbursement to your account.",
+    "em.h":"Having a medical emergency?","em.p":"Call now. We coordinate care and payment with the hospital.",
+    "r.eye":"Resources","r.h":"Clear answers before you decide.",
+    "r1.k":"Tool","r1.h":"Medical network finder","r1.p":"Find hospitals and specialists by country, city and specialty.","r.go1":"Search →",
+    "r2.k":"Guide","r2.h":"What international travel insurance covers","r2.p":"What to check before you buy: limits, exclusions and assistance.","r.go2":"Read guide →",
+    "r3.k":"Guide","r3.h":"How to choose your life insurance amount","r3.p":"A simple method to estimate what your family would need.",
+    "f.eye":"Get a quote","f.h":"Your plan, ready in minutes. <em>Your peace of mind, for years.</em>","f.lede":"An advisor reviews your case, explains each coverage and sends you options with no commitment.",
+    "ct.1":"Customer service","ct.3":"Office hours","ct.3v":"Monday to Friday, 8:30 to 17:00","ct.4":"Headquarters",
+    "ft.m":"We protect what matters most to families across Latin America, wherever they are.",
+    "ft.h1":"About us","ft.a2":"Ratings","ft.a3":"History and leadership","ft.a4":"Testimonials","ft.h2":"Portfolio","ft.b4":"Group and reinsurance",
+    "ft.h3":"Resources","ft.c3":"Blog and guides","ft.c4":"Client portal","ft.h4":"Contact","ft.d3":"Offices by country",
+    "ft.copy":"© 2026 NexumSeguro · All rights reserved","ft.t":"Terms and conditions","ft.p":"Privacy policy","ft.a":"Accessibility"
+  };
+  var lang='es';
+  var nodes=[].slice.call(document.querySelectorAll('[data-t]'));
+  nodes.forEach(function(n){n.dataset.es=n.innerHTML;});
+  function setLang(l){
+    lang=l;
+    nodes.forEach(function(n){var k=n.getAttribute('data-t');n.innerHTML=(l==='en'&&EN[k]!=null)?EN[k]:n.dataset.es;});
+    document.documentElement.lang=l;
+    document.querySelectorAll('.lang button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.lang===l));});
+    document.getElementById('q-mail').placeholder=l==='en'?'name@email.com':'nombre@correo.com';
+    try{localStorage.setItem('ns_lang',l);}catch(e){}
+  }
+  document.querySelectorAll('.lang button').forEach(function(b){b.addEventListener('click',function(){setLang(b.dataset.lang);});});
+  var st='es';try{st=localStorage.getItem('ns_lang')||'es';}catch(e){}
+  setLang(st==='en'?'en':'es');
+
+  /* quote widget: segment toggle + preview submit (connect to your backend/CRM) */
+  var segs=[].slice.call(document.querySelectorAll('.seg button'));
+  segs.forEach(function(b){b.addEventListener('click',function(){segs.forEach(function(x){x.setAttribute('aria-pressed',String(x===b));});});});
+  var note=document.getElementById('q-note');
+  document.getElementById('qform').addEventListener('submit',function(e){
+    e.preventDefault();
+    var m=document.getElementById('q-mail');
+    if(!m.value||!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(m.value)){
+      note.className='note';note.textContent=lang==='en'?'Enter a valid email so we can send your quote.':'Escriba un correo válido para enviarle la cotización.';m.focus();return;}
+    note.className='note ok';
+    note.textContent=lang==='en'?'Preview: the form is valid. Connect it to your CRM to send requests.':'Vista previa: el formulario es válido. Conéctelo a su CRM para enviar solicitudes.';
+  });
+
+  var burger=document.getElementById('burger'),mn=document.getElementById('mnav');
+  burger.addEventListener('click',function(){var o=mn.hidden;mn.hidden=!o;burger.setAttribute('aria-expanded',String(o));});
+  mn.addEventListener('click',function(e){if(e.target.tagName==='A'){mn.hidden=true;burger.setAttribute('aria-expanded','false');}});
+})();
+</script>
+
+</body>
+</html>
