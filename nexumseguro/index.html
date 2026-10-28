@@ -307,6 +307,19 @@ p{margin:0}
 .nb-menu .nb-video:hover{background:color-mix(in srgb,var(--sun) 85%,#fff);box-shadow:none}
 .nb-acts a.nb-video{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:.35rem;border-radius:999px;font-size:.8rem;font-weight:700;padding:.34rem .8rem;background:var(--sun);color:#0B1F33}
 .nb-acts a.nb-video:hover{background:color-mix(in srgb,var(--sun) 85%,#fff)}
+.nb-live{position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;background:var(--card);border-radius:inherit;overflow:hidden}
+.nb-live[hidden]{display:none}
+.nb-live-head{display:flex;align-items:center;gap:.5rem;padding:.75rem 1rem;background:var(--band);color:var(--band-fg)}
+.nb-live-head b{flex:1;min-width:0;font-family:var(--f-display);font-size:.98rem;display:flex;align-items:center;gap:.5rem}
+.nb-live-head b .t{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nb-live-head b .dot{width:8px;height:8px;border-radius:50%;background:#2ECC71;box-shadow:0 0 0 3px rgba(46,204,113,.25);flex-shrink:0}
+.nb-live-head a,.nb-live-head button{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:.3rem;border-radius:999px;padding:.32rem .75rem;font-size:.78rem;font-weight:700;white-space:nowrap;color:var(--band-fg);box-shadow:inset 0 0 0 1px var(--band-line)}
+.nb-live-head a:hover,.nb-live-head button:hover{box-shadow:inset 0 0 0 1px var(--sea-hi)}
+.nb-live-head a:focus-visible,.nb-live-head button:focus-visible{outline:2px solid var(--sea-hi)}
+.nb-live-slot{flex:1;display:flex;min-height:0}
+.nb-live-frame{flex:1;width:100%;border:0;background:var(--paper)}
+.nb-live-note{font-size:.72rem;color:var(--ink-3);padding:.5rem 1rem;border-top:1px solid var(--line-2)}
+@media(max-width:420px){.nb-live-head a .lbl{display:none}}
 .nb-sugg{display:flex;gap:.4rem;flex-wrap:wrap;padding:.6rem 1rem 0;background:var(--paper)}
 .nb-sugg:empty{display:none}
 .nb-form{display:flex;gap:.5rem;align-items:center;padding:.75rem;border-top:1px solid var(--line-2);background:var(--card)}
@@ -655,6 +668,11 @@ p{margin:0}
     <button class="btn btn--primary" type="submit" id="nbSend">Enviar</button>
   </form>
   <p class="nb-note" id="nbNote"></p>
+  <div class="nb-live" id="nbLive" role="dialog" aria-labelledby="nbLiveTitle" hidden>
+    <div class="nb-live-head"><b id="nbLiveTitle"><span class="dot" aria-hidden="true"></span><span class="t">Asistencia en vivo</span></b><a id="nbLiveExt" href="https://webrtc.demo.us.ivrpowers.com/webclient?theme=nexum" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">↗</span> <span class="lbl">Otra ventana</span></a><button type="button" id="nbLiveClose">Cerrar</button></div>
+    <div class="nb-live-slot" id="nbLiveSlot"></div>
+    <p class="nb-live-note" id="nbLiveNote">Permita el micrófono y la cámara cuando el navegador lo pida. Si no carga, ábrala en otra ventana.</p>
+  </div>
 </section>
 
 <script>
@@ -769,9 +787,9 @@ const NB_TXT={
    card:'No comparta números de tarjeta, pólizas ni claves en este chat. No los tendré en cuenta.',
    k:{cover:'Suma sugerida',needs:'Necesidades',res:'Recursos'},src:'Fuente',
    basicIntro:'Esto es lo que publica el sitio sobre eso:',basicNone:'No encontré eso publicado en el sitio. Un asesor puede ayudarle con su caso.',go:'Ver sección',quote:'Cotizar',
-   menu:{video:'Asistencia',videoTitle:'Asistencia por video con un agente (se abre en una ventana nueva)',plans:'Planes',claims:'Reclamos',quote:'Cotizar',aria:'Menú del asistente'},
-   videoOpened:'Abrí la **Asistencia por video** en una ventana nueva. Permita el acceso a la cámara y al micrófono cuando se lo pida. Si no ve la ventana, toque el botón:',
-   videoBasic:'Con gusto. Un agente de NexumSeguro puede atenderle por **video**: toque **Asistencia** para abrirla en una ventana nueva.',
+   menu:{video:'Asistencia',videoTitle:'Asistencia por video con un agente, dentro del chat',plans:'Planes',claims:'Reclamos',quote:'Cotizar',aria:'Menú del asistente'},
+   live:{title:'Asistencia en vivo',ext:'Otra ventana',extFull:'Abrir la asistencia en otra ventana',close:'Cerrar',note:'Permita el micrófono y la cámara cuando el navegador lo pida. Si no carga, ábrala en otra ventana.',confirm:'¿Cerrar la asistencia en vivo? Si hay una llamada en curso, se cortará.'},
+   videoBasic:'Con gusto. Un agente de NexumSeguro puede atenderle por **video** aquí mismo en el chat: toque **Asistencia**.',
    emerg:'**Si hay riesgo para la vida, llame ya al número de emergencias de su país (911 o el equivalente local)** y luego a la central 24/7 de NexumSeguro con el número de su póliza o tarjeta de asegurado.'},
  en:{ph:'Type your question…',lbl:'Type your question',send:'Send',stop:'Stop',note:"Don't share passwords, policy numbers or medical details. Public site information.",
    on:'● Online · AI',basic:'● Basic mode',typing:'NexBot is typing…',newc:'New conversation',close:'Close assistant',fab:'Ask NexBot',
@@ -783,9 +801,9 @@ const NB_TXT={
    card:"Don't share card numbers, policy numbers or passwords in this chat. I'll disregard them.",
    k:{cover:'Suggested cover',needs:'Needs',res:'Resources'},src:'Source',
    basicIntro:"Here's what the site publishes about that:",basicNone:"I couldn't find that on the site. An advisor can help with your case.",go:'See section',quote:'Get a quote',
-   menu:{video:'Assistance',videoTitle:'Video assistance with an agent (opens in a new window)',plans:'Plans',claims:'Claims',quote:'Get a quote',aria:'Assistant menu'},
-   videoOpened:'I opened **video assistance** in a new window. Allow camera and microphone access when asked. If you don\'t see the window, tap the button:',
-   videoBasic:'Of course. A NexumSeguro agent can help you by **video**: tap **Assistance** to open it in a new window.',
+   menu:{video:'Assistance',videoTitle:'Video assistance with an agent, inside the chat',plans:'Plans',claims:'Claims',quote:'Get a quote',aria:'Assistant menu'},
+   live:{title:'Live assistance',ext:'New window',extFull:'Open the assistance in a new window',close:'Close',note:"Allow the microphone and camera when your browser asks. If it doesn't load, open it in a new window.",confirm:'Close live assistance? Any call in progress will end.'},
+   videoBasic:'Of course. A NexumSeguro agent can help you by **video** right here in the chat: tap **Assistance**.',
    emerg:"**If someone's life is at risk, call your country's emergency number now (911 or the local equivalent)**, then the NexumSeguro 24/7 center using the number on your policy or insurance card."}
 };
 const NB_GO=$$('main section[id]').map(s=>s.id).concat('inicio');
@@ -843,18 +861,27 @@ function simCard(r){if(r.simulator!=='vida')return '';const k=T().k;
 
 /* Acciones: ir a una sección, preseleccionar el plan en el cotizador o preguntar. */
 const small=()=>matchMedia('(max-width:560px)').matches;
-/* Abre la asistencia por video en una ventana nueva (tamaño de videollamada); si el navegador bloquea la ventana, el enlace abre una pestaña. */
-function openVideo(e){
+/* Asistencia dentro del chat (como en Nexumtest): el webclient se incrusta en un panel sobre la conversación, con
+   micrófono y cámara delegados al iframe. Al cerrar se elimina el iframe, lo que termina la llamada.
+   Ctrl/Cmd/Shift-clic o clic central siguen abriendo el enlace aparte. */
+const live=$('#nbLive'),liveSlot=$('#nbLiveSlot');
+function liveLabels(){const t=T().live;$('#nbLiveTitle .t').textContent=t.title;$('#nbLiveExt .lbl').textContent=t.ext;$('#nbLiveExt').setAttribute('aria-label',t.extFull);$('#nbLiveExt').title=t.extFull;$('#nbLiveExt').href=NB_VIDEO_URL;$('#nbLiveClose').textContent=t.close;$('#nbLiveNote').textContent=t.note}
+function openAssist(){voiceHalt();liveLabels();if(box.hidden)toggle(true);
+  if(!liveSlot.querySelector('iframe')){const f=document.createElement('iframe');f.className='nb-live-frame';f.title=T().live.title;
+    f.allow='microphone; camera; autoplay; display-capture; fullscreen; clipboard-write';f.referrerPolicy='strict-origin-when-cross-origin';f.src=NB_VIDEO_URL;liveSlot.appendChild(f)}
+  live.hidden=false;$('#nbLiveClose').focus()}
+function endAssist(){liveSlot.innerHTML='';live.hidden=true;inp.focus({preventScroll:true})}
+function closeAssist(){if(confirm(T().live.confirm))endAssist()}
+/* "Abrir en otra ventana": ventana del tamaño de una videollamada; la llamada pasa allí y se cierra la del chat.
+   Si el navegador bloquea la ventana, el enlace abre una pestaña. */
+$('#nbLiveExt').addEventListener('click',e=>{
   const w=Math.min(560,screen.availWidth-40),h=Math.min(820,screen.availHeight-60);
   const win=window.open(NB_VIDEO_URL,'nexumAsistencia',`popup=yes,width=${w},height=${h},left=${Math.max(0,screen.availWidth-w-24)},top=24`);
-  if(!win)return false; // bloqueada: dejamos que el <a target=_blank> haga su trabajo
-  try{win.opener=null}catch(err){}
-  if(e)e.preventDefault();
-  win.focus();
-  const b=botBubble();renderBot(b,T().videoOpened+'\n[[video:asistencia|'+T().menu.video+']]',true);scrollLog();
-  return true}
+  if(win){try{win.opener=null}catch(err){}e.preventDefault();win.focus()}
+  endAssist()});
+$('#nbLiveClose').onclick=closeAssist;
 function act(x,e){const i=x.indexOf(':'),type=x.slice(0,i),val=x.slice(i+1);
-  if(type==='video'){openVideo(e);return}
+  if(type==='video'){if(e&&(e.ctrlKey||e.metaKey||e.shiftKey||e.button===1))return;if(e)e.preventDefault();openAssist();return}
   if(type==='ask'){ask(val);return}
   if(small())toggle(false);
   if(type==='go'){const el=document.getElementById(val);if(el)el.scrollIntoView({behavior:'smooth'});return}
@@ -867,6 +894,7 @@ function applyLang(l){if(l)nbLang=l;const t=T();
   $('#nbStatus').textContent=nbMode==='ai'?t.on:t.basic;$('#nbStatus').classList.toggle('basic',nbMode!=='ai');
   for(const [id,k] of [['#nbNew','newc'],['#nbClose','close']]){$(id).title=t[k];$(id).setAttribute('aria-label',t[k])}
   $$('#nbMenu [data-nbm]').forEach(el=>{el.textContent=t.menu[el.dataset.nbm]});$('#nbMenu').setAttribute('aria-label',t.menu.aria);$('#nbMenu .nb-video').title=t.menu.videoTitle;
+  liveLabels();
   $('#nbFabLbl').textContent=t.fab;fab.setAttribute('aria-label',t.fab);box.setAttribute('aria-label',t.fab);
   $('#nbSugg').innerHTML=nbHist.length>2?'':t.sugg.map(s=>`<button type="button" data-nb="ask:${esc(s)}">${esc(s)}</button>`).join('');
   micUI();
@@ -879,7 +907,7 @@ function toggle(on){box.hidden=!on;fab.hidden=on;fab.setAttribute('aria-expanded
 fab.onclick=()=>toggle(true);
 $('#nbClose').onclick=()=>toggle(false);
 $$('[data-nb-open]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();toggle(true)}));
-document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!box.hidden)toggle(false)});
+document.addEventListener('keydown',e=>{if(e.key!=='Escape'||box.hidden)return;if(!live.hidden)closeAssist();else toggle(false)});
 
 /* Conversación */
 function save(){try{sessionStorage.setItem('ns-bot-hist',JSON.stringify(nbHist.slice(-24)))}catch(e){}}

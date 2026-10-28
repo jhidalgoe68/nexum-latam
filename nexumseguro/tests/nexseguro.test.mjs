@@ -156,6 +156,11 @@ test('the video assistance URL lives only in the page, behind a whitelisted butt
   assert.ok(html.includes("const NB_VIDEO_URL='https://webrtc.demo.us.ivrpowers.com/webclient?theme=nexum'"));
   assert.match(html, /<nav class="nb-menu"[\s\S]*?href="https:\/\/webrtc\.demo\.us\.ivrpowers\.com\/webclient\?theme=nexum" target="_blank" rel="noopener noreferrer"[\s\S]*?>Asistencia</);
   assert.match(html, /type==='video'&&val==='asistencia'/);
+  // like /nexumtest/: the call opens inside the chat, with the browser permissions delegated to the iframe
+  assert.match(html, /<div class="nb-live" id="nbLive" role="dialog"[^>]*hidden>/);
+  assert.ok(html.includes("f.allow='microphone; camera; autoplay; display-capture; fullscreen; clipboard-write'"));
+  assert.match(html, /id="nbLiveExt" href="https:\/\/webrtc\.demo\.us\.ivrpowers\.com\/webclient\?theme=nexum" target="_blank" rel="noopener noreferrer"/);
+  assert.match(SYSTEM_PROMPT, /inside the chat/);
   assert.ok(SYSTEM_PROMPT.includes('video:asistencia'));
   assert.ok(!SYSTEM_PROMPT.includes('ivrpowers'), 'the model never sees or writes the URL');
 });
