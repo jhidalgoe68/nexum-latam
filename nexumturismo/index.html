@@ -1,0 +1,798 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>NexumTurismo</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="NexumTurismo diseña y opera viajes en Costa Rica para viajeros, agencias, grupos de incentivo, empresas y líneas de crucero: un solo equipo, operación propia y acompañamiento 24/7.">
+<meta name="robots" content="noindex">
+<meta property="og:title" content="NexumTurismo · Costa Rica, diseñada y operada a su medida">
+<meta property="og:description" content="Itinerarios a medida, grupos, incentivos, eventos corporativos y operación de cruceros en Costa Rica.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=Instrument+Sans:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: left-aligned editorial column + a schematic route map as the hero object; quiet bands below, one accent (guaria orchid) reserved for actions. */
+:root{
+  --mist:#EEF2EC;      /* niebla de bosque nuboso: fondo */
+  --card:#FFFFFF;
+  --tint:#E1E9E2;
+  --line:#C9D5CC;
+  --ink:#16221D;       /* basalto */
+  --ink-2:#34463E;
+  --ink-3:#5E7068;
+  --selva:#1E5E46;     /* verde selva: estructura, mapa */
+  --selva-2:#2F7A5D;
+  --guaria:#8A2F7E;    /* guaria morada: acciones */
+  --guaria-hi:#A23A95;
+  --sol:#D99A1E;       /* marcador de ruta */
+  --band:#16221D;
+  --band-fg:#E8EFEA;
+  --band-mute:#9DB0A6;
+  --btn-fg:#FFFFFF;
+  --ph-bg:rgba(217,154,30,.18);
+  --ph-fg:#8A5E06;
+  --f-display:'Zilla Slab',Rockwell,'Roboto Slab',Georgia,serif;
+  --f-body:'Instrument Sans','Segoe UI',system-ui,-apple-system,sans-serif;
+  --r-s:6px;--r-m:12px;
+  --wrap:1180px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --mist:#0E1714;--card:#14211C;--tint:#182822;--line:#2A3D35;
+  --ink:#E6EEE8;--ink-2:#C2D0C8;--ink-3:#8FA399;
+  --selva:#5FB38E;--selva-2:#7CC7A4;--guaria:#D58BCB;--guaria-hi:#E3A5DA;--sol:#EDB648;
+  --band:#08100D;--band-fg:#E6EEE8;--band-mute:#8FA399;--btn-fg:#1A0F19;
+  --ph-bg:rgba(237,182,72,.16);--ph-fg:#EDB648;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --mist:#0E1714;--card:#14211C;--tint:#182822;--line:#2A3D35;
+  --ink:#E6EEE8;--ink-2:#C2D0C8;--ink-3:#8FA399;
+  --selva:#5FB38E;--selva-2:#7CC7A4;--guaria:#D58BCB;--guaria-hi:#E3A5DA;--sol:#EDB648;
+  --band:#08100D;--band-fg:#E6EEE8;--band-mute:#8FA399;--btn-fg:#1A0F19;
+  --ph-bg:rgba(237,182,72,.16);--ph-fg:#EDB648;color-scheme:dark}
+
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--mist);color:var(--ink);font:400 1.0625rem/1.6 var(--f-body);text-rendering:optimizeLegibility}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--mist)}
+img,svg{max-width:100%}
+a{color:inherit}
+h1,h2,h3{font-family:var(--f-display);font-weight:700;line-height:1.08;letter-spacing:-.01em;text-wrap:balance;margin:0}
+h2{font-size:clamp(1.9rem,3.6vw,2.75rem)}
+h3{font-size:1.3rem;line-height:1.2}
+p{margin:0}
+.wrap{max-width:var(--wrap);margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+.skip{position:absolute;left:-999px;top:8px;background:var(--ink);color:var(--mist);padding:.5rem .8rem;border-radius:var(--r-s);z-index:99}
+.skip:focus{left:12px}
+:focus-visible{outline:2.5px solid var(--guaria);outline-offset:3px;border-radius:4px}
+.ph{background:var(--ph-bg);color:var(--ph-fg);border-radius:4px;padding:0 .25em;font-weight:600}
+.band .ph{color:var(--sol)}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;gap:.5rem;font:600 1rem/1 var(--f-body);text-decoration:none;padding:.95rem 1.35rem;border-radius:999px;border:0;cursor:pointer;transition:background .15s,color .15s,box-shadow .15s}
+.btn--primary{background:var(--guaria);color:var(--btn-fg)}
+.btn--primary:hover{background:var(--guaria-hi)}
+.btn--ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--ink)}
+.btn--ghost:hover{background:var(--ink);color:var(--mist)}
+.band .btn--ghost{color:var(--band-fg);box-shadow:inset 0 0 0 1.5px var(--band-fg)}
+.band .btn--ghost:hover{background:var(--band-fg);color:var(--band)}
+.txtlink{font-weight:600;color:var(--selva);text-underline-offset:4px;text-decoration-thickness:1.5px}
+
+/* Utility bar + header */
+.util{background:var(--band);color:var(--band-mute);font-size:.8125rem}
+.util .wrap{display:flex;justify-content:space-between;gap:1rem;padding-block:.45rem;flex-wrap:wrap}
+.util a{color:var(--band-fg);text-decoration:none}
+.util a:hover{text-decoration:underline}
+.hdr{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:color-mix(in srgb,var(--mist) 92%,transparent);backdrop-filter:saturate(1.4) blur(10px);-webkit-backdrop-filter:saturate(1.4) blur(10px);border-bottom:1px solid var(--line)}
+.hdr .wrap{display:flex;align-items:center;gap:1.5rem;padding-block:.8rem}
+.brand{display:flex;align-items:center;gap:.6rem;text-decoration:none;font:700 1.3rem/1 var(--f-display);letter-spacing:-.01em}
+.brand svg{width:34px;height:34px;flex:none}
+.brand small{display:block;white-space:nowrap;font:500 .7rem/1.2 var(--f-body);color:var(--ink-3);letter-spacing:.02em;margin-top:.2rem}
+.nav{display:flex;gap:1.35rem;margin-left:auto}
+.nav a{white-space:nowrap;text-decoration:none;font-weight:500;font-size:.95rem;color:var(--ink-2)}
+.nav a:hover{color:var(--ink)}
+.lang{display:inline-flex;border-radius:999px;box-shadow:inset 0 0 0 1px var(--line);padding:3px}
+.lang button{all:unset;cursor:pointer;font-size:.75rem;font-weight:700;letter-spacing:.06em;padding:.3rem .6rem;border-radius:999px;color:var(--ink-3)}
+.lang button[aria-pressed="true"]{background:var(--ink);color:var(--mist)}
+.lang button:focus-visible{outline:2px solid var(--guaria)}
+.hdr .btn{padding:.7rem 1.1rem;font-size:.92rem}
+.burger{display:none;all:unset;cursor:pointer;width:42px;height:42px;place-items:center;border-radius:var(--r-s)}
+.burger span{display:block;width:22px;height:2px;background:var(--ink);box-shadow:0 7px 0 var(--ink),0 -7px 0 var(--ink)}
+.mnav{display:none;border-top:1px solid var(--line);background:var(--mist)}
+.mnav.open{display:block}
+.mnav ul{list-style:none;margin:0;padding-block:.5rem 1rem;display:grid}
+.mnav a{display:block;padding:.75rem 0;text-decoration:none;font-weight:600;border-bottom:1px solid var(--line)}
+.mnav li:last-child a{border:0}
+@media(max-width:1160px){.nav,.hdr .btn--primary{display:none}.burger{display:grid}.hdr .lang{margin-left:auto}}
+
+/* Hero */
+.hero{padding-block:clamp(2.5rem,6vw,4.75rem) clamp(3rem,6vw,5rem)}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,1fr);gap:clamp(2rem,5vw,4.5rem);align-items:center}
+.hero h1{font-size:clamp(2.6rem,6.2vw,4.6rem);line-height:1.02;letter-spacing:-.02em}
+.hero h1 .l2{display:block;color:var(--selva)}
+.lede{margin-top:1.4rem;font-size:clamp(1.08rem,1.6vw,1.22rem);color:var(--ink-2);max-width:34em}
+.hero-cta{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:2rem}
+.who{margin-top:2.4rem;padding-top:1.4rem;border-top:1px solid var(--line)}
+.who p{font-size:.9rem;color:var(--ink-3);margin-bottom:.7rem}
+.who ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:.5rem}
+.who a{display:inline-block;text-decoration:none;font-size:.9rem;font-weight:600;padding:.45rem .85rem;border-radius:999px;background:var(--tint);color:var(--ink-2)}
+.who a:hover{background:var(--line);color:var(--ink)}
+.mapcard{position:relative;background:var(--card);border-radius:var(--r-m);box-shadow:0 1px 0 var(--line),0 24px 48px -28px rgba(22,34,29,.45);padding:1rem 1rem .9rem;min-width:0}
+.mapcard figcaption{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;padding:.2rem .3rem .7rem;font-size:.85rem;color:var(--ink-3)}
+.mapcard figcaption b{font:700 1.05rem/1.2 var(--f-display);color:var(--ink)}
+#map{display:block;width:100%;height:auto;border-radius:var(--r-s);background:var(--tint)}
+#map .topo{fill:none;stroke:var(--selva);stroke-opacity:.22;stroke-width:1}
+#map .topo.hi{stroke-opacity:.38}
+#map .sea{fill:var(--mist)}
+#map .land{fill:var(--tint)}
+#map .seatxt{fill:var(--ink-3);font:italic 500 12px var(--f-body);letter-spacing:.08em}
+#map .route{fill:none;stroke:var(--guaria);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+#map .route-bg{fill:none;stroke:var(--card);stroke-width:7;stroke-linecap:round;stroke-linejoin:round}
+#map .stop{fill:var(--card);stroke:var(--guaria);stroke-width:3}
+#map .stop.end{fill:var(--sol);stroke:var(--sol)}
+#map .lbl{fill:var(--ink);font:700 13px var(--f-body)}
+#map .lbl2{fill:var(--ink-3);font:500 11.5px var(--f-body)}
+#map .lblbg{fill:var(--card);fill-opacity:.88}
+.legend{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.4rem;margin-top:.8rem}
+.legend div{padding:.55rem .6rem;border-radius:var(--r-s);background:var(--mist);font-size:.8rem;line-height:1.3;color:var(--ink-3)}
+.legend b{display:block;color:var(--ink);font-size:.86rem}
+@media(max-width:900px){.hero .wrap{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:520px){.legend{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (prefers-reduced-motion:no-preference){
+  .route.draw{stroke-dasharray:var(--len);stroke-dashoffset:var(--len);animation:draw 2.4s .35s cubic-bezier(.5,0,.2,1) forwards}
+  .stop.pop{transform-box:fill-box;transform-origin:center;animation:pop .35s ease-out both}
+}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes pop{from{transform:scale(0)}to{transform:scale(1)}}
+
+/* Sections */
+.sec{padding-block:clamp(3.5rem,7vw,6rem)}
+.sec--tint{background:var(--tint)}
+.band{background:var(--band);color:var(--band-fg)}
+.band .sub,.band .shead .sub{color:var(--band-mute)}
+.shead{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:1.5rem 4rem;align-items:end;margin-bottom:clamp(2rem,4vw,3rem)}
+.shead .sub{color:var(--ink-2);font-size:1.08rem;max-width:36em}
+@media(max-width:820px){.shead{grid-template-columns:minmax(0,1fr)}}
+
+/* Audience tabs */
+.tabs{display:flex;gap:.4rem;flex-wrap:wrap;border-bottom:1px solid var(--line);margin-bottom:2rem}
+.tabs button{all:unset;cursor:pointer;font-weight:600;padding:.8rem 1rem;margin-bottom:-1px;border-bottom:3px solid transparent;color:var(--ink-3)}
+.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--guaria)}
+.tabs button:hover{color:var(--ink)}
+.tabs button:focus-visible{outline:2px solid var(--guaria);outline-offset:2px}
+.panel{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:2rem 4rem;align-items:start}
+.panel h3{font-size:clamp(1.6rem,2.8vw,2.1rem);line-height:1.12}
+.panel .pl{margin-top:1rem;color:var(--ink-2);max-width:32em}
+.panel .btn{margin-top:1.6rem}
+.checks{list-style:none;margin:0;padding:0;display:grid;gap:1rem}
+.checks li{display:grid;grid-template-columns:22px minmax(0,1fr);gap:.8rem;padding-bottom:1rem;border-bottom:1px solid var(--line)}
+.checks li:last-child{border:0;padding-bottom:0}
+.checks svg{width:22px;height:22px;margin-top:.15rem;color:var(--selva)}
+.checks b{display:block}
+.checks span{color:var(--ink-3);font-size:.96rem}
+@media(max-width:820px){.panel{grid-template-columns:minmax(0,1fr)}}
+
+/* Services as a ledger */
+.ledger{border-top:2px solid var(--ink)}
+.row{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1.6fr) minmax(0,1fr) auto;gap:1rem 2rem;padding-block:1.4rem;border-bottom:1px solid var(--line);align-items:baseline}
+.row h3{font-size:1.4rem}
+.row p{color:var(--ink-2)}
+.row .for{font-size:.88rem;color:var(--ink-3)}
+.row .for b{display:block;color:var(--ink);font-weight:600}
+.row a{white-space:nowrap}
+@media(max-width:900px){.row{grid-template-columns:minmax(0,1fr)}.row a{justify-self:start}}
+
+/* Regions */
+.regions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.25rem}
+.region{background:var(--card);border-radius:var(--r-m);overflow:hidden;display:flex;flex-direction:column}
+.scene{aspect-ratio:16/9;max-width:100%;position:relative;overflow:hidden}
+.scene svg{display:block;width:100%;height:100%}
+.region .body{padding:1.1rem 1.2rem 1.3rem;display:grid;gap:.5rem}
+.region .meta{display:flex;justify-content:space-between;gap:.75rem;font-size:.84rem;color:var(--ink-3)}
+.region p{font-size:.97rem;color:var(--ink-2)}
+@media(max-width:960px){.regions{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.regions{grid-template-columns:minmax(0,1fr)}}
+
+/* Process */
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:2rem;counter-reset:s}
+.steps li{counter-increment:s;padding-top:1.2rem;border-top:2px solid var(--band-mute)}
+.steps li::before{content:counter(s);display:block;font:700 2.6rem/1 var(--f-display);color:var(--sol);margin-bottom:.8rem}
+.steps h3{color:var(--band-fg);margin-bottom:.5rem}
+.steps p{color:var(--band-mute);font-size:.98rem}
+@media(max-width:900px){.steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){.steps{grid-template-columns:minmax(0,1fr)}}
+
+/* Behind the trip */
+.behind{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.9fr);gap:clamp(2rem,5vw,4.5rem);align-items:center}
+.feats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.6rem 2rem;margin-top:2rem}
+.feat svg{width:28px;height:28px;color:var(--selva);margin-bottom:.6rem}
+.feat h3{font-size:1.12rem;margin-bottom:.35rem}
+.feat p{font-size:.95rem;color:var(--ink-2)}
+.phone{justify-self:center;width:min(340px,100%);background:var(--card);border-radius:28px;padding:1rem;box-shadow:0 0 0 1px var(--line),0 30px 60px -30px rgba(22,34,29,.5)}
+.phone .top{display:flex;align-items:center;gap:.6rem;padding:.4rem .4rem .8rem;border-bottom:1px solid var(--line)}
+.phone .av{width:34px;height:34px;border-radius:50%;background:var(--selva);display:grid;place-items:center;color:var(--card);font:700 .9rem var(--f-display)}
+.phone .top b{display:block;font-size:.92rem}
+.phone .top span{font-size:.75rem;color:var(--selva)}
+.msgs{display:grid;gap:.6rem;padding:.9rem .2rem .4rem}
+.msg{max-width:88%;padding:.6rem .8rem;border-radius:14px 14px 14px 4px;background:var(--tint);font-size:.88rem;line-height:1.45}
+.msg.me{justify-self:end;border-radius:14px 14px 4px 14px;background:var(--selva);color:var(--card)}
+.msg time{display:block;font-size:.7rem;opacity:.7;margin-top:.25rem}
+.phone .note{font-size:.72rem;color:var(--ink-3);text-align:center;padding-top:.5rem}
+@media(max-width:900px){.behind{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:520px){.feats{grid-template-columns:minmax(0,1fr)}}
+
+/* Proof */
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1.5rem;border-top:2px solid var(--ink);padding-top:1.6rem}
+.stats b{display:block;font-family:var(--f-display);font-weight:700;font-size:clamp(2rem,4vw,2.9rem);line-height:1.05;font-variant-numeric:tabular-nums;margin-bottom:.45rem}
+.stats b .ph{font-size:inherit}
+.stats>div>span{color:var(--ink-3);font-size:.93rem}
+.quotes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.25rem;margin-top:clamp(2.5rem,5vw,3.5rem)}
+.quotes blockquote{margin:0;background:var(--card);border-radius:var(--r-m);padding:1.4rem;display:flex;flex-direction:column;gap:1rem;justify-content:space-between}
+.quotes p{font:500 1.08rem/1.5 var(--f-display)}
+.quotes cite{font-style:normal;font-size:.86rem;color:var(--ink-3)}
+.quotes cite b{display:block;color:var(--ink);font-weight:600}
+.creds{margin-top:2rem;display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;font-size:.9rem;color:var(--ink-3)}
+.creds span.c{padding:.4rem .8rem;border-radius:999px;box-shadow:inset 0 0 0 1px var(--line)}
+@media(max-width:900px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.quotes{grid-template-columns:minmax(0,1fr)}}
+
+/* Sustainability */
+.sust{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:2rem 4rem}
+.sust ul{list-style:none;margin:0;padding:0;display:grid;gap:1.1rem}
+.sust li{padding-left:1.1rem;border-left:3px solid var(--selva)}
+.sust li b{display:block}
+.sust li span{color:var(--ink-2);font-size:.97rem}
+@media(max-width:820px){.sust{grid-template-columns:minmax(0,1fr)}}
+
+/* Resources */
+.res{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.25rem}
+.res a{display:flex;flex-direction:column;gap:.6rem;text-decoration:none;padding:1.3rem 0;border-top:2px solid var(--ink)}
+.res .k{font-size:.84rem;color:var(--ink-3)}
+.res h3{font-size:1.25rem}
+.res p{color:var(--ink-2);font-size:.96rem}
+.res a:hover h3{color:var(--guaria);text-decoration:underline;text-underline-offset:4px}
+@media(max-width:820px){.res{grid-template-columns:minmax(0,1fr)}}
+
+/* CTA + form */
+.cta .wrap{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(2rem,5vw,4.5rem);align-items:start}
+.cta h2{color:var(--band-fg)}
+.cta .sub{margin-top:1rem;font-size:1.08rem}
+.contact{margin-top:2rem;display:grid;gap:.9rem}
+.contact div{display:grid;gap:.15rem}
+.contact dt{font-size:.82rem;color:var(--band-mute)}
+.contact dd{margin:0;font-weight:600}
+form.trip{background:var(--card);color:var(--ink);border-radius:var(--r-m);padding:clamp(1.25rem,3vw,2rem);display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
+.f{display:grid;gap:.35rem;min-width:0}
+.f.full{grid-column:1/-1}
+.f label{font-size:.88rem;font-weight:600}
+.f input,.f select,.f textarea{font:inherit;font-size:1rem;padding:.75rem .8rem;border-radius:var(--r-s);border:1px solid var(--line);background:var(--mist);color:var(--ink);width:100%}
+.f textarea{min-height:110px;resize:vertical}
+.f input:focus,.f select:focus,.f textarea:focus{outline:2px solid var(--guaria);outline-offset:0;border-color:transparent}
+.f .err{font-size:.82rem;color:var(--guaria);min-height:1em}
+.consent{grid-column:1/-1;display:flex;gap:.6rem;align-items:flex-start;font-size:.88rem;color:var(--ink-2)}
+.consent input{margin-top:.25rem;accent-color:var(--guaria)}
+form.trip .btn{grid-column:1/-1;justify-content:center}
+.done{grid-column:1/-1;background:var(--tint);border-radius:var(--r-s);padding:1rem;display:grid;gap:.7rem}
+.done pre{margin:0;white-space:pre-wrap;font:500 .88rem/1.5 var(--f-body);background:var(--card);padding:.8rem;border-radius:var(--r-s);max-height:220px;overflow:auto}
+.done .btn{grid-column:auto;justify-self:start;padding:.65rem 1rem;font-size:.9rem}
+@media(max-width:900px){.cta .wrap{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:520px){form.trip{grid-template-columns:minmax(0,1fr)}}
+
+/* Footer */
+.foot{background:var(--band);color:var(--band-mute);font-size:.92rem;border-top:1px solid color-mix(in srgb,var(--band-mute) 25%,transparent)}
+.foot .wrap{padding-block:3rem 2rem}
+.fgrid{display:grid;grid-template-columns:minmax(0,1.4fr) repeat(3,minmax(0,1fr));gap:2rem}
+.foot h3{font:600 .95rem var(--f-body);color:var(--band-fg);margin-bottom:.8rem}
+.foot ul{list-style:none;margin:0;padding:0;display:grid;gap:.5rem}
+.foot a{text-decoration:none;color:var(--band-mute)}
+.foot a:hover{color:var(--band-fg);text-decoration:underline}
+.foot .brand{color:var(--band-fg)}
+.foot .brand small{color:var(--band-mute)}
+.legal{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-top:2.5rem;padding-top:1.2rem;border-top:1px solid color-mix(in srgb,var(--band-mute) 25%,transparent);font-size:.84rem}
+@media(max-width:820px){.fgrid{grid-template-columns:repeat(2,minmax(0,1fr))}.fgrid>div:first-child{grid-column:1/-1}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main" data-t="skip">Saltar al contenido</a>
+
+<div class="util" role="region" aria-label="Avisos">
+  <div class="wrap">
+    <span data-t="util.l">Destination Management Company · Costa Rica</span>
+    <span><a href="/" data-t="util.r">Una iniciativa de NEXUM LATAM</a></span>
+  </div>
+</div>
+
+<header class="hdr">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="NexumTurismo, inicio">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" fill="var(--selva)"/><path d="M6 28 L15 15 L20 21 L25 12 L34 28 Z" fill="var(--mist)"/><circle cx="28" cy="11" r="3" fill="var(--sol)"/></svg>
+      <span>NexumTurismo<small data-t="brand.s">Costa Rica, a su medida</small></span>
+    </a>
+    <nav class="nav" aria-label="Navegación principal">
+      <a href="#para-quien" data-t="nav.1">Para quién</a>
+      <a href="#servicios" data-t="nav.2">Servicios</a>
+      <a href="#destinos" data-t="nav.3">Destinos</a>
+      <a href="#como-trabajamos" data-t="nav.4">Cómo trabajamos</a>
+      <a href="#sostenibilidad" data-t="nav.5">Sostenibilidad</a>
+      <a href="#guias" data-t="nav.6">Guías</a>
+    </nav>
+    <div class="lang" role="group" aria-label="Idioma / Language">
+      <button type="button" data-lang="es" aria-pressed="true">ES</button>
+      <button type="button" data-lang="en" aria-pressed="false">EN</button>
+    </div>
+    <a class="btn btn--primary" href="#planificar" data-t="cta.plan">Planificar mi viaje</a>
+    <button class="burger" type="button" aria-expanded="false" aria-controls="mnav" aria-label="Abrir menú"><span></span></button>
+  </div>
+  <nav class="mnav" id="mnav" aria-label="Menú móvil">
+    <ul class="wrap">
+      <li><a href="#para-quien" data-t="nav.1">Para quién</a></li>
+      <li><a href="#servicios" data-t="nav.2">Servicios</a></li>
+      <li><a href="#destinos" data-t="nav.3">Destinos</a></li>
+      <li><a href="#como-trabajamos" data-t="nav.4">Cómo trabajamos</a></li>
+      <li><a href="#sostenibilidad" data-t="nav.5">Sostenibilidad</a></li>
+      <li><a href="#guias" data-t="nav.6">Guías</a></li>
+      <li><a href="#planificar" data-t="cta.plan">Planificar mi viaje</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="main">
+<span id="top"></span>
+<!-- 1 · HERO -->
+<section class="hero" aria-labelledby="hero-h">
+  <div class="wrap">
+    <div>
+      <h1 id="hero-h"><span data-t="hero.h1">Costa Rica, diseñada a su medida.</span><span class="l2" data-t="hero.h2">Operada sin sobresaltos.</span></h1>
+      <p class="lede" data-t="hero.p">Diseñamos y operamos viajes completos en Costa Rica: itinerarios privados, grupos, incentivos, eventos corporativos y excursiones de crucero. Un solo equipo responde por todo, de la llegada al último traslado, con atención en ruta las 24 horas.</p>
+      <div class="hero-cta">
+        <a class="btn btn--primary" href="#planificar" data-t="cta.plan">Planificar mi viaje</a>
+        <a class="btn btn--ghost" href="#para-quien" data-tab="agencias" data-t="hero.c2">Soy agencia o travel advisor</a>
+      </div>
+      <div class="who">
+        <p data-t="who.p">Elija su punto de partida</p>
+        <ul>
+          <li><a href="#para-quien" data-tab="viajeros" data-t="tab.1">Viajeros y familias</a></li>
+          <li><a href="#para-quien" data-tab="agencias" data-t="tab.2">Agencias y advisors</a></li>
+          <li><a href="#para-quien" data-tab="empresas" data-t="tab.3">Incentivos y empresas</a></li>
+          <li><a href="#para-quien" data-tab="cruceros" data-t="tab.4">Líneas de crucero</a></li>
+        </ul>
+      </div>
+    </div>
+    <figure class="mapcard" style="margin:0">
+      <figcaption><b data-t="map.t">Ruta de ejemplo, 8 días</b><span data-t="map.s">Esquema, no a escala</span></figcaption>
+      <svg id="map" viewBox="0 0 560 420" role="img" aria-labelledby="mapTitle">
+        <title id="mapTitle" data-t="map.alt">Ruta de ejemplo: San José, Volcán Arenal, Monteverde y playas de Guanacaste en 8 días</title>
+        <rect class="sea" width="560" height="420"/>
+        <path class="land" d="M30 70 C90 40 170 60 230 52 C300 44 360 70 420 96 C470 118 520 150 548 190 L548 300 C520 330 480 340 440 360 C400 380 360 404 320 410 C300 380 270 350 230 330 C190 312 150 300 120 270 C95 246 70 238 52 214 C40 198 58 178 44 160 C30 140 20 110 30 70 Z"/>
+        <g id="topo"></g>
+        <text class="seatxt" x="34" y="380" data-t="map.pac">Océano Pacífico</text>
+        <text class="seatxt" x="430" y="60" text-anchor="middle" data-t="map.car">Mar Caribe</text>
+        <path id="routeBg" class="route-bg" d="M300 250 C280 200 270 170 262 142 C240 150 205 170 192 188 C160 196 120 196 92 186"/>
+        <path id="route" class="route draw" d="M300 250 C280 200 270 170 262 142 C240 150 205 170 192 188 C160 196 120 196 92 186"/>
+        <g id="stops"></g>
+      </svg>
+      <div class="legend">
+        <div><b data-t="lg.1b">Día 1</b><span data-t="lg.1">Llegada a San José</span></div>
+        <div><b data-t="lg.2b">Días 2–3</b><span data-t="lg.2">Volcán Arenal</span></div>
+        <div><b data-t="lg.3b">Días 4–5</b><span data-t="lg.3">Bosque nuboso</span></div>
+        <div><b data-t="lg.4b">Días 6–8</b><span data-t="lg.4">Playas de Guanacaste</span></div>
+      </div>
+    </figure>
+  </div>
+</section>
+
+<!-- 2 · AUDIENCES (Benefits by persona) -->
+<section class="sec sec--tint" id="para-quien" aria-labelledby="pq-h">
+  <div class="wrap">
+    <div class="shead">
+      <h2 id="pq-h" data-t="pq.h">Un mismo equipo, cuatro maneras de viajar</h2>
+      <p class="sub" data-t="pq.p">Cada cliente necesita algo distinto. Elija el suyo y vea qué resolvemos por usted.</p>
+    </div>
+    <div class="tabs" role="tablist" aria-label="Tipo de cliente">
+      <button role="tab" id="t-viajeros" aria-controls="p-viajeros" aria-selected="true" data-t="tab.1">Viajeros y familias</button>
+      <button role="tab" id="t-agencias" aria-controls="p-agencias" aria-selected="false" tabindex="-1" data-t="tab.2">Agencias y advisors</button>
+      <button role="tab" id="t-empresas" aria-controls="p-empresas" aria-selected="false" tabindex="-1" data-t="tab.3">Incentivos y empresas</button>
+      <button role="tab" id="t-cruceros" aria-controls="p-cruceros" aria-selected="false" tabindex="-1" data-t="tab.4">Líneas de crucero</button>
+    </div>
+
+    <div class="panel" role="tabpanel" id="p-viajeros" aria-labelledby="t-viajeros">
+      <div>
+        <h3 data-t="v.h">Un viaje que se siente hecho para ustedes, porque lo está</h3>
+        <p class="pl" data-t="v.p">Lunas de miel, familias con niños, amigos o viajeros solos. Partimos de cómo quieren viajar y armamos el ritmo, los hoteles y las experiencias alrededor de eso.</p>
+        <a class="btn btn--primary" href="#planificar" data-t="v.c">Diseñar nuestro itinerario</a>
+      </div>
+      <ul class="checks">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><div><b data-t="v.1b">Itinerario privado y flexible</b><span data-t="v.1">Ajustamos días, hoteles y actividades antes y durante el viaje.</span></div></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><div><b data-t="v.2b">Traslados y guías propios</b><span data-t="v.2">Choferes y guías bilingües que conocen cada carretera y cada sendero.</span></div></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><div><b data-t="v.3b">Una persona que responde</b><span data-t="v.3">Su coordinador está disponible por WhatsApp durante todo el viaje.</span></div></li>
+      </ul>
+    </div>
+
+    <div class="panel" role="tabpanel" id="p-agencias" aria-labelledby="t-agencias" hidden>
+      <div>
+        <h3 data-t="a.h">Su socio local en Costa Rica, con estándares de lujo</h3>
+        <p class="pl" data-t="a.p">Para agencias, travel advisors y operadores mayoristas. Cotizamos rápido, operamos con su marca en primer plano y facturamos con la claridad que su contabilidad espera.</p>
+        <a class="btn btn--primary" href="#planificar" data-t="a.c">Solicitar tarifas para agencias</a>
+      </div>
+      <ul class="checks">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><div><b data-t="a.1b">Respuesta comercial ágil</b><span data-t="a.1">Propuestas con opciones de hotel y precio para presentar a su cliente.</span></div></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><div><b data-t="a.2b">Facturación y pagos sin fricción</b><span data-t="a.2">Procesos pensados para agencias de Norteamérica, Europa y Latinoamérica.</span></div></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><div><b data-t="a.3b">Sus clientes, siempre informados</b><span data-t="a.3">Bienvenida en el aeropuerto, repaso del programa y soporte en ruta.</span></div></li>
+      </ul>
+    </div>
+
+    <div class="panel" role="tabpanel" id="p-empresas" aria-labelledby="t-empresas" hidden>
+      <div>
+        <h3 data-t="e.h">Incentivos y eventos que su equipo va a recordar</h3>
+        <p class="pl" data-t="e.p">Viajes de premiación, reuniones, conferencias y celebraciones en sedes excepcionales. Nos ocupamos de la logística para que usted se ocupe de su gente.</p>
+        <a class="btn btn--primary" href="#planificar" data-t="e.c">Planificar un programa corporativo</a>
+      </div>
+      <ul class="checks">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><div><b data-t="e.1b">Programas con propósito</b><span data-t="e.1">Actividades que refuerzan los objetivos del viaje: reconocer, integrar, inspirar.</span></div></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><div><b data-t="e.2b">Transporte VIP y coordinación en sitio</b><span data-t="e.2">Flota, personal de recepción y un responsable del programa en cada evento.</span></div></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><div><b data-t="e.3b">Presupuesto bajo control</b><span data-t="e.3">Cotización desglosada y un solo contrato para todo el programa.</span></div></li>
+      </ul>
+    </div>
+
+    <div class="panel" role="tabpanel" id="p-cruceros" aria-labelledby="t-cruceros" hidden>
+      <div>
+        <h3 data-t="c.h">Excursiones en tierra que regresan a tiempo al barco</h3>
+        <p class="pl" data-t="c.p">Operación de excursiones para pasajeros que llegan a los puertos del Pacífico y del Caribe, más servicios antes y después del crucero.</p>
+        <a class="btn btn--primary" href="#planificar" data-t="c.c">Hablar con operaciones de cruceros</a>
+      </div>
+      <ul class="checks">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><div><b data-t="c.1b">Puntualidad como regla</b><span data-t="c.1">Tiempos de ruta medidos y planes alternos por clima o tráfico.</span></div></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><div><b data-t="c.2b">Capacidad para volumen</b><span data-t="c.2">Flota y guías coordinados para recibir a cientos de pasajeros el mismo día.</span></div></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><div><b data-t="c.3b">Accesibilidad y cuidado</b><span data-t="c.3">Opciones para pasajeros con movilidad reducida y grupos de todas las edades.</span></div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 3 · SERVICES (Features) -->
+<section class="sec" id="servicios" aria-labelledby="sv-h">
+  <div class="wrap">
+    <div class="shead">
+      <h2 id="sv-h" data-t="sv.h">Todo lo que su viaje necesita, operado por un solo equipo</h2>
+      <p class="sub" data-t="sv.p">Seis líneas de servicio que se combinan entre sí. Usted habla con una sola persona; nosotros coordinamos el resto.</p>
+    </div>
+    <div class="ledger">
+      <div class="row"><h3 data-t="s1.h">Tours de un día</h3><p data-t="s1.p">Volcanes, canopy, ríos, café, cultura y vida silvestre en medio día o día completo, desde cualquier zona del país.</p><div class="for"><b data-t="for">Ideal para</b><span data-t="s1.f">Huéspedes de hotel y viajeros independientes</span></div><a class="txtlink" href="#planificar" data-t="s.c">Consultar</a></div>
+      <div class="row"><h3 data-t="s2.h">Viajes a medida (FIT)</h3><p data-t="s2.p">Itinerarios privados de varios días con hoteles, traslados y experiencias elegidas para cada viajero.</p><div class="for"><b data-t="for">Ideal para</b><span data-t="s2.f">Familias, parejas y amigos</span></div><a class="txtlink" href="#planificar" data-t="s.c">Consultar</a></div>
+      <div class="row"><h3 data-t="s3.h">Grupos de ocio</h3><p data-t="s3.p">Circuitos para grupos que vienen por los íconos del país o por un interés especial: aves, voluntariado, bienestar o aventura.</p><div class="for"><b data-t="for">Ideal para</b><span data-t="s3.f">Operadores, clubes y asociaciones</span></div><a class="txtlink" href="#planificar" data-t="s.c">Consultar</a></div>
+      <div class="row"><h3 data-t="s4.h">Operación de cruceros</h3><p data-t="s4.p">Excursiones en tierra en todos los puertos del país, con servicios antes y después del crucero.</p><div class="for"><b data-t="for">Ideal para</b><span data-t="s4.f">Navieras y sus pasajeros</span></div><a class="txtlink" href="#planificar" data-t="s.c">Consultar</a></div>
+      <div class="row"><h3 data-t="s5.h">Viajes de incentivo</h3><p data-t="s5.p">Programas de premiación que combinan naturaleza, hoteles de primer nivel y momentos que el equipo no olvida.</p><div class="for"><b data-t="for">Ideal para</b><span data-t="s5.f">Empresas y casas de incentivos</span></div><a class="txtlink" href="#planificar" data-t="s.c">Consultar</a></div>
+      <div class="row"><h3 data-t="s6.h">Servicios corporativos</h3><p data-t="s6.p">Transporte VIP, reuniones, conferencias, cenas de gala y celebraciones en sedes excepcionales.</p><div class="for"><b data-t="for">Ideal para</b><span data-t="s6.f">Organizadores de eventos y equipos ejecutivos</span></div><a class="txtlink" href="#planificar" data-t="s.c">Consultar</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- 4 · DESTINATIONS -->
+<section class="sec sec--tint" id="destinos" aria-labelledby="ds-h">
+  <div class="wrap">
+    <div class="shead">
+      <h2 id="ds-h" data-t="ds.h">Seis regiones, un país que cabe en un viaje</h2>
+      <p class="sub" data-t="ds.p">Costa Rica es pequeña en el mapa y enorme en contrastes. Combinamos regiones según el tiempo que tenga y lo que quiera vivir.</p>
+    </div>
+    <div class="regions" id="regions"></div>
+  </div>
+</section>
+
+<!-- 5 · PROCESS -->
+<section class="sec band" id="como-trabajamos" aria-labelledby="hw-h">
+  <div class="wrap">
+    <div class="shead">
+      <h2 id="hw-h" data-t="hw.h">De la primera conversación al último traslado</h2>
+      <p class="sub" data-t="hw.p">Un proceso claro para que sepa en todo momento qué sigue y quién se encarga.</p>
+    </div>
+    <ol class="steps">
+      <li><h3 data-t="st1.h">Nos cuenta su idea</h3><p data-t="st1.p">Fechas, número de personas, presupuesto y lo que no se quiere perder. Con eso basta para empezar.</p></li>
+      <li><h3 data-t="st2.h">Diseñamos la propuesta</h3><p data-t="st2.p">Recibe un itinerario día por día con opciones de hotel y un precio total desglosado.</p></li>
+      <li><h3 data-t="st3.h">Ajustamos y confirmamos</h3><p data-t="st3.p">Afinamos detalles hasta que esté perfecto. Al confirmar, reservamos todo en su nombre.</p></li>
+      <li><h3 data-t="st4.h">Operamos y acompañamos</h3><p data-t="st4.p">Lo recibimos en el aeropuerto y seguimos a su lado, en ruta, hasta el vuelo de regreso.</p></li>
+    </ol>
+  </div>
+</section>
+
+<!-- 6 · BEHIND THE TRIP (Tech foundation) -->
+<section class="sec" id="detras" aria-labelledby="bt-h">
+  <div class="wrap behind">
+    <div>
+      <h2 id="bt-h" data-t="bt.h">La tecnología se nota en la tranquilidad, no en la pantalla</h2>
+      <p class="sub" style="margin-top:1rem;color:var(--ink-2);font-size:1.08rem;max-width:34em" data-t="bt.p">Detrás de cada viaje hay un equipo que planifica con datos y responde con criterio humano. Usted solo ve que todo llega a tiempo.</p>
+      <div class="feats">
+        <div class="feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg><h3 data-t="f1.h">Itinerario siempre actualizado</h3><p data-t="f1.p">Cualquier cambio de hora, hotel o actividad le llega de inmediato, a usted y a su guía.</p></div>
+        <div class="feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 20l1.3-4A8 8 0 1 1 8 18.7z"/></svg><h3 data-t="f2.h">Atención humana 24/7</h3><p data-t="f2.p">Un coordinador real responde por WhatsApp a cualquier hora. La automatización ayuda; no reemplaza a la persona.</p></div>
+        <div class="feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 16V8l9-4 9 4v8l-9 4z"/><path d="M12 12v8M3 8l9 4 9-4"/></svg><h3 data-t="f3.h">Traslados coordinados</h3><p data-t="f3.p">Vuelos, tiempos de carretera y clima se monitorean para ajustar cada salida antes de que haya un problema.</p></div>
+        <div class="feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><h3 data-t="f4.h">Datos y pagos protegidos</h3><p data-t="f4.p">Sus datos personales y de pago se manejan con controles de seguridad y solo para su viaje.</p></div>
+      </div>
+    </div>
+    <div class="phone" aria-label="Ejemplo de acompañamiento por WhatsApp durante el viaje" role="img">
+      <div class="top"><div class="av" aria-hidden="true">N</div><div><b data-t="ph.n">Su coordinador NexumTurismo</b><span data-t="ph.s">en línea</span></div></div>
+      <div class="msgs" aria-hidden="true">
+        <div class="msg"><span data-t="m1">Buenos días. Hoy salen a Monteverde a las 8:30. Por lluvia en la ruta habitual, su chofer tomará la vía por Tilarán: llegan a la misma hora.</span><time>7:12</time></div>
+        <div class="msg me"><span data-t="m2">¡Perfecto, gracias! ¿Podemos agregar el tour nocturno?</span><time>7:20</time></div>
+        <div class="msg"><span data-t="m3">Listo: reservado para 4 personas a las 17:45, con recogida en su hotel. Ya está en su itinerario.</span><time>7:26</time></div>
+      </div>
+      <p class="note" data-t="ph.note">Conversación de ejemplo</p>
+    </div>
+  </div>
+</section>
+
+<!-- 7 · RESULTS / PROOF -->
+<section class="sec sec--tint" id="resultados" aria-labelledby="rs-h">
+  <div class="wrap">
+    <div class="shead">
+      <h2 id="rs-h" data-t="rs.h">La confianza se gana viaje a viaje</h2>
+      <p class="sub" data-t="rs.p">Agencias, empresas y viajeros vuelven por lo mismo: todo sale como se prometió, y cuando algo cambia, alguien ya lo está resolviendo.</p>
+    </div>
+    <div class="stats">
+      <div><b><span class="ph">[00]</span></b><span data-t="k1">años operando en Costa Rica</span></div>
+      <div><b><span class="ph">[00 000]</span></b><span data-t="k2">viajeros atendidos al año</span></div>
+      <div><b><span class="ph">[00]</span></b><span data-t="k3">países de origen de nuestras agencias aliadas</span></div>
+      <div><b><span class="ph">[0,0/5]</span></b><span data-t="k4">calificación promedio de viajeros</span></div>
+    </div>
+    <div class="quotes">
+      <blockquote><p><span class="ph" data-t="q1">[Testimonio real de un viajero, publicado con su autorización por escrito.]</span></p><cite><b data-t="q1c">Nombre y país</b><span data-t="q1t">Viaje a medida</span></cite></blockquote>
+      <blockquote><p><span class="ph" data-t="q2">[Testimonio real de una agencia o travel advisor, con su autorización.]</span></p><cite><b data-t="q2c">Nombre, agencia</b><span data-t="q2t">Agencia aliada</span></cite></blockquote>
+      <blockquote><p><span class="ph" data-t="q3">[Testimonio real de un cliente corporativo o de incentivos, con su autorización.]</span></p><cite><b data-t="q3c">Nombre, empresa</b><span data-t="q3t">Programa de incentivo</span></cite></blockquote>
+    </div>
+    <div class="creds"><span data-t="cr.l">Membresías y certificaciones:</span><span class="c ph" data-t="cr.1">[Certificación de sostenibilidad]</span><span class="c ph" data-t="cr.2">[Cámara de turismo]</span><span class="c ph" data-t="cr.3">[Red de agencias de lujo]</span><span class="c ph" data-t="cr.4">[Sello de seguridad turística]</span></div>
+  </div>
+</section>
+
+<!-- 8 · SUSTAINABILITY -->
+<section class="sec" id="sostenibilidad" aria-labelledby="su-h">
+  <div class="wrap sust">
+    <div>
+      <h2 id="su-h" data-t="su.h">Viajar bien también es cuidar lo que se visita</h2>
+      <p class="sub" style="margin-top:1rem;color:var(--ink-2);font-size:1.08rem;max-width:34em" data-t="su.p">Costa Rica protege una parte enorme de su territorio y su biodiversidad. Diseñamos cada viaje para que deje más de lo que toma.</p>
+    </div>
+    <ul>
+      <li><b data-t="su1.h">Proveedores locales</b><span data-t="su1.p">Priorizamos hoteles, guías y comunidades que reinvierten en su zona.</span></li>
+      <li><b data-t="su2.h">Grupos del tamaño correcto</b><span data-t="su2.p">Respetamos la capacidad de cada parque, sendero y reserva.</span></li>
+      <li><b data-t="su3.h">Menos huella en ruta</b><span data-t="su3.p">Rutas eficientes y flota mantenida para reducir combustible y emisiones.</span></li>
+      <li><b data-t="su4.h">Experiencias con impacto</b><span data-t="su4.p">Voluntariado, conservación y encuentros culturales cuando el viaje lo permite.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- 9 · RESOURCES -->
+<section class="sec sec--tint" id="guias" aria-labelledby="gu-h">
+  <div class="wrap">
+    <div class="shead">
+      <h2 id="gu-h" data-t="gu.h">Guías para planificar mejor</h2>
+      <p class="sub" data-t="gu.p">Respuestas a las preguntas que más recibimos antes de un viaje.</p>
+    </div>
+    <div class="res">
+      <a href="#planificar"><span class="k" data-t="r1.k">Clima y temporadas</span><h3 data-t="r1.h">Temporada verde: otra forma de conocer el país</h3><p data-t="r1.p">Lluvias por la tarde, paisajes más verdes, menos visitantes y mejores tarifas.</p></a>
+      <a href="#planificar"><span class="k" data-t="r2.k">Destinos</span><h3 data-t="r2.h">Caribe Sur: cultura, playas y vida silvestre</h3><p data-t="r2.p">Qué ver en Cahuita y Puerto Viejo, y cuántos días dedicarle.</p></a>
+      <a href="#planificar"><span class="k" data-t="r3.k">Para agencias</span><h3 data-t="r3.h">Cómo armar un programa de 7 a 10 días</h3><p data-t="r3.p">Combinaciones de regiones que funcionan y tiempos reales de traslado.</p></a>
+    </div>
+  </div>
+</section>
+
+<!-- 10 · CTA -->
+<section class="sec band cta" id="planificar" aria-labelledby="pl-h">
+  <div class="wrap">
+    <div>
+      <h2 id="pl-h" data-t="pl.h">Cuéntenos su viaje y le enviamos una propuesta</h2>
+      <p class="sub" data-t="pl.p">Sin costo y sin compromiso. Un especialista revisa su solicitud y le responde con un itinerario inicial.</p>
+      <dl class="contact">
+        <div><dt data-t="ct.1">WhatsApp y teléfono</dt><dd><span class="ph">[+506 0000-0000]</span></dd></div>
+        <div><dt data-t="ct.2">Correo</dt><dd><span class="ph">[reservas@nexumturismo.com]</span></dd></div>
+        <div><dt data-t="ct.3">Oficinas</dt><dd><span class="ph" data-t="ct.3v">[San José] · [Liberia, Guanacaste]</span></dd></div>
+      </dl>
+    </div>
+    <form class="trip" id="tripForm" novalidate>
+      <div class="f"><label for="fName" data-t="fm.n">Nombre</label><input id="fName" name="name" autocomplete="name" required><span class="err" id="eName"></span></div>
+      <div class="f"><label for="fMail" data-t="fm.e">Correo</label><input id="fMail" name="email" type="email" autocomplete="email" required><span class="err" id="eMail"></span></div>
+      <div class="f"><label for="fType" data-t="fm.t">Tipo de viaje</label>
+        <select id="fType" name="type">
+          <option value="fit" data-t="o1">Viaje a medida</option>
+          <option value="dia" data-t="o2">Tours de un día</option>
+          <option value="grupo" data-t="o3">Grupo de ocio</option>
+          <option value="incentivo" data-t="o4">Incentivo o evento corporativo</option>
+          <option value="crucero" data-t="o5">Operación de crucero</option>
+          <option value="agencia" data-t="o6">Soy agencia o advisor</option>
+        </select></div>
+      <div class="f"><label for="fPax" data-t="fm.p">Número de personas</label><input id="fPax" name="pax" type="number" min="1" max="2000" inputmode="numeric" value="2"></div>
+      <div class="f"><label for="fFrom" data-t="fm.d1">Llegada aproximada</label><input id="fFrom" name="from" type="date"></div>
+      <div class="f"><label for="fDays" data-t="fm.d2">Días en Costa Rica</label><input id="fDays" name="days" type="number" min="1" max="60" inputmode="numeric" value="8"></div>
+      <div class="f full"><label for="fMsg" data-t="fm.m">¿Qué no se quieren perder?</label><textarea id="fMsg" name="msg" data-tp="fm.mp" placeholder="Volcanes, playa, perezosos, café, aventura suave, celebración especial…"></textarea></div>
+      <label class="consent"><input type="checkbox" id="fOk" required><span data-t="fm.ok">Acepto que NexumTurismo use estos datos solo para responder a mi solicitud.</span></label>
+      <span class="err" id="eOk" style="grid-column:1/-1;font-size:.82rem;color:var(--guaria)"></span>
+      <button class="btn btn--primary" type="submit" data-t="fm.s">Preparar mi solicitud</button>
+      <div class="done" id="done" hidden>
+        <b data-t="dn.h">Su solicitud está lista</b>
+        <span data-t="dn.p">Cópiela y envíela a nuestro correo o WhatsApp. Le respondemos en menos de un día hábil.</span>
+        <pre id="summary"></pre>
+        <button class="btn btn--ghost" type="button" id="copyBtn" data-t="dn.c">Copiar solicitud</button>
+      </div>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <a class="brand" href="#top"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" fill="var(--selva)"/><path d="M6 28 L15 15 L20 21 L25 12 L34 28 Z" fill="var(--band)"/><circle cx="28" cy="11" r="3" fill="var(--sol)"/></svg><span>NexumTurismo<small data-t="brand.s">Costa Rica, a su medida</small></span></a>
+        <p style="margin-top:1rem;max-width:30em" data-t="ft.p">Diseño y operación de viajes en Costa Rica para viajeros, agencias, empresas y líneas de crucero.</p>
+      </div>
+      <div><h3 data-t="ft.h1">Servicios</h3><ul><li><a href="#servicios" data-t="s1.h">Tours de un día</a></li><li><a href="#servicios" data-t="s2.h">Viajes a medida (FIT)</a></li><li><a href="#servicios" data-t="s5.h">Viajes de incentivo</a></li><li><a href="#servicios" data-t="s4.h">Operación de cruceros</a></li></ul></div>
+      <div><h3 data-t="ft.h2">Empresa</h3><ul><li><a href="#como-trabajamos" data-t="nav.4">Cómo trabajamos</a></li><li><a href="#sostenibilidad" data-t="nav.5">Sostenibilidad</a></li><li><a href="#guias" data-t="nav.6">Guías</a></li><li><a href="/" data-t="ft.nx">NEXUM LATAM</a></li></ul></div>
+      <div><h3 data-t="ft.h3">Contacto</h3><ul><li><span class="ph">[+506 0000-0000]</span></li><li><span class="ph">[reservas@nexumturismo.com]</span></li><li><a href="#planificar" data-t="cta.plan">Planificar mi viaje</a></li></ul></div>
+    </div>
+    <div class="legal"><span>© <span id="yr">2026</span> NexumTurismo. <span data-t="ft.r">Todos los derechos reservados.</span></span><span data-t="ft.l">Política de privacidad · Términos de servicio</span></div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  /* ---------- Regions (content + generated scene) ---------- */
+  var REGIONS=[
+    {k:"arenal",es:["Volcán Arenal y La Fortuna","Aguas termales, puentes colgantes y caminatas con el cono del volcán siempre a la vista.","2–3 noches","Llanuras del norte"],en:["Arenal Volcano & La Fortuna","Hot springs, hanging bridges and hikes with the volcano cone always in view.","2–3 nights","Northern plains"],sky:["#F2C27A","#E9A0A8"],hills:["#3E7A5A","#2C5E45","#1F4634"],peak:true},
+    {k:"monte",es:["Monteverde","Bosque nuboso, canopy entre la niebla y caminatas nocturnas para ver ranas y perezosos.","2 noches","Cordillera de Tilarán"],en:["Monteverde","Cloud forest, ziplines through the mist and night walks to spot frogs and sloths.","2 nights","Tilarán range"],sky:["#C9D8D2","#A9C0B8"],hills:["#5E8C78","#3F6F5B","#2B5443"],mist:true},
+    {k:"guana",es:["Guanacaste","Playas del Pacífico norte, atardeceres largos, resorts y aventura en tierra y mar.","3–4 noches","Pacífico norte"],en:["Guanacaste","North Pacific beaches, long sunsets, resorts and adventure on land and sea.","3–4 nights","North Pacific"],sky:["#F5B865","#E57B5A"],hills:["#A08A4A","#7A6B3A"],sea:"#2F7F98"},
+    {k:"manuel",es:["Pacífico Central","Manuel Antonio, playas dentro del parque y monos a pocos metros del sendero.","2–3 noches","Quepos y Manuel Antonio"],en:["Central Pacific","Manuel Antonio: beaches inside the park and monkeys a few steps from the trail.","2–3 nights","Quepos & Manuel Antonio"],sky:["#9FD0DA","#F3D59A"],hills:["#3E8A5E","#2A6B48"],sea:"#2B8BA6"},
+    {k:"caribe",es:["Caribe Sur","Cahuita y Puerto Viejo: cultura afrocaribeña, arrecifes y una cocina con identidad propia.","2–3 noches","Limón"],en:["South Caribbean","Cahuita and Puerto Viejo: Afro-Caribbean culture, reefs and a cuisine all its own.","2–3 nights","Limón"],sky:["#BFE3DA","#8FCBC4"],hills:["#2F8A62","#216B4B"],sea:"#1C9AA0"},
+    {k:"osa",es:["Península de Osa","Corcovado y bahía Drake: la naturaleza más intacta del país, para viajeros con espíritu explorador.","3 noches","Pacífico sur"],en:["Osa Peninsula","Corcovado and Drake Bay: the country's wildest nature, for travelers with an explorer's spirit.","3 nights","South Pacific"],sky:["#A9C9B6","#7FAE95"],hills:["#2D6B49","#1E5238","#143D29"],sea:"#25708A"}
+  ];
+  function scene(r,i){
+    var w=320,h=180,s='<svg viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice" aria-hidden="true">';
+    s+='<defs><linearGradient id="g'+i+'" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="'+r.sky[0]+'"/><stop offset="1" stop-color="'+r.sky[1]+'"/></linearGradient></defs>';
+    s+='<rect width="'+w+'" height="'+h+'" fill="url(#g'+i+')"/>';
+    s+='<circle cx="'+(60+i*37%200)+'" cy="52" r="16" fill="#FFF6DD" fill-opacity=".85"/>';
+    if(r.peak) s+='<path d="M120 150 L185 48 L200 54 L250 150 Z" fill="#4A4F4A"/><path d="M176 62 L185 48 L200 54 L192 66 Z" fill="#E8E2D6"/>';
+    var base=r.sea?120:110;
+    r.hills.forEach(function(c,j){
+      var y=base+j*18, a=8+j*6, f=0.02+j*0.012, d='M0 '+h+' L0 '+y;
+      for(var x=0;x<=w;x+=10){d+=' L'+x+' '+(y+Math.sin(x*f+i+j)*a).toFixed(1);}
+      d+=' L'+w+' '+h+' Z';
+      s+='<path d="'+d+'" fill="'+c+'"/>';
+    });
+    if(r.sea){s+='<rect x="0" y="152" width="320" height="28" fill="'+r.sea+'"/><path d="M0 156 Q40 151 80 156 T160 156 T240 156 T320 156" stroke="#FFFFFF" stroke-opacity=".5" fill="none"/>';}
+    if(r.mist){s+='<rect y="70" width="320" height="40" fill="#FFFFFF" fill-opacity=".35"/><rect y="118" width="320" height="22" fill="#FFFFFF" fill-opacity=".25"/>';}
+    return s+'</svg>';
+  }
+  var regEl=document.getElementById('regions');
+  function renderRegions(lang){
+    regEl.innerHTML=REGIONS.map(function(r,i){var t=r[lang];return '<article class="region"><div class="scene">'+scene(r,i)+'</div><div class="body"><div class="meta"><span>'+t[3]+'</span><span>'+t[2]+'</span></div><h3>'+t[0]+'</h3><p>'+t[1]+'</p></div></article>';}).join('');
+  }
+
+  /* ---------- Map: contours + stops ---------- */
+  var NS='http://www.w3.org/2000/svg',topo=document.getElementById('topo');
+  function ring(cx,cy,rx,ry,seed){var d='';for(var k=0;k<=48;k++){var a=k/48*Math.PI*2,n=1+0.13*Math.sin(a*3+seed)+0.07*Math.sin(a*5+seed*2);var x=cx+Math.cos(a)*rx*n,y=cy+Math.sin(a)*ry*n;d+=(k?' L':'M')+x.toFixed(1)+' '+y.toFixed(1);}return d+' Z';}
+  [[262,128,7,1.3],[330,212,6,2.1],[205,176,5,0.7],[420,300,7,3.2],[130,220,4,1.9]].forEach(function(p){
+    for(var r=1;r<=p[2];r++){var e=document.createElementNS(NS,'path');e.setAttribute('d',ring(p[0],p[1],r*11,r*8,p[3]+r*.3));e.setAttribute('class','topo'+(r===1?' hi':''));topo.appendChild(e);}
+  });
+  var STOPS=[[300,250,'lbl.1','San José','lbl.1s','Día 1',12,22],[262,142,'lbl.2','Arenal','lbl.2s','Días 2–3',12,-14],[192,188,'lbl.3','Monteverde','lbl.3s','Días 4–5',-8,26],[92,186,'lbl.4','Guanacaste','lbl.4s','Días 6–8',-10,-24]];
+  var stopsG=document.getElementById('stops');
+  STOPS.forEach(function(s,i){
+    var g=document.createElementNS(NS,'g');
+    var c=document.createElementNS(NS,'circle');c.setAttribute('cx',s[0]);c.setAttribute('cy',s[1]);c.setAttribute('r',i===3?8:6.5);c.setAttribute('class','stop pop'+(i===3?' end':''));c.style.animationDelay=(.35+i*.75)+'s';g.appendChild(c);
+    var tx=s[0]+s[6],ty=s[1]+s[7],anchor=s[6]<0?'end':'start';
+    var bg=document.createElementNS(NS,'rect');bg.setAttribute('class','lblbg');bg.setAttribute('rx','5');g.appendChild(bg);
+    var t1=document.createElementNS(NS,'text');t1.setAttribute('x',tx);t1.setAttribute('y',ty);t1.setAttribute('class','lbl');t1.setAttribute('text-anchor',anchor);t1.textContent=s[3];g.appendChild(t1);
+    var t2=document.createElementNS(NS,'text');t2.setAttribute('x',tx);t2.setAttribute('y',ty+14);t2.setAttribute('class','lbl2');t2.setAttribute('text-anchor',anchor);t2.setAttribute('data-t',s[4]);t2.textContent=s[5];g.appendChild(t2);
+    g._bg=bg;g._t=[t1,t2];stopsG.appendChild(g);
+  });
+  function fitLabels(){Array.prototype.forEach.call(stopsG.children,function(g){try{var a=g._t[0].getBBox(),b=g._t[1].getBBox();var x=Math.min(a.x,b.x)-5,y=a.y-3,w=Math.max(a.x+a.width,b.x+b.width)-x+5,h=b.y+b.height-y+3;g._bg.setAttribute('x',x);g._bg.setAttribute('y',y);g._bg.setAttribute('width',w);g._bg.setAttribute('height',h);}catch(e){}});}
+  var route=document.getElementById('route');
+  try{route.style.setProperty('--len',Math.ceil(route.getTotalLength()));}catch(e){route.classList.remove('draw');}
+
+  /* ---------- i18n ---------- */
+  var EN={
+    "skip":"Skip to content","util.l":"Destination Management Company · Costa Rica","util.r":"A NEXUM LATAM initiative","brand.s":"Costa Rica, made to measure",
+    "nav.1":"Who we serve","nav.2":"Services","nav.3":"Destinations","nav.4":"How we work","nav.5":"Sustainability","nav.6":"Guides","cta.plan":"Plan my trip",
+    "hero.h1":"Costa Rica, designed around you.","hero.h2":"Run without a hitch.",
+    "hero.p":"We design and operate complete trips in Costa Rica: private itineraries, groups, incentives, corporate events and cruise shore excursions. One team answers for everything, from arrival to the last transfer, with 24/7 support on the road.",
+    "hero.c2":"I'm an agency or travel advisor","who.p":"Choose your starting point","tab.1":"Travelers & families","tab.2":"Agencies & advisors","tab.3":"Incentives & companies","tab.4":"Cruise lines",
+    "map.t":"Sample route, 8 days","map.s":"Schematic, not to scale","map.alt":"Sample route: San José, Arenal Volcano, Monteverde and Guanacaste beaches in 8 days","map.pac":"Pacific Ocean","map.car":"Caribbean Sea",
+    "lg.1b":"Day 1","lg.1":"Arrival in San José","lg.2b":"Days 2–3","lg.2":"Arenal Volcano","lg.3b":"Days 4–5","lg.3":"Cloud forest","lg.4b":"Days 6–8","lg.4":"Guanacaste beaches",
+    "lbl.1s":"Day 1","lbl.2s":"Days 2–3","lbl.3s":"Days 4–5","lbl.4s":"Days 6–8",
+    "pq.h":"One team, four ways to travel","pq.p":"Every client needs something different. Pick yours and see what we take off your plate.",
+    "v.h":"A trip that feels made for you, because it is","v.p":"Honeymoons, families with kids, friends or solo travelers. We start from how you like to travel and build the pace, hotels and experiences around it.","v.c":"Design our itinerary",
+    "v.1b":"Private, flexible itinerary","v.1":"We adjust days, hotels and activities before and during the trip.","v.2b":"Our own drivers and guides","v.2":"Bilingual drivers and guides who know every road and every trail.","v.3b":"One person who answers","v.3":"Your coordinator is on WhatsApp for the whole trip.",
+    "a.h":"Your local partner in Costa Rica, with luxury standards","a.p":"For travel agencies, advisors and wholesale operators. We quote fast, operate with your brand up front and invoice with the clarity your accounting expects.","a.c":"Request agency rates",
+    "a.1b":"Fast commercial response","a.1":"Proposals with hotel and price options ready to present to your client.","a.2b":"Frictionless invoicing and payments","a.2":"Processes built for agencies in North America, Europe and Latin America.","a.3b":"Your clients, always informed","a.3":"Airport welcome, program walkthrough and on-the-road support.",
+    "e.h":"Incentives and events your team will remember","e.p":"Reward trips, meetings, conferences and celebrations in exceptional venues. We handle the logistics so you can focus on your people.","e.c":"Plan a corporate program",
+    "e.1b":"Programs with a purpose","e.1":"Activities that serve the trip's goals: recognize, connect, inspire.","e.2b":"VIP transport and on-site coordination","e.2":"Fleet, welcome staff and a program lead at every event.","e.3b":"Budget under control","e.3":"Itemized quote and one contract for the whole program.",
+    "c.h":"Shore excursions that get back to the ship on time","c.p":"Excursion operations for passengers arriving at Pacific and Caribbean ports, plus pre- and post-cruise services.","c.c":"Talk to cruise operations",
+    "c.1b":"Punctuality as a rule","c.1":"Measured route times and backup plans for weather or traffic.","c.2b":"Built for volume","c.2":"Fleet and guides coordinated to welcome hundreds of passengers on the same day.","c.3b":"Accessibility and care","c.3":"Options for passengers with reduced mobility and groups of all ages.",
+    "sv.h":"Everything your trip needs, run by one team","sv.p":"Six service lines that combine with each other. You talk to one person; we coordinate the rest.","for":"Best for","s.c":"Inquire",
+    "s1.h":"One-day tours","s1.p":"Volcanoes, ziplines, rivers, coffee, culture and wildlife in half or full days, from anywhere in the country.","s1.f":"Hotel guests and independent travelers",
+    "s2.h":"Tailor-made trips (FIT)","s2.p":"Private multi-day itineraries with hotels, transfers and experiences chosen for each traveler.","s2.f":"Families, couples and friends",
+    "s3.h":"Leisure groups","s3.p":"Circuits for groups coming for the country's icons or a special interest: birding, volunteering, wellness or adventure.","s3.f":"Operators, clubs and associations",
+    "s4.h":"Cruise operations","s4.p":"Shore excursions at every port in the country, with pre- and post-cruise services.","s4.f":"Cruise lines and their passengers",
+    "s5.h":"Incentive trips","s5.p":"Reward programs that combine nature, top hotels and moments the team won't forget.","s5.f":"Companies and incentive houses",
+    "s6.h":"Corporate services","s6.p":"VIP transport, meetings, conferences, gala dinners and celebrations in exceptional venues.","s6.f":"Event planners and executive teams",
+    "ds.h":"Six regions, one country that fits in a trip","ds.p":"Costa Rica is small on the map and huge in contrasts. We combine regions to match your time and what you want to experience.",
+    "hw.h":"From the first conversation to the last transfer","hw.p":"A clear process so you always know what comes next and who is handling it.",
+    "st1.h":"You share your idea","st1.p":"Dates, group size, budget and what you can't miss. That's enough to start.","st2.h":"We design the proposal","st2.p":"You get a day-by-day itinerary with hotel options and an itemized total price.","st3.h":"We refine and confirm","st3.p":"We fine-tune until it's right. Once you confirm, we book everything for you.","st4.h":"We operate and stay with you","st4.p":"We meet you at the airport and stay by your side, on the road, until your flight home.",
+    "bt.h":"You notice the technology in the calm, not on a screen","bt.p":"Behind every trip is a team that plans with data and responds with human judgment. All you see is everything arriving on time.",
+    "f1.h":"An itinerary that's always current","f1.p":"Any change of time, hotel or activity reaches you and your guide right away.","f2.h":"Human support 24/7","f2.p":"A real coordinator answers on WhatsApp at any hour. Automation helps; it doesn't replace the person.","f3.h":"Coordinated transfers","f3.p":"Flights, road times and weather are monitored so each departure is adjusted before there's a problem.","f4.h":"Protected data and payments","f4.p":"Your personal and payment data is handled with security controls and only for your trip.",
+    "ph.n":"Your NexumTurismo coordinator","ph.s":"online","m1":"Good morning. You leave for Monteverde at 8:30. With rain on the usual route, your driver will take the Tilarán road: same arrival time.","m2":"Perfect, thanks! Can we add the night tour?","m3":"Done: booked for 4 at 5:45 pm, with pickup at your hotel. It's already in your itinerary.","ph.note":"Sample conversation",
+    "rs.h":"Trust is earned one trip at a time","rs.p":"Agencies, companies and travelers come back for the same reason: everything goes as promised, and when something changes, someone is already on it.",
+    "k1":"years operating in Costa Rica","k2":"travelers served per year","k3":"countries our partner agencies come from","k4":"average traveler rating",
+    "q1":"[Real traveler testimonial, published with written consent.]","q1c":"Name and country","q1t":"Tailor-made trip","q2":"[Real agency or travel advisor testimonial, with consent.]","q2c":"Name, agency","q2t":"Partner agency","q3":"[Real corporate or incentive client testimonial, with consent.]","q3c":"Name, company","q3t":"Incentive program",
+    "cr.l":"Memberships and certifications:","cr.1":"[Sustainability certification]","cr.2":"[Tourism chamber]","cr.3":"[Luxury agency network]","cr.4":"[Tourism safety seal]",
+    "su.h":"Traveling well means caring for what you visit","su.p":"Costa Rica protects a large share of its land and biodiversity. We design every trip to leave more than it takes.",
+    "su1.h":"Local suppliers","su1.p":"We favor hotels, guides and communities that reinvest in their area.","su2.h":"Right-sized groups","su2.p":"We respect the capacity of every park, trail and reserve.","su3.h":"A lighter footprint on the road","su3.p":"Efficient routes and a well-kept fleet to cut fuel and emissions.","su4.h":"Experiences with impact","su4.p":"Volunteering, conservation and cultural encounters when the trip allows.",
+    "gu.h":"Guides to plan better","gu.p":"Answers to the questions we hear most before a trip.",
+    "r1.k":"Weather and seasons","r1.h":"Green season: another way to see the country","r1.p":"Afternoon rain, greener landscapes, fewer visitors and better rates.","r2.k":"Destinations","r2.h":"South Caribbean: culture, beaches and wildlife","r2.p":"What to see in Cahuita and Puerto Viejo, and how many days to give it.","r3.k":"For agencies","r3.h":"How to build a 7- to 10-day program","r3.p":"Region combinations that work and real transfer times.",
+    "pl.h":"Tell us about your trip and we'll send a proposal","pl.p":"Free and with no commitment. A specialist reviews your request and replies with an initial itinerary.",
+    "ct.1":"WhatsApp and phone","ct.2":"Email","ct.3":"Offices","ct.3v":"[San José] · [Liberia, Guanacaste]",
+    "fm.n":"Name","fm.e":"Email","fm.t":"Type of trip","fm.p":"Number of people","fm.d1":"Approximate arrival","fm.d2":"Days in Costa Rica","fm.m":"What can't you miss?","fm.mp":"Volcanoes, beach, sloths, coffee, soft adventure, a special celebration…","fm.ok":"I agree that NexumTurismo may use this data only to reply to my request.","fm.s":"Prepare my request",
+    "o1":"Tailor-made trip","o2":"One-day tours","o3":"Leisure group","o4":"Incentive or corporate event","o5":"Cruise operations","o6":"I'm an agency or advisor",
+    "dn.h":"Your request is ready","dn.p":"Copy it and send it to our email or WhatsApp. We reply within one business day.","dn.c":"Copy request","dn.ok":"Copied",
+    "ft.p":"Trip design and operations in Costa Rica for travelers, agencies, companies and cruise lines.","ft.h1":"Services","ft.h2":"Company","ft.h3":"Contact","ft.nx":"NEXUM LATAM","ft.r":"All rights reserved.","ft.l":"Privacy policy · Terms of service",
+    "err.n":"Enter your name.","err.e":"Enter a valid email, like name@company.com.","err.ok":"Check the box so we can reply to you."
+  };
+  var ES_ERR={"err.n":"Escriba su nombre.","err.e":"Escriba un correo válido, como nombre@empresa.com.","err.ok":"Marque la casilla para que podamos responderle.","dn.c":"Copiar solicitud","dn.ok":"Copiado"};
+  var ES={};
+  Array.prototype.forEach.call(document.querySelectorAll('[data-t]'),function(el){var k=el.getAttribute('data-t');if(!(k in ES))ES[k]=el.textContent;});
+  Array.prototype.forEach.call(document.querySelectorAll('[data-tp]'),function(el){ES[el.getAttribute('data-tp')]=el.getAttribute('placeholder');});
+  var lang='es';
+  function t(k){return (lang==='en'?EN[k]:(ES[k]||ES_ERR[k]))||ES[k]||k;}
+  function setLang(l){
+    lang=l;document.documentElement.lang=l;
+    Array.prototype.forEach.call(document.querySelectorAll('[data-t]'),function(el){var v=t(el.getAttribute('data-t'));if(v)el.textContent=v;});
+    Array.prototype.forEach.call(document.querySelectorAll('[data-tp]'),function(el){el.setAttribute('placeholder',t(el.getAttribute('data-tp')));});
+    Array.prototype.forEach.call(document.querySelectorAll('.lang button'),function(b){b.setAttribute('aria-pressed',String(b.dataset.lang===l));});
+    document.title='NexumTurismo';
+    renderRegions(l);fitLabels();
+    if(!document.getElementById('done').hidden)buildSummary();
+    try{localStorage.setItem('nxt_lang',l);}catch(e){}
+  }
+  Array.prototype.forEach.call(document.querySelectorAll('.lang button'),function(b){b.addEventListener('click',function(){setLang(b.dataset.lang);});});
+
+  /* ---------- Tabs ---------- */
+  var tabs=Array.prototype.slice.call(document.querySelectorAll('[role="tab"]'));
+  function select(id,focus){tabs.forEach(function(tb){var on=tb.id==='t-'+id;tb.setAttribute('aria-selected',String(on));tb.tabIndex=on?0:-1;document.getElementById(tb.getAttribute('aria-controls')).hidden=!on;if(on&&focus)tb.focus();});}
+  tabs.forEach(function(tb,i){
+    tb.addEventListener('click',function(){select(tb.id.slice(2));});
+    tb.addEventListener('keydown',function(e){var n=null;if(e.key==='ArrowRight')n=(i+1)%tabs.length;if(e.key==='ArrowLeft')n=(i-1+tabs.length)%tabs.length;if(e.key==='Home')n=0;if(e.key==='End')n=tabs.length-1;if(n!==null){e.preventDefault();select(tabs[n].id.slice(2),true);}});
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('[data-tab]'),function(a){a.addEventListener('click',function(){select(a.dataset.tab);});});
+
+  /* ---------- Mobile menu ---------- */
+  var burger=document.querySelector('.burger'),mnav=document.getElementById('mnav');
+  burger.addEventListener('click',function(){var o=mnav.classList.toggle('open');burger.setAttribute('aria-expanded',String(o));});
+  Array.prototype.forEach.call(mnav.querySelectorAll('a'),function(a){a.addEventListener('click',function(){mnav.classList.remove('open');burger.setAttribute('aria-expanded','false');});});
+
+  /* ---------- Form ---------- */
+  var form=document.getElementById('tripForm'),done=document.getElementById('done'),sum=document.getElementById('summary');
+  function val(id){return document.getElementById(id).value.trim();}
+  function buildSummary(){
+    var sel=document.getElementById('fType');
+    var L=lang==='en'?['Trip request · NexumTurismo','Name','Email','Type','People','Arrival','Days','Notes']:['Solicitud de viaje · NexumTurismo','Nombre','Correo','Tipo','Personas','Llegada','Días','Notas'];
+    sum.textContent=L[0]+'\n'+L[1]+': '+val('fName')+'\n'+L[2]+': '+val('fMail')+'\n'+L[3]+': '+sel.options[sel.selectedIndex].textContent+'\n'+L[4]+': '+val('fPax')+'\n'+L[5]+': '+(val('fFrom')||'—')+'\n'+L[6]+': '+val('fDays')+'\n'+L[7]+': '+(val('fMsg')||'—');
+  }
+  form.addEventListener('submit',function(e){
+    e.preventDefault();var ok=true;
+    var n=val('fName'),m=val('fMail'),c=document.getElementById('fOk').checked;
+    document.getElementById('eName').textContent=n?'':t('err.n');if(!n)ok=false;
+    var em=/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(m);document.getElementById('eMail').textContent=em?'':t('err.e');if(!em)ok=false;
+    document.getElementById('eOk').textContent=c?'':t('err.ok');if(!c)ok=false;
+    if(!ok){var first=!n?'fName':!em?'fMail':'fOk';document.getElementById(first).focus();return;}
+    buildSummary();done.hidden=false;done.scrollIntoView({block:'nearest',behavior:'smooth'});
+  });
+  document.getElementById('copyBtn').addEventListener('click',function(){
+    var b=this;function sel(){var r=document.createRange();r.selectNodeContents(sum);var s=window.getSelection();s.removeAllRanges();s.addRange(r);}
+    try{navigator.clipboard.writeText(sum.textContent).then(function(){b.textContent=t('dn.ok');setTimeout(function(){b.textContent=t('dn.c');},1800);},sel);}catch(e){sel();}
+  });
+
+  document.getElementById('yr').textContent=new Date().getFullYear();
+  var start='es';try{var s=localStorage.getItem('nxt_lang');if(s==='en'||s==='es')start=s;}catch(e){}
+  if(start==='es'&&/^en/i.test(navigator.language||'')){try{if(!localStorage.getItem('nxt_lang'))start='en';}catch(e){}}
+  setLang(start);
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fitLabels);
+})();
+</script>
+</body>
+</html>

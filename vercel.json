@@ -11,6 +11,8 @@
     { "src": "/nexumtest/(.*)", "headers": { "X-Robots-Tag": "noindex" }, "continue": true },
     { "src": "/nexumseguro", "status": 308, "headers": { "Location": "/nexumseguro/" } },
     { "src": "/nexumseguro/(.*)", "headers": { "X-Robots-Tag": "noindex" }, "continue": true },
+    { "src": "/nexumturismo", "status": 308, "headers": { "Location": "/nexumturismo/" } },
+    { "src": "/nexumturismo/(.*)", "headers": { "X-Robots-Tag": "noindex" }, "continue": true },
     { "handle": "filesystem" },
     { "src": "/api/(.*)", "dest": "/api/$1" },
     { "src": "/(.*)", "dest": "/" }
