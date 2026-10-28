@@ -298,6 +298,15 @@ p{margin:0}
 .nb-acts button:hover,.nb-sugg button:hover{background:color-mix(in srgb,var(--sea) 10%,transparent)}
 .nb-acts button:focus-visible,.nb-sugg button:focus-visible,.nb-say:focus-visible{outline:2px solid var(--sea)}
 .nb-say{box-shadow:none;padding:.2rem 0;margin-top:.35rem;color:var(--ink-3);font-weight:500;font-size:.75rem;display:inline-flex;gap:.3rem;align-items:center}
+.nb-menu{display:flex;gap:.4rem;padding:.55rem .75rem;background:var(--band-2);border-top:1px solid var(--band-line);overflow-x:auto;scrollbar-width:none}
+.nb-menu::-webkit-scrollbar{display:none}
+.nb-menu button,.nb-menu a{all:unset;cursor:pointer;flex-shrink:0;display:inline-flex;align-items:center;gap:.4rem;border-radius:999px;padding:.38rem .8rem;font-size:.8rem;font-weight:700;color:var(--band-fg);box-shadow:inset 0 0 0 1px var(--band-line)}
+.nb-menu button:hover,.nb-menu a:hover{box-shadow:inset 0 0 0 1px var(--sea-hi)}
+.nb-menu button:focus-visible,.nb-menu a:focus-visible,.nb-acts a:focus-visible{outline:2px solid var(--sea-hi)}
+.nb-menu .nb-video{background:var(--sun);color:#0B1F33;box-shadow:none}
+.nb-menu .nb-video:hover{background:color-mix(in srgb,var(--sun) 85%,#fff);box-shadow:none}
+.nb-acts a.nb-video{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:.35rem;border-radius:999px;font-size:.8rem;font-weight:700;padding:.34rem .8rem;background:var(--sun);color:#0B1F33}
+.nb-acts a.nb-video:hover{background:color-mix(in srgb,var(--sun) 85%,#fff)}
 .nb-sugg{display:flex;gap:.4rem;flex-wrap:wrap;padding:.6rem 1rem 0;background:var(--paper)}
 .nb-sugg:empty{display:none}
 .nb-form{display:flex;gap:.5rem;align-items:center;padding:.75rem;border-top:1px solid var(--line-2);background:var(--card)}
@@ -631,6 +640,12 @@ p{margin:0}
       <button type="button" class="nb-ib" id="nbClose"><svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
     </div>
   </div>
+  <nav class="nb-menu" id="nbMenu" aria-label="Menú del asistente">
+    <a class="nb-video" href="https://webrtc.demo.us.ivrpowers.com/webclient?theme=nexum" target="_blank" rel="noopener noreferrer" data-nb="video:asistencia"><svg width="15" height="15" viewBox="0 0 20 20" aria-hidden="true"><rect x="2" y="5" width="11" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M13 9l5-3v8l-5-3z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg><span data-nbm="video">Asistencia</span></a>
+    <button type="button" data-nb="go:planes" data-nbm="plans">Planes</button>
+    <button type="button" data-nb="go:reclamos" data-nbm="claims">Reclamos</button>
+    <button type="button" data-nb="quote:salud" data-nbm="quote">Cotizar</button>
+  </nav>
   <div class="nb-log" id="nbLog" aria-live="polite"></div>
   <div class="nb-sugg" id="nbSugg"></div>
   <form class="nb-form" id="nbForm">
@@ -748,27 +763,36 @@ const NB_TXT={
    on:'● En línea · IA',basic:'● Modo básico',typing:'NexBot está escribiendo…',newc:'Nueva conversación',close:'Cerrar asistente',fab:'Pregúntele a NexBot',
    tools:{simulate_life_cover:'Calculando la suma asegurada…',request_advisor_callback:'Registrando su solicitud…'},
    sugg:['¿Qué plan me conviene para mi familia?','¿Qué cubre la asistencia en viajes?','¿Cómo presento un reclamo?','¿Cuánto seguro de vida necesito?'],
-   hello:'Hola, soy **NexBot**, el asistente con IA de NexumSeguro. Puedo explicarle nuestros planes de salud, vida y viajes, ayudarle a elegir el adecuado, guiarle en un reclamo o llevarle a la cotización. ¿En qué le ayudo?\n\n_También hablo inglés · I also speak English._',
+   hello:'Hola, soy **NexBot**, el asistente con IA de NexumSeguro. Puedo explicarle nuestros planes de salud, vida y viajes, ayudarle a elegir el adecuado, guiarle en un reclamo, llevarle a la cotización o conectarle **por video con un agente** (botón **Asistencia**). ¿En qué le ayudo?\n\n_También hablo inglés · I also speak English._',
    err:{busy:'Estoy recibiendo muchas consultas. Le respondo con la información básica del sitio:',upstream:'Tuve un problema de conexión. Le respondo con la información básica del sitio:'},
    mic:'Hablar con NexBot',micStop:'Dejar de escuchar',listening:'Escuchando… hable ahora',speak:'Leer respuestas en voz alta',say:'Escuchar',micDenied:'Permita el acceso al micrófono para hablar con NexBot.',micNone:'No le escuché. Toque el micrófono para intentarlo de nuevo.',
    card:'No comparta números de tarjeta, pólizas ni claves en este chat. No los tendré en cuenta.',
    k:{cover:'Suma sugerida',needs:'Necesidades',res:'Recursos'},src:'Fuente',
    basicIntro:'Esto es lo que publica el sitio sobre eso:',basicNone:'No encontré eso publicado en el sitio. Un asesor puede ayudarle con su caso.',go:'Ver sección',quote:'Cotizar',
+   menu:{video:'Asistencia',videoTitle:'Asistencia por video con un agente (se abre en una ventana nueva)',plans:'Planes',claims:'Reclamos',quote:'Cotizar',aria:'Menú del asistente'},
+   videoOpened:'Abrí la **Asistencia por video** en una ventana nueva. Permita el acceso a la cámara y al micrófono cuando se lo pida. Si no ve la ventana, toque el botón:',
+   videoBasic:'Con gusto. Un agente de NexumSeguro puede atenderle por **video**: toque **Asistencia** para abrirla en una ventana nueva.',
    emerg:'**Si hay riesgo para la vida, llame ya al número de emergencias de su país (911 o el equivalente local)** y luego a la central 24/7 de NexumSeguro con el número de su póliza o tarjeta de asegurado.'},
  en:{ph:'Type your question…',lbl:'Type your question',send:'Send',stop:'Stop',note:"Don't share passwords, policy numbers or medical details. Public site information.",
    on:'● Online · AI',basic:'● Basic mode',typing:'NexBot is typing…',newc:'New conversation',close:'Close assistant',fab:'Ask NexBot',
    tools:{simulate_life_cover:'Calculating the sum insured…',request_advisor_callback:'Registering your request…'},
    sugg:['Which plan suits my family?','What does travel assistance cover?','How do I file a claim?','How much life insurance do I need?'],
-   hello:"Hi, I'm **NexBot**, NexumSeguro's AI assistant. I can explain our health, life and travel plans, help you choose, guide you through a claim or take you to a quote. How can I help?\n\n_También hablo español._",
+   hello:"Hi, I'm **NexBot**, NexumSeguro's AI assistant. I can explain our health, life and travel plans, help you choose, guide you through a claim, take you to a quote or connect you **by video with an agent** (**Assistance** button). How can I help?\n\n_También hablo español._",
    err:{busy:"I'm getting a lot of questions right now. Here's the basic answer from the site:",upstream:'I had a connection problem. Here is the basic answer from the site:'},
    mic:'Talk to NexBot',micStop:'Stop listening',listening:'Listening… speak now',speak:'Read replies aloud',say:'Listen',micDenied:'Allow microphone access to talk to NexBot.',micNone:"I didn't hear anything. Tap the microphone to try again.",
    card:"Don't share card numbers, policy numbers or passwords in this chat. I'll disregard them.",
    k:{cover:'Suggested cover',needs:'Needs',res:'Resources'},src:'Source',
    basicIntro:"Here's what the site publishes about that:",basicNone:"I couldn't find that on the site. An advisor can help with your case.",go:'See section',quote:'Get a quote',
+   menu:{video:'Assistance',videoTitle:'Video assistance with an agent (opens in a new window)',plans:'Plans',claims:'Claims',quote:'Get a quote',aria:'Assistant menu'},
+   videoOpened:'I opened **video assistance** in a new window. Allow camera and microphone access when asked. If you don\'t see the window, tap the button:',
+   videoBasic:'Of course. A NexumSeguro agent can help you by **video**: tap **Assistance** to open it in a new window.',
    emerg:"**If someone's life is at risk, call your country's emergency number now (911 or the local equivalent)**, then the NexumSeguro 24/7 center using the number on your policy or insurance card."}
 };
 const NB_GO=$$('main section[id]').map(s=>s.id).concat('inicio');
 const NB_QUOTE=['salud','vida','viajes'];
+/* Asistencia por video (IVR Powers WebRTC): la URL vive solo aquí; el modelo únicamente puede pedir el botón video:asistencia. */
+const NB_VIDEO_URL='https://webrtc.demo.us.ivrpowers.com/webclient?theme=nexum';
+const CAM_ICON='<svg width="15" height="15" viewBox="0 0 20 20" aria-hidden="true"><rect x="2" y="5" width="11" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M13 9l5-3v8l-5-3z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>';
 /* Solo estos errores dejan el chat en modo básico: la IA no puede funcionar hasta corregir la configuración. */
 const NB_FATAL=['not_configured','invalid_key','billing','model_unavailable','forbidden'];
 let nbLang=document.documentElement.lang==='en'?'en':'es',nbMode='ai',nbBusy=false,nbAbort=null,nbHist=[],nbVoiceTurn=false;
@@ -798,6 +822,7 @@ function parseReply(text){
     if(type==='src'){src=val.slice(0,120);return ''}
     if(type==='go'&&NB_GO.includes(val))buttons.push([label,'go:'+val]);
     else if(type==='quote'&&NB_QUOTE.includes(val))buttons.push([label,'quote:'+val]);
+    else if(type==='video'&&val==='asistencia')buttons.push([label,'video:asistencia']);
     else if(type==='ask')buttons.push([label,'ask:'+val.replace(/:/g,' ').slice(0,200)]);
     return ''}).replace(/\[\[[^\]]*$/,'').trim(); // oculta etiquetas a medio transmitir
   return {body,buttons:buttons.slice(0,4),src};
@@ -805,9 +830,10 @@ function parseReply(text){
 function renderBot(el,text,final){
   const {body,buttons,src}=parseReply(text);
   el.querySelector('.nb-md').innerHTML=md(body)+(final?'':'<span class="nb-caret" aria-hidden="true"></span>');
-  el.querySelector('.acts-slot').innerHTML=final&&buttons.length?`<div class="nb-acts">${buttons.map(([l,x])=>`<button type="button" data-nb="${esc(x)}">${esc(l)}</button>`).join('')}</div>`:'';
+  el.querySelector('.acts-slot').innerHTML=final&&buttons.length?`<div class="nb-acts">${buttons.map(([l,x])=>x==='video:asistencia'?videoLink(l):`<button type="button" data-nb="${esc(x)}">${esc(l)}</button>`).join('')}</div>`:'';
   el.querySelector('.src-slot').innerHTML=(final&&src?`<span class="nb-src">${esc(T().src)}: ${esc(src)}</span>`:'')+(final&&VOICE.tts?`<button type="button" class="nb-say"><svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 6h3l4-3v10L5 10H2z" fill="currentColor"/></svg>${esc(T().say)}</button>`:'');
 }
+function videoLink(l){return `<a class="nb-video" href="${NB_VIDEO_URL}" target="_blank" rel="noopener noreferrer" data-nb="video:asistencia" title="${esc(T().menu.videoTitle)}">${CAM_ICON}${esc(l)}</a>`}
 function botBubble(){const d=document.createElement('div');d.className='nb-msg bot';d.innerHTML='<div class="nb-md"></div><div class="sim-slot"></div><div class="acts-slot"></div><div class="src-slot"></div>';log.appendChild(d);return d}
 function addMsg(html,who,extra){const d=document.createElement('div');d.className=`nb-msg ${who}${extra?' '+extra:''}`;d.innerHTML=who==='user'?html:`<div class="nb-md">${html}</div>`;log.appendChild(d);scrollLog();return d}
 function scrollLog(){log.scrollTop=log.scrollHeight}
@@ -817,18 +843,30 @@ function simCard(r){if(r.simulator!=='vida')return '';const k=T().k;
 
 /* Acciones: ir a una sección, preseleccionar el plan en el cotizador o preguntar. */
 const small=()=>matchMedia('(max-width:560px)').matches;
-function act(x){const i=x.indexOf(':'),type=x.slice(0,i),val=x.slice(i+1);
+/* Abre la asistencia por video en una ventana nueva (tamaño de videollamada); si el navegador bloquea la ventana, el enlace abre una pestaña. */
+function openVideo(e){
+  const w=Math.min(560,screen.availWidth-40),h=Math.min(820,screen.availHeight-60);
+  const win=window.open(NB_VIDEO_URL,'nexumAsistencia',`popup=yes,width=${w},height=${h},left=${Math.max(0,screen.availWidth-w-24)},top=24`);
+  if(!win)return false; // bloqueada: dejamos que el <a target=_blank> haga su trabajo
+  try{win.opener=null}catch(err){}
+  if(e)e.preventDefault();
+  win.focus();
+  const b=botBubble();renderBot(b,T().videoOpened+'\n[[video:asistencia|'+T().menu.video+']]',true);scrollLog();
+  return true}
+function act(x,e){const i=x.indexOf(':'),type=x.slice(0,i),val=x.slice(i+1);
+  if(type==='video'){openVideo(e);return}
   if(type==='ask'){ask(val);return}
   if(small())toggle(false);
   if(type==='go'){const el=document.getElementById(val);if(el)el.scrollIntoView({behavior:'smooth'});return}
   if(type==='quote'){const b=$(`.seg button[data-p="${val}"]`);if(b)b.click();$('#qform').scrollIntoView({behavior:'smooth',block:'center'});setTimeout(()=>$('#q-mail').focus({preventScroll:true}),450)}}
-box.addEventListener('click',e=>{const b=e.target.closest('[data-nb]');if(b)act(b.dataset.nb)});
+box.addEventListener('click',e=>{const b=e.target.closest('[data-nb]');if(b)act(b.dataset.nb,e)});
 
 /* Idioma: sigue el selector ES/EN de la página; si el visitante escribe en otro idioma, el chat cambia. */
 function applyLang(l){if(l)nbLang=l;const t=T();
   inp.placeholder=VOICE.listening?t.listening:t.ph;$('#nbInLbl').textContent=t.lbl;$('#nbSend').textContent=nbBusy?t.stop:t.send;$('#nbNote').textContent=t.note;
   $('#nbStatus').textContent=nbMode==='ai'?t.on:t.basic;$('#nbStatus').classList.toggle('basic',nbMode!=='ai');
   for(const [id,k] of [['#nbNew','newc'],['#nbClose','close']]){$(id).title=t[k];$(id).setAttribute('aria-label',t[k])}
+  $$('#nbMenu [data-nbm]').forEach(el=>{el.textContent=t.menu[el.dataset.nbm]});$('#nbMenu').setAttribute('aria-label',t.menu.aria);$('#nbMenu .nb-video').title=t.menu.videoTitle;
   $('#nbFabLbl').textContent=t.fab;fab.setAttribute('aria-label',t.fab);box.setAttribute('aria-label',t.fab);
   $('#nbSugg').innerHTML=nbHist.length>2?'':t.sugg.map(s=>`<button type="button" data-nb="ask:${esc(s)}">${esc(s)}</button>`).join('');
   micUI();
@@ -846,6 +884,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!box.hidden)toggle(
 /* Conversación */
 function save(){try{sessionStorage.setItem('ns-bot-hist',JSON.stringify(nbHist.slice(-24)))}catch(e){}}
 function setBusy(b){nbBusy=b;$('#nbSend').textContent=b?T().stop:T().send;log.setAttribute('aria-busy',b)}
+$$('.seg button').forEach(b=>b.addEventListener('click',()=>{$('#nbMenu [data-nbm="quote"]').dataset.nb='quote:'+b.dataset.p}));
 function pageContext(){const p=$('.seg button[aria-pressed="true"]');return {product:p?p.dataset.p:'salud',country:$('#pais').value}}
 function ask(text,opts={}){text=String(text||'').trim();if(!text||nbBusy)return;
   nbVoiceTurn=!!opts.voice;if(!nbVoiceTurn)voiceHalt();else ttsCancel();
@@ -892,8 +931,10 @@ async function streamReply(){
 const fold=s=>s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
 const STOP=new Set('para como cual cuales donde puedo quiero tengo sobre esta este estos estas tiene tienen hacer usted ustedes seguro seguros insurance what which where does have with your about from that this they there want need'.split(' '));
 const SYN={empleado:'empresas colectivos equipo',employee:'companies group team',medico:'salud hospital',hospital:'hospitalizacion red',viaje:'viajes viajero exterior',travel:'trip abroad',vida:'life patrimonio',reclamo:'reclamos reembolso',claim:'claims reimbursement',empresa:'empresas colectivos',precio:'cotizar cotizacion',price:'quote',telefono:'contacto atencion',phone:'contact'};
+const ASSIST_RE=/(video ?llamada|videoasistencia|asistencia (por|en) video|video ?call|video assistance|(hablar|comunicarme|conversar) con (un|una|alguien|algún|algun) ?(agente|asesor|asesora|persona|humano|ejecutivo)?|(talk|speak) (to|with) (an? |someone|somebody) ?(agent|human|person|advisor)?|^\W*(quiero |necesito |solicito |pido )?(una )?asistencia\W*$|^\W*(i need |i want )?(some )?assistance\W*$)/i; // igual que ASSIST en api/_nexseguro/engine.js
 function localReply(q){
-  if(/(emergencia|accidente|ambulancia|infarto|emergency|accident|ambulance)/i.test(q)){const b=botBubble();renderBot(b,T().emerg+'\n[[go:reclamos|'+T().go+']]',true);scrollLog();nbHist.push({role:'assistant',content:T().emerg});save();return}
+  if(ASSIST_RE.test(q)&&!/asistencia en viaje|travel assistance/i.test(q)){const out=T().videoBasic+'\n[[video:asistencia|'+T().menu.video+']]';const b=botBubble();renderBot(b,out,true);scrollLog();nbHist.push({role:'assistant',content:out});save();return}
+  if(/(emergencia|accidente|ambulancia|infarto|emergency|accident|ambulance)/i.test(q)){const b=botBubble();renderBot(b,T().emerg+'\n[[video:asistencia|'+T().menu.video+']]\n[[go:reclamos|'+T().go+']]',true);scrollLog();nbHist.push({role:'assistant',content:T().emerg});save();return}
   let words=fold(q).match(/[a-zñ0-9]{4,}/g)||[];words=words.filter(w=>!STOP.has(w));
   words=words.concat(...words.map(w=>(SYN[w.replace(/s$/,'')]||'').split(' ').filter(Boolean)));
   let best=null;
