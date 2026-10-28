@@ -129,8 +129,8 @@ export async function runTool(name, input) {
 const isPlainObject = v => v !== null && typeof v === 'object' && !Array.isArray(v);
 
 /** Eager input streaming means the server no longer validates tool input — check it against the schema shape here. */
-function validateToolInput(name, input) {
-  const tool = TOOLS.find(t => t.name === name);
+function validateToolInput(name, input, tools = TOOLS) {
+  const tool = tools.find(t => t.name === name);
   if (!tool) return `unknown tool ${name}`;
   if (!isPlainObject(input)) return 'input must be an object';
   const { properties, required = [] } = tool.input_schema;
@@ -223,6 +223,34 @@ export async function respond({ messages: raw, lang: uiLang, segment, voice, emi
   const last = messages[messages.length - 1];
   const convo = [...messages.slice(0, -1), { role: 'user', content: [{ type: 'text', text: last.content }, { type: 'text', text: context }] }];
 
+  await runAgent({
+    convo, emit, signal,
+    system: [
+      { type: 'text', text: SYSTEM_PROMPT },
+      { type: 'text', text: `<knowledge_base>\n${KNOWLEDGE}</knowledge_base>`, cache_control: { type: 'ephemeral' } },
+    ],
+    tools: TOOLS,
+    runTool,
+    refusalText: lang === 'en'
+      ? "I can't help with that here. For anything about your products, Línea Nexum and WhatsApp are available at (01) 555 0100.\n[[copy:(01) 555 0100|Copy number]]"
+      : 'No puedo ayudarte con eso por aquí. Para cualquier gestión con tus productos, la Línea Nexum y WhatsApp están en el (01) 555 0100.\n[[copy:(01) 555 0100|Copiar número]]',
+  });
+}
+
+/**
+ * Shared agent loop (also used by the NexumSeguro assistant, api/nexseguro.js):
+ * streams Claude with a cached system prefix, runs server-side tools and emits
+ * delta / tool / sim / reset / done events. Same API key, models and fallbacks.
+ * @param {object} p
+ * @param {Array} p.convo         Messages API conversation (mutated with tool turns)
+ * @param {Array} p.system        system blocks (last one carries cache_control)
+ * @param {Array} p.tools         tool definitions (constant per assistant)
+ * @param {(name:string, input:object)=>Promise<object>|object} p.runTool
+ * @param {string} p.refusalText  safe reply shown if the model refuses
+ * @param {(event:string, data:object)=>void} p.emit
+ * @param {AbortSignal} [p.signal]
+ */
+export async function runAgent({ convo, system, tools, runTool, refusalText, emit, signal }) {
   const anthropic = getClient();
   let jsonRetries = 0, modelIdx = 0, useFallbacks = true;
 
@@ -234,11 +262,8 @@ export async function respond({ messages: raw, lang: uiLang, segment, voice, emi
       ...(useFallbacks ? { betas: ['server-side-fallback-2026-07-01'], fallbacks: 'default' } : {}),
       thinking: { type: 'adaptive' },
       output_config: { effort: EFFORT },
-      system: [
-        { type: 'text', text: SYSTEM_PROMPT },
-        { type: 'text', text: `<knowledge_base>\n${KNOWLEDGE}</knowledge_base>`, cache_control: { type: 'ephemeral' } },
-      ],
-      tools: TOOLS, // constant tool list keeps the prompt cache valid
+      system,
+      tools, // constant tool list keeps the prompt cache valid
       ...(round === MAX_TOOL_ROUNDS ? { tool_choice: { type: 'none' } } : {}),
       messages: convo,
     }, { signal });
@@ -263,9 +288,7 @@ export async function respond({ messages: raw, lang: uiLang, segment, voice, emi
 
     if (message.stop_reason === 'refusal') {
       emit('reset', {});
-      emit('delta', { text: lang === 'en'
-        ? "I can't help with that here. For anything about your products, Línea Nexum and WhatsApp are available at (01) 555 0100.\n[[copy:(01) 555 0100|Copy number]]"
-        : 'No puedo ayudarte con eso por aquí. Para cualquier gestión con tus productos, la Línea Nexum y WhatsApp están en el (01) 555 0100.\n[[copy:(01) 555 0100|Copiar número]]' });
+      emit('delta', { text: refusalText });
       emit('done', { source: 'refusal' });
       return;
     }
@@ -279,7 +302,7 @@ export async function respond({ messages: raw, lang: uiLang, segment, voice, emi
 
     convo.push({ role: 'assistant', content: echoableContent(message.content) });
     const results = await Promise.all(toolUses.map(async tu => {
-      const problem = validateToolInput(tu.name, tu.input);
+      const problem = validateToolInput(tu.name, tu.input, tools);
       if (problem) return { type: 'tool_result', tool_use_id: tu.id, is_error: true, content: `Invalid input: ${problem}` };
       emit('tool', { name: tu.name });
       try {
