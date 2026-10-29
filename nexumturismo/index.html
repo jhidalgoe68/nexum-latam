@@ -12,327 +12,37 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=Instrument+Sans:wght@400;500;600;700&display=swap">
-<style>
-/* Layout: left-aligned editorial column + a schematic route map as the hero object; quiet bands below, one accent (guaria orchid) reserved for actions. */
-:root{
-  --mist:#EEF2EC;      /* niebla de bosque nuboso: fondo */
-  --card:#FFFFFF;
-  --tint:#E1E9E2;
-  --line:#C9D5CC;
-  --ink:#16221D;       /* basalto */
-  --ink-2:#34463E;
-  --ink-3:#5E7068;
-  --selva:#1E5E46;     /* verde selva: estructura, mapa */
-  --selva-2:#2F7A5D;
-  --guaria:#8A2F7E;    /* guaria morada: acciones */
-  --guaria-hi:#A23A95;
-  --sol:#D99A1E;       /* marcador de ruta */
-  --band:#16221D;
-  --band-fg:#E8EFEA;
-  --band-mute:#9DB0A6;
-  --btn-fg:#FFFFFF;
-  --ph-bg:rgba(217,154,30,.18);
-  --ph-fg:#8A5E06;
-  --f-display:'Zilla Slab',Rockwell,'Roboto Slab',Georgia,serif;
-  --f-body:'Instrument Sans','Segoe UI',system-ui,-apple-system,sans-serif;
-  --r-s:6px;--r-m:12px;
-  --wrap:1180px;
-}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --mist:#0E1714;--card:#14211C;--tint:#182822;--line:#2A3D35;
-  --ink:#E6EEE8;--ink-2:#C2D0C8;--ink-3:#8FA399;
-  --selva:#5FB38E;--selva-2:#7CC7A4;--guaria:#D58BCB;--guaria-hi:#E3A5DA;--sol:#EDB648;
-  --band:#08100D;--band-fg:#E6EEE8;--band-mute:#8FA399;--btn-fg:#1A0F19;
-  --ph-bg:rgba(237,182,72,.16);--ph-fg:#EDB648;color-scheme:dark}}
-:root[data-theme="dark"]{
-  --mist:#0E1714;--card:#14211C;--tint:#182822;--line:#2A3D35;
-  --ink:#E6EEE8;--ink-2:#C2D0C8;--ink-3:#8FA399;
-  --selva:#5FB38E;--selva-2:#7CC7A4;--guaria:#D58BCB;--guaria-hi:#E3A5DA;--sol:#EDB648;
-  --band:#08100D;--band-fg:#E6EEE8;--band-mute:#8FA399;--btn-fg:#1A0F19;
-  --ph-bg:rgba(237,182,72,.16);--ph-fg:#EDB648;color-scheme:dark}
-
-*,*::before,*::after{box-sizing:border-box}
-[hidden]{display:none!important}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-body{margin:0;background:var(--mist);color:var(--ink);font:400 1.0625rem/1.6 var(--f-body);text-rendering:optimizeLegibility}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--mist)}
-img,svg{max-width:100%}
-a{color:inherit}
-h1,h2,h3{font-family:var(--f-display);font-weight:700;line-height:1.08;letter-spacing:-.01em;text-wrap:balance;margin:0}
-h2{font-size:clamp(1.9rem,3.6vw,2.75rem)}
-h3{font-size:1.3rem;line-height:1.2}
-p{margin:0}
-.wrap{max-width:var(--wrap);margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
-.skip{position:absolute;left:-999px;top:8px;background:var(--ink);color:var(--mist);padding:.5rem .8rem;border-radius:var(--r-s);z-index:99}
-.skip:focus{left:12px}
-:focus-visible{outline:2.5px solid var(--guaria);outline-offset:3px;border-radius:4px}
-.ph{background:var(--ph-bg);color:var(--ph-fg);border-radius:4px;padding:0 .25em;font-weight:600}
-.band .ph{color:var(--sol)}
-
-/* Buttons */
-.btn{display:inline-flex;align-items:center;gap:.5rem;font:600 1rem/1 var(--f-body);text-decoration:none;padding:.95rem 1.35rem;border-radius:999px;border:0;cursor:pointer;transition:background .15s,color .15s,box-shadow .15s}
-.btn--primary{background:var(--guaria);color:var(--btn-fg)}
-.btn--primary:hover{background:var(--guaria-hi)}
-.btn--ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--ink)}
-.btn--ghost:hover{background:var(--ink);color:var(--mist)}
-.band .btn--ghost{color:var(--band-fg);box-shadow:inset 0 0 0 1.5px var(--band-fg)}
-.band .btn--ghost:hover{background:var(--band-fg);color:var(--band)}
-.txtlink{font-weight:600;color:var(--selva);text-underline-offset:4px;text-decoration-thickness:1.5px}
-
-/* Utility bar + header */
-.util{background:var(--band);color:var(--band-mute);font-size:.8125rem}
-.util .wrap{display:flex;justify-content:space-between;gap:1rem;padding-block:.45rem;flex-wrap:wrap}
-.util a{color:var(--band-fg);text-decoration:none}
-.util a:hover{text-decoration:underline}
-.hdr{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:color-mix(in srgb,var(--mist) 92%,transparent);backdrop-filter:saturate(1.4) blur(10px);-webkit-backdrop-filter:saturate(1.4) blur(10px);border-bottom:1px solid var(--line)}
-.hdr .wrap{display:flex;align-items:center;gap:1.5rem;padding-block:.8rem}
-.brand{display:flex;align-items:center;gap:.6rem;text-decoration:none;font:700 1.3rem/1 var(--f-display);letter-spacing:-.01em}
-.brand svg{width:34px;height:34px;flex:none}
-.brand small{display:block;white-space:nowrap;font:500 .7rem/1.2 var(--f-body);color:var(--ink-3);letter-spacing:.02em;margin-top:.2rem}
-.nav{display:flex;gap:1.35rem;margin-left:auto}
-.nav a{white-space:nowrap;text-decoration:none;font-weight:500;font-size:.95rem;color:var(--ink-2)}
-.nav a:hover{color:var(--ink)}
-.lang{display:inline-flex;border-radius:999px;box-shadow:inset 0 0 0 1px var(--line);padding:3px}
-.lang button{all:unset;cursor:pointer;font-size:.75rem;font-weight:700;letter-spacing:.06em;padding:.3rem .6rem;border-radius:999px;color:var(--ink-3)}
-.lang button[aria-pressed="true"]{background:var(--ink);color:var(--mist)}
-.lang button:focus-visible{outline:2px solid var(--guaria)}
-.hdr .btn{padding:.7rem 1.1rem;font-size:.92rem}
-.burger{display:none;all:unset;cursor:pointer;width:42px;height:42px;place-items:center;border-radius:var(--r-s)}
-.burger span{display:block;width:22px;height:2px;background:var(--ink);box-shadow:0 7px 0 var(--ink),0 -7px 0 var(--ink)}
-.mnav{display:none;border-top:1px solid var(--line);background:var(--mist)}
-.mnav.open{display:block}
-.mnav ul{list-style:none;margin:0;padding-block:.5rem 1rem;display:grid}
-.mnav a{display:block;padding:.75rem 0;text-decoration:none;font-weight:600;border-bottom:1px solid var(--line)}
-.mnav li:last-child a{border:0}
-@media(max-width:1160px){.nav,.hdr .btn--primary{display:none}.burger{display:grid}.hdr .lang{margin-left:auto}}
-
-/* Hero */
-.hero{padding-block:clamp(2.5rem,6vw,4.75rem) clamp(3rem,6vw,5rem)}
-.hero .wrap{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,1fr);gap:clamp(2rem,5vw,4.5rem);align-items:center}
-.hero h1{font-size:clamp(2.6rem,6.2vw,4.6rem);line-height:1.02;letter-spacing:-.02em}
-.hero h1 .l2{display:block;color:var(--selva)}
-.lede{margin-top:1.4rem;font-size:clamp(1.08rem,1.6vw,1.22rem);color:var(--ink-2);max-width:34em}
-.hero-cta{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:2rem}
-.who{margin-top:2.4rem;padding-top:1.4rem;border-top:1px solid var(--line)}
-.who p{font-size:.9rem;color:var(--ink-3);margin-bottom:.7rem}
-.who ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:.5rem}
-.who a{display:inline-block;text-decoration:none;font-size:.9rem;font-weight:600;padding:.45rem .85rem;border-radius:999px;background:var(--tint);color:var(--ink-2)}
-.who a:hover{background:var(--line);color:var(--ink)}
-.mapcard{position:relative;background:var(--card);border-radius:var(--r-m);box-shadow:0 1px 0 var(--line),0 24px 48px -28px rgba(22,34,29,.45);padding:1rem 1rem .9rem;min-width:0}
-.mapcard figcaption{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;padding:.2rem .3rem .7rem;font-size:.85rem;color:var(--ink-3)}
-.mapcard figcaption b{font:700 1.05rem/1.2 var(--f-display);color:var(--ink)}
-#map{display:block;width:100%;height:auto;border-radius:var(--r-s);background:var(--tint)}
-#map .topo{fill:none;stroke:var(--selva);stroke-opacity:.22;stroke-width:1}
-#map .topo.hi{stroke-opacity:.38}
-#map .sea{fill:var(--mist)}
-#map .land{fill:var(--tint)}
-#map .seatxt{fill:var(--ink-3);font:italic 500 12px var(--f-body);letter-spacing:.08em}
-#map .route{fill:none;stroke:var(--guaria);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
-#map .route-bg{fill:none;stroke:var(--card);stroke-width:7;stroke-linecap:round;stroke-linejoin:round}
-#map .stop{fill:var(--card);stroke:var(--guaria);stroke-width:3}
-#map .stop.end{fill:var(--sol);stroke:var(--sol)}
-#map .lbl{fill:var(--ink);font:700 13px var(--f-body)}
-#map .lbl2{fill:var(--ink-3);font:500 11.5px var(--f-body)}
-#map .lblbg{fill:var(--card);fill-opacity:.88}
-.legend{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.4rem;margin-top:.8rem}
-.legend div{padding:.55rem .6rem;border-radius:var(--r-s);background:var(--mist);font-size:.8rem;line-height:1.3;color:var(--ink-3)}
-.legend b{display:block;color:var(--ink);font-size:.86rem}
-@media(max-width:900px){.hero .wrap{grid-template-columns:minmax(0,1fr)}}
-@media(max-width:520px){.legend{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (prefers-reduced-motion:no-preference){
-  .route.draw{stroke-dasharray:var(--len);stroke-dashoffset:var(--len);animation:draw 2.4s .35s cubic-bezier(.5,0,.2,1) forwards}
-  .stop.pop{transform-box:fill-box;transform-origin:center;animation:pop .35s ease-out both}
-}
-@keyframes draw{to{stroke-dashoffset:0}}
-@keyframes pop{from{transform:scale(0)}to{transform:scale(1)}}
-
-/* Sections */
-.sec{padding-block:clamp(3.5rem,7vw,6rem)}
-.sec--tint{background:var(--tint)}
-.band{background:var(--band);color:var(--band-fg)}
-.band .sub,.band .shead .sub{color:var(--band-mute)}
-.shead{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:1.5rem 4rem;align-items:end;margin-bottom:clamp(2rem,4vw,3rem)}
-.shead .sub{color:var(--ink-2);font-size:1.08rem;max-width:36em}
-@media(max-width:820px){.shead{grid-template-columns:minmax(0,1fr)}}
-
-/* Audience tabs */
-.tabs{display:flex;gap:.4rem;flex-wrap:wrap;border-bottom:1px solid var(--line);margin-bottom:2rem}
-.tabs button{all:unset;cursor:pointer;font-weight:600;padding:.8rem 1rem;margin-bottom:-1px;border-bottom:3px solid transparent;color:var(--ink-3)}
-.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--guaria)}
-.tabs button:hover{color:var(--ink)}
-.tabs button:focus-visible{outline:2px solid var(--guaria);outline-offset:2px}
-.panel{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:2rem 4rem;align-items:start}
-.panel h3{font-size:clamp(1.6rem,2.8vw,2.1rem);line-height:1.12}
-.panel .pl{margin-top:1rem;color:var(--ink-2);max-width:32em}
-.panel .btn{margin-top:1.6rem}
-.checks{list-style:none;margin:0;padding:0;display:grid;gap:1rem}
-.checks li{display:grid;grid-template-columns:22px minmax(0,1fr);gap:.8rem;padding-bottom:1rem;border-bottom:1px solid var(--line)}
-.checks li:last-child{border:0;padding-bottom:0}
-.checks svg{width:22px;height:22px;margin-top:.15rem;color:var(--selva)}
-.checks b{display:block}
-.checks span{color:var(--ink-3);font-size:.96rem}
-@media(max-width:820px){.panel{grid-template-columns:minmax(0,1fr)}}
-
-/* Services as a ledger */
-.ledger{border-top:2px solid var(--ink)}
-.row{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1.6fr) minmax(0,1fr) auto;gap:1rem 2rem;padding-block:1.4rem;border-bottom:1px solid var(--line);align-items:baseline}
-.row h3{font-size:1.4rem}
-.row p{color:var(--ink-2)}
-.row .for{font-size:.88rem;color:var(--ink-3)}
-.row .for b{display:block;color:var(--ink);font-weight:600}
-.row a{white-space:nowrap}
-@media(max-width:900px){.row{grid-template-columns:minmax(0,1fr)}.row a{justify-self:start}}
-
-/* Regions */
-.regions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.25rem}
-.region{background:var(--card);border-radius:var(--r-m);overflow:hidden;display:flex;flex-direction:column}
-.scene{aspect-ratio:16/9;max-width:100%;position:relative;overflow:hidden}
-.scene svg{display:block;width:100%;height:100%}
-.region .body{padding:1.1rem 1.2rem 1.3rem;display:grid;gap:.5rem}
-.region .meta{display:flex;justify-content:space-between;gap:.75rem;font-size:.84rem;color:var(--ink-3)}
-.region p{font-size:.97rem;color:var(--ink-2)}
-@media(max-width:960px){.regions{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:600px){.regions{grid-template-columns:minmax(0,1fr)}}
-
-/* Process */
-.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:2rem;counter-reset:s}
-.steps li{counter-increment:s;padding-top:1.2rem;border-top:2px solid var(--band-mute)}
-.steps li::before{content:counter(s);display:block;font:700 2.6rem/1 var(--f-display);color:var(--sol);margin-bottom:.8rem}
-.steps h3{color:var(--band-fg);margin-bottom:.5rem}
-.steps p{color:var(--band-mute);font-size:.98rem}
-@media(max-width:900px){.steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:520px){.steps{grid-template-columns:minmax(0,1fr)}}
-
-/* Behind the trip */
-.behind{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.9fr);gap:clamp(2rem,5vw,4.5rem);align-items:center}
-.feats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.6rem 2rem;margin-top:2rem}
-.feat svg{width:28px;height:28px;color:var(--selva);margin-bottom:.6rem}
-.feat h3{font-size:1.12rem;margin-bottom:.35rem}
-.feat p{font-size:.95rem;color:var(--ink-2)}
-.phone{justify-self:center;width:min(340px,100%);background:var(--card);border-radius:28px;padding:1rem;box-shadow:0 0 0 1px var(--line),0 30px 60px -30px rgba(22,34,29,.5)}
-.phone .top{display:flex;align-items:center;gap:.6rem;padding:.4rem .4rem .8rem;border-bottom:1px solid var(--line)}
-.phone .av{width:34px;height:34px;border-radius:50%;background:var(--selva);display:grid;place-items:center;color:var(--card);font:700 .9rem var(--f-display)}
-.phone .top b{display:block;font-size:.92rem}
-.phone .top span{font-size:.75rem;color:var(--selva)}
-.msgs{display:grid;gap:.6rem;padding:.9rem .2rem .4rem}
-.msg{max-width:88%;padding:.6rem .8rem;border-radius:14px 14px 14px 4px;background:var(--tint);font-size:.88rem;line-height:1.45}
-.msg.me{justify-self:end;border-radius:14px 14px 4px 14px;background:var(--selva);color:var(--card)}
-.msg time{display:block;font-size:.7rem;opacity:.7;margin-top:.25rem}
-.phone .note{font-size:.72rem;color:var(--ink-3);text-align:center;padding-top:.5rem}
-@media(max-width:900px){.behind{grid-template-columns:minmax(0,1fr)}}
-@media(max-width:520px){.feats{grid-template-columns:minmax(0,1fr)}}
-
-/* Proof */
-.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1.5rem;border-top:2px solid var(--ink);padding-top:1.6rem}
-.stats b{display:block;font-family:var(--f-display);font-weight:700;font-size:clamp(2rem,4vw,2.9rem);line-height:1.05;font-variant-numeric:tabular-nums;margin-bottom:.45rem}
-.stats b .ph{font-size:inherit}
-.stats>div>span{color:var(--ink-3);font-size:.93rem}
-.quotes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.25rem;margin-top:clamp(2.5rem,5vw,3.5rem)}
-.quotes blockquote{margin:0;background:var(--card);border-radius:var(--r-m);padding:1.4rem;display:flex;flex-direction:column;gap:1rem;justify-content:space-between}
-.quotes p{font:500 1.08rem/1.5 var(--f-display)}
-.quotes cite{font-style:normal;font-size:.86rem;color:var(--ink-3)}
-.quotes cite b{display:block;color:var(--ink);font-weight:600}
-.creds{margin-top:2rem;display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;font-size:.9rem;color:var(--ink-3)}
-.creds span.c{padding:.4rem .8rem;border-radius:999px;box-shadow:inset 0 0 0 1px var(--line)}
-@media(max-width:900px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.quotes{grid-template-columns:minmax(0,1fr)}}
-
-/* Sustainability */
-.sust{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:2rem 4rem}
-.sust ul{list-style:none;margin:0;padding:0;display:grid;gap:1.1rem}
-.sust li{padding-left:1.1rem;border-left:3px solid var(--selva)}
-.sust li b{display:block}
-.sust li span{color:var(--ink-2);font-size:.97rem}
-@media(max-width:820px){.sust{grid-template-columns:minmax(0,1fr)}}
-
-/* Resources */
-.res{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.25rem}
-.res a{display:flex;flex-direction:column;gap:.6rem;text-decoration:none;padding:1.3rem 0;border-top:2px solid var(--ink)}
-.res .k{font-size:.84rem;color:var(--ink-3)}
-.res h3{font-size:1.25rem}
-.res p{color:var(--ink-2);font-size:.96rem}
-.res a:hover h3{color:var(--guaria);text-decoration:underline;text-underline-offset:4px}
-@media(max-width:820px){.res{grid-template-columns:minmax(0,1fr)}}
-
-/* CTA + form */
-.cta .wrap{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(2rem,5vw,4.5rem);align-items:start}
-.cta h2{color:var(--band-fg)}
-.cta .sub{margin-top:1rem;font-size:1.08rem}
-.contact{margin-top:2rem;display:grid;gap:.9rem}
-.contact div{display:grid;gap:.15rem}
-.contact dt{font-size:.82rem;color:var(--band-mute)}
-.contact dd{margin:0;font-weight:600}
-form.trip{background:var(--card);color:var(--ink);border-radius:var(--r-m);padding:clamp(1.25rem,3vw,2rem);display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
-.f{display:grid;gap:.35rem;min-width:0}
-.f.full{grid-column:1/-1}
-.f label{font-size:.88rem;font-weight:600}
-.f input,.f select,.f textarea{font:inherit;font-size:1rem;padding:.75rem .8rem;border-radius:var(--r-s);border:1px solid var(--line);background:var(--mist);color:var(--ink);width:100%}
-.f textarea{min-height:110px;resize:vertical}
-.f input:focus,.f select:focus,.f textarea:focus{outline:2px solid var(--guaria);outline-offset:0;border-color:transparent}
-.f .err{font-size:.82rem;color:var(--guaria);min-height:1em}
-.consent{grid-column:1/-1;display:flex;gap:.6rem;align-items:flex-start;font-size:.88rem;color:var(--ink-2)}
-.consent input{margin-top:.25rem;accent-color:var(--guaria)}
-form.trip .btn{grid-column:1/-1;justify-content:center}
-.done{grid-column:1/-1;background:var(--tint);border-radius:var(--r-s);padding:1rem;display:grid;gap:.7rem}
-.done pre{margin:0;white-space:pre-wrap;font:500 .88rem/1.5 var(--f-body);background:var(--card);padding:.8rem;border-radius:var(--r-s);max-height:220px;overflow:auto}
-.done .btn{grid-column:auto;justify-self:start;padding:.65rem 1rem;font-size:.9rem}
-@media(max-width:900px){.cta .wrap{grid-template-columns:minmax(0,1fr)}}
-@media(max-width:520px){form.trip{grid-template-columns:minmax(0,1fr)}}
-
-/* Footer */
-.foot{background:var(--band);color:var(--band-mute);font-size:.92rem;border-top:1px solid color-mix(in srgb,var(--band-mute) 25%,transparent)}
-.foot .wrap{padding-block:3rem 2rem}
-.fgrid{display:grid;grid-template-columns:minmax(0,1.4fr) repeat(3,minmax(0,1fr));gap:2rem}
-.foot h3{font:600 .95rem var(--f-body);color:var(--band-fg);margin-bottom:.8rem}
-.foot ul{list-style:none;margin:0;padding:0;display:grid;gap:.5rem}
-.foot a{text-decoration:none;color:var(--band-mute)}
-.foot a:hover{color:var(--band-fg);text-decoration:underline}
-.foot .brand{color:var(--band-fg)}
-.foot .brand small{color:var(--band-mute)}
-.legal{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-top:2.5rem;padding-top:1.2rem;border-top:1px solid color-mix(in srgb,var(--band-mute) 25%,transparent);font-size:.84rem}
-@media(max-width:820px){.fgrid{grid-template-columns:repeat(2,minmax(0,1fr))}.fgrid>div:first-child{grid-column:1/-1}}
-</style>
+<link rel="stylesheet" href="assets/nt.css">
 </head>
 <body>
-<a class="skip" href="#main" data-t="skip">Saltar al contenido</a>
-
+<a class="skip" href="#main" data-en="Skip to content">Saltar al contenido</a>
 <div class="util" role="region" aria-label="Avisos">
   <div class="wrap">
-    <span data-t="util.l">Destination Management Company · Costa Rica</span>
-    <span><a href="/" data-t="util.r">Una iniciativa de NEXUM LATAM</a></span>
+    <span data-en="Destination Management Company · Costa Rica">Destination Management Company · Costa Rica</span>
+    <span><a href="/" data-en="A NEXUM LATAM initiative">Una iniciativa de NEXUM LATAM</a></span>
   </div>
 </div>
-
 <header class="hdr">
   <div class="wrap">
-    <a class="brand" href="#top" aria-label="NexumTurismo, inicio">
+    <a class="brand" href="index.html" aria-label="NexumTurismo">
       <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" fill="var(--selva)"/><path d="M6 28 L15 15 L20 21 L25 12 L34 28 Z" fill="var(--mist)"/><circle cx="28" cy="11" r="3" fill="var(--sol)"/></svg>
-      <span>NexumTurismo<small data-t="brand.s">Costa Rica, a su medida</small></span>
+      <span>NexumTurismo<small data-en="Costa Rica, made to measure">Costa Rica, a su medida</small></span>
     </a>
     <nav class="nav" aria-label="Navegación principal">
-      <a href="#para-quien" data-t="nav.1">Para quién</a>
-      <a href="#servicios" data-t="nav.2">Servicios</a>
-      <a href="#destinos" data-t="nav.3">Destinos</a>
-      <a href="#como-trabajamos" data-t="nav.4">Cómo trabajamos</a>
-      <a href="#sostenibilidad" data-t="nav.5">Sostenibilidad</a>
-      <a href="#guias" data-t="nav.6">Guías</a>
+      <div class="dd"><button type="button" class="dd-btn" aria-expanded="false" aria-controls="dd-tours"><span data-en="Tours">Tours</span><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button><ul class="dd-menu" id="dd-tours"><li><a href="tours/un-dia.html" data-en="One-day tours">Tours de un día</a></li><li><a href="tours/multidia.html" data-en="Multi-day programs">Programas multidía</a></li></ul></div><div class="dd"><button type="button" class="dd-btn" aria-expanded="false" aria-controls="dd-servicios"><span data-en="Services">Servicios</span><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button><ul class="dd-menu" id="dd-servicios"><li><a href="servicios/cruceros.html" data-en="Cruise operations">Operación de cruceros</a></li><li><a href="servicios/viajes-a-medida.html" data-en="Tailor-made trips (FIT)">Viajes a medida (FIT)</a></li><li><a href="servicios/grupos.html" data-en="Leisure groups">Grupos de ocio</a></li><li><a href="servicios/incentivos.html" data-en="Incentive trips">Viajes de incentivo</a></li><li><a href="servicios/corporativos.html" data-en="Corporate services">Servicios corporativos</a></li></ul></div><div class="dd"><button type="button" class="dd-btn" aria-expanded="false" aria-controls="dd-nosotros"><span data-en="About us">Nosotros</span><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button><ul class="dd-menu" id="dd-nosotros"><li><a href="nosotros/quienes-somos.html" data-en="Who we are">Quiénes somos</a></li><li><a href="nosotros/perfil.html" data-en="Company profile">Perfil de la empresa</a></li><li><a href="agencias.html" data-en="Agencies &amp; travel advisors">Agencias y travel advisors</a></li><li><a href="coleccion.html" data-en="Luxury collection">Colección de lujo</a></li></ul></div><a class="nav-a" href="sostenibilidad.html" data-en="Sustainability">Sostenibilidad</a><a class="nav-a" href="blog/index.html" data-en="Blog">Blog</a><a class="nav-a" href="contacto.html" data-en="Contact">Contacto</a>
     </nav>
     <div class="lang" role="group" aria-label="Idioma / Language">
       <button type="button" data-lang="es" aria-pressed="true">ES</button>
       <button type="button" data-lang="en" aria-pressed="false">EN</button>
     </div>
-    <a class="btn btn--primary" href="#planificar" data-t="cta.plan">Planificar mi viaje</a>
-    <button class="burger" type="button" aria-expanded="false" aria-controls="mnav" aria-label="Abrir menú"><span></span></button>
+    <a class="btn btn--primary hdr-cta" href="#planificar" data-en="Plan my trip">Planificar mi viaje</a>
+    <button class="burger" type="button" aria-expanded="false" aria-controls="mnav" aria-label="Menú"><span></span></button>
   </div>
   <nav class="mnav" id="mnav" aria-label="Menú móvil">
     <ul class="wrap">
-      <li><a href="#para-quien" data-t="nav.1">Para quién</a></li>
-      <li><a href="#servicios" data-t="nav.2">Servicios</a></li>
-      <li><a href="#destinos" data-t="nav.3">Destinos</a></li>
-      <li><a href="#como-trabajamos" data-t="nav.4">Cómo trabajamos</a></li>
-      <li><a href="#sostenibilidad" data-t="nav.5">Sostenibilidad</a></li>
-      <li><a href="#guias" data-t="nav.6">Guías</a></li>
-      <li><a href="#planificar" data-t="cta.plan">Planificar mi viaje</a></li>
+      <li><a href="index.html" data-en="Home">Inicio</a></li>
+      <li class="mgroup"><span class="mlabel" data-en="Tours">Tours</span><ul><li><a href="tours/un-dia.html" data-en="One-day tours">Tours de un día</a></li><li><a href="tours/multidia.html" data-en="Multi-day programs">Programas multidía</a></li></ul></li><li class="mgroup"><span class="mlabel" data-en="Services">Servicios</span><ul><li><a href="servicios/cruceros.html" data-en="Cruise operations">Operación de cruceros</a></li><li><a href="servicios/viajes-a-medida.html" data-en="Tailor-made trips (FIT)">Viajes a medida (FIT)</a></li><li><a href="servicios/grupos.html" data-en="Leisure groups">Grupos de ocio</a></li><li><a href="servicios/incentivos.html" data-en="Incentive trips">Viajes de incentivo</a></li><li><a href="servicios/corporativos.html" data-en="Corporate services">Servicios corporativos</a></li></ul></li><li class="mgroup"><span class="mlabel" data-en="About us">Nosotros</span><ul><li><a href="nosotros/quienes-somos.html" data-en="Who we are">Quiénes somos</a></li><li><a href="nosotros/perfil.html" data-en="Company profile">Perfil de la empresa</a></li><li><a href="agencias.html" data-en="Agencies &amp; travel advisors">Agencias y travel advisors</a></li><li><a href="coleccion.html" data-en="Luxury collection">Colección de lujo</a></li></ul></li><li><a href="sostenibilidad.html" data-en="Sustainability">Sostenibilidad</a></li><li><a href="blog/index.html" data-en="Blog">Blog</a></li><li><a href="contacto.html" data-en="Contact">Contacto</a></li>
+      <li><a class="mcta" href="#planificar" data-en="Plan my trip">Planificar mi viaje</a></li>
     </ul>
   </nav>
 </header>
@@ -458,12 +168,12 @@ form.trip .btn{grid-column:1/-1;justify-content:center}
       <p class="sub" data-t="sv.p">Seis líneas de servicio que se combinan entre sí. Usted habla con una sola persona; nosotros coordinamos el resto.</p>
     </div>
     <div class="ledger">
-      <div class="row"><h3 data-t="s1.h">Tours de un día</h3><p data-t="s1.p">Volcanes, canopy, ríos, café, cultura y vida silvestre en medio día o día completo, desde cualquier zona del país.</p><div class="for"><b data-t="for">Ideal para</b><span data-t="s1.f">Huéspedes de hotel y viajeros independientes</span></div><a class="txtlink" href="#planificar" data-t="s.c">Consultar</a></div>
-      <div class="row"><h3 data-t="s2.h">Viajes a medida (FIT)</h3><p data-t="s2.p">Itinerarios privados de varios días con hoteles, traslados y experiencias elegidas para cada viajero.</p><div class="for"><b data-t="for">Ideal para</b><span data-t="s2.f">Familias, parejas y amigos</span></div><a class="txtlink" href="#planificar" data-t="s.c">Consultar</a></div>
-      <div class="row"><h3 data-t="s3.h">Grupos de ocio</h3><p data-t="s3.p">Circuitos para grupos que vienen por los íconos del país o por un interés especial: aves, voluntariado, bienestar o aventura.</p><div class="for"><b data-t="for">Ideal para</b><span data-t="s3.f">Operadores, clubes y asociaciones</span></div><a class="txtlink" href="#planificar" data-t="s.c">Consultar</a></div>
-      <div class="row"><h3 data-t="s4.h">Operación de cruceros</h3><p data-t="s4.p">Excursiones en tierra en todos los puertos del país, con servicios antes y después del crucero.</p><div class="for"><b data-t="for">Ideal para</b><span data-t="s4.f">Navieras y sus pasajeros</span></div><a class="txtlink" href="#planificar" data-t="s.c">Consultar</a></div>
-      <div class="row"><h3 data-t="s5.h">Viajes de incentivo</h3><p data-t="s5.p">Programas de premiación que combinan naturaleza, hoteles de primer nivel y momentos que el equipo no olvida.</p><div class="for"><b data-t="for">Ideal para</b><span data-t="s5.f">Empresas y casas de incentivos</span></div><a class="txtlink" href="#planificar" data-t="s.c">Consultar</a></div>
-      <div class="row"><h3 data-t="s6.h">Servicios corporativos</h3><p data-t="s6.p">Transporte VIP, reuniones, conferencias, cenas de gala y celebraciones en sedes excepcionales.</p><div class="for"><b data-t="for">Ideal para</b><span data-t="s6.f">Organizadores de eventos y equipos ejecutivos</span></div><a class="txtlink" href="#planificar" data-t="s.c">Consultar</a></div>
+      <div class="row"><h3 data-t="s1.h">Tours de un día</h3><p data-t="s1.p">Volcanes, canopy, ríos, café, cultura y vida silvestre en medio día o día completo, desde cualquier zona del país.</p><div class="for"><b data-t="for">Ideal para</b><span data-t="s1.f">Huéspedes de hotel y viajeros independientes</span></div><a class="txtlink" href="tours/un-dia.html" data-t="s.c">Ver servicio</a></div>
+      <div class="row"><h3 data-t="s2.h">Viajes a medida (FIT)</h3><p data-t="s2.p">Itinerarios privados de varios días con hoteles, traslados y experiencias elegidas para cada viajero.</p><div class="for"><b data-t="for">Ideal para</b><span data-t="s2.f">Familias, parejas y amigos</span></div><a class="txtlink" href="servicios/viajes-a-medida.html" data-t="s.c">Ver servicio</a></div>
+      <div class="row"><h3 data-t="s3.h">Grupos de ocio</h3><p data-t="s3.p">Circuitos para grupos que vienen por los íconos del país o por un interés especial: aves, voluntariado, bienestar o aventura.</p><div class="for"><b data-t="for">Ideal para</b><span data-t="s3.f">Operadores, clubes y asociaciones</span></div><a class="txtlink" href="servicios/grupos.html" data-t="s.c">Ver servicio</a></div>
+      <div class="row"><h3 data-t="s4.h">Operación de cruceros</h3><p data-t="s4.p">Excursiones en tierra en todos los puertos del país, con servicios antes y después del crucero.</p><div class="for"><b data-t="for">Ideal para</b><span data-t="s4.f">Navieras y sus pasajeros</span></div><a class="txtlink" href="servicios/cruceros.html" data-t="s.c">Ver servicio</a></div>
+      <div class="row"><h3 data-t="s5.h">Viajes de incentivo</h3><p data-t="s5.p">Programas de premiación que combinan naturaleza, hoteles de primer nivel y momentos que el equipo no olvida.</p><div class="for"><b data-t="for">Ideal para</b><span data-t="s5.f">Empresas y casas de incentivos</span></div><a class="txtlink" href="servicios/incentivos.html" data-t="s.c">Ver servicio</a></div>
+      <div class="row"><h3 data-t="s6.h">Servicios corporativos</h3><p data-t="s6.p">Transporte VIP, reuniones, conferencias, cenas de gala y celebraciones en sedes excepcionales.</p><div class="for"><b data-t="for">Ideal para</b><span data-t="s6.f">Organizadores de eventos y equipos ejecutivos</span></div><a class="txtlink" href="servicios/corporativos.html" data-t="s.c">Ver servicio</a></div>
     </div>
   </div>
 </section>
@@ -566,9 +276,9 @@ form.trip .btn{grid-column:1/-1;justify-content:center}
       <p class="sub" data-t="gu.p">Respuestas a las preguntas que más recibimos antes de un viaje.</p>
     </div>
     <div class="res">
-      <a href="#planificar"><span class="k" data-t="r1.k">Clima y temporadas</span><h3 data-t="r1.h">Temporada verde: otra forma de conocer el país</h3><p data-t="r1.p">Lluvias por la tarde, paisajes más verdes, menos visitantes y mejores tarifas.</p></a>
-      <a href="#planificar"><span class="k" data-t="r2.k">Destinos</span><h3 data-t="r2.h">Caribe Sur: cultura, playas y vida silvestre</h3><p data-t="r2.p">Qué ver en Cahuita y Puerto Viejo, y cuántos días dedicarle.</p></a>
-      <a href="#planificar"><span class="k" data-t="r3.k">Para agencias</span><h3 data-t="r3.h">Cómo armar un programa de 7 a 10 días</h3><p data-t="r3.p">Combinaciones de regiones que funcionan y tiempos reales de traslado.</p></a>
+      <a href="blog/temporada-verde.html"><span class="k" data-t="r1.k">Clima y temporadas</span><h3 data-t="r1.h">Temporada verde: otra forma de conocer el país</h3><p data-t="r1.p">Lluvias por la tarde, paisajes más verdes, menos visitantes y mejores tarifas.</p></a>
+      <a href="blog/caribe-sur.html"><span class="k" data-t="r2.k">Destinos</span><h3 data-t="r2.h">Caribe Sur: cultura, playas y vida silvestre</h3><p data-t="r2.p">Qué ver en Cahuita y Puerto Viejo, y cuántos días dedicarle.</p></a>
+      <a href="tours/multidia.html"><span class="k" data-t="r3.k">Para agencias</span><h3 data-t="r3.h">Cómo armar un programa de 7 a 10 días</h3><p data-t="r3.p">Combinaciones de regiones que funcionan y tiempos reales de traslado.</p></a>
     </div>
   </div>
 </section>
@@ -619,17 +329,27 @@ form.trip .btn{grid-column:1/-1;justify-content:center}
   <div class="wrap">
     <div class="fgrid">
       <div>
-        <a class="brand" href="#top"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" fill="var(--selva)"/><path d="M6 28 L15 15 L20 21 L25 12 L34 28 Z" fill="var(--band)"/><circle cx="28" cy="11" r="3" fill="var(--sol)"/></svg><span>NexumTurismo<small data-t="brand.s">Costa Rica, a su medida</small></span></a>
-        <p style="margin-top:1rem;max-width:30em" data-t="ft.p">Diseño y operación de viajes en Costa Rica para viajeros, agencias, empresas y líneas de crucero.</p>
+        <a class="brand" href="index.html"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" fill="var(--selva)"/><path d="M6 28 L15 15 L20 21 L25 12 L34 28 Z" fill="var(--band)"/><circle cx="28" cy="11" r="3" fill="var(--sol)"/></svg><span>NexumTurismo<small data-en="Costa Rica, made to measure">Costa Rica, a su medida</small></span></a>
+        <p class="fblurb" data-en="Trip design and operations in Costa Rica for travelers, agencies, companies and cruise lines.">Diseño y operación de viajes en Costa Rica para viajeros, agencias, empresas y líneas de crucero.</p>
+        <dl class="foffices">
+          <div><dt data-en="San José office">Oficina San José</dt><dd><span class="ph">[Dirección]</span></dd></div>
+          <div><dt data-en="Guanacaste office">Oficina Guanacaste</dt><dd><span class="ph">[Dirección, Liberia]</span></dd></div>
+        </dl>
       </div>
-      <div><h3 data-t="ft.h1">Servicios</h3><ul><li><a href="#servicios" data-t="s1.h">Tours de un día</a></li><li><a href="#servicios" data-t="s2.h">Viajes a medida (FIT)</a></li><li><a href="#servicios" data-t="s5.h">Viajes de incentivo</a></li><li><a href="#servicios" data-t="s4.h">Operación de cruceros</a></li></ul></div>
-      <div><h3 data-t="ft.h2">Empresa</h3><ul><li><a href="#como-trabajamos" data-t="nav.4">Cómo trabajamos</a></li><li><a href="#sostenibilidad" data-t="nav.5">Sostenibilidad</a></li><li><a href="#guias" data-t="nav.6">Guías</a></li><li><a href="/" data-t="ft.nx">NEXUM LATAM</a></li></ul></div>
-      <div><h3 data-t="ft.h3">Contacto</h3><ul><li><span class="ph">[+506 0000-0000]</span></li><li><span class="ph">[reservas@nexumturismo.com]</span></li><li><a href="#planificar" data-t="cta.plan">Planificar mi viaje</a></li></ul></div>
+      <div><h3 data-en="Tours &amp; services">Tours y servicios</h3><ul><li><a href="tours/un-dia.html" data-en="One-day tours">Tours de un día</a></li><li><a href="tours/multidia.html" data-en="Multi-day programs">Programas multidía</a></li><li><a href="servicios/cruceros.html" data-en="Cruise operations">Operación de cruceros</a></li><li><a href="servicios/viajes-a-medida.html" data-en="Tailor-made trips (FIT)">Viajes a medida (FIT)</a></li><li><a href="servicios/grupos.html" data-en="Leisure groups">Grupos de ocio</a></li><li><a href="servicios/incentivos.html" data-en="Incentive trips">Viajes de incentivo</a></li><li><a href="servicios/corporativos.html" data-en="Corporate services">Servicios corporativos</a></li></ul></div>
+      <div><h3 data-en="Company">Empresa</h3><ul><li><a href="nosotros/quienes-somos.html" data-en="Who we are">Quiénes somos</a></li><li><a href="nosotros/perfil.html" data-en="Company profile">Perfil de la empresa</a></li><li><a href="agencias.html" data-en="Agencies &amp; travel advisors">Agencias y travel advisors</a></li><li><a href="coleccion.html" data-en="Luxury collection">Colección de lujo</a></li><li><a href="sostenibilidad.html" data-en="Sustainability">Sostenibilidad</a></li><li><a href="blog/index.html" data-en="Blog">Blog</a></li></ul></div>
+      <div><h3 data-en="Contact">Contacto</h3><ul>
+        <li><span class="ph">[+506 0000-0000]</span></li>
+        <li><span class="ph">[reservas@nexumturismo.com]</span></li>
+        <li><a href="contacto.html" data-en="Contact page">Página de contacto</a></li>
+        <li><a href="/" data-en="NEXUM LATAM">NEXUM LATAM</a></li>
+      </ul></div>
     </div>
-    <div class="legal"><span>© <span id="yr">2026</span> NexumTurismo. <span data-t="ft.r">Todos los derechos reservados.</span></span><span data-t="ft.l">Política de privacidad · Términos de servicio</span></div>
+    <div class="legal"><span>© <span id="yr">2026</span> NexumTurismo. <span data-en="All rights reserved.">Todos los derechos reservados.</span></span><span data-en="Privacy policy · Terms of service">Política de privacidad · Términos de servicio</span></div>
   </div>
 </footer>
 
+<script src="assets/nt.js"></script>
 <script>
 (function(){
   "use strict";
@@ -704,7 +424,7 @@ form.trip .btn{grid-column:1/-1;justify-content:center}
     "e.1b":"Programs with a purpose","e.1":"Activities that serve the trip's goals: recognize, connect, inspire.","e.2b":"VIP transport and on-site coordination","e.2":"Fleet, welcome staff and a program lead at every event.","e.3b":"Budget under control","e.3":"Itemized quote and one contract for the whole program.",
     "c.h":"Shore excursions that get back to the ship on time","c.p":"Excursion operations for passengers arriving at Pacific and Caribbean ports, plus pre- and post-cruise services.","c.c":"Talk to cruise operations",
     "c.1b":"Punctuality as a rule","c.1":"Measured route times and backup plans for weather or traffic.","c.2b":"Built for volume","c.2":"Fleet and guides coordinated to welcome hundreds of passengers on the same day.","c.3b":"Accessibility and care","c.3":"Options for passengers with reduced mobility and groups of all ages.",
-    "sv.h":"Everything your trip needs, run by one team","sv.p":"Six service lines that combine with each other. You talk to one person; we coordinate the rest.","for":"Best for","s.c":"Inquire",
+    "sv.h":"Everything your trip needs, run by one team","sv.p":"Six service lines that combine with each other. You talk to one person; we coordinate the rest.","for":"Best for","s.c":"See service",
     "s1.h":"One-day tours","s1.p":"Volcanoes, ziplines, rivers, coffee, culture and wildlife in half or full days, from anywhere in the country.","s1.f":"Hotel guests and independent travelers",
     "s2.h":"Tailor-made trips (FIT)","s2.p":"Private multi-day itineraries with hotels, transfers and experiences chosen for each traveler.","s2.f":"Families, couples and friends",
     "s3.h":"Leisure groups","s3.p":"Circuits for groups coming for the country's icons or a special interest: birding, volunteering, wellness or adventure.","s3.f":"Operators, clubs and associations",
@@ -759,11 +479,6 @@ form.trip .btn{grid-column:1/-1;justify-content:center}
     tb.addEventListener('keydown',function(e){var n=null;if(e.key==='ArrowRight')n=(i+1)%tabs.length;if(e.key==='ArrowLeft')n=(i-1+tabs.length)%tabs.length;if(e.key==='Home')n=0;if(e.key==='End')n=tabs.length-1;if(n!==null){e.preventDefault();select(tabs[n].id.slice(2),true);}});
   });
   Array.prototype.forEach.call(document.querySelectorAll('[data-tab]'),function(a){a.addEventListener('click',function(){select(a.dataset.tab);});});
-
-  /* ---------- Mobile menu ---------- */
-  var burger=document.querySelector('.burger'),mnav=document.getElementById('mnav');
-  burger.addEventListener('click',function(){var o=mnav.classList.toggle('open');burger.setAttribute('aria-expanded',String(o));});
-  Array.prototype.forEach.call(mnav.querySelectorAll('a'),function(a){a.addEventListener('click',function(){mnav.classList.remove('open');burger.setAttribute('aria-expanded','false');});});
 
   /* ---------- Form ---------- */
   var form=document.getElementById('tripForm'),done=document.getElementById('done'),sum=document.getElementById('summary');
