@@ -1,9 +1,0 @@
-# Datos financieros y personales: NUNCA a git
-datos/**
-!datos/*/
-!datos/*/.gitkeep
-config.yaml
-.env*
-__pycache__/
-*.pyc
-~$*.xlsx
