@@ -53,6 +53,36 @@ Until the key is set, the page still works: the chat header shows **Modo básico
 
 Hovering over the chat's status label shows the same reason.
 
+## Phone channel (SmartIVR)
+
+NexBot also answers phone calls through the SmartIVR **ChatBot API connector** (contract: https://chatbotapi.smartivr.ivrpowers.com/). On every caller turn the SmartIVR POSTs to:
+
+```
+POST https://nexum-latam.com/api/nexbot-voice
+Authorization: Bearer <NEXBOT_VOICE_TOKEN>
+Content-Type: application/json
+X-Phone: <caller>          X-Destination: <dialed number>
+{ "id": "PHONE-CALLTIMESTAMP", "text": "<caller speech>" }
+```
+
+and gets back one action: `ask` (say a text and listen), `info` (say a text and call back with `text: ""`), `transfer` (to `dest`, with metadata) or `hangup`. The same NexBot brain answers: knowledge base, simulators and statement analysis, in short spoken sentences, Spanish or English.
+
+The call flow:
+- Empty first turn → greeting.
+- Silence → "¿Sigues ahí?"; a second silence → goodbye and hangup.
+- "Eso es todo / adiós" → goodbye and hangup.
+- Agent request or emergency → "Te transfiero…" followed by `transfer`, if a destination is configured.
+
+| Variable (Vercel, Production) | |
+|---|---|
+| `NEXBOT_VOICE_TOKEN` | **Required.** Security token shared with the SmartIVR (never commit it). |
+| `NEXBOT_VOICE_TRANSFER_DEST` | Optional DDI/extension for agent transfers. Without it, the bot gives Línea Nexum. |
+| `UPSTASH_REDIS_REST_URL` + `UPSTASH_REDIS_REST_TOKEN` (or `KV_REST_API_URL` + `KV_REST_API_TOKEN`) | Recommended: call memory shared by all serverless instances. Without it, memory is per instance. |
+| `NEXBOT_VOICE_LANG_ES` / `NEXBOT_VOICE_LANG_EN` | Optional TTS languages, default `es-ES` / `en-US` (e.g. `es-MX`, `es-US`). |
+| `NEXBOT_VOICE_EFFORT` / `NEXBOT_VOICE_TIMEOUT_MS` | Optional, default `low` / `25000`. |
+
+`GET /api/nexbot-voice` reports `{ configured, store, transfer }` without exposing secrets.
+
 ## Local development
 
 ```bash

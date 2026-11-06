@@ -10,8 +10,9 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import nexbot from '../../api/nexbot.js';
 import nexseguro from '../../api/nexseguro.js';
+import nexbotVoice from '../../api/nexbot-voice.js';
 
-const API = { '/api/nexbot': nexbot, '/api/nexseguro': nexseguro };
+const API = { '/api/nexbot': nexbot, '/api/nexseguro': nexseguro, '/api/nexbot-voice': nexbotVoice };
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const PORT = +process.env.PORT || 3000;
