@@ -83,6 +83,8 @@ The call flow:
 
 `GET /api/nexbot-voice` reports `{ configured, store, transfer }` without exposing secrets.
 
+**Applying variable changes:** Vercel reads environment variables when a deployment is created. After adding or changing any of them, either redeploy the production deployment (Deployments → ⋯ → Redeploy) or merge any change to `main`. Then check `GET /api/nexbot-voice` (`"configured": true`) and `GET /api/nexbot?check=1` (`"check.ok": true`).
+
 ## Local development
 
 ```bash
