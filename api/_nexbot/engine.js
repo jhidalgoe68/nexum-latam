@@ -205,10 +205,12 @@ function echoableContent(content) {
  * @param {'es'|'en'} [p.lang]     UI language hint
  * @param {string} [p.segment]     segment the visitor is browsing
  * @param {boolean} [p.voice]      the visitor spoke this message and will hear the reply
+ * @param {'web'|'phone'} [p.channel] 'phone' = phone call through the SmartIVR connector (api/nexbot-voice.js)
+ * @param {string} [p.effort]      reasoning effort override (phone calls use a lower one for speed)
  * @param {(event:string, data:object)=>void} p.emit
  * @param {AbortSignal} [p.signal]
  */
-export async function respond({ messages: raw, lang: uiLang, segment, voice, emit, signal }) {
+export async function respond({ messages: raw, lang: uiLang, segment, voice, channel = 'web', effort, emit, signal }) {
   const { messages, flaggedSensitive } = sanitizeConversation(raw);
   const lastUser = messages[messages.length - 1].content;
   const lang = detectLanguage(lastUser, uiLang);
@@ -219,12 +221,12 @@ export async function respond({ messages: raw, lang: uiLang, segment, voice, emi
 
   // Page context goes in its own block *after* the visitor's words, so the cached prefix stays intact.
   const seg = ['personas', 'pymes', 'empresas'].includes(segment) ? segment : 'personas';
-  const context = `<page_context>ui_language=${uiLang === 'en' ? 'en' : 'es'}; detected_language=${lang}; segment=${seg}; input_mode=${voice === true ? 'voice' : 'text'}${flaggedSensitive ? '; note=the visitor tried to share a card number, PIN or code — it was removed; remind them never to share it' : ''}</page_context>`;
+  const context = `<page_context>ui_language=${uiLang === 'en' ? 'en' : 'es'}; detected_language=${lang}; segment=${seg}; input_mode=${voice === true ? 'voice' : 'text'}; channel=${channel === 'phone' ? 'phone' : 'web'}${flaggedSensitive ? '; note=the visitor tried to share a card number, PIN or code — it was removed; remind them never to share it' : ''}</page_context>`;
   const last = messages[messages.length - 1];
   const convo = [...messages.slice(0, -1), { role: 'user', content: [{ type: 'text', text: last.content }, { type: 'text', text: context }] }];
 
   await runAgent({
-    convo, emit, signal,
+    convo, emit, signal, effort,
     system: [
       { type: 'text', text: SYSTEM_PROMPT },
       { type: 'text', text: `<knowledge_base>\n${KNOWLEDGE}</knowledge_base>`, cache_control: { type: 'ephemeral' } },
@@ -249,8 +251,9 @@ export async function respond({ messages: raw, lang: uiLang, segment, voice, emi
  * @param {string} p.refusalText  safe reply shown if the model refuses
  * @param {(event:string, data:object)=>void} p.emit
  * @param {AbortSignal} [p.signal]
+ * @param {string} [p.effort]    overrides NEXBOT_EFFORT for this turn
  */
-export async function runAgent({ convo, system, tools, runTool, refusalText, emit, signal }) {
+export async function runAgent({ convo, system, tools, runTool, refusalText, emit, signal, effort }) {
   const anthropic = getClient();
   let jsonRetries = 0, modelIdx = 0, useFallbacks = true;
 
@@ -261,7 +264,7 @@ export async function runAgent({ convo, system, tools, runTool, refusalText, emi
       max_tokens: 12000, // hard cap per answer for a public endpoint; covers thinking + reply
       ...(useFallbacks ? { betas: ['server-side-fallback-2026-07-01'], fallbacks: 'default' } : {}),
       thinking: { type: 'adaptive' },
-      output_config: { effort: EFFORT },
+      output_config: { effort: effort || EFFORT },
       system,
       tools, // constant tool list keeps the prompt cache valid
       ...(round === MAX_TOOL_ROUNDS ? { tool_choice: { type: 'none' } } : {}),
