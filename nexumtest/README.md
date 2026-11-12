@@ -76,12 +76,14 @@ The call flow:
 | Variable (Vercel, Production) | |
 |---|---|
 | `NEXBOT_VOICE_TOKEN` | **Required.** Security token shared with the SmartIVR (never commit it). |
+| `NEXBOT_VOICE_ALLOWED_IPS` | Public IPs allowed to call the service, comma-separated. Default `34.246.166.103` (SmartIVR demo); any other IP gets `403` before the token is checked. `*` disables the filter. |
+| `NEXBOT_VOICE_MAX_SENTENCES` / `NEXBOT_VOICE_MAX_CHARS` | Length of each spoken answer, default `2` / `280`. Phone answers are concrete and short; the caller can ask for more detail. |
 | `NEXBOT_VOICE_TRANSFER_DEST` | Optional DDI/extension for agent transfers. Without it, the bot gives Línea Nexum. |
 | `UPSTASH_REDIS_REST_URL` + `UPSTASH_REDIS_REST_TOKEN` (or `KV_REST_API_URL` + `KV_REST_API_TOKEN`) | Recommended: call memory shared by all serverless instances. Without it, memory is per instance. |
 | `NEXBOT_VOICE_LANG_ES` / `NEXBOT_VOICE_LANG_EN` | Optional TTS languages, default `es-ES` / `en-US` (e.g. `es-MX`, `es-US`). |
 | `NEXBOT_VOICE_EFFORT` / `NEXBOT_VOICE_TIMEOUT_MS` | Optional, default `low` / `25000`. |
 
-`GET /api/nexbot-voice` reports `{ configured, store, transfer }` without exposing secrets.
+`GET /api/nexbot-voice` reports `{ configured, store, transfer, ip_filter }` without exposing secrets; it's a status page only and never reaches the bot. The IP filter applies to the service itself (`POST`).
 
 **Applying variable changes:** Vercel reads environment variables when a deployment is created. After adding or changing any of them, either redeploy the production deployment (Deployments → ⋯ → Redeploy) or merge any change to `main`. Then check `GET /api/nexbot-voice` (`"configured": true`) and `GET /api/nexbot?check=1` (`"check.ok": true`).
 
