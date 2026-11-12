@@ -55,7 +55,7 @@ export async function saveState(id, state) {
 // ── Phrases and intents ──────────────────────────────────────────────────
 const LANG = { es: () => env('NEXBOT_VOICE_LANG_ES', 'es-ES'), en: () => env('NEXBOT_VOICE_LANG_EN', 'en-US') };
 const SAY = {
-  greet: { es: 'Hola, te atiende NexBot, el asistente virtual de Nexumtestbank. ¿En qué te puedo ayudar? También puedes hablarme en inglés.', en: "Hi, this is NexBot, Nexumtestbank's virtual assistant. How can I help you? You can also speak to me in Spanish." },
+  greet: { es: 'Hola, soy NexBot de Nexumtestbank. ¿En qué te ayudo?', en: "Hi, this is NexBot from Nexumtestbank. How can I help you?" },
   still: { es: '¿Sigues ahí? Dime en qué te puedo ayudar.', en: 'Are you still there? Tell me how I can help you.' },
   bye: { es: 'Gracias por llamar a Nexumtestbank. ¡Que tengas un excelente día!', en: 'Thank you for calling Nexumtestbank. Have a great day!' },
   transfer: { es: 'Con gusto. Te transfiero con un agente, un momento por favor.', en: "Sure. I'm transferring you to an agent, one moment please." },
@@ -73,6 +73,15 @@ export const plainSpeech = text => String(text)
   .replace(/[→×|]/g, ' ')
   .replace(/\s*\n+\s*/g, '. ').replace(/\.\s*\./g, '.').replace(/\s{2,}/g, ' ')
   .trim().slice(0, 900);
+
+/** Phone answers stay concrete: at most N sentences (NEXBOT_VOICE_MAX_SENTENCES, default 2) and M characters (NEXBOT_VOICE_MAX_CHARS, default 280). */
+export function concise(text, maxSentences = +env('NEXBOT_VOICE_MAX_SENTENCES', '2') || 2, maxChars = +env('NEXBOT_VOICE_MAX_CHARS', '280') || 280) {
+  // A sentence ends at . ! ? … followed by a space, so amounts like $12.000 or 2,75% stay intact.
+  const sentences = String(text).trim().split(/(?<=[.!?…])\s+/).map(s => s.trim()).filter(Boolean);
+  let out = sentences.slice(0, maxSentences).join(' ');
+  if (out.length > maxChars) out = out.slice(0, maxChars).replace(/[\s,;:]+\S*$/, '').replace(/[,;:]$/, '') + '.';
+  return out || String(text).slice(0, maxChars);
+}
 
 const transferDest = () => env('NEXBOT_VOICE_TRANSFER_DEST');
 function transferAction(id, phone, reason) {
@@ -160,7 +169,7 @@ export async function voiceTurn({ id, text, phone, destination, signal }) {
 
   st.lang = lang === 'en' ? 'en' : 'es';
   const wantsAssist = /\[\[assist:/.test(reply);
-  const spoken = plainSpeech(reply) || SAY.error[st.lang];
+  const spoken = concise(plainSpeech(reply)) || SAY.error[st.lang];
   st.hist.push({ role: 'assistant', content: spoken });
   st.hist = st.hist.slice(-MAX_TURNS);
   if (wantsAssist && transferDest()) { st.pendingTransfer = input; return done({ type: 'info', text: `${spoken} ${SAY.transfer[st.lang]}`, lang: LANG[st.lang]() }); }

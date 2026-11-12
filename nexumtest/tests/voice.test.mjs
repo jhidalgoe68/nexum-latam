@@ -46,22 +46,52 @@ before(async () => {
 });
 after(() => { claude.close(); redisSrv.close(); app.close(); });
 
-const call = async (body, { token = TOKEN, phone = '666555444' } = {}) => {
-  const r = await fetch(base, { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}`, 'X-Phone': phone, 'X-Destination': '0015550100' }, body: JSON.stringify(body) });
+const SMARTIVR_IP = '34.246.166.103';
+const call = async (body, { token = TOKEN, phone = '666555444', ip = SMARTIVR_IP } = {}) => {
+  const r = await fetch(base, { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}`, 'X-Phone': phone, 'X-Destination': '0015550100', 'X-Real-IP': ip }, body: JSON.stringify(body) });
   return { status: r.status, json: await r.json() };
 };
 const VALID = new Set(['ask', 'info', 'transfer', 'hangup']);
 
 test('rejects requests without the right Bearer token', async () => {
   assert.equal((await call({ id: 'x-1', text: 'hola' }, { token: 'wrong' })).status, 401);
-  const r = await fetch(base, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{"id":"x","text":"hola"}' });
+  const r = await fetch(base, { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Real-IP': SMARTIVR_IP }, body: '{"id":"x","text":"hola"}' });
   assert.equal(r.status, 401);
   assert.equal((await call({ text: 'sin id' })).status, 400);
 });
 
+test('only the SmartIVR public IP can consume the service', async () => {
+  requests.length = 0;
+  const other = await call({ id: 'ip-1', text: 'hola' }, { ip: '203.0.113.7' });
+  assert.equal(other.status, 403, 'valid token from another IP is refused');
+  const noIp = await fetch(base, { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${TOKEN}` }, body: '{"id":"ip-2","text":"hola"}' });
+  assert.equal(noIp.status, 403, 'request without the SmartIVR IP is refused');
+  assert.equal(requests.length, 0, 'refused requests never reach Claude');
+  const fwd = await fetch(base, { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${TOKEN}`, 'X-Forwarded-For': `${SMARTIVR_IP}, 10.0.0.1` }, body: '{"id":"ip-3","text":""}' });
+  assert.equal(fwd.status, 200, 'first X-Forwarded-For address is the client');
+  process.env.NEXBOT_VOICE_ALLOWED_IPS = '198.51.100.1, 203.0.113.7';
+  try {
+    assert.equal((await call({ id: 'ip-4', text: '' }, { ip: '203.0.113.7' })).status, 200, 'list is configurable');
+    assert.equal((await call({ id: 'ip-5', text: '' })).status, 403, 'replaces the default IP');
+    process.env.NEXBOT_VOICE_ALLOWED_IPS = '*';
+    assert.equal((await call({ id: 'ip-6', text: '' }, { ip: '192.0.2.9' })).status, 200, '"*" disables the filter');
+  } finally { delete process.env.NEXBOT_VOICE_ALLOWED_IPS; }
+});
+
+test('phone answers are short: at most two sentences, amounts intact', async () => {
+  const { concise } = await import('../../api/_nexbot/voice.js');
+  assert.equal(concise('Financias $12.000 a 36 meses. Cuota de $435,20. Tasa 15,60% reajustable. ¿Algo más?'), 'Financias $12.000 a 36 meses. Cuota de $435,20.');
+  assert.ok(concise('palabra '.repeat(80)).length <= 281);
+  script = [textTurn('Tu pago contado es ₡580.518,07 y vence el 12/10/2026. El mínimo es ₡24.962,00. Si pagas solo el mínimo pagarás intereses. Te recomiendo pagar el contado.')];
+  const r = await call({ id: 'short-1', text: '¿cuánto debo pagar?' });
+  assert.equal(r.json.text, 'Tu pago contado es ₡580.518,07 y vence el 12/10/2026. El mínimo es ₡24.962,00.');
+  const { SYSTEM_PROMPT } = await import('../../api/_nexbot/prompt.js');
+  assert.match(SYSTEM_PROMPT, /On channel=phone be concrete and brief/);
+});
+
 test('health check reports configuration without exposing the token', async () => {
   const j = await (await fetch(base)).json();
-  assert.deepEqual(j, { ok: true, configured: true, store: 'memory', transfer: false });
+  assert.deepEqual(j, { ok: true, configured: true, store: 'memory', transfer: false, ip_filter: true });
 });
 
 test('call flow: greeting, NexBot answer in plain speech with memory, goodbye then hangup', async () => {
